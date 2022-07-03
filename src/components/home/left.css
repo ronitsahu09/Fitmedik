@@ -1,0 +1,25 @@
+body{
+    background: white;
+}
+table{
+    text-align: center;
+    width: 100%;
+    padding: 2%;
+    border: 20%  groove ;
+    border-color: gray;
+    border-radius: 20%;
+  }
+  td{
+      position: relative;
+      width: 60%;
+      font-size: 50%;
+  }
+
+.dashboard{
+    display: flex;
+    align-self: center;
+        }
+.notification{
+    display: flex;
+    align-self: center;
+}

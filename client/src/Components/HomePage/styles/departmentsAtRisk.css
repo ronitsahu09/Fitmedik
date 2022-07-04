@@ -1,0 +1,17 @@
+.dar {
+  margin-top: 20px;
+}
+.dar .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dar .title .legends {
+  display: flex;
+  gap: 10px;
+}
+
+.dar .canvas {
+    
+}

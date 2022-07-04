@@ -1,0 +1,17 @@
+.eht {
+  margin-top: 10px;
+}
+
+.eht .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.eht .title .legends {
+  display: flex;
+  gap: 10px;
+}
+
+.eht .canvas {
+}

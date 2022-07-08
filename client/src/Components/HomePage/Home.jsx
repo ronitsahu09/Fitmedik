@@ -1,22 +1,25 @@
-import Left from "./Left";
-import Middle from "./Middle";
-import Right from "./Right";
-import "./styles/home.css";
+import LeftSidebar from "../LeftSidebar/LeftSidebar";
+import RightSidebar from "../RightSidebar/RightSidebar";
+import { Stack, Box, Typography } from "@mui/material";
+import { graphCanvas, homePage, middle } from "./Styles";
+import ActiveUsers from "../ActiveUsers/ActiveUsers";
 
 export default function Home() {
   return (
-    <div className="homepage">
-      <div className="left">
-        <Left />
-      </div>
+    <Stack sx={{ ...homePage }} direction="row">
+      <LeftSidebar />
 
-      <div className="middle">
-        <Middle />
-      </div>
+      <Stack sx={{ ...middle }}>
+        <Typography variant="h3" component="div">
+          Dashboard
+        </Typography>
+        Searchbar
+        <Box sx={{ ...graphCanvas }}>
+          <ActiveUsers />
+        </Box>
+      </Stack>
 
-      <div className="right">
-        <Right />
-      </div>
-    </div>
+      <RightSidebar />
+    </Stack>
   );
 }

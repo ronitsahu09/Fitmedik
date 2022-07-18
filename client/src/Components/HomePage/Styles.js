@@ -1,15 +1,9 @@
-export const homePage = {
+export const homePage = {};
+
+export const users_status = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
   justifyContent: "space-between",
-};
-
-export const middle = {
-  flex: 1,
-  p: "0.5rem",
-
-  // bgcolor: "pink",
-};
-
-export const graphCanvas = {
-  bgcolor: "#ffffff",
-  p: "0.5rem",
+  gap: 2,
 };

@@ -1,8 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Visualize from "./Visualize/Visualize";
 import Home from "./HomePage/Home";
+import Analytics from "./Analytics/Analytics";
 import "react-circular-progressbar/dist/styles.css";
-
 
 function App() {
   return (
@@ -10,7 +9,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/hospitalData" element={<Visualize />} />
+          <Route path="/analytics" element={<Analytics />} />
         </Routes>
       </div>
     </div>

@@ -22,9 +22,9 @@ export default function LeftSidebar() {
             </IconButton>
           </Tooltip>
         </Box>
-        <Box component={Link} to="/hospitaldata">
+        <Box component={Link} to="/analytics">
           <Tooltip
-            title="Visulaize"
+            title="Analytics"
             placement="right-start"
             TransitionComponent={Zoom}
             arrow

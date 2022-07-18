@@ -7,7 +7,7 @@ import {
   rightSidebar,
 } from "./Styles";
 import Logo_1 from "../../Assets/Images/Logo_1.svg";
-import MonitoringLogo from "../../Assets/Images/MonitoringLogo.svg";
+import MonitoringLogo from "../../Assets/Images/MonitoringLogo.png";
 
 export default function RightSidebar() {
   return (

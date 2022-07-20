@@ -7,8 +7,8 @@ export const middle = {
 export const middleWindow = {
   gap: 3,
   boxSizing: "border-box",
-  p: "3rem 0.5rem 0 0.5rem",
-  width: "90%",
+  p: "3rem 0",
+  width: { sm: "95%", lg: "90%" },
   height: "100vh",
 };
 

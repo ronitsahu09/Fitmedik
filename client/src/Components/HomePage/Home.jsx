@@ -24,7 +24,7 @@ export default function Home() {
             Dashboard
           </Typography>
 
-          <Stack sx={{...fixedWindow}}>
+          <Stack sx={{ ...fixedWindow }}>
             <Stack mt={3} direction="row" gap={4}>
               <Paper sx={{ ...graphCanvas, ...users_status, flex: 1 }}>
                 <ActiveUsers />

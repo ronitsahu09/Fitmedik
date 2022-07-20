@@ -1,6 +1,6 @@
 export const leftSidebar = {
-  height: "100vh",
-  width: "2in",
+  minHeight: "100%",
+  width: { sm: "1in", lg: "1.5in" },
   p: "0.5rem",
   bgcolor: "#ffffff",
   borderRadius: "2rem 0 0 2rem",

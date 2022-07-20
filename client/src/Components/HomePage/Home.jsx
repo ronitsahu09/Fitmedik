@@ -1,11 +1,12 @@
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
 import { Stack, Box, Typography, Paper } from "@mui/material";
-import { homePage, users_status } from "./Styles";
+import { users_status } from "./Styles";
 
 import ActiveUsers from "../Graphs/ActiveUsers/ActiveUsers";
 import TrendGraph from "../Graphs/Trend_Graph/TrendGraph";
 import {
+  AppWrapper,
   fixedWindow,
   graphCanvas,
   middle,
@@ -13,9 +14,11 @@ import {
 } from "../Styles_&_Components/Styles";
 import Speedometer from "../Graphs/Speedometer/Speedometer";
 
-export default function Home() {
+export default function Home({ props }) {
+  const { appHeight } = props;
+
   return (
-    <Stack sx={{ ...homePage }} direction="row">
+    <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
       <LeftSidebar />
 
       <Stack sx={{ ...middle }}>

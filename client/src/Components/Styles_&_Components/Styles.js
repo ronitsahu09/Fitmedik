@@ -1,3 +1,8 @@
+export const AppWrapper = {
+  borderRadius: "2rem",
+  backgroundColor: "#f8f8f8",
+};
+
 export const middle = {
   flex: 1,
   justifyContent: "center",
@@ -7,9 +12,9 @@ export const middle = {
 export const middleWindow = {
   gap: 3,
   boxSizing: "border-box",
-  p: "3rem 0",
+  p: "3rem 0 1rem 0",
   width: { sm: "95%", lg: "90%" },
-  height: "100vh",
+  height: "100%",
 };
 
 export const fixedWindow = {

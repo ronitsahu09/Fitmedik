@@ -1,5 +1,3 @@
-export const homePage = {};
-
 export const users_status = {
   display: "flex",
   flexDirection: "column",

@@ -8,14 +8,17 @@ import {
   middle,
   middleWindow,
   fixedWindow,
+  AppWrapper,
 } from "../Styles_&_Components/Styles";
 import { Legend } from "../Styles_&_Components/Components";
 import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
 
-export default function Analytics() {
+export default function Analytics({ props }) {
+  const { appHeight } = props;
+
   return (
-    <Stack sx={{ ...visualizeStyles }} direction="row">
+    <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
       <LeftSidebar />
 
       <Stack sx={{ ...middle }}>

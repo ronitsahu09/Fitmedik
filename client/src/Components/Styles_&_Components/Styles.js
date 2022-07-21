@@ -33,7 +33,7 @@ export const graphCanvas = {
 };
 
 export const dot = {
-  width: { md: "8px", lg: "10px" },
-  height: { md: "8px", lg: "10px" },
+  width: { xs: "8px", lg: "10px" },
+  height: { xs: "8px", lg: "10px" },
   borderRadius: "50%",
 };

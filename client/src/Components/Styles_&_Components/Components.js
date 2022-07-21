@@ -11,7 +11,7 @@ export function Legend({ props }) {
         component="div"
         sx={{
           color,
-          fontSize: { md: "1.1rem", lg: "1.2rem" },
+          fontSize: { xs: "0.9rem", lg: "1.2rem" },
           fontWeight: "500",
         }}
       >

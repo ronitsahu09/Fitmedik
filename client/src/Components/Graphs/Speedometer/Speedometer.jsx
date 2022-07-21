@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import ReactSpeedometer from "react-d3-speedometer";
 
 export default function Speedometer() {

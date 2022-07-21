@@ -28,7 +28,7 @@ export default function Home({ props }) {
           </Typography>
 
           <Stack sx={{ ...fixedWindow }}>
-            <Stack mt={3} direction="row" gap={4}>
+            <Stack mt={3} direction="row" gap={4} alignItems="center">
               <Paper sx={{ ...graphCanvas, ...users_status, flex: 1 }}>
                 <ActiveUsers />
                 <Typography variant="h6" component="div">

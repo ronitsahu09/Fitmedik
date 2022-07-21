@@ -1,4 +1,4 @@
-import { Stack, Box, Paper, Typography } from "@mui/material";
+import { Stack, Box, Paper, Typography, useMediaQuery } from "@mui/material";
 import {
   bottomBlur,
   colorDot,
@@ -11,10 +11,14 @@ import Logo_1 from "../../Assets/Images/Logo_1.svg";
 import MonitoringLogo from "../../Assets/Images/MonitoringLogo.png";
 
 export default function RightSidebar() {
+  const matches = useMediaQuery("(max-width: 950px)");
+
+  console.log(matches);
+
   return (
     <Stack sx={{ ...rightSidebar }}>
       <Box component="img" src={Logo_1} sx={{ ...logo }} />
-      <Paper  sx={{ ...monitoring }}>
+      <Paper sx={{ ...monitoring }}>
         <Box sx={{ ...monitorLogoWrapper }}>
           <Box component="img" src={MonitoringLogo} sx={{ width: "100%" }} />
           <Box sx={{ ...bottomBlur }}></Box>

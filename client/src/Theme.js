@@ -6,4 +6,14 @@ export const Theme = createTheme({
       fontFamily: "'Dm Sans'",
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      w950: 1000,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
 });

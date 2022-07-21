@@ -1,8 +1,10 @@
 export const rightSidebar = {
-  height: "100vh",
-  width: "3in",
-  p: "0.5rem",
+  minHeight: "100%",
   boxSizing: "border-box",
+  minWidth: { md: "3in", lg: "3.3in" },
+  width: { md: "3in", lg: "3.3in" },
+  display: { xs: "none", w950: "flex" },
+  p: "1.5rem",
   borderRadius: "0 2rem 2rem 0",
   gap: "1.5rem",
 };
@@ -10,11 +12,6 @@ export const rightSidebar = {
 export const logo = {
   width: "70%",
   alignSelf: "center",
-};
-
-export const monitorLogo = {
-  // width: "70%",
-  // bgcolor: "red",
 };
 
 export const monitoring = {
@@ -27,6 +24,21 @@ export const monitoring = {
   "& p": {
     textAlign: "center",
   },
+};
+
+export const monitorLogoWrapper = {
+  mt: 3,
+  position: "relative",
+  width: "100%",
+};
+
+export const bottomBlur = {
+  width: "100%",
+  height: "20%",
+  background:
+    "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 42.71%, #FFFFFF 68.75%, #FFFFFF 100%);",
+  position: "absolute",
+  bottom: "0",
 };
 
 export const colorDot = {

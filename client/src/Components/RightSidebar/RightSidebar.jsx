@@ -1,9 +1,10 @@
 import { Stack, Box, Paper, Typography } from "@mui/material";
 import {
+  bottomBlur,
   colorDot,
   logo,
   monitoring,
-  monitorLogo,
+  monitorLogoWrapper,
   rightSidebar,
 } from "./Styles";
 import Logo_1 from "../../Assets/Images/Logo_1.svg";
@@ -14,9 +15,12 @@ export default function RightSidebar() {
     <Stack sx={{ ...rightSidebar }}>
       <Box component="img" src={Logo_1} sx={{ ...logo }} />
       <Paper sx={{ ...monitoring }}>
-        <Box component="img" src={MonitoringLogo} sx={{ ...monitorLogo }} />
+        <Box sx={{ ...monitorLogoWrapper }}>
+          <Box component="img" src={MonitoringLogo} sx={{ width: "100%" }} />
+          <Box sx={{ ...bottomBlur }}></Box>
+        </Box>
 
-        <Typography variant="h5" component="p">
+        <Typography variant="h5" component="p" fontWeight="500">
           Realtime Burnout Monitoring
         </Typography>
 

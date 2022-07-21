@@ -8,14 +8,6 @@ body {
   display: none;
 }
 
-.AppWrapper {
-  background-color: black;
-  min-height: 100vh;
-}
-
 .App {
-  min-height: 100vh;
-  width: 100vw;
-  border-radius: 2rem;
-  background-color: #f8f8f8;
+  background-color: black;
 }

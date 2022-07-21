@@ -2,20 +2,22 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 import DepartmentsChart from "../Graphs/Departments_Chart/DepartmentsChart";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
-import { visualizeStyles } from "./Styles";
 import {
   graphCanvas,
   middle,
   middleWindow,
   fixedWindow,
+  AppWrapper,
 } from "../Styles_&_Components/Styles";
 import { Legend } from "../Styles_&_Components/Components";
 import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
 
-export default function Analytics() {
+export default function Analytics({ props }) {
+  const { appHeight } = props;
+
   return (
-    <Stack sx={{ ...visualizeStyles }} direction="row">
+    <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
       <LeftSidebar />
 
       <Stack sx={{ ...middle }}>
@@ -27,7 +29,14 @@ export default function Analytics() {
           <Stack sx={{ ...fixedWindow }}>
             <Stack gap={3} mt={3}>
               <Stack direction="row" justifyContent="space-between">
-                <Typography variant="h4" component="div" fontWeight="500">
+                <Typography
+                  component="div"
+                  sx={{
+                    fontSize: { xs: "1.8em", lg: "2em" },
+                    fontWeight: "500",
+                    mr: 2,
+                  }}
+                >
                   Departments at risk
                 </Typography>
                 <Stack direction="row" gap={2}>
@@ -44,7 +53,14 @@ export default function Analytics() {
             </Stack>
             <Stack gap={3}>
               <Stack direction="row" justifyContent="space-between">
-                <Typography variant="h4" component="div" fontWeight="500">
+                <Typography
+                  component="div"
+                  sx={{
+                    fontSize: { xs: "1.8em", lg: "2em" },
+                    fontWeight: "500",
+                    mr: 2,
+                  }}
+                >
                   Employee Health Tracker
                 </Typography>
                 <Stack direction="row" gap={2}>
@@ -78,9 +94,16 @@ export default function Analytics() {
                 <HealthTracker props={{ data: {}, title: "Hypertension" }} />
               </Paper>
             </Stack>
-            <Stack direction="row" gap={2}>
+            <Stack direction="row" gap={2} alignItems="flex-end">
               <Stack flex={1} gap={3}>
-                <Typography variant="h4" component="div" fontWeight="500">
+                <Typography
+                  component="div"
+                  sx={{
+                    fontSize: { xs: "1.8em", lg: "2em" },
+                    fontWeight: "500",
+                    mr: 2,
+                  }}
+                >
                   High Risk Profession
                 </Typography>
                 <Paper
@@ -97,7 +120,14 @@ export default function Analytics() {
                 </Paper>
               </Stack>
               <Stack flex={1} gap={3}>
-                <Typography variant="h4" component="div" fontWeight="500">
+                <Typography
+                  component="div"
+                  sx={{
+                    fontSize: { xs: "1.8em", lg: "2em" },
+                    fontWeight: "500",
+                    mr: 2,
+                  }}
+                >
                   Gender
                 </Typography>
                 <Paper
@@ -110,7 +140,7 @@ export default function Analytics() {
                 >
                   <Box width="70%">
                     <PieChart />
-                  </Box>{" "}
+                  </Box>
                 </Paper>
               </Stack>
             </Stack>

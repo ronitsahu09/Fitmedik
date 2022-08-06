@@ -28,7 +28,7 @@ export default function Home({ props }) {
           </Typography>
 
           <Stack sx={{ ...fixedWindow }}>
-            <Stack mt={3} direction="row" gap={4} alignItems="center">
+            <Stack mt={3} direction="row" gap={4}>
               <Paper sx={{ ...graphCanvas, ...users_status, flex: 1 }}>
                 <ActiveUsers />
                 <Typography variant="h6" component="div">
@@ -44,12 +44,13 @@ export default function Home({ props }) {
             </Stack>
 
             <Stack gap={3}>
-              <Typography variant="h4" component="div" fontWeight="500">
+              <Typography variant="h5" component="div" fontWeight="500">
                 Burnout Trend in the organisation
               </Typography>
               <Paper
                 sx={{
                   ...graphCanvas,
+                  width: "5in",
                 }}
               >
                 <Stack direction="row" justifyContent="space-between">

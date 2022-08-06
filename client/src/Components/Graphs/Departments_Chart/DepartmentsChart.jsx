@@ -60,7 +60,7 @@ export default function DepartmentsChart() {
       {data.map((department, index) => {
         return (
           <Stack direction="row" alignItems="center" gap={1.5} key={index}>
-            <Box component={Link} to={` ${department.name}`} sx={{ ...title }}>
+            <Box component={Link} to={`${department.name}`} sx={{ ...title }}>
               {department.name}
             </Box>
             <Box sx={{ ...strip }}>

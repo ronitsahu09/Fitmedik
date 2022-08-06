@@ -8,7 +8,7 @@ export default function ActiveUsers() {
   return (
     <Box
       sx={{
-        width: "2in",
+        width: "1.3in",
       }}
     >
       <CircularProgressbar

@@ -3,6 +3,9 @@ import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const pieChartLabels = {
+}
+
 export default function PieChart() {
   const Profession = {
     Doctors: [8, 20],
@@ -51,6 +54,7 @@ export default function PieChart() {
           pointStyle: "circle",
         },
       },
+      doughnutLabelsLine: false,
       tooltip: {
         displayColors: false,
         callbacks: {

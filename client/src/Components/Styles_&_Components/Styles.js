@@ -1,5 +1,4 @@
 export const AppWrapper = {
-  borderRadius: "2rem",
   backgroundColor: "#f8f8f8",
 };
 

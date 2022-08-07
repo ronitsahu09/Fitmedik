@@ -4,7 +4,7 @@ import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
-import { Legend } from "../Styles_&_Components/Components";
+import { Legend, PieLegend } from "../Styles_&_Components/Components";
 import {
   AppWrapper,
   fixedWindow,
@@ -53,7 +53,7 @@ export default function DepartmentAnalytics({ props }) {
                 sx={{
                   ...graphCanvas,
                   display: "flex",
-                  gap: "15%",
+                  gap: 1,
                   rowGap: "2rem",
                   flexDirection: "row",
                   flexWrap: "wrap",
@@ -71,14 +71,14 @@ export default function DepartmentAnalytics({ props }) {
                 <HealthTracker props={{ data: {}, title: "Hypertension" }} />
               </Paper>
             </Stack>
-            <Stack direction="row" gap={2} alignItems="flex-end">
+
+            <Stack direction={{ xs: "column", lg: "row" }} gap={2}>
               <Stack flex={1} gap={3}>
                 <Typography
                   component="div"
                   sx={{
                     fontSize: { xs: "1.8em", lg: "2em" },
                     fontWeight: "500",
-                    mr: 2,
                   }}
                 >
                   High Risk Profession
@@ -86,14 +86,34 @@ export default function DepartmentAnalytics({ props }) {
                 <Paper
                   sx={{
                     ...graphCanvas,
-                    p: 0,
-                    display: "flex",
-                    justifyContent: "center",
+                    p: 1,
+                    pb: 0,
                   }}
                 >
-                  <Box width="70%">
-                    <PieChart />
-                  </Box>
+                  <Stack
+                    direction="row"
+                    width="100%"
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={1}
+                  >
+                    <Box width="2.4in" height="2in">
+                      <PieChart />
+                    </Box>
+                    <Stack>
+                      <PieLegend
+                        props={{ title: "Doctors", color: "#f55f4b" }}
+                      />
+                      <PieLegend
+                        props={{ title: "Nurses", color: "#06b78e" }}
+                      />
+                      <PieLegend props={{ title: "IT", color: "#f08624" }} />
+                      <PieLegend
+                        props={{ title: "Students", color: "#8eabdc" }}
+                      />
+                      <PieLegend props={{ title: "Staff", color: "#fed867" }} />
+                    </Stack>
+                  </Stack>
                 </Paper>
               </Stack>
               <Stack flex={1} gap={3}>
@@ -102,7 +122,6 @@ export default function DepartmentAnalytics({ props }) {
                   sx={{
                     fontSize: { xs: "1.8em", lg: "2em" },
                     fontWeight: "500",
-                    mr: 2,
                   }}
                 >
                   Gender
@@ -110,14 +129,34 @@ export default function DepartmentAnalytics({ props }) {
                 <Paper
                   sx={{
                     ...graphCanvas,
-                    p: 0,
-                    display: "flex",
-                    justifyContent: "center",
+                    p: 1,
+                    pb: 0,
                   }}
                 >
-                  <Box width="70%">
-                    <PieChart />
-                  </Box>
+                  <Stack
+                    direction="row"
+                    width="100%"
+                    alignItems="center"
+                    justifyContent="center"
+                    gap={1}
+                  >
+                    <Box width="2.4in" height="2in">
+                      <PieChart />
+                    </Box>
+                    <Stack>
+                      <PieLegend
+                        props={{ title: "Doctors", color: "#f55f4b" }}
+                      />
+                      <PieLegend
+                        props={{ title: "Nurses", color: "#06b78e" }}
+                      />
+                      <PieLegend props={{ title: "IT", color: "#f08624" }} />
+                      <PieLegend
+                        props={{ title: "Students", color: "#8eabdc" }}
+                      />
+                      <PieLegend props={{ title: "Staff", color: "#fed867" }} />
+                    </Stack>
+                  </Stack>
                 </Paper>
               </Stack>
             </Stack>

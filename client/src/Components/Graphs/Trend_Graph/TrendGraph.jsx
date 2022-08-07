@@ -48,6 +48,7 @@ export default function TrendGraph() {
         display: false,
       },
       doughnutLabelsLine: false,
+      pieChartLabels: false,
     },
     scales: {
       x: {

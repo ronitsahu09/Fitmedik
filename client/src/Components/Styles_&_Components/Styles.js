@@ -36,3 +36,9 @@ export const dot = {
   height: { xs: "8px", lg: "10px" },
   borderRadius: "50%",
 };
+
+export const PieDot = {
+  width: { xs: "10px", lg: "12px" },
+  height: { xs: "10px", lg: "12px" },
+  borderRadius: "50%",
+};

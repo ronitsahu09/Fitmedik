@@ -16,27 +16,28 @@ const doughnutLabelsLine = {
 
         const halfwidth = width / 2;
         const halfheight = height / 2;
-
-        const xLine = x >= halfwidth ? x + 15 : x - 15;
-        const yLine = y >= halfheight ? y + 15 : y - 15;
-        const extraLine = x >= halfwidth ? 15 : -15;
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(xLine, yLine);
-        ctx.lineTo(xLine + extraLine, yLine);
-        ctx.strokeStyle = "black";
-        ctx.stroke();
-        ctx.font = "15px sans-serif";
-        const textXPosition = x >= halfwidth ? "left" : "right";
-        const plusFivePx = x >= halfwidth ? 5 : -5;
-        ctx.textAlign = textXPosition;
-        ctx.textBaseLine = "middle";
-        ctx.fillStyle = "black";
-        ctx.fillText(
-          dataset.data[index] + "%",
-          xLine + extraLine + plusFivePx,
-          yLine
-        );
+        if (dataset.data[index] > 0) {
+          const xLine = x >= halfwidth ? x + 15 : x - 15;
+          const yLine = y >= halfheight ? y + 20 : y - 20;
+          const extraLine = x >= halfwidth ? 15 : -15;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(xLine, yLine);
+          ctx.lineTo(xLine + extraLine, yLine);
+          ctx.strokeStyle = "black";
+          ctx.stroke();
+          ctx.font = "15px sans-serif";
+          const textXPosition = x >= halfwidth ? "left" : "right";
+          const plusFivePx = x >= halfwidth ? 5 : -5;
+          ctx.textAlign = textXPosition;
+          ctx.textBaseLine = "middle";
+          ctx.fillStyle = "black";
+          ctx.fillText(
+            dataset.data[index] + "%",
+            xLine + extraLine + plusFivePx,
+            yLine
+          );
+        }
       });
     });
   },
@@ -47,7 +48,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, doughnutLabelsLine);
 export default function HealthTracker({ props }) {
   let { data, title } = props;
 
-  data = { safe: 10, low: 33, medium: 22, high: 20, danger: 43 };
+  data = { safe: 10, low: 90, medium: 22, high: 20, danger: 43 };
 
   const chartData = {
     labels: ["Safe", "Low", "Medium", "High", "Danger"],
@@ -78,13 +79,14 @@ export default function HealthTracker({ props }) {
     responsive: true,
     cutout: "80%",
     layout: {
-      padding: 20,
+      padding: 25,
     },
     maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
       },
+      pieChartLabels: false,
       tooltip: {
         enabled: false,
       },

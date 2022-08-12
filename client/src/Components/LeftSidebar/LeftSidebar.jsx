@@ -1,4 +1,9 @@
-import { Home, Notifications, SsidChart } from "@mui/icons-material";
+import {
+  AttachMoney,
+  Home,
+  Notifications,
+  SsidChart,
+} from "@mui/icons-material";
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
 
@@ -43,6 +48,18 @@ export default function LeftSidebar() {
           >
             <IconButton>
               <Notifications />
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Box component={Link} to="/costsavings">
+          <Tooltip
+            title="Cost Savings"
+            placement="right-start"
+            TransitionComponent={Zoom}
+            arrow
+          >
+            <IconButton>
+              <AttachMoney />
             </IconButton>
           </Tooltip>
         </Box>

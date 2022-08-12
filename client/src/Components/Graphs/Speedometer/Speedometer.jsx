@@ -6,8 +6,6 @@ export default function Speedometer() {
     <Box height="1.3in">
       <ReactSpeedometer
         className="speedometer"
-        // height={200}
-
         width={200}
         needleTransition="easeElastic"
         needleTransitionDuration={1500}

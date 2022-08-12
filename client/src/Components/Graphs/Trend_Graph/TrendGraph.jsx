@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -48,17 +49,24 @@ export default function TrendGraph() {
         display: false,
       },
       doughnutLabelsLine: false,
-      pieChartLabels: false,
     },
     scales: {
       x: {
         ticks: {
           color: "black",
         },
+        grid: {
+          display: false,
+        },
       },
       y: {
+        beginAtZero: true,
         ticks: {
           display: false,
+          stepSize: 30,
+        },
+        grid: {
+          drawBorder: false,
         },
       },
     },

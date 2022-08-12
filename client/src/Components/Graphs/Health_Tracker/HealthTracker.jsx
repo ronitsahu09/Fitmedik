@@ -86,7 +86,6 @@ export default function HealthTracker({ props }) {
       legend: {
         display: false,
       },
-      pieChartLabels: false,
       tooltip: {
         enabled: false,
       },

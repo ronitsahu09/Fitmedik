@@ -11,3 +11,7 @@ body {
 .App {
   background-color: black;
 }
+
+select {
+  border: none;
+}

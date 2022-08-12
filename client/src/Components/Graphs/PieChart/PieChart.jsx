@@ -1,57 +1,16 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-const pieChartLabels = {
-  id: "pieChartLabels",
-  afterDraw(chart, args, options) {
-    const {
-      ctx,
-      chartArea: { width, height },
-    } = chart;
-
-    chart.data.datasets.forEach((dataset, i) => {
-      chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
-        const { x, y } = datapoint.tooltipPosition();
-
-        const halfwidth = width / 2;
-        const halfheight = height / 2;
-
-        if (dataset.data[index] > 0) {
-          const xLine = x >= halfwidth ? x + 30 : x - 30;
-          const yLine = y >= halfheight ? y + 40 : y - 40;
-          const extraLine = x >= halfwidth ? 10 : -10;
-          ctx.beginPath();
-          ctx.moveTo(x, y);
-          ctx.lineTo(xLine, yLine);
-          ctx.lineTo(xLine + extraLine, yLine);
-          ctx.strokeStyle = "black";
-          ctx.stroke();
-          ctx.font = "13px sans-serif";
-          const textXPosition = x >= halfwidth ? "left" : "right";
-          const plusFivePx = x >= halfwidth ? 5 : -5;
-          ctx.textAlign = textXPosition;
-          ctx.textBaseLine = "middle";
-          ctx.fillStyle = "black";
-          ctx.fillText(
-            dataset.data[index] + "%",
-            xLine + extraLine + plusFivePx,
-            yLine
-          );
-        }
-      });
-    });
-  },
-};
-
-ChartJS.register(ArcElement, Tooltip, Legend, pieChartLabels);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChart() {
   const Profession = {
     Doctors: [20, 20],
     Nurses: [6, 20],
-    IT: [11, 20],
-    Students: [4, 20],
-    Staff: [6, 40],
+    IT: [14, 20],
+    Students: [5, 20],
+    Staff: [2, 40],
   };
 
   const chartData = {
@@ -77,6 +36,29 @@ export default function PieChart() {
           "hsl(218, 53%, 71%)",
           "hsl(45, 99%, 70%)",
         ],
+        datalabels: {
+          anchor: "end",
+          color: "white",
+          backgroundColor: function (context) {
+            return context.dataset.backgroundColor;
+          },
+          display: function (context) {
+            const index = context.dataIndex;
+            const {
+              dataset: { data },
+            } = context;
+
+            return data[index] > 10;
+          },
+          formatter: function (value) {
+            return `${value} %`;
+          },
+          borderRadius: 25,
+          borderWidth: 2,
+          borderColor: "white",
+          padding: 4,
+          font: { weight: "bold" },
+        },
         borderAlign: "inner",
       },
     ],
@@ -92,6 +74,7 @@ export default function PieChart() {
       legend: {
         display: false,
       },
+
       doughnutLabelsLine: false,
       tooltip: {
         enabled: false,
@@ -99,5 +82,5 @@ export default function PieChart() {
     },
   };
 
-  return <Pie data={chartData} options={options} />;
+  return <Pie data={chartData} plugins={[ChartDataLabels]} options={options} />;
 }

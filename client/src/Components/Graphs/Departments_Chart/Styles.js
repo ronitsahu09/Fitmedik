@@ -1,6 +1,6 @@
 export const title = {
   width: "1.5in",
-  color: "black",
+  color: "#2980B9",
   fontSize: "1.1rem",
   fontWeight: "700",
   textDecoration: "none",

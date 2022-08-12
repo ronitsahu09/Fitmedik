@@ -4,6 +4,7 @@ import Analytics from "./Analytics/Analytics";
 import "react-circular-progressbar/dist/styles.css";
 import { useEffect, useState } from "react";
 import DepartmentAnalytics from "./DepartmentAnalytics/DepartmentAnalytics";
+import CostSavings from "./CostSavings/CostSavings";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -34,6 +35,19 @@ function App() {
         <Route
           path="/analytics/:id"
           element={<DepartmentAnalytics props={{ appHeight }} />}
+        />
+        <Route
+          path="notifications"
+          element={
+            <>
+              <a href="/">go back</a>
+            </>
+          }
+        />
+
+        <Route
+          path="costsavings"
+          element={<CostSavings props={{ appHeight }} />}
         />
       </Routes>
     </div>

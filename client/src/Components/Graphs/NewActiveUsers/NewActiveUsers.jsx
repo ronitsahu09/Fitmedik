@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { dot } from "./Styles";
+import { rectangle } from "./Styles";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,31 +22,13 @@ export default function NewActiveUsers() {
     responsive: true,
     cutout: "80%",
     maintainAspectRatio: false,
-    legendCallback: function (chart) {
-      var text = [];
-      console.log("sup");
-      text.push('<ul class="' + chart.id + '-legend">');
-      for (var i = 0; i < chart.data.datasets.length; i++) {
-        text.push(
-          '<li><span style="background-color:' +
-            chart.data.datasets[i].backgroundColor +
-            '"></span>'
-        );
-        if (chart.data.datasets[i].label) {
-          text.push(chart.data.datasets[i].label);
-        }
-        text.push("</li>");
-      }
-      text.push("</ul>");
-      return text.join("");
-    },
+
     onHover: function (e) {
       e.native.target.style.cursor = "pointer";
     },
     plugins: {
       legend: {
         display: false,
-        position: "right",
       },
       doughnutLabelsLine: false,
       tooltip: {
@@ -72,7 +54,7 @@ export default function NewActiveUsers() {
 
       <Stack gap={2} alignSelf="center">
         <Stack direction="row" alignItems="center" gap={2}>
-          <Box sx={{ ...dot, bgcolor: "hsl(207, 44%, 49%)" }}></Box>
+          <Box sx={{ ...rectangle, bgcolor: "hsl(207, 44%, 49%)" }}></Box>
           <Stack>
             <Typography
               sx={{
@@ -89,7 +71,7 @@ export default function NewActiveUsers() {
           </Stack>
         </Stack>
         <Stack direction="row" alignItems="center" gap={2}>
-          <Box sx={{ ...dot, bgcolor: "hsl(207, 44%, 79%)" }}></Box>
+          <Box sx={{ ...rectangle, bgcolor: "hsl(207, 44%, 79%)" }}></Box>
           <Stack>
             <Typography
               sx={{

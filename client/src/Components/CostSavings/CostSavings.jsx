@@ -4,8 +4,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, IconButton, Paper, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+import LineChart from "../Graphs/LineChart/LineChart";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
+import { CustomSelect } from "../Styles_&_Components/Components";
 import {
   AppWrapper,
   fixedWindow,
@@ -17,6 +20,11 @@ import { info, values } from "./Styles";
 
 export default function CostSavings({ props }) {
   const { appHeight } = props;
+
+  const [filters, setFilters] = useState(0);
+  const handleChange = (e) => {
+    setFilters(e.target.value);
+  };
 
   return (
     <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
@@ -133,10 +141,32 @@ export default function CostSavings({ props }) {
                   </Box>
                 </Stack>
               </Paper>
-            </Stack>
-          </Stack>
 
-          <Box sx={{ height: 5 }}></Box>
+              <Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "1.8em", lg: "2em" },
+                      fontWeight: "500",
+                    }}
+                  >
+                    Analytics
+                  </Typography>
+
+                  <CustomSelect props={{ filters, handleChange }} />
+                </Stack>
+                <Paper sx={{ ...graphCanvas, height: "5in" }}>
+                  <LineChart props={{ filters, handleChange }} />
+                </Paper>
+              </Stack>
+            </Stack>
+
+            <Box sx={{ height: 5 }}></Box>
+          </Stack>
         </Stack>
       </Stack>
 

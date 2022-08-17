@@ -12,7 +12,7 @@ export default function NewActiveUsers() {
       {
         label: "User Status",
         data: [36, 20],
-        backgroundColor: ["hsl(207, 44%, 49%)", "hsl(207, 44%, 79%)"],
+        backgroundColor: ["#06b58c", "hsl(0, 0%, 15%)"],
         hoverOffset: 3,
       },
     ],
@@ -22,7 +22,7 @@ export default function NewActiveUsers() {
     responsive: true,
     cutout: "80%",
     maintainAspectRatio: false,
-
+    borderRadius: 5,
     onHover: function (e) {
       e.native.target.style.cursor = "pointer";
     },
@@ -54,11 +54,11 @@ export default function NewActiveUsers() {
 
       <Stack gap={2} alignSelf="center">
         <Stack direction="row" alignItems="center" gap={2}>
-          <Box sx={{ ...rectangle, bgcolor: "hsl(207, 44%, 49%)" }}></Box>
+          <Box sx={{ ...rectangle, bgcolor: "#06b58c" }}></Box>
           <Stack>
             <Typography
               sx={{
-                color: "hsl(207, 44%, 49%)",
+                color: "#06b58c",
                 fontWeight: "500",
                 fontSize: "1.1rem",
               }}
@@ -71,11 +71,11 @@ export default function NewActiveUsers() {
           </Stack>
         </Stack>
         <Stack direction="row" alignItems="center" gap={2}>
-          <Box sx={{ ...rectangle, bgcolor: "hsl(207, 44%, 79%)" }}></Box>
+          <Box sx={{ ...rectangle, bgcolor: "hsl(0, 0%, 15%)" }}></Box>
           <Stack>
             <Typography
               sx={{
-                color: "hsl(207, 44%, 79%)",
+                color: "hsl(0, 0%, 15%)",
                 fontWeight: "500",
                 fontSize: "1.1rem",
               }}

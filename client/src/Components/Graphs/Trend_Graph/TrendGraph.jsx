@@ -32,8 +32,8 @@ export default function TrendGraph() {
         label: "Burnout Trend",
         data: [23, 32, 19, 99, 11, 90],
         fill: true,
-        borderColor: "#87cff1",
-        backgroundColor: "#c3ede4",
+        backgroundColor: "#A9CCE3",
+        borderColor: "#7FB3D5",
       },
     ],
   };

@@ -2,6 +2,7 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
+import TrendGraph from "../Graphs/Trend_Graph/TrendGraph";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
 import { Legend, PieLegend } from "../Styles_&_Components/Components";
@@ -28,6 +29,75 @@ export default function DepartmentAnalytics({ props }) {
           </Typography>
 
           <Stack sx={{ ...fixedWindow }}>
+            <Stack direction="row" mt={3} gap={2} flexWrap="wrap">
+              <Stack gap={2} flex={1}>
+                <Typography variant="h5" component="div" fontWeight="500">
+                  Department Status
+                </Typography>
+                <Paper
+                  sx={{
+                    ...graphCanvas,
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 1,
+                  }}
+                >
+                  <Box position="relative" height="100%" flex={1}>
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 4,
+                        bottom: 4,
+                        left: 4,
+                        right: 4,
+                      }}
+                    >
+                      <PieChart />
+                    </Box>
+                  </Box>
+                  <Stack gap={1}>
+                    <PieLegend props={{ title: "Danger", color: "#f55f4b" }} />
+                    <PieLegend props={{ title: "High", color: "#f08624" }} />
+                    <PieLegend props={{ title: "Medium", color: "#fed867" }} />
+                    <PieLegend props={{ title: "Low", color: "#8eabdc" }} />
+                    <PieLegend props={{ title: "Safe", color: "#06b78e" }} />
+                  </Stack>
+                </Paper>
+              </Stack>
+
+              <Stack gap={2} flex={1}>
+                <Typography variant="h5" component="div" fontWeight="500">
+                  Burnout Trend in the organisation
+                </Typography>
+                <Paper
+                  sx={{
+                    ...graphCanvas,
+                    width: "100%",
+                  }}
+                >
+                  <Stack direction="row" justifyContent="space-between" mb={2}>
+                    <select name="Burnout" defaultValue="Average Burnout">
+                      <option value="Average Burnout">Average Burnout</option>
+                    </select>
+                    <Stack direction="row" gap={3}>
+                      <select defaultValue="April" name="Monthly-filter">
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                      </select>
+                      <Box>{"<  Apr 2022  >"}</Box>
+                    </Stack>
+                  </Stack>
+
+                  <TrendGraph />
+                </Paper>
+              </Stack>
+            </Stack>
+
             <Stack gap={3}>
               <Stack direction="row" justifyContent="space-between">
                 <Typography
@@ -165,7 +235,7 @@ export default function DepartmentAnalytics({ props }) {
         </Stack>
       </Stack>
 
-      <RightSidebar />
+      {/* <RightSidebar /> */}
     </Stack>
   );
 }

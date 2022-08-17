@@ -5,6 +5,5 @@ export const leftSidebar = {
   bgcolor: "#ffffff",
   borderRadius: "2rem 0 0 2rem",
   boxSizing: "border-box",
-  gap: 1,
   alignItems: "center",
 };

@@ -47,7 +47,7 @@ export default function Home({ props }) {
                 </Typography>
               </Paper>
 
-              <Paper
+              {/* <Paper
                 sx={{
                   ...graphCanvas,
                   display: "flex",
@@ -84,7 +84,7 @@ export default function Home({ props }) {
                 <Typography variant="h6" component="div">
                   Profit
                 </Typography>
-              </Paper>
+              </Paper> */}
             </Stack>
 
             <Stack gap={2}>

@@ -1,9 +1,9 @@
 export const title = {
   width: "1.5in",
-  color: "#2980B9",
+  color: "black",
   fontSize: "1.1rem",
   fontWeight: "700",
-  textDecoration: "none",
+  textDecoration: "underline",
 };
 
 export const strip = {

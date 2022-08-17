@@ -13,8 +13,8 @@ import { leftSidebar } from "./Styles";
 
 export default function LeftSidebar() {
   return (
-    <Stack sx={{ ...leftSidebar }}>
-      <Stack>
+    <Stack sx={{ ...leftSidebar, justifyContent: "center" }}>
+      <Stack gap={3}>
         <Box component={Link} to="/">
           <Tooltip
             title="Home"
@@ -23,7 +23,7 @@ export default function LeftSidebar() {
             arrow
           >
             <IconButton>
-              <Home />
+              <Home fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>
@@ -35,7 +35,7 @@ export default function LeftSidebar() {
             arrow
           >
             <IconButton>
-              <SsidChart />
+              <SsidChart fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>
@@ -47,7 +47,7 @@ export default function LeftSidebar() {
             arrow
           >
             <IconButton>
-              <Notifications />
+              <Notifications fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>
@@ -59,15 +59,15 @@ export default function LeftSidebar() {
             arrow
           >
             <IconButton>
-              <AttachMoney />
+              <AttachMoney fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>
       </Stack>
 
-      <Box>Emergency department</Box>
+      {/* <Box>Emergency department</Box>
 
-      <Box>Employee Alert</Box>
+      <Box>Employee Alert</Box> */}
     </Stack>
   );
 }

@@ -45,7 +45,7 @@ const data = [
   [
     {
       label: "Stress",
-      data: [29, 10, 5, 20, 2, 0],
+      data: [4, 1, 5, 20, 11, 0],
       borderColor: "deeppink",
       backgroundColor: "pink",
     },

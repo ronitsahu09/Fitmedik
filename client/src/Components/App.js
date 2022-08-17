@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Home from "./HomePage/Home";
 import Analytics from "./Analytics/Analytics";
 import "react-circular-progressbar/dist/styles.css";
@@ -40,7 +40,8 @@ function App() {
           path="notifications"
           element={
             <>
-              <a href="/">go back</a>
+              <h1>Not Available</h1>
+              <Link to="/">Click here to go back</Link>
             </>
           }
         />

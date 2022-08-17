@@ -1,29 +1,27 @@
-import ReactSpeedometer from "react-d3-speedometer";
+import { Box } from "@mui/material";
+import GaugeChart from "react-gauge-chart";
 
 export default function Speedometer() {
   return (
-    <ReactSpeedometer
-      className="speedometer"
-      height={200}
-      needleTransition="easeElastic"
-      needleTransitionDuration={1500}
-      needleColor="#34495E"
-      ringWidth={20}
-      value={21}
-      currentValueText="21%"
-      minValue={0}
-      maxValue={100}
-      paddingHorizontal={1}
-      paddingVertical={1}
-      customSegmentStops={[0, 40, 60, 75, 90, 100]}
-      segmentColors={[
-        "hsl(166, 94%, 37%)",
-        "hsl(218, 53%, 71%)",
-        "hsl(45, 99%, 70%)",
-        "hsl(29, 87%, 54%)",
-        "hsl(7, 89%, 63%)",
-      ]}
-      forceRender
-    />
+    <Box position="relative" height="1.4in"   width="100%">
+      <GaugeChart
+        id="gauge-chart"
+        style={{
+          position: "absolute",
+          top: 4,
+          bottom: 4,
+          left: "50%",
+          transform: "translateX(-50%)",
+          maxWidth: "100%",
+        }}
+        textColor="transparent"
+        nrOfLevels={5}
+        colors={["#06b58c", "#8fabdd", "#fed966", "#f08725", "#f55f4b"]}
+        arcWidth={0.2}
+        arcPadding={0}
+        cornerRadius={0}
+        marginInPercent={0.05}
+      />
+    </Box>
   );
 }

@@ -1,5 +1,4 @@
 export const AppWrapper = {
-  borderRadius: "2rem",
   backgroundColor: "#f8f8f8",
 };
 
@@ -35,5 +34,11 @@ export const graphCanvas = {
 export const dot = {
   width: { xs: "8px", lg: "10px" },
   height: { xs: "8px", lg: "10px" },
+  borderRadius: "50%",
+};
+
+export const PieDot = {
+  width: { xs: "10px", lg: "12px" },
+  height: { xs: "10px", lg: "12px" },
   borderRadius: "50%",
 };

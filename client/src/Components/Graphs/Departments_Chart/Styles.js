@@ -3,7 +3,7 @@ export const title = {
   color: "black",
   fontSize: "1.1rem",
   fontWeight: "700",
-  textDecoration: "none",
+  textDecoration: "underline",
 };
 
 export const strip = {

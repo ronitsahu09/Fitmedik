@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,8 +32,8 @@ export default function TrendGraph() {
         label: "Burnout Trend",
         data: [23, 32, 19, 99, 11, 90],
         fill: true,
-        borderColor: "#87cff1",
-        backgroundColor: "#c3ede4",
+        backgroundColor: "#A9CCE3",
+        borderColor: "#7FB3D5",
       },
     ],
   };
@@ -47,16 +48,25 @@ export default function TrendGraph() {
       legend: {
         display: false,
       },
+      doughnutLabelsLine: false,
     },
     scales: {
       x: {
         ticks: {
           color: "black",
         },
+        grid: {
+          display: false,
+        },
       },
       y: {
+        beginAtZero: true,
         ticks: {
           display: false,
+          stepSize: 30,
+        },
+        grid: {
+          drawBorder: false,
         },
       },
     },

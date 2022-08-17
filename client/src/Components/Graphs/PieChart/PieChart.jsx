@@ -1,15 +1,16 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChart() {
   const Profession = {
-    Doctors: [8, 20],
-    Nurses: [18, 20],
-    IT: [11, 20],
-    Students: [4, 20],
-    Staff: [6, 40],
+    Doctors: [20, 20],
+    Nurses: [6, 20],
+    IT: [14, 20],
+    Students: [5, 20],
+    Staff: [2, 40],
   };
 
   const chartData = {
@@ -35,7 +36,29 @@ export default function PieChart() {
           "hsl(218, 53%, 71%)",
           "hsl(45, 99%, 70%)",
         ],
-        hoverOffset: 3,
+        datalabels: {
+          anchor: "end",
+          color: "white",
+          backgroundColor: function (context) {
+            return context.dataset.backgroundColor;
+          },
+          display: function (context) {
+            const index = context.dataIndex;
+            const {
+              dataset: { data },
+            } = context;
+
+            return data[index] > 10;
+          },
+          formatter: function (value) {
+            return `${value} %`;
+          },
+          borderRadius: 25,
+          borderWidth: 2,
+          borderColor: "white",
+          padding: 4,
+          font: { weight: "bold" },
+        },
         borderAlign: "inner",
       },
     ],
@@ -43,24 +66,21 @@ export default function PieChart() {
 
   const options = {
     responsive: true,
+    layout: {
+      padding: 20,
+    },
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: "right",
-        labels: {
-          usePointStyle: true,
-          pointStyle: "circle",
-        },
+        display: false,
       },
+
+      doughnutLabelsLine: false,
       tooltip: {
-        displayColors: false,
-        callbacks: {
-          label: function (context) {
-            return `${context.label} ${context.parsed}%`;
-          },
-        },
+        enabled: false,
       },
     },
   };
 
-  return <Pie data={chartData} options={options} />;
+  return <Pie data={chartData} plugins={[ChartDataLabels]} options={options} />;
 }

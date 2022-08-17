@@ -1,4 +1,9 @@
-import { Home, Notifications, SsidChart } from "@mui/icons-material";
+import {
+  AttachMoney,
+  Home,
+  Notifications,
+  SsidChart,
+} from "@mui/icons-material";
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
 
@@ -8,8 +13,8 @@ import { leftSidebar } from "./Styles";
 
 export default function LeftSidebar() {
   return (
-    <Stack sx={{ ...leftSidebar }}>
-      <Stack>
+    <Stack sx={{ ...leftSidebar, justifyContent: "center" }}>
+      <Stack gap={3}>
         <Box component={Link} to="/">
           <Tooltip
             title="Home"
@@ -18,7 +23,7 @@ export default function LeftSidebar() {
             arrow
           >
             <IconButton>
-              <Home />
+              <Home fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>
@@ -30,7 +35,7 @@ export default function LeftSidebar() {
             arrow
           >
             <IconButton>
-              <SsidChart />
+              <SsidChart fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>
@@ -42,15 +47,27 @@ export default function LeftSidebar() {
             arrow
           >
             <IconButton>
-              <Notifications />
+              <Notifications fontSize="large" />
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Box component={Link} to="/costsavings">
+          <Tooltip
+            title="Cost Savings"
+            placement="right-start"
+            TransitionComponent={Zoom}
+            arrow
+          >
+            <IconButton>
+              <AttachMoney fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>
       </Stack>
 
-      <Box>Emergency department</Box>
+      {/* <Box>Emergency department</Box>
 
-      <Box>Employee Alert</Box>
+      <Box>Employee Alert</Box> */}
     </Stack>
   );
 }

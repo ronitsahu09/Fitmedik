@@ -5,7 +5,6 @@ export const rightSidebar = {
   width: { md: "3in", lg: "3.3in" },
   display: { xs: "none", w950: "flex" },
   p: "1.5rem",
-  borderRadius: "0 2rem 2rem 0",
   gap: "1.5rem",
 };
 

@@ -3,7 +3,6 @@ export const leftSidebar = {
   width: { sm: "1in", lg: "1.5in" },
   p: "0.5rem",
   bgcolor: "#ffffff",
-  borderRadius: "2rem 0 0 2rem",
   boxSizing: "border-box",
   alignItems: "center",
 };

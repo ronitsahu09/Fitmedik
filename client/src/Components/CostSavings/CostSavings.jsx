@@ -40,7 +40,7 @@ export default function CostSavings({ props }) {
             <Stack gap={3} mt={3}>
               <Typography
                 component="div"
-                sx={{
+                sx={{ 
                   fontSize: { xs: "1.8em", lg: "2em" },
                   fontWeight: "500",
                   mr: 2,

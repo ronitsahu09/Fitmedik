@@ -4,6 +4,8 @@ import {
   Notifications,
   SsidChart,
   Poll,
+  Settings,
+  LoginRounded,
 } from "@mui/icons-material";
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
@@ -17,7 +19,7 @@ export default function LeftSidebar() {
     <Stack
       sx={{
         ...leftSidebar,
-        justifyContent: "center",
+        justifyContent: "space-between",
       }}
     >
       <Stack gap={3}>
@@ -45,18 +47,7 @@ export default function LeftSidebar() {
             </IconButton>
           </Tooltip>
         </Box>
-        <Box component={Link} to="/notifications">
-          <Tooltip
-            title="Notifications"
-            placement="right-start"
-            TransitionComponent={Zoom}
-            arrow
-          >
-            <IconButton>
-              <Notifications fontSize="large" />
-            </IconButton>
-          </Tooltip>
-        </Box>
+
         <Box component={Link} to="/costsavings">
           <Tooltip
             title="Cost Savings"
@@ -71,13 +62,53 @@ export default function LeftSidebar() {
         </Box>
         <Box component={Link} to="/surveyresults">
           <Tooltip
-            title="Survey Results"
+            title="MBI Results"
             placement="right-start"
             TransitionComponent={Zoom}
             arrow
           >
             <IconButton>
               <Poll fontSize="large" />
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Box component={Link} to="/notifications">
+          <Tooltip
+            title="Notifications"
+            placement="right-start"
+            TransitionComponent={Zoom}
+            arrow
+          >
+            <IconButton>
+              <Notifications fontSize="large" />
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Stack>
+
+      <Stack gap={3}>
+        <Box component={Link} to="/">
+          <Tooltip
+            title="Settings"
+            placement="right-start"
+            TransitionComponent={Zoom}
+            arrow
+          >
+            <IconButton>
+              <Settings fontSize="large" />
+            </IconButton>
+          </Tooltip>
+        </Box>
+
+        <Box component={Link} to="/">
+          <Tooltip
+            title="Login"
+            placement="right-start"
+            TransitionComponent={Zoom}
+            arrow
+          >
+            <IconButton>
+              <LoginRounded fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>

@@ -16,15 +16,12 @@ export const quesContainer = {
 export const info = {
   display: "flex",
   justifyContent: "space-between",
-  textAlign: "center",
+  // textAlign: "center",
   pt: "2rem",
-  pb: "2rem"
+  pb: "2rem",
 };
 
 export const values = {
-  display: "flex",
-  gap: 1,
-  alignItems: "center",
   fontSize: "2rem",
   fontWeight: "700",
   mt: 1,

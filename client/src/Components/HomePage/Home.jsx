@@ -1,6 +1,6 @@
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
-import { Stack, Box, Typography, Paper, IconButton } from "@mui/material";
+import { Stack, Box, Typography, Paper } from "@mui/material";
 import { users_status } from "./Styles";
 
 import TrendGraph from "../Graphs/Trend_Graph/TrendGraph";
@@ -13,8 +13,6 @@ import {
 } from "../Styles_&_Components/Styles";
 import Speedometer from "../Graphs/Speedometer/Speedometer";
 import NewActiveUsers from "../Graphs/NewActiveUsers/NewActiveUsers";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDownLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home({ props }) {
   const { appHeight } = props;
@@ -87,34 +85,30 @@ export default function Home({ props }) {
               </Paper> */}
             </Stack>
 
-            <Stack gap={2}>
-              <Typography variant="h5" component="div" fontWeight="500">
-                Burnout Trend in the organisation
-              </Typography>
-              <Paper
-                sx={{
-                  ...graphCanvas,
-                  width: "5in",
-                }}
-              >
-                <Stack direction="row" justifyContent="space-between" mb={2}>
-                  <select name="Burnout" defaultValue="Average Burnout">
-                    <option value="Average Burnout">Average Burnout</option>
+            <Paper
+              sx={{
+                ...graphCanvas,
+                flex: 1,
+              }}
+            >
+              <Stack direction="row" justifyContent="space-between" mb={2}>
+                <select name="Burnout" defaultValue="Average Burnout">
+                  <option value="Average Burnout">Average Burnout</option>
+                </select>
+                <Stack direction="row" gap={3}>
+                  <select defaultValue="April" name="Monthly-filter">
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
                   </select>
-                  <Stack direction="row" gap={3}>
-                    <select defaultValue="April" name="Monthly-filter">
-                      <option value="April">April</option>
-                      <option value="May">May</option>
-                      <option value="June">June</option>
-                      <option value="July">July</option>
-                    </select>
-                    <Box>{"<  Apr 2022  >"}</Box>
-                  </Stack>
+                  <Box>{"<  Apr 2022  >"}</Box>
                 </Stack>
+              </Stack>
 
-                <TrendGraph />
-              </Paper>
-            </Stack>
+              <TrendGraph />
+            </Paper>
+            <Box sx={{ height: 5 }}></Box>
           </Stack>
         </Stack>
       </Stack>

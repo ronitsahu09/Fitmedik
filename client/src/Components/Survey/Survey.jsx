@@ -1,4 +1,4 @@
-import { Box, IconButton, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import HarveyBalls from "../Graphs/HarveyBalls/HarveyBalls";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import PieChart from "../Graphs/PieChart/PieChart";
@@ -12,11 +12,60 @@ import {
 } from "../Styles_&_Components/Styles";
 import { quesContainer, question } from "./Styles";
 import { info, values } from "./Styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowDownLong,
-  faArrowRightArrowLeft,
-} from "@fortawesome/free-solid-svg-icons";
+
+const data = {
+  labels: ["Low", "Medium", "High"],
+  datasets: [
+    {
+      label: "MBI", //Change this label
+      data: [22, 17, 13],
+      backgroundColor: ["#8fabdd", "#fed966", "#f55f4b"],
+      borderColor: ["#8fabdd", "#fed966", "#f55f4b"],
+      datalabels: {
+        anchor: "end",
+        color: "white",
+        backgroundColor: function (context) {
+          return context.dataset.backgroundColor;
+        },
+        display: function (context) {
+          const index = context.dataIndex;
+          const {
+            dataset: { data },
+          } = context;
+
+          return data[index] > 10;
+        },
+        formatter: function (value) {
+          return `${value} %`;
+        },
+        borderRadius: 25,
+        borderWidth: 2,
+        borderColor: "white",
+        padding: 4,
+        font: { weight: "bold" },
+      },
+      borderAlign: "inner",
+    },
+  ],
+};
+
+const options = {
+  responsive: true,
+  layout: {
+    padding: 20,
+  },
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+
+    doughnutLabelsLine: false,
+    tooltip: {
+      enabled: false,
+    },
+  },
+};
 
 export default function Survey({ props }) {
   const { appHeight } = props;
@@ -70,7 +119,7 @@ export default function Survey({ props }) {
               </Typography>
 
               <Paper sx={{ ...graphCanvas, ...info, p: "1.5rem" }}>
-                <Stack>
+                <Stack gap={1} alignItems="center">
                   <Typography
                     sx={{
                       color: "#999999",
@@ -78,27 +127,19 @@ export default function Survey({ props }) {
                       fontWeight: "bold",
                     }}
                   >
-                    Losses
+                    Low Degree
                   </Typography>
 
-                  <Box sx={{ ...values, color: "#f55f4b" }}>
-                    <IconButton
-                      color="inherit"
-                      sx={{
-                        cursor: "text",
-                        bgcolor: "rgba(245, 95, 75, 0.05);",
-                        p: 1,
-                      }}
-                    >
-                      <Box component={FontAwesomeIcon} icon={faArrowDownLong} />
-                    </IconButton>
-                    <Typography variant="div" component="div">
-                      800$
-                    </Typography>
-                  </Box>
+                  <Typography
+                    variant="div"
+                    component="div"
+                    sx={{ ...values, color: "#f55f4b" }}
+                  >
+                    800
+                  </Typography>
                 </Stack>
 
-                <Stack>
+                <Stack gap={1} alignItems="center">
                   <Typography
                     sx={{
                       color: "#999999",
@@ -106,31 +147,19 @@ export default function Survey({ props }) {
                       fontWeight: "bold",
                     }}
                   >
-                    Profit
+                    Moderately Degree
                   </Typography>
 
-                  <Box sx={{ ...values, color: "#06b58c" }}>
-                    <IconButton
-                      color="inherit"
-                      sx={{
-                        cursor: "text",
-                        bgcolor: "rgba(245, 95, 75, 0.05);",
-                        p: 1,
-                      }}
-                    >
-                      <Box
-                        component={FontAwesomeIcon}
-                        sx={{ transform: "rotate(180deg)" }}
-                        icon={faArrowDownLong}
-                      />
-                    </IconButton>
-
-                    <Typography variant="div" component="div">
-                      800$
-                    </Typography>
-                  </Box>
+                  <Typography
+                    variant="div"
+                    component="div"
+                    sx={{ ...values, color: "#06b58c" }}
+                  >
+                    800
+                  </Typography>
                 </Stack>
-                <Stack>
+
+                <Stack gap={1} alignItems="center">
                   <Typography
                     sx={{
                       color: "#999999",
@@ -138,28 +167,16 @@ export default function Survey({ props }) {
                       fontWeight: "bold",
                     }}
                   >
-                    Net Amount
+                    High Degree
                   </Typography>
 
-                  <Box sx={{ ...values, color: "#f55f4b" }}>
-                    <IconButton
-                      color="inherit"
-                      sx={{
-                        cursor: "text",
-                        bgcolor: "rgba(245, 95, 75, 0.05);",
-                        p: 1,
-                      }}
-                    >
-                      <Box
-                        component={FontAwesomeIcon}
-                        sx={{ transform: "rotate(90deg)" }}
-                        icon={faArrowRightArrowLeft}
-                      />
-                    </IconButton>
-                    <Typography variant="div" component="div">
-                      800$
-                    </Typography>
-                  </Box>
+                  <Typography
+                    variant="div"
+                    component="div"
+                    sx={{ ...values, color: "#f55f4b" }}
+                  >
+                    800
+                  </Typography>
                 </Stack>
               </Paper>
 
@@ -176,7 +193,7 @@ export default function Survey({ props }) {
                 </Typography>
 
                 <Stack direction="row" gap={2}>
-                  <Legend props={{ title: "Low Degree", color: "#06b58c" }} />
+                  <Legend props={{ title: "Low Degree", color: "#8fabdd" }} />
                   <Legend
                     props={{ title: "Moderately Degree", color: "#fed966" }}
                   />
@@ -202,7 +219,7 @@ export default function Survey({ props }) {
                       Occupational exhaustion
                     </Typography>
                     <Box sx={{ height: "2in" }}>
-                      <PieChart />
+                      <PieChart props={{ chartData: data, options }} />
                     </Box>
                   </Stack>
                 </Paper>
@@ -224,7 +241,7 @@ export default function Survey({ props }) {
                       Loss of Empathy
                     </Typography>
                     <Box sx={{ height: "2in" }}>
-                      <PieChart />
+                      <PieChart props={{ chartData: data, options }} />
                     </Box>
                   </Stack>
                 </Paper>
@@ -246,7 +263,7 @@ export default function Survey({ props }) {
                       Accomplishment assesment
                     </Typography>
                     <Box sx={{ height: "2in" }}>
-                      <PieChart />
+                      <PieChart props={{ chartData: data, options }} />
                     </Box>
                   </Stack>
                 </Paper>

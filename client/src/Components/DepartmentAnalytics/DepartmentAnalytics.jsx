@@ -4,8 +4,7 @@ import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
 import TrendGraph from "../Graphs/Trend_Graph/TrendGraph";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
-import RightSidebar from "../RightSidebar/RightSidebar";
-import { Legend, PieLegend } from "../Styles_&_Components/Components";
+import { Legend } from "../Styles_&_Components/Components";
 import {
   AppWrapper,
   fixedWindow,
@@ -13,6 +12,137 @@ import {
   middle,
   middleWindow,
 } from "../Styles_&_Components/Styles";
+
+const genderPieData = {
+  labels: ["Male", "Female"],
+  datasets: [
+    {
+      label: "Gender Diversity",
+      data: [30, 25],
+      backgroundColor: ["#f55f4b", "#06b58c"],
+      borderColor: ["#f55f4b", "#06b58c"],
+      datalabels: {
+        anchor: "end",
+        color: "white",
+        backgroundColor: function (context) {
+          return context.dataset.backgroundColor;
+        },
+        display: function (context) {
+          const index = context.dataIndex;
+          const {
+            dataset: { data },
+          } = context;
+
+          return data[index] > 10;
+        },
+        formatter: function (value) {
+          return `${value} %`;
+        },
+        borderRadius: 25,
+        borderWidth: 2,
+        borderColor: "white",
+        padding: 4,
+        font: { weight: "bold" },
+      },
+      borderAlign: "inner",
+    },
+  ],
+};
+
+const genderPieOptions = {
+  responsive: true,
+  layout: {
+    padding: 20,
+  },
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+
+    doughnutLabelsLine: false,
+    tooltip: {
+      enabled: false,
+    },
+  },
+};
+
+const Profession = {
+  Doctors: [20, 20],
+  Nurses: [6, 20],
+  IT: [14, 20],
+  Students: [5, 20],
+  Staff: [2, 40],
+};
+
+const EmployeePieData = {
+  labels: Object.keys(Profession),
+  datasets: [
+    {
+      label: "High Risk Profession",
+      data: Object.entries(Profession).map((property) => {
+        const percent = (100 * property[1][0]) / property[1][1];
+        return percent;
+      }),
+      backgroundColor: [
+        "hsl(7, 89%, 63%)",
+        "hsl(166, 94%, 37%)",
+        "hsl(29, 87%, 54%)",
+        "hsl(218, 53%, 71%)",
+        "hsl(45, 99%, 70%)",
+      ],
+      borderColor: [
+        "hsl(7, 89%, 63%)",
+        "hsl(166, 94%, 37%)",
+        "hsl(29, 87%, 54%)",
+        "hsl(218, 53%, 71%)",
+        "hsl(45, 99%, 70%)",
+      ],
+      datalabels: {
+        anchor: "end",
+        color: "white",
+        backgroundColor: function (context) {
+          return context.dataset.backgroundColor;
+        },
+        display: function (context) {
+          const index = context.dataIndex;
+          const {
+            dataset: { data },
+          } = context;
+
+          return data[index] > 10;
+        },
+        formatter: function (value) {
+          return `${value} %`;
+        },
+        borderRadius: 25,
+        borderWidth: 2,
+        borderColor: "white",
+        padding: 4,
+        font: { weight: "bold" },
+      },
+      borderAlign: "inner",
+    },
+  ],
+};
+
+const EmployeePieOptions = {
+  responsive: true,
+  layout: {
+    padding: 20,
+  },
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false,
+    },
+
+    doughnutLabelsLine: false,
+    tooltip: {
+      enabled: false,
+    },
+  },
+};
 
 export default function DepartmentAnalytics({ props }) {
   const { id } = useParams();
@@ -29,42 +159,49 @@ export default function DepartmentAnalytics({ props }) {
           </Typography>
 
           <Stack sx={{ ...fixedWindow }}>
-            <Stack direction="row" mt={3} gap={2} flexWrap="wrap">
+            <Stack direction="row" mt={3} gap={2}>
               <Stack gap={2} flex={1}>
-                <Typography variant="h5" component="div" fontWeight="500">
-                  Department Status
-                </Typography>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography variant="h5" component="div" fontWeight="500">
+                    Department Status
+                  </Typography>
+                  {/* <Stack direction="row" gap={2}>
+                    <Legend props={{ title: "Nurses", color: "#06b58c" }} />
+                    <Legend props={{ title: "Students", color: "#8fabdd" }} />
+                    <Legend props={{ title: "Staff", color: "#fed966" }} />
+                    <Legend props={{ title: "IT", color: "#f08725" }} />
+                    <Legend props={{ title: "Doctors", color: "#f55f4b" }} />
+                  </Stack> */}
+                </Stack>
                 <Paper
                   sx={{
                     ...graphCanvas,
                     width: "100%",
                     height: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 1,
+                    position: "relative",
+                    flex: 1,
                   }}
                 >
-                  <Box position="relative" height="100%" flex={1}>
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 4,
-                        bottom: 4,
-                        left: 4,
-                        right: 4,
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 4,
+                      bottom: 4,
+                      left: 4,
+                      right: 4,
+                    }}
+                  >
+                    <PieChart
+                      props={{
+                        chartData: EmployeePieData,
+                        options: EmployeePieOptions,
                       }}
-                    >
-                      <PieChart />
-                    </Box>
+                    />
                   </Box>
-                  <Stack gap={1}>
-                    <PieLegend props={{ title: "Danger", color: "#f55f4b" }} />
-                    <PieLegend props={{ title: "High", color: "#f08624" }} />
-                    <PieLegend props={{ title: "Medium", color: "#fed867" }} />
-                    <PieLegend props={{ title: "Low", color: "#8eabdc" }} />
-                    <PieLegend props={{ title: "Safe", color: "#06b78e" }} />
-                  </Stack>
                 </Paper>
               </Stack>
 
@@ -75,7 +212,7 @@ export default function DepartmentAnalytics({ props }) {
                 <Paper
                   sx={{
                     ...graphCanvas,
-                    width: "100%",
+                    flex: 1,
                   }}
                 >
                   <Stack direction="row" justifyContent="space-between" mb={2}>
@@ -92,8 +229,9 @@ export default function DepartmentAnalytics({ props }) {
                       <Box>{"<  Apr 2022  >"}</Box>
                     </Stack>
                   </Stack>
-
-                  <TrendGraph />
+                  <Box position="relative" width="98%" height="50%">
+                    <TrendGraph />
+                  </Box>
                 </Paper>
               </Stack>
             </Stack>
@@ -142,100 +280,102 @@ export default function DepartmentAnalytics({ props }) {
               </Paper>
             </Stack>
 
-            <Stack direction={{ xs: "column", lg: "row" }} gap={2}>
+            <Stack
+              direction="row"
+              alignItems="flex-end"
+              gap={3}
+              flexWrap="wrap"
+            >
               <Stack flex={1} gap={3}>
-                <Typography
-                  component="div"
-                  sx={{
-                    fontSize: { xs: "1.8em", lg: "2em" },
-                    fontWeight: "500",
-                  }}
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
                 >
-                  High Risk Profession
-                </Typography>
+                  <Typography
+                    component="div"
+                    sx={{
+                      fontSize: { xs: "1.8em", lg: "2em" },
+                      fontWeight: "500",
+                      mr: 2,
+                    }}
+                  >
+                    High Risk Profession
+                  </Typography>
+                  <Stack direction="row" gap={2}>
+                    <Legend props={{ title: "Nurses", color: "#06b58c" }} />
+                    <Legend props={{ title: "Students", color: "#8fabdd" }} />
+                    <Legend props={{ title: "Staff", color: "#fed966" }} />
+                    <Legend props={{ title: "IT", color: "#f08725" }} />
+                    <Legend props={{ title: "Doctors", color: "#f55f4b" }} />
+                  </Stack>
+                </Stack>
+
                 <Paper
                   sx={{
                     ...graphCanvas,
                     p: 1,
-                    pb: 0,
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                 >
-                  <Stack
-                    direction="row"
-                    width="100%"
-                    alignItems="center"
-                    justifyContent="center"
-                    gap={1}
-                  >
-                    <Box width="2.4in" height="2in">
-                      <PieChart />
-                    </Box>
-                    <Stack>
-                      <PieLegend
-                        props={{ title: "Doctors", color: "#f55f4b" }}
-                      />
-                      <PieLegend
-                        props={{ title: "Nurses", color: "#06b78e" }}
-                      />
-                      <PieLegend props={{ title: "IT", color: "#f08624" }} />
-                      <PieLegend
-                        props={{ title: "Students", color: "#8eabdc" }}
-                      />
-                      <PieLegend props={{ title: "Staff", color: "#fed867" }} />
-                    </Stack>
-                  </Stack>
+                  <Box height="2.5in" width="3in">
+                    <PieChart
+                      props={{
+                        chartData: EmployeePieData,
+                        options: EmployeePieOptions,
+                      }}
+                    />
+                  </Box>
                 </Paper>
               </Stack>
+
               <Stack flex={1} gap={3}>
-                <Typography
-                  component="div"
-                  sx={{
-                    fontSize: { xs: "1.8em", lg: "2em" },
-                    fontWeight: "500",
-                  }}
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
                 >
-                  Gender
-                </Typography>
+                  <Typography
+                    component="div"
+                    sx={{
+                      fontSize: { xs: "1.8em", lg: "2em" },
+                      fontWeight: "500",
+                      mr: 2,
+                    }}
+                  >
+                    Gender
+                  </Typography>
+                  <Stack direction="row" gap={2}>
+                    <Legend props={{ title: "Male", color: "#f55f4b" }} />
+                    <Legend props={{ title: "Female", color: "#06b58c" }} />
+                  </Stack>
+                </Stack>
+
                 <Paper
                   sx={{
                     ...graphCanvas,
                     p: 1,
-                    pb: 0,
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                 >
-                  <Stack
-                    direction="row"
-                    width="100%"
-                    alignItems="center"
-                    justifyContent="center"
-                    gap={1}
-                  >
-                    <Box width="2.4in" height="2in">
-                      <PieChart />
-                    </Box>
-                    <Stack>
-                      <PieLegend
-                        props={{ title: "Doctors", color: "#f55f4b" }}
-                      />
-                      <PieLegend
-                        props={{ title: "Nurses", color: "#06b78e" }}
-                      />
-                      <PieLegend props={{ title: "IT", color: "#f08624" }} />
-                      <PieLegend
-                        props={{ title: "Students", color: "#8eabdc" }}
-                      />
-                      <PieLegend props={{ title: "Staff", color: "#fed867" }} />
-                    </Stack>
-                  </Stack>
+                  <Box height="2.5in" width="3in">
+                    <PieChart
+                      props={{
+                        chartData: genderPieData,
+                        options: genderPieOptions,
+                      }}
+                    />
+                  </Box>
                 </Paper>
               </Stack>
             </Stack>
+
             <Box sx={{ height: 5 }}></Box>
           </Stack>
         </Stack>
       </Stack>
-
-      {/* <RightSidebar /> */}
     </Stack>
   );
 }

@@ -2,12 +2,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import { dot, PieDot } from "./Styles";
 
 import InputLabel from "@mui/material/InputLabel";
-
 import MenuItem from "@mui/material/MenuItem";
 import ListSubheader from "@mui/material/ListSubheader";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState } from "react";
 
 export function Legend({ props }) {
   const { title, color } = props;
@@ -19,7 +17,7 @@ export function Legend({ props }) {
         component="div"
         sx={{
           color,
-          fontSize: { xs: "0.9rem", lg: "1.2rem" },
+          fontSize: { xs: "0.7rem", lg: "1rem" },
           fontWeight: "500",
         }}
       >
@@ -35,7 +33,7 @@ export function PieLegend({ props }) {
   return (
     <Stack direction="row" alignItems="center" gap={1}>
       <Box sx={{ ...PieDot, bgcolor: color }}></Box>
-      <Typography component="div" fontSize="0.7rem">
+      <Typography component="div" fontSize="1.1rem">
         {title}
       </Typography>
     </Stack>

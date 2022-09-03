@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import {
   Chart as ChartJS,
   CategoryScale,

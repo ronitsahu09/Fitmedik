@@ -20,7 +20,7 @@ export default function NewActiveUsers() {
 
   const options = {
     responsive: true,
-    cutout: "80%",
+    cutout: "75%",
     maintainAspectRatio: false,
     borderRadius: 5,
     onHover: function (e) {
@@ -43,7 +43,7 @@ export default function NewActiveUsers() {
   };
 
   return (
-    <Stack direction="row" height="100%">
+    <Stack height="100%">
       <Box position="relative" flex={1}>
         <Box
           sx={{ position: "absolute", top: 4, bottom: 4, left: 4, right: 4 }}
@@ -51,43 +51,9 @@ export default function NewActiveUsers() {
           <Doughnut data={chartData} options={options} />
         </Box>
       </Box>
-
-      <Stack gap={2} alignSelf="center">
-        <Stack direction="row" alignItems="center" gap={2}>
-          <Box sx={{ ...rectangle, bgcolor: "#06b58c" }}></Box>
-          <Stack>
-            <Typography
-              sx={{
-                color: "#06b58c",
-                fontWeight: "500",
-                fontSize: "1.1rem",
-              }}
-            >
-              Active Users
-            </Typography>
-            <Typography fontSize="0.8rem" fontWeight="bold">
-              23
-            </Typography>
-          </Stack>
-        </Stack>
-        <Stack direction="row" alignItems="center" gap={2}>
-          <Box sx={{ ...rectangle, bgcolor: "hsl(0, 0%, 15%)" }}></Box>
-          <Stack>
-            <Typography
-              sx={{
-                color: "hsl(0, 0%, 15%)",
-                fontWeight: "500",
-                fontSize: "1.1rem",
-              }}
-            >
-              Total Users
-            </Typography>
-            <Typography fontSize="0.8rem" fontWeight="bold">
-              23
-            </Typography>
-          </Stack>
-        </Stack>
-      </Stack>
+      <Typography variant="h6" component="div" textAlign="center">
+        Users
+      </Typography>
     </Stack>
   );
 }

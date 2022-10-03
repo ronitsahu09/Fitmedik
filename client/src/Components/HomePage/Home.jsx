@@ -13,6 +13,7 @@ import {
 } from "../Styles_&_Components/Styles";
 import Speedometer from "../Graphs/Speedometer/Speedometer";
 import NewActiveUsers from "../Graphs/NewActiveUsers/NewActiveUsers";
+import { NewNotification } from "../Styles_&_Components/Components";
 
 export default function Home({ props }) {
   const { appHeight } = props;
@@ -24,7 +25,7 @@ export default function Home({ props }) {
       <Stack sx={{ ...middle }}>
         <Stack sx={{ ...middleWindow }}>
           <Typography variant="h3" component="div" fontWeight="700">
-            Dashboard
+            Home
           </Typography>
 
           <Stack sx={{ ...fixedWindow }}>
@@ -33,81 +34,85 @@ export default function Home({ props }) {
                 sx={{
                   ...graphCanvas,
                   flex: 1,
+                  height: "25vh",
                 }}
               >
                 <NewActiveUsers />
               </Paper>
 
-              <Paper sx={{ ...graphCanvas, ...users_status, flex: 1 }}>
+              <Paper
+                sx={{
+                  ...graphCanvas,
+                  ...users_status,
+                  flex: 1,
+                }}
+              >
                 <Speedometer />
                 <Typography variant="h6" component="div">
                   Hospital Status
                 </Typography>
               </Paper>
 
-              {/* <Paper
+              <Paper
                 sx={{
                   ...graphCanvas,
+                  flex: 1,
                   display: "flex",
                   flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: 2,
                 }}
               >
-                <Stack
-                  gap={1}
-                  direction="row"
-                  sx={{ color: "#06b58c", fontSize: "2rem", fontWeight: "700" }}
-                >
-                  <IconButton
-                    color="inherit"
-                    sx={{
-                      cursor: "text",
-                      bgcolor: "rgba(245, 95, 75, 0.05);",
-                      p: 1,
-                    }}
+                <Stack flex={1} justifyContent="center" alignItems="center">
+                  <Typography
+                    variant="div"
+                    component="div"
+                    fontSize="3rem"
+                    color="#f55f4b"
                   >
-                    <Box
-                      component={FontAwesomeIcon}
-                      sx={{ transform: "rotate(180deg)" }}
-                      icon={faArrowDownLong}
-                    />
-                  </IconButton>
-                  <Typography variant="div" component="div">
-                    800$
+                    $800
                   </Typography>
                 </Stack>
-
-                <Typography variant="h6" component="div">
-                  Profit
+                <Typography textAlign="center" variant="h6" component="div">
+                  Total Savings
                 </Typography>
-              </Paper> */}
+              </Paper>
             </Stack>
 
-            <Paper
-              sx={{
-                ...graphCanvas,
-                flex: 1,
-              }}
-            >
-              <Stack direction="row" justifyContent="space-between" mb={2}>
-                <select name="Burnout" defaultValue="Average Burnout">
-                  <option value="Average Burnout">Average Burnout</option>
-                </select>
-                <Stack direction="row" gap={3}>
-                  <select defaultValue="April" name="Monthly-filter">
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option value="June">June</option>
-                    <option value="July">July</option>
+            <Stack direction="row" gap={2}>
+              <Paper
+                sx={{
+                  ...graphCanvas,
+                  width: "70%",
+                }}
+              >
+                <Stack direction="row" justifyContent="space-between" mb={2}>
+                  <select name="Burnout" defaultValue="Average Burnout">
+                    <option value="Average Burnout">Average Burnout</option>
                   </select>
-                  <Box>{"<  Apr 2022  >"}</Box>
+                  <Stack direction="row" gap={3}>
+                    <select defaultValue="April" name="Monthly-filter">
+                      <option value="April">April</option>
+                      <option value="May">May</option>
+                      <option value="June">June</option>
+                      <option value="July">July</option>
+                    </select>
+                    <Box>{"<  Apr 2022  >"}</Box>
+                  </Stack>
                 </Stack>
-              </Stack>
 
-              <TrendGraph />
-            </Paper>
+                <TrendGraph />
+              </Paper>
+
+              <Box alignSelf="center" flex={1}>
+                <NewNotification
+                  props={{
+                    title: "Average Burnout",
+                    subHeading: "Organization",
+                    staus: "alert",
+                  }}
+                />
+              </Box>
+            </Stack>
+
             <Box sx={{ height: 5 }}></Box>
           </Stack>
         </Stack>

@@ -28,7 +28,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#f55f4b" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {100}
+              {9}
             </Typography>
             <Typography
               variant="p"
@@ -42,7 +42,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#f08725" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {100}
+              {25}
             </Typography>
             <Typography
               variant="p"
@@ -56,7 +56,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#fed966" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {100}
+              {33}
             </Typography>
             <Typography
               variant="p"
@@ -70,7 +70,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#8fabdd" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {100}
+              {74}
             </Typography>
             <Typography
               variant="p"
@@ -84,7 +84,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#06b58c" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {100}
+              {16}
             </Typography>
             <Typography
               variant="p"

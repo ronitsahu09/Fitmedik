@@ -2,7 +2,11 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 import HarveyBalls from "../Graphs/HarveyBalls/HarveyBalls";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import PieChart from "../Graphs/PieChart/PieChart";
-import { Legend } from "../Styles_&_Components/Components";
+import {
+  CustomTabs,
+  GraphInfo,
+  Legend,
+} from "../Styles_&_Components/Components";
 import {
   AppWrapper,
   fixedWindow,
@@ -19,8 +23,8 @@ const data = {
     {
       label: "MBI", //Change this label
       data: [22, 17, 13],
-      backgroundColor: ["#8fabdd", "#fed966", "#f55f4b"],
-      borderColor: ["#8fabdd", "#fed966", "#f55f4b"],
+      backgroundColor: ["#06b58c", "#fed966", "#f55f4b"],
+      borderColor: ["#06b58c", "#fed966", "#f55f4b"],
       datalabels: {
         anchor: "end",
         color: "white",
@@ -107,16 +111,25 @@ export default function Survey({ props }) {
 
           <Stack sx={{ ...fixedWindow }}>
             <Stack gap={3} mt={3}>
-              <Typography
-                component="div"
-                sx={{
-                  fontSize: { xs: "1.8em", lg: "2em" },
-                  fontWeight: "500",
-                  mr: 2,
-                }}
-              >
-                Identified Burnout cases
-              </Typography>
+              <Stack direction="row" alignItems="center" gap="0.5rem">
+                <Typography
+                  component="div"
+                  sx={{
+                    fontSize: { xs: "1.8em", lg: "2em" },
+                    fontWeight: "500",
+                    mr: 2,
+                  }}
+                >
+                  Identified Burnout cases
+                </Typography>
+
+                <GraphInfo
+                  props={{
+                    title:
+                      "Diagnosed burnout cases from the gold standard practice for burnout identification.",
+                  }}
+                />
+              </Stack>
 
               <Paper sx={{ ...graphCanvas, ...info, p: "1.5rem" }}>
                 <Stack gap={1} alignItems="center">
@@ -193,7 +206,7 @@ export default function Survey({ props }) {
                 </Typography>
 
                 <Stack direction="row" gap={2}>
-                  <Legend props={{ title: "Low Degree", color: "#8fabdd" }} />
+                  <Legend props={{ title: "Low Degree", color: "#06b58c" }} />
                   <Legend
                     props={{ title: "Moderately Degree", color: "#fed966" }}
                   />
@@ -268,6 +281,10 @@ export default function Survey({ props }) {
                   </Stack>
                 </Paper>
               </Stack>
+
+              <Box m="auto">
+                <CustomTabs />
+              </Box>
 
               <Typography
                 component="div"

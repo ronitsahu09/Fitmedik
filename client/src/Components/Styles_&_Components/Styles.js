@@ -19,7 +19,7 @@ export const middleWindow = {
 export const fixedWindow = {
   gap: 5,
   flex: 1,
-  overflow: "scroll",
+  overflowY: "scroll",
   pl: 0.5,
   pr: 0.5,
 };

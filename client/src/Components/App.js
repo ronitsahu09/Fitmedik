@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import DepartmentAnalytics from "./DepartmentAnalytics/DepartmentAnalytics";
 import CostSavings from "./CostSavings/CostSavings";
 import Survey from "./Survey/Survey";
+import Notifications from "./Notifications/Notifications";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -39,12 +40,7 @@ function App() {
         />
         <Route
           path="notifications"
-          element={
-            <>
-              <h1>Not Available</h1>
-              <Link to="/">Click here to go back</Link>
-            </>
-          }
+          element={<Notifications props={{ appHeight }} />}
         />
 
         <Route

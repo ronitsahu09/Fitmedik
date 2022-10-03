@@ -16,7 +16,6 @@ export const quesContainer = {
 export const info = {
   display: "flex",
   justifyContent: "space-between",
-  // textAlign: "center",
   pt: "2rem",
   pb: "2rem",
 };

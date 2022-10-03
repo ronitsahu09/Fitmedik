@@ -8,7 +8,7 @@ import { useState } from "react";
 import LineChart from "../Graphs/LineChart/LineChart";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
-import { CustomSelect } from "../Styles_&_Components/Components";
+import { CustomSelect, GraphInfo } from "../Styles_&_Components/Components";
 import {
   AppWrapper,
   fixedWindow,
@@ -38,16 +38,24 @@ export default function CostSavings({ props }) {
 
           <Stack sx={{ ...fixedWindow }}>
             <Stack gap={3} mt={3}>
-              <Typography
-                component="div"
-                sx={{ 
-                  fontSize: { xs: "1.8em", lg: "2em" },
-                  fontWeight: "500",
-                  mr: 2,
-                }}
-              >
-                Impact of burnout on operational Revenue
-              </Typography>
+              <Stack direction="row" alignItems="center" gap="0.5rem">
+                <Typography
+                  component="div"
+                  sx={{
+                    fontSize: { xs: "1.8em", lg: "2em" },
+                    fontWeight: "500",
+                    mr: 2,
+                  }}
+                >
+                  Impact of burnout on operational Revenue
+                </Typography>
+                <GraphInfo
+                  props={{
+                    title:
+                      "It shows how the burnout management activities are impacting operational revenue.",
+                  }}
+                />
+              </Stack>
               <Paper sx={{ ...graphCanvas, ...info, p: "1.5rem" }}>
                 <Stack>
                   <Typography
@@ -72,7 +80,7 @@ export default function CostSavings({ props }) {
                       <Box component={FontAwesomeIcon} icon={faArrowDownLong} />
                     </IconButton>
                     <Typography variant="div" component="div">
-                      800$
+                      $600
                     </Typography>
                   </Box>
                 </Stack>
@@ -105,7 +113,7 @@ export default function CostSavings({ props }) {
                     </IconButton>
 
                     <Typography variant="div" component="div">
-                      800$
+                      $900
                     </Typography>
                   </Box>
                 </Stack>
@@ -117,7 +125,7 @@ export default function CostSavings({ props }) {
                       fontWeight: "bold",
                     }}
                   >
-                    Net Amount
+                    Total Savings
                   </Typography>
 
                   <Box sx={{ ...values, color: "#f55f4b" }}>
@@ -136,7 +144,7 @@ export default function CostSavings({ props }) {
                       />
                     </IconButton>
                     <Typography variant="div" component="div">
-                      800$
+                      $300
                     </Typography>
                   </Box>
                 </Stack>
@@ -148,14 +156,23 @@ export default function CostSavings({ props }) {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "1.8em", lg: "2em" },
-                      fontWeight: "500",
-                    }}
-                  >
-                    Analytics
-                  </Typography>
+                  <Stack direction="row" alignItems="center" gap="0.5rem">
+                    <Typography
+                      sx={{
+                        fontSize: { xs: "1.8em", lg: "2em" },
+                        fontWeight: "500",
+                      }}
+                    >
+                      Analytics
+                    </Typography>
+
+                    <GraphInfo
+                      props={{
+                        title:
+                          "Cost savings due to management activities over the time span.",
+                      }}
+                    />
+                  </Stack>
 
                   <CustomSelect props={{ filters, handleChange }} />
                 </Stack>

@@ -198,7 +198,7 @@ export function NotificationCard({ props }) {
 }
 
 export function NewNotification({ props }) {
-  const { status, title, subHeading } = props;
+  const { status, title, subHeading, content } = props;
 
   return (
     <Card
@@ -229,6 +229,12 @@ export function NewNotification({ props }) {
         title={title}
         subheader={subHeading}
       />
+
+      <CardContent sx={{ pt: 0, pb: 0 }}>
+        <Typography variant="body2" component="div">
+          {content}
+        </Typography>
+      </CardContent>
     </Card>
   );
 }

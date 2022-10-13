@@ -10,7 +10,7 @@ import {
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
 
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { leftSidebar } from "./Styles";
 
@@ -23,67 +23,100 @@ export default function LeftSidebar() {
       }}
     >
       <Stack gap={3}>
-        <Box component={Link} to="/">
-          <Tooltip
-            title="Home"
-            placement="right-start"
-            TransitionComponent={Zoom}
-            arrow
+        <Tooltip
+          title="Home"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/"
           >
-            <IconButton>
+            <IconButton sx={{ color: "inherit" }}>
               <Home fontSize="large" />
             </IconButton>
-          </Tooltip>
-        </Box>
-        <Box component={Link} to="/analytics">
-          <Tooltip
-            title="Analytics"
-            placement="right-start"
-            TransitionComponent={Zoom}
-            arrow
+          </Box>
+        </Tooltip>
+
+        <Tooltip
+          title="Analytics"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/analytics"
           >
-            <IconButton>
+            <IconButton sx={{ color: "inherit" }}>
               <SsidChart fontSize="large" />
             </IconButton>
-          </Tooltip>
-        </Box>
+          </Box>
+        </Tooltip>
 
-        <Box component={Link} to="/costsavings">
-          <Tooltip
-            title="Cost Savings"
-            placement="right-start"
-            TransitionComponent={Zoom}
-            arrow
+        <Tooltip
+          title="Cost Savings"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/costsavings"
           >
-            <IconButton>
+            <IconButton sx={{ color: "inherit" }}>
               <AttachMoney fontSize="large" />
             </IconButton>
-          </Tooltip>
-        </Box>
-        <Box component={Link} to="/surveyresults">
-          <Tooltip
-            title="MBI Results"
-            placement="right-start"
-            TransitionComponent={Zoom}
-            arrow
+          </Box>
+        </Tooltip>
+
+        <Tooltip
+          title="MBI Results"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/surveyresults"
           >
-            <IconButton>
+            <IconButton sx={{ color: "inherit" }}>
               <Poll fontSize="large" />
             </IconButton>
-          </Tooltip>
-        </Box>
-        <Box component={Link} to="/notifications">
-          <Tooltip
-            title="Notifications"
-            placement="right-start"
-            TransitionComponent={Zoom}
-            arrow
+          </Box>
+        </Tooltip>
+
+        <Tooltip
+          title="Notifications"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/notifications"
           >
-            <IconButton>
+            <IconButton sx={{ color: "inherit" }}>
               <Notifications fontSize="large" />
             </IconButton>
-          </Tooltip>
-        </Box>
+          </Box>
+        </Tooltip>
       </Stack>
 
       <Stack gap={3}>

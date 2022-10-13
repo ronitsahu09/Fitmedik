@@ -102,15 +102,34 @@ export default function Home({ props }) {
                 <TrendGraph />
               </Paper>
 
-              <Box alignSelf="center" flex={1}>
+              <Stack justifyContent="space-between" flex={1}>
                 <NewNotification
                   props={{
                     title: "Average Burnout",
                     subHeading: "Organization",
                     staus: "alert",
+                    content: "Lorem Ipsum"
                   }}
                 />
-              </Box>
+
+                <NewNotification
+                  props={{
+                    title: "Average Burnout",
+                    subHeading: "Organization",
+                    staus: "alert",
+                    content: "Lorem Ipsum"
+                  }}
+                />
+
+                <NewNotification
+                  props={{
+                    title: "Average Burnout",
+                    subHeading: "Organization",
+                    staus: "alert",
+                    content: "Lorem Ipsum"
+                  }}
+                />
+              </Stack>
             </Stack>
 
             <Box sx={{ height: 5 }}></Box>

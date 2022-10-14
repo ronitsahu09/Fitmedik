@@ -11,7 +11,7 @@ export const strip = {
   "& div": {
     display: "inline-block",
     height: "0.9cm",
-    marginRight: "3px",
+    marginRight: "0.5%",
   },
 };
 

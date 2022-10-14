@@ -109,6 +109,37 @@ export function CustomSelect({ props }) {
   );
 }
 
+export function RegularSelectMenu({ props }) {
+  const { label, title, options, currMonth, setCurrMonth } = props;
+
+  const handleChange = (event) => {
+    setCurrMonth(event.target.value);
+  };
+
+  return (
+    <FormControl variant="standard" sx={{ minWidth: 120 }} size="small">
+      <InputLabel id={`${label}-selectMenu-label`}>{title}</InputLabel>
+      <Select
+        labelId={`${label}-selectMenu-label`}
+        id={`${label}-selectMenu`}
+        value={currMonth}
+        label={title}
+        onChange={handleChange}
+      >
+        {options.map((opt, indx) => {
+          const { value, legend } = opt;
+
+          return (
+            <MenuItem key={indx} value={value}>
+              {legend}
+            </MenuItem>
+          );
+        })}
+      </Select>
+    </FormControl>
+  );
+}
+
 export function NotificationCard({ props }) {
   const { status, title, subHeading, content } = props;
 
@@ -203,7 +234,7 @@ export function NewNotification({ props }) {
   return (
     <Card
       sx={{
-        width: "95%",
+        width: "98%",
         position: "relative",
         "&::before": {
           content: "''",
@@ -263,21 +294,23 @@ export function CustomTabs() {
   };
 
   return (
-    <Tabs
-      value={value}
-      onChange={handleChange}
-      variant="scrollable"
-      scrollButtons
-      allowScrollButtonsMobile
-      aria-label="scrollable force tabs example"
-    >
-      <Tab label="20 April" />
-      <Tab label="21 April" />
-      <Tab label="22 April" />
-      <Tab label="23 April" />
-      <Tab label="24 April" />
-      <Tab label="25 April" />
-      <Tab label="26 April" />
-    </Tabs>
+    <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: "background.paper" }}>
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        variant="scrollable"
+        scrollButtons
+        allowScrollButtonsMobile
+        aria-label="scrollable force tabs example"
+      >
+        <Tab label="20 April" />
+        <Tab label="21 April" />
+        <Tab label="22 April" />
+        <Tab label="23 April" />
+        <Tab label="24 April" />
+        <Tab label="25 April" />
+        <Tab label="26 April" />
+      </Tabs>
+    </Box>
   );
 }

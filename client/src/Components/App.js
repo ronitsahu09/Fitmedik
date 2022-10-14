@@ -7,11 +7,16 @@ import DepartmentAnalytics from "./DepartmentAnalytics/DepartmentAnalytics";
 import CostSavings from "./CostSavings/CostSavings";
 import Survey from "./Survey/Survey";
 import Notifications from "./Notifications/Notifications";
+import { getOrganization } from "../Redux/Organization";
+import { useDispatch } from "react-redux";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(getOrganization({ organizationId: "634856d240f288e60178261c" }));
+
     const reportAppHeight = () => {
       setAppHeight(`${window.innerHeight}px`);
     };

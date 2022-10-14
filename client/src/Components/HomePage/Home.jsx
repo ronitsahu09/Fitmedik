@@ -13,7 +13,10 @@ import {
 } from "../Styles_&_Components/Styles";
 import Speedometer from "../Graphs/Speedometer/Speedometer";
 import NewActiveUsers from "../Graphs/NewActiveUsers/NewActiveUsers";
-import { NewNotification } from "../Styles_&_Components/Components";
+import {
+  NewNotification,
+  RegularSelectMenu,
+} from "../Styles_&_Components/Components";
 
 export default function Home({ props }) {
   const { appHeight } = props;
@@ -78,29 +81,7 @@ export default function Home({ props }) {
             </Stack>
 
             <Stack direction="row" gap={2}>
-              <Paper
-                sx={{
-                  ...graphCanvas,
-                  width: "70%",
-                }}
-              >
-                <Stack direction="row" justifyContent="space-between" mb={2}>
-                  <select name="Burnout" defaultValue="Average Burnout">
-                    <option value="Average Burnout">Average Burnout</option>
-                  </select>
-                  <Stack direction="row" gap={3}>
-                    <select defaultValue="April" name="Monthly-filter">
-                      <option value="April">April</option>
-                      <option value="May">May</option>
-                      <option value="June">June</option>
-                      <option value="July">July</option>
-                    </select>
-                    <Box>{"<  Apr 2022  >"}</Box>
-                  </Stack>
-                </Stack>
-
-                <TrendGraph />
-              </Paper>
+              <TrendGraph />
 
               <Stack justifyContent="space-between" flex={1}>
                 <NewNotification
@@ -108,7 +89,7 @@ export default function Home({ props }) {
                     title: "Average Burnout",
                     subHeading: "Organization",
                     staus: "alert",
-                    content: "Lorem Ipsum"
+                    content: "Lorem Ipsum",
                   }}
                 />
 
@@ -117,7 +98,7 @@ export default function Home({ props }) {
                     title: "Average Burnout",
                     subHeading: "Organization",
                     staus: "alert",
-                    content: "Lorem Ipsum"
+                    content: "Lorem Ipsum",
                   }}
                 />
 
@@ -126,7 +107,7 @@ export default function Home({ props }) {
                     title: "Average Burnout",
                     subHeading: "Organization",
                     staus: "alert",
-                    content: "Lorem Ipsum"
+                    content: "Lorem Ipsum",
                   }}
                 />
               </Stack>

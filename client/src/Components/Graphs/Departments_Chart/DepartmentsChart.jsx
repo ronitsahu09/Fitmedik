@@ -47,7 +47,7 @@ export default function DepartmentsChart() {
   const data = [
     {
       name: "Radiology",
-      stats: { safe: 19, low: 33, medium: 28, high: 15, danger: 5 },
+      stats: { safe: 19, low: 33, medium: 28, high: 15, danger: 0 },
     },
     {
       name: "Cardiology",
@@ -63,6 +63,7 @@ export default function DepartmentsChart() {
             <Box component={Link} to={`${department.name}`} sx={{ ...title }}>
               {department.name}
             </Box>
+
             <Box sx={{ ...strip }}>
               <DarkTooltip
                 title={
@@ -72,12 +73,13 @@ export default function DepartmentsChart() {
                 <Box
                   sx={{
                     bgcolor: "#06b58c",
-                    minWidth: `calc(${department.stats.safe}% - 3px)`,
+                    width: `calc(${department.stats.safe}% - 0.5%)`,
                   }}
                 >
                   &nbsp;
                 </Box>
               </DarkTooltip>
+
               <DarkTooltip
                 title={
                   <TooltipContent props={{ title: "Low", color: "#8fabdd" }} />
@@ -86,12 +88,13 @@ export default function DepartmentsChart() {
                 <Box
                   sx={{
                     bgcolor: "#8fabdd",
-                    minWidth: `calc(${department.stats.low}% - 3px)`,
+                    width: `calc(${department.stats.low}% - 0.5%)`,
                   }}
                 >
                   &nbsp;
                 </Box>
               </DarkTooltip>
+
               <DarkTooltip
                 title={
                   <TooltipContent
@@ -102,12 +105,13 @@ export default function DepartmentsChart() {
                 <Box
                   sx={{
                     bgcolor: "#fed966",
-                    minWidth: `calc(${department.stats.medium}% - 3px)`,
+                    width: `calc(${department.stats.medium}% - 0.5%)`,
                   }}
                 >
                   &nbsp;
                 </Box>
               </DarkTooltip>
+
               <DarkTooltip
                 title={
                   <TooltipContent props={{ title: "High", color: "#f08725" }} />
@@ -116,12 +120,13 @@ export default function DepartmentsChart() {
                 <Box
                   sx={{
                     bgcolor: "#f08725",
-                    minWidth: `calc(${department.stats.high}% - 3px)`,
+                    width: `calc(${department.stats.high}% - 0.5%)`,
                   }}
                 >
                   &nbsp;
                 </Box>
               </DarkTooltip>
+
               <DarkTooltip
                 title={
                   <TooltipContent
@@ -132,7 +137,7 @@ export default function DepartmentsChart() {
                 <Box
                   sx={{
                     bgcolor: "#f55f4b",
-                    minWidth: `calc(${department.stats.danger}% - 3px)`,
+                    width: `calc(${department.stats.danger}% - 0.5%)`,
                   }}
                 >
                   &nbsp;

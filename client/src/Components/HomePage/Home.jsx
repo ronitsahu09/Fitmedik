@@ -17,9 +17,13 @@ import {
   NewNotification,
   RegularSelectMenu,
 } from "../Styles_&_Components/Components";
+import { useSelector } from "react-redux";
 
 export default function Home({ props }) {
   const { appHeight } = props;
+  const averageBurnout = useSelector(
+    (state) => state?.organization?.organizationInfo?.averageBurnout
+  );
 
   return (
     <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
@@ -81,9 +85,9 @@ export default function Home({ props }) {
             </Stack>
 
             <Stack direction="row" gap={2}>
-              <TrendGraph />
+              <TrendGraph props={{ averageBurnout }} />
 
-              <Stack justifyContent="space-between" flex={1}>
+              <Stack justifyContent="space-between" width="30%">
                 <NewNotification
                   props={{
                     title: "Average Burnout",

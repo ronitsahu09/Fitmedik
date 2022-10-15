@@ -1,12 +1,4 @@
-import {
-  Box,
-  IconButton,
-  Paper,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
+import { IconButton, Paper, Stack, Typography } from "@mui/material";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,12 +16,7 @@ import { Line } from "react-chartjs-2";
 import { RegularSelectMenu } from "../../Styles_&_Components/Components";
 import { graphCanvas } from "../../Styles_&_Components/Styles";
 import { useState } from "react";
-import {
-  ArrowBack,
-  ArrowBackIos,
-  ArrowForward,
-  ArrowForwardIos,
-} from "@mui/icons-material";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { useEffect } from "react";
 
 ChartJS.register(
@@ -58,10 +45,8 @@ const monthMap = {
   12: "December",
 };
 
-export default function TrendGraph() {
-  const averageBurnout = useSelector(
-    (state) => state?.organization?.organizationInfo?.averageBurnout
-  );
+export default function TrendGraph({ props }) {
+  const { averageBurnout } = props;
 
   const [currMonth, setCurrMonth] = useState("");
   const [currEndDate, setCurrEndDate] = useState(-1);
@@ -89,7 +74,6 @@ export default function TrendGraph() {
   };
 
   useEffect(() => {
-
     setCurrMonth(() => {
       const len = averageBurnout?.length;
       if (!len) return "";
@@ -186,7 +170,7 @@ export default function TrendGraph() {
   };
 
   return (
-    <Stack gap={2} width="65%">
+    <Stack gap={2} width="100%">
       {averageBurnout && (
         <>
           <Stack direction="row" justifyContent="space-between">

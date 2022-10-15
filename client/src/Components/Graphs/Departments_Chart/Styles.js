@@ -3,6 +3,7 @@ export const title = {
   color: "black",
   fontSize: "1.1rem",
   fontWeight: "700",
+  textTransform: "capitalize",
   textDecoration: "underline",
 };
 
@@ -11,7 +12,6 @@ export const strip = {
   "& div": {
     display: "inline-block",
     height: "0.9cm",
-    marginRight: "0.5%",
   },
 };
 

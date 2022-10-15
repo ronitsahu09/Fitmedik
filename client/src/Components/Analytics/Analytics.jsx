@@ -129,7 +129,10 @@ export default function Analytics({ props }) {
                 case "other":
                   data[4]++;
                   break;
+                default:
               }
+
+              return null;
             });
 
             data = data.map(
@@ -220,7 +223,10 @@ export default function Analytics({ props }) {
                 case "white":
                   data[4]++;
                   break;
+                default:
               }
+
+              return null;
             });
 
             data = data.map(
@@ -303,9 +309,10 @@ export default function Analytics({ props }) {
               else if (age >= 26 && age < 41) data[2]++;
               else if (age >= 41 && age < 56) data[3]++;
               else data[4]++;
+
+              return null;
             });
 
-            console.log(data);
             data = data.map(
               (count) => +((count * 100) / users.length).toFixed(1)
             );
@@ -452,7 +459,10 @@ export default function Analytics({ props }) {
                         case 1:
                           stats.safe++;
                           break;
+                        default:
                       }
+
+                      return null;
                     });
 
                     stats.safe *= 100 / totalUsers;

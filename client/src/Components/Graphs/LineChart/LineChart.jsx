@@ -66,7 +66,7 @@ const data = [
 
 export default function LineChart({ props }) {
   const { filters } = props;
-  console.log(props);
+  
   const chartData = {
     labels: ["April 5", "April 6", "April 7", "April 8", "April 9", "April 10"],
     datasets: data[filters],

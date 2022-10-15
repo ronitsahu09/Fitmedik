@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import GaugeChart from "react-gauge-chart";
 
 export default function Speedometer() {

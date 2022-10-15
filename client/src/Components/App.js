@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./HomePage/Home";
 import Analytics from "./Analytics/Analytics";
 import "react-circular-progressbar/dist/styles.css";
@@ -29,7 +29,7 @@ function App() {
     return () => {
       window.removeEventListener("resize", reportAppHeight, false);
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">

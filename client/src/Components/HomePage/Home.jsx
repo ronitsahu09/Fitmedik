@@ -13,10 +13,7 @@ import {
 } from "../Styles_&_Components/Styles";
 import Speedometer from "../Graphs/Speedometer/Speedometer";
 import NewActiveUsers from "../Graphs/NewActiveUsers/NewActiveUsers";
-import {
-  NewNotification,
-  RegularSelectMenu,
-} from "../Styles_&_Components/Components";
+import { NewNotification } from "../Styles_&_Components/Components";
 import { useSelector } from "react-redux";
 
 export default function Home({ props }) {

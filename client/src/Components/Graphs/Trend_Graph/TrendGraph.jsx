@@ -10,7 +10,6 @@ import {
   Filler,
   Legend,
 } from "chart.js";
-import { useSelector } from "react-redux";
 
 import { Line } from "react-chartjs-2";
 import { RegularSelectMenu } from "../../Styles_&_Components/Components";
@@ -74,24 +73,21 @@ export default function TrendGraph({ props }) {
   };
 
   useEffect(() => {
+    const len = averageBurnout?.length;
+    if (!len) return;
+
     setCurrMonth(() => {
-      const len = averageBurnout?.length;
-      if (!len) return "";
       return averageBurnout[len - 1].month;
     });
-  }, [averageBurnout]);
-
-  useEffect(() => {
-    if (currMonth === "") return;
 
     setCurrEndDate(() => {
       const target = averageBurnout.filter(
-        (item) => item.month === currMonth
+        (item) => item.month === averageBurnout[len - 1].month
       )[0];
 
       return target.avgBurnoutScores.length;
     });
-  }, [currMonth]);
+  }, [averageBurnout]);
 
   const getLabels = () => {
     const label = [];

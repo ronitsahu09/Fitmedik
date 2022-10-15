@@ -1,7 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { rectangle } from "./Styles";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

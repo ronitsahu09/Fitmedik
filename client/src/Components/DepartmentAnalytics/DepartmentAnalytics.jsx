@@ -139,10 +139,13 @@ export default function DepartmentAnalytics({ props }) {
                 case 1:
                   data[0]++;
                   break;
+                default:
               }
 
-              data.map((count) => +((count * 100) / len).toFixed(1));
+              return null;
             });
+
+            data.map((count) => +((count * 100) / users.length).toFixed(1));
           }
 
           return data;
@@ -167,7 +170,9 @@ export default function DepartmentAnalytics({ props }) {
               dataset: { data },
             } = context;
 
-            return data[index] > 10;
+            const fivePercent = (5 * (department?.users?.length || 1)) / 100;
+
+            return data[index] > fivePercent;
           },
           formatter: function (value) {
             return `${value} %`;
@@ -229,14 +234,17 @@ export default function DepartmentAnalytics({ props }) {
                 case "other":
                   data[4]++;
                   break;
+                default:
               }
+
+              return null;
             });
 
             data = data.map(
               (count) => +((100 * count) / users.length).toFixed(1)
             );
           }
-          console.log(data);
+
           return data;
         })(),
         backgroundColor: [
@@ -323,7 +331,10 @@ export default function DepartmentAnalytics({ props }) {
                 case "white":
                   data[4]++;
                   break;
+                default:
               }
+
+              return null;
             });
 
             data = data.map(
@@ -408,6 +419,8 @@ export default function DepartmentAnalytics({ props }) {
               else if (age >= 26 && age < 41) data[2]++;
               else if (age >= 41 && age < 56) data[3]++;
               else data[4]++;
+
+              return null;
             });
 
             data = data.map(

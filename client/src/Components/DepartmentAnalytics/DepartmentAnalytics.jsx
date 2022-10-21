@@ -14,83 +14,6 @@ import {
   middleWindow,
 } from "../Styles_&_Components/Styles";
 
-const Profession = {
-  Doctors: [13, 20],
-  Nurses: [6, 20],
-  IT: [14, 20],
-  Students: [5, 20],
-  Staff: [2, 40],
-};
-
-const EmployeePieData = {
-  labels: Object.keys(Profession),
-  datasets: [
-    {
-      label: "High Risk Profession",
-      data: Object.entries(Profession).map((property) => {
-        const percent = (100 * property[1][0]) / property[1][1];
-        return percent;
-      }),
-      backgroundColor: [
-        "hsl(7, 89%, 63%)",
-        "hsl(166, 94%, 37%)",
-        "hsl(29, 87%, 54%)",
-        "hsl(218, 53%, 71%)",
-        "hsl(45, 99%, 70%)",
-      ],
-      borderColor: [
-        "hsl(7, 89%, 63%)",
-        "hsl(166, 94%, 37%)",
-        "hsl(29, 87%, 54%)",
-        "hsl(218, 53%, 71%)",
-        "hsl(45, 99%, 70%)",
-      ],
-      datalabels: {
-        anchor: "end",
-        color: "white",
-        backgroundColor: function (context) {
-          return context.dataset.backgroundColor;
-        },
-        display: function (context) {
-          const index = context.dataIndex;
-          const {
-            dataset: { data },
-          } = context;
-
-          return data[index] > 10;
-        },
-        formatter: function (value) {
-          return `${value} %`;
-        },
-        borderRadius: 25,
-        borderWidth: 2,
-        borderColor: "white",
-        padding: 4,
-        font: { weight: "bold" },
-      },
-      borderAlign: "inner",
-    },
-  ],
-};
-
-const EmployeePieOptions = {
-  responsive: true,
-  layout: {
-    padding: 20,
-  },
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false,
-    },
-
-    doughnutLabelsLine: false,
-    tooltip: {
-      enabled: false,
-    },
-  },
-};
-
 export default function DepartmentAnalytics({ props }) {
   const { id } = useParams();
   const { appHeight } = props;
@@ -101,7 +24,10 @@ export default function DepartmentAnalytics({ props }) {
     return departments.filter((dept) => dept._id === id)[0];
   });
 
-  //* Fetch average Burnout according to department id later.
+  /*
+   * Fetch average Burnout according to department id later.
+   ! Currently we are fetching the average burnout of the whole organization
+   */
   const averageBurnout = useSelector(
     (state) => state?.organization?.organizationInfo?.averageBurnout
   );
@@ -206,6 +132,116 @@ export default function DepartmentAnalytics({ props }) {
     },
   };
 
+  const EmployeePieData = {
+    labels: ["doctors", "nurses", "it", "students", "staff"],
+    datasets: [
+      {
+        label: "High Risk Profession",
+        data: (function () {
+          let data = [0, 0, 0, 0, 0];
+          let totalUsers = 0;
+
+          const users = department?.users;
+
+          if (users) {
+            users.map((user) => {
+              const { profession, burnout } = user;
+              const len = burnout.length;
+
+              if (burnout[len - 1] < 4) return null;
+
+              totalUsers++;
+
+              switch (profession) {
+                case "doctor":
+                  data[0]++;
+                  break;
+                case "nurse":
+                  data[1]++;
+                  break;
+                case "it":
+                  data[2]++;
+                  break;
+                case "student":
+                  data[3]++;
+                  break;
+                case "staff":
+                  data[4]++;
+                  break;
+                default:
+              }
+
+              return null;
+            });
+          }
+
+          data = data.map((count) => +((count * 100) / totalUsers).toFixed(1));
+
+          return data;
+        })(),
+        backgroundColor: [
+          "hsl(7, 89%, 63%)",
+          "hsl(166, 94%, 37%)",
+          "hsl(29, 87%, 54%)",
+          "hsl(218, 53%, 71%)",
+          "hsl(45, 99%, 70%)",
+        ],
+        borderColor: [
+          "hsl(7, 89%, 63%)",
+          "hsl(166, 94%, 37%)",
+          "hsl(29, 87%, 54%)",
+          "hsl(218, 53%, 71%)",
+          "hsl(45, 99%, 70%)",
+        ],
+        datalabels: {
+          anchor: "end",
+          color: "white",
+          backgroundColor: function (context) {
+            return context.dataset.backgroundColor;
+          },
+          display: function (context) {
+            const index = context.dataIndex;
+            const { users } = department;
+            const {
+              dataset: { data },
+            } = context;
+
+            const fivePercent = (5 * (users?.length || 1)) / 100;
+
+            return data[index] > fivePercent;
+          },
+          formatter: function (value) {
+            return `${value} %`;
+          },
+          borderRadius: 25,
+          borderWidth: 2,
+          borderColor: "white",
+          padding: 4,
+          font: { weight: "bold" },
+        },
+        borderAlign: "inner",
+      },
+    ],
+  };
+
+  const EmployeePieOptions = {
+    responsive: true,
+    layout: {
+      padding: 20,
+    },
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+
+      doughnutLabelsLine: false,
+      tooltip: {
+        enabled: false,
+      },
+    },
+  };
+
   const genderPieData = {
     labels: ["Male", "Female", "Transgender", "Non-Binary", "Other"],
     datasets: [
@@ -213,11 +249,17 @@ export default function DepartmentAnalytics({ props }) {
         label: "Gender Diversity",
         data: (function () {
           let data = [0, 0, 0, 0, 0];
+          let totalUsers = 0;
 
-          if (department) {
-            const { users } = department;
+          const users = department?.users;
 
+          if (users) {
             users.map((user) => {
+              const len = user.burnout.length;
+
+              if (user.burnout[len - 1] < 4) return null;
+              totalUsers++;
+
               switch (user.gender) {
                 case "male":
                   data[0]++;
@@ -241,7 +283,7 @@ export default function DepartmentAnalytics({ props }) {
             });
 
             data = data.map(
-              (count) => +((100 * count) / users.length).toFixed(1)
+              (count) => +((100 * count) / totalUsers).toFixed(1)
             );
           }
 
@@ -263,11 +305,11 @@ export default function DepartmentAnalytics({ props }) {
           },
           display: function (context) {
             const index = context.dataIndex;
+            const { users } = department;
             const {
               dataset: { data },
             } = context;
-
-            const fivePercent = (5 * (department?.users?.length || 1)) / 100;
+            const fivePercent = (5 * (users?.length || 1)) / 100;
 
             return data[index] > fivePercent;
           },
@@ -307,14 +349,21 @@ export default function DepartmentAnalytics({ props }) {
     labels: ["American Native", "Asian", "Coloured", "Other", "White"],
     datasets: [
       {
-        label: "High Risk Profession",
+        label: "Ethnicity",
         data: (function () {
           let data = [0, 0, 0, 0, 0];
+          let totalUsers = 0;
 
-          if (department) {
-            const { users } = department;
+          const users = department?.users;
 
+          if (users) {
             users.map((user) => {
+              const len = user.burnout.length;
+
+              if (user.burnout[len - 1] < 4) return null;
+
+              totalUsers++;
+
               switch (user.ethnicity) {
                 case "american native":
                   data[0]++;
@@ -338,7 +387,7 @@ export default function DepartmentAnalytics({ props }) {
             });
 
             data = data.map(
-              (count) => +((count * 100) / users.length).toFixed(1)
+              (count) => +((count * 100) / totalUsers).toFixed(1)
             );
           }
 
@@ -360,11 +409,13 @@ export default function DepartmentAnalytics({ props }) {
           },
           display: function (context) {
             const index = context.dataIndex;
+            const { users } = department;
+
             const {
               dataset: { data },
             } = context;
 
-            const fivePercent = (5 * (department?.users?.length || 1)) / 100;
+            const fivePercent = (5 * (users?.length || 1)) / 100;
 
             return data[index] > fivePercent;
           },
@@ -404,15 +455,21 @@ export default function DepartmentAnalytics({ props }) {
     labels: ["<18 years", "18-25 years", "26-40 years", "41-55 years", "55+"],
     datasets: [
       {
-        label: "High Risk Profession",
+        label: "Age Groups",
         data: (function () {
           let data = [0, 0, 0, 0, 0];
+          let totalUsers = 0;
 
-          if (department) {
-            const { users } = department;
+          const users = department?.users;
 
+          if (users) {
             users.map((user) => {
               const { age } = user;
+              const len = user.burnout.length;
+
+              if (user.burnout[len - 1] < 4) return null;
+
+              totalUsers++;
 
               if (age < 18) data[0]++;
               else if (age >= 18 && age < 26) data[1]++;
@@ -424,7 +481,7 @@ export default function DepartmentAnalytics({ props }) {
             });
 
             data = data.map(
-              (count) => +((count * 100) / users.length).toFixed(1)
+              (count) => +((count * 100) / totalUsers).toFixed(1)
             );
           }
 
@@ -446,11 +503,13 @@ export default function DepartmentAnalytics({ props }) {
           },
           display: function (context) {
             const index = context.dataIndex;
+            const { users } = department;
+
             const {
               dataset: { data },
             } = context;
 
-            const fivePercent = (5 * (department?.users?.length || 1)) / 100;
+            const fivePercent = (5 * (users?.length || 1)) / 100;
 
             return data[index] > fivePercent;
           },
@@ -605,14 +664,212 @@ export default function DepartmentAnalytics({ props }) {
                     alignItems: "center",
                   }}
                 >
-                  <HealthTracker props={{ data: {}, title: "Stress" }} />
                   <HealthTracker
-                    props={{ data: {}, title: "Physical Fatigue" }}
+                    props={{
+                      data: (function () {
+                        const data = {
+                          safe: 0,
+                          low: 0,
+                          medium: 0,
+                          high: 0,
+                          danger: 0,
+                        };
+
+                        const users = department?.users;
+
+                        if (users) {
+                          users.map((user) => {
+                            const { workingHours } = user;
+
+                            if (workingHours <= 9) data.safe++;
+                            else if (workingHours > 9 && workingHours <= 11)
+                              data.low++;
+                            else if (workingHours > 11 && workingHours <= 13)
+                              data.medium++;
+                            else if (workingHours > 13 && workingHours <= 15)
+                              data.high++;
+                            else data.danger++;
+
+                            return null;
+                          });
+                        }
+
+                        return data;
+                      })(),
+                      title: "Work Life Balance",
+                    }}
                   />
-                  <HealthTracker props={{ data: {}, title: "Sleep quality" }} />
-                  <HealthTracker props={{ data: {}, title: "Arrhythmia" }} />
-                  <HealthTracker props={{ data: {}, title: "CVD" }} />
-                  <HealthTracker props={{ data: {}, title: "Hypertension" }} />
+
+                  <HealthTracker
+                    props={{
+                      data: (function () {
+                        const data = {
+                          safe: 0,
+                          low: 0,
+                          medium: 0,
+                          high: 0,
+                          danger: 0,
+                        };
+
+                        const users = department?.users;
+
+                        if (users) {
+                          users.map((user) => {
+                            const { dailyStepCount } = user;
+
+                            if (dailyStepCount < 10000) data.safe++;
+                            else if (
+                              dailyStepCount >= 10000 &&
+                              dailyStepCount <= 12000
+                            )
+                              data.low++;
+                            else if (
+                              dailyStepCount > 12000 &&
+                              dailyStepCount <= 15000
+                            )
+                              data.medium++;
+                            else if (
+                              dailyStepCount > 15000 &&
+                              dailyStepCount <= 17000
+                            )
+                              data.high++;
+                            else data.danger++;
+
+                            return null;
+                          });
+                        }
+
+                        return data;
+                      })(),
+
+                      title: "Physical Fatigue",
+                    }}
+                  />
+
+                  <HealthTracker
+                    props={{
+                      data: (function () {
+                        const data = {
+                          safe: 0,
+                          low: 0,
+                          medium: 0,
+                          high: 0,
+                          danger: 0,
+                        };
+
+                        const users = department?.users;
+
+                        if (users) {
+                          users.map((user) => {
+                            const {
+                              mood: { moodType },
+                            } = user;
+
+                            switch (moodType) {
+                              case "angry":
+                                data.danger++;
+                                break;
+                              case "fear":
+                                data.high++;
+                                break;
+                              case "sad":
+                              case "disgust":
+                                data.medium++;
+                                break;
+                              case "neutral":
+                                data.low++;
+                                break;
+                              case "calm":
+                              case "happy":
+                                data.safe++;
+                                break;
+                              default:
+                            }
+
+                            return null;
+                          });
+                        }
+
+                        return data;
+                      })(),
+                      title: "Mood",
+                    }}
+                  />
+
+                  <HealthTracker
+                    props={{
+                      data: (function () {
+                        const data = {
+                          safe: 0,
+                          low: 0,
+                          medium: 0,
+                          high: 0,
+                          danger: 0,
+                        };
+
+                        const users = department?.users;
+
+                        if (users) {
+                          users.map((user) => {
+                            const { sleepHours } = user;
+
+                            if (sleepHours > 8) data.safe++;
+                            else if (sleepHours <= 8 && sleepHours >= 6)
+                              data.low++;
+                            else if (sleepHours < 6 && sleepHours >= 5)
+                              data.medium++;
+                            else if (sleepHours < 5 && sleepHours >= 4)
+                              data.high++;
+                            else data.danger++;
+
+                            return null;
+                          });
+                        }
+
+                        return data;
+                      })(),
+                      title: "Sleep Quality",
+                    }}
+                  />
+
+                  {/* <HealthTracker
+                    props={{
+                      data: (function () {
+                        const data = {
+                          safe: 0,
+                          low: 0,
+                          medium: 0,
+                          high: 0,
+                          danger: 0,
+                        };
+
+                        const users = department?.users;
+
+
+                        if (users) {
+                          users.map((user) => {
+                            const {
+                              interaction: { workingAlone },
+                            } = user;
+
+                            if (workingAlone < 2) data.safe++;
+                            else if (workingAlone >= 2 && workingAlone < 3)
+                              data.low++;
+                            else if (workingAlone >= 3 && workingAlone < 4)
+                              data.medium++;
+                            else if (workingAlone >= 4 && workingAlone < 5)
+                              data.high++;
+                            else data.danger++;
+
+                            return null;
+                          });
+                        }
+
+                        return data;
+                      })(),
+                      title: "Team Support",
+                    }}
+                  /> */}
                 </Paper>
               </Stack>
 

@@ -48,8 +48,6 @@ ChartJS.register(ArcElement, Tooltip, Legend, doughnutLabelsLine);
 export default function HealthTracker({ props }) {
   let { data, title } = props;
 
-  data = { safe: 10, low: 90, medium: 22, high: 20, danger: 43 };
-
   const chartData = {
     labels: ["Safe", "Low", "Medium", "High", "Danger"],
     datasets: [

@@ -125,8 +125,8 @@ export default function TrendGraph({ props }) {
         label: "Burnout Trend",
         data: getData(),
         fill: true,
-        backgroundColor: "#A9CCE3",
-        borderColor: "#7FB3D5",
+        backgroundColor: "#8fabdd",
+        borderColor: "hsl(218, 53%, 61%)",
       },
     ],
   };

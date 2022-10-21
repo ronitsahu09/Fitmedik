@@ -61,9 +61,7 @@ export default function DepartmentsChart({ props }) {
               bgcolor: "#06b58c",
               width: `calc(${department.stats.safe}% + 0%)`,
             }}
-          >
-            &nbsp;
-          </Box>
+          ></Box>
         </DarkTooltip>
 
         <DarkTooltip
@@ -74,9 +72,7 @@ export default function DepartmentsChart({ props }) {
               bgcolor: "#8fabdd",
               width: `calc(${department.stats.low}% + 0%)`,
             }}
-          >
-            &nbsp;
-          </Box>
+          ></Box>
         </DarkTooltip>
 
         <DarkTooltip
@@ -89,9 +85,7 @@ export default function DepartmentsChart({ props }) {
               bgcolor: "#fed966",
               width: `calc(${department.stats.medium}% + 0%)`,
             }}
-          >
-            &nbsp;
-          </Box>
+          ></Box>
         </DarkTooltip>
 
         <DarkTooltip
@@ -102,9 +96,7 @@ export default function DepartmentsChart({ props }) {
               bgcolor: "#f08725",
               width: `calc(${department.stats.high}% + 0%)`,
             }}
-          >
-            &nbsp;
-          </Box>
+          ></Box>
         </DarkTooltip>
 
         <DarkTooltip
@@ -117,19 +109,9 @@ export default function DepartmentsChart({ props }) {
               bgcolor: "#f55f4b",
               width: `calc(${department.stats.danger}% + 0%)`,
             }}
-          >
-            &nbsp;
-          </Box>
+          ></Box>
         </DarkTooltip>
       </Box>
     </Stack>
-
-    // <Stack gap={5}>
-    //   {data.map((department, index) => {
-    //     return (
-
-    //     );
-    //   })}
-    // </Stack>
   );
 }

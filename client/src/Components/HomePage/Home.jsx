@@ -13,13 +13,17 @@ import {
 } from "../Styles_&_Components/Styles";
 import Speedometer from "../Graphs/Speedometer/Speedometer";
 import NewActiveUsers from "../Graphs/NewActiveUsers/NewActiveUsers";
-import { NewNotification } from "../Styles_&_Components/Components";
 import { useSelector } from "react-redux";
 
 export default function Home({ props }) {
   const { appHeight } = props;
+
+  const users = useSelector(
+    (state) => state.organization?.organizationInfo?.users
+  );
+
   const averageBurnout = useSelector(
-    (state) => state?.organization?.organizationInfo?.averageBurnout
+    (state) => state.organization?.organizationInfo?.averageBurnout
   );
 
   return (
@@ -51,7 +55,31 @@ export default function Home({ props }) {
                   flex: 1,
                 }}
               >
-                <Speedometer />
+                <Speedometer
+                  props={{
+                    percent: (function () {
+                      let riskCount = 0;
+                      let totalCount = 0;
+
+                      if (users) {
+                        users.map((user) => {
+                          const { burnout } = user;
+                          const len = burnout.length;
+
+                          totalCount++;
+
+                          if (burnout[len - 1] < 4) return null;
+
+                          riskCount++;
+
+                          return null;
+                        });
+                      }
+
+                      return riskCount / totalCount;
+                    })(),
+                  }}
+                />
                 <Typography variant="h6" component="div">
                   Hospital Status
                 </Typography>
@@ -81,38 +109,7 @@ export default function Home({ props }) {
               </Paper>
             </Stack>
 
-            <Stack direction="row" gap={2}>
-              <TrendGraph props={{ averageBurnout }} />
-
-              <Stack justifyContent="space-between" width="30%">
-                <NewNotification
-                  props={{
-                    title: "Average Burnout",
-                    subHeading: "Organization",
-                    staus: "alert",
-                    content: "Lorem Ipsum",
-                  }}
-                />
-
-                <NewNotification
-                  props={{
-                    title: "Average Burnout",
-                    subHeading: "Organization",
-                    staus: "alert",
-                    content: "Lorem Ipsum",
-                  }}
-                />
-
-                <NewNotification
-                  props={{
-                    title: "Average Burnout",
-                    subHeading: "Organization",
-                    staus: "alert",
-                    content: "Lorem Ipsum",
-                  }}
-                />
-              </Stack>
-            </Stack>
+            <TrendGraph props={{ averageBurnout }} />
 
             <Box sx={{ height: 5 }}></Box>
           </Stack>

@@ -15,7 +15,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrganization({ organizationId: "634856d240f288e60178261c" }));
+    dispatch(getOrganization({ organizationId: "6351bb0bbf777dfcc170273a" }));
 
     const reportAppHeight = () => {
       setAppHeight(`${window.innerHeight}px`);

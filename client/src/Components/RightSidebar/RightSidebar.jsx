@@ -10,7 +10,56 @@ import {
 import Logo_1 from "../../Assets/Images/Logo_1.svg";
 import MonitoringLogo from "../../Assets/Images/MonitoringLogo.png";
 
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
 export default function RightSidebar() {
+  const users = useSelector(
+    (state) => state.organization.organizationInfo?.users
+  );
+
+  const [status, setStatus] = useState({
+    safe: 0,
+    low: 0,
+    medium: 0,
+    high: 0,
+    danger: 0,
+  });
+
+  useEffect(() => {
+    if (!users) return;
+
+    const data = { safe: 0, low: 0, medium: 0, high: 0, danger: 0 };
+
+    users.map((user) => {
+      const { burnout } = user;
+      const len = burnout.length;
+
+      switch (burnout[len - 1]) {
+        case 1:
+          data.safe++;
+          break;
+        case 2:
+          data.low++;
+          break;
+        case 3:
+          data.medium++;
+          break;
+        case 4:
+          data.high++;
+          break;
+        case 5:
+          data.danger++;
+          break;
+        default:
+      }
+
+      return null;
+    });
+
+    setStatus(data);
+  }, [users]);
+
   return (
     <Stack sx={{ ...rightSidebar }}>
       <Box component="img" src={Logo_1} sx={{ ...logo }} />
@@ -28,7 +77,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#f55f4b" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {9}
+              {status.danger}
             </Typography>
             <Typography
               variant="p"
@@ -42,7 +91,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#f08725" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {25}
+              {status.high}
             </Typography>
             <Typography
               variant="p"
@@ -56,7 +105,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#fed966" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {33}
+              {status.medium}
             </Typography>
             <Typography
               variant="p"
@@ -70,7 +119,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#8fabdd" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {74}
+              {status.low}
             </Typography>
             <Typography
               variant="p"
@@ -84,7 +133,7 @@ export default function RightSidebar() {
           <Stack direction="row" alignItems="center" spacing={2.1}>
             <Box sx={{ ...colorDot, bgcolor: "#06b58c" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
-              {16}
+              {status.safe}
             </Typography>
             <Typography
               variant="p"

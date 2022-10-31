@@ -6,6 +6,7 @@ import {
   Poll,
   Settings,
   LoginRounded,
+  Monitor,
 } from "@mui/icons-material";
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
@@ -114,6 +115,25 @@ export default function LeftSidebar() {
           >
             <IconButton sx={{ color: "inherit" }}>
               <Notifications fontSize="large" />
+            </IconButton>
+          </Box>
+        </Tooltip>
+
+        <Tooltip
+          title="Monitor Actions"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/monitoractions"
+          >
+            <IconButton sx={{ color: "inherit" }}>
+              <Monitor fontSize="large" />
             </IconButton>
           </Box>
         </Tooltip>

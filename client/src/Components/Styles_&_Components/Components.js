@@ -1,4 +1,6 @@
 import {
+  Autocomplete,
+  autocompleteClasses,
   Box,
   Card,
   CardActions,
@@ -9,6 +11,7 @@ import {
   Stack,
   Tab,
   Tabs,
+  TextField,
   Tooltip,
   Typography,
   Zoom,
@@ -28,6 +31,7 @@ import {
   Delete,
   InfoRounded,
   MoreVert,
+  Search,
 } from "@mui/icons-material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -310,5 +314,25 @@ export function CustomTabs() {
         <Tab label="26 April" />
       </Tabs>
     </Box>
+  );
+}
+
+export function SearchBar({ props }) {
+  const { label, data } = props;
+
+  return (
+    <Autocomplete
+      disablePortal
+      id={`${label}-searchbar`}
+      popupIcon={<Search />}
+      options={data}
+      sx={{
+        width: "auto",
+        [`& .${autocompleteClasses.popupIndicator}`]: {
+          transform: "none",
+        },
+      }}
+      renderInput={(params) => <TextField {...params} label={label} />}
+    />
   );
 }

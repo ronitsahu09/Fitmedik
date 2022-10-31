@@ -9,6 +9,7 @@ import Survey from "./Survey/Survey";
 import Notifications from "./Notifications/Notifications";
 import { getOrganization } from "../Redux/Organization";
 import { useDispatch } from "react-redux";
+import MonitorActions from "./MonitorActions/MonitorActions";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -56,6 +57,11 @@ function App() {
         <Route
           path="surveyresults"
           element={<Survey props={{ appHeight }} />}
+        />
+
+        <Route
+          path="monitoractions"
+          element={<MonitorActions props={{ appHeight }} />}
         />
       </Routes>
     </div>

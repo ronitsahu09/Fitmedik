@@ -22,6 +22,22 @@ const getOrganization = createAsyncThunk(
   }
 );
 
+const createAction = createAsyncThunk(
+  "organization/createAction",
+  async (formData) => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_URL}/organization/create_action`,
+        { ...formData, _id: "6351bb0bbf777dfcc170273a" }
+      );
+      return { data };
+    } catch (error) {
+      console.log(error.message);
+      return { data: null };
+    }
+  }
+);
+
 const OrganizationSlice = createSlice({
   name: "organization",
   initialState,
@@ -33,8 +49,14 @@ const OrganizationSlice = createSlice({
       if (data) state.organizationInfo = data.organization;
       else state.organizationInfo = null;
     },
+    [createAction.fulfilled]: (state, action) => {
+      const { data } = action.payload;
+
+      if (data) state.organizationInfo = data.organization;
+      else state.organizationInfo = null;
+    },
   },
 });
 
-export { getOrganization };
+export { getOrganization, createAction };
 export default OrganizationSlice.reducer;

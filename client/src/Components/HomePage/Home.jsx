@@ -1,6 +1,6 @@
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import RightSidebar from "../RightSidebar/RightSidebar";
-import { Stack, Box, Typography, Paper } from "@mui/material";
+import { Stack, Box, Typography, Paper, Unstable_Grid2 } from "@mui/material";
 import { users_status } from "./Styles";
 
 import TrendGraph from "../Graphs/Trend_Graph/TrendGraph";

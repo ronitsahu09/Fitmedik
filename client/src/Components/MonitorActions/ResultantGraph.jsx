@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,11 +22,13 @@ ChartJS.register(
 );
 
 export default function ResultantGraph({ props }) {
-  const { chartData, options, filters } = props;
+  const { chartData, options } = props;
 
   return (
     <Stack>
-      <Line data={chartData} options={options} />;
+      <Box height="30vw" width="100%">
+        <Line data={chartData} options={options} />
+      </Box>
     </Stack>
   );
 }

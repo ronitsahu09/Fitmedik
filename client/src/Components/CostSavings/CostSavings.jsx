@@ -73,7 +73,7 @@ export default function CostSavings({ props }) {
                       color="inherit"
                       sx={{
                         cursor: "text",
-                        bgcolor: "rgba(245, 95, 75, 0.05);",
+                        bgcolor: "rgba(245, 95, 75, 0.05)",
                         p: 1,
                       }}
                     >

@@ -327,7 +327,7 @@ export function SearchBar({ props }) {
       popupIcon={<Search />}
       options={data}
       sx={{
-        width: "auto",
+        width: "70%",
         [`& .${autocompleteClasses.popupIndicator}`]: {
           transform: "none",
         },

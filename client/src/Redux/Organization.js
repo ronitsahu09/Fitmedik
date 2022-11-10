@@ -28,7 +28,39 @@ const createAction = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_URL}/organization/create_action`,
-        { ...formData, _id: "6351bb0bbf777dfcc170273a" }
+        { ...formData, _id: "636204f47dd325d7d89cb4c8" }
+      );
+      return { data };
+    } catch (error) {
+      console.log(error.message);
+      return { data: null };
+    }
+  }
+);
+
+const updateAction = createAsyncThunk(
+  "organization/updateAction",
+  async (formData) => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/organization/update_action`,
+        { ...formData, organizationId: "636204f47dd325d7d89cb4c8" }
+      );
+      console.log(response);
+      return { data: response.data };
+    } catch (error) {
+      console.log(error.message);
+      return { data: null };
+    }
+  }
+);
+const destroyAction = createAsyncThunk(
+  "organization/DestroyAction",
+  async (formData) => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API_URL}/organization/destroy_action`,
+        { ...formData, organizationId: "636204f47dd325d7d89cb4c8" }
       );
       return { data };
     } catch (error) {
@@ -55,8 +87,20 @@ const OrganizationSlice = createSlice({
       if (data) state.organizationInfo = data.organization;
       else state.organizationInfo = null;
     },
+    [updateAction.fulfilled]: (state, action) => {
+      const { data } = action.payload;
+
+      if (data) state.organizationInfo = data.organization;
+      else state.organizationInfo = null;
+    },
+    [destroyAction.fulfilled]: (state, action) => {
+      const { data } = action.payload;
+
+      if (data) state.organizationInfo = data.organization;
+      else state.organizationInfo = null;
+    },
   },
 });
 
-export { getOrganization, createAction };
+export { getOrganization, createAction, updateAction, destroyAction };
 export default OrganizationSlice.reducer;

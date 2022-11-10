@@ -512,7 +512,7 @@ export default function Analytics({ props }) {
 
                       return null;
                     });
-
+                    console.log(stats);
                     stats.safe *= 100 / totalUsers;
                     stats.low *= 100 / totalUsers;
                     stats.medium *= 100 / totalUsers;

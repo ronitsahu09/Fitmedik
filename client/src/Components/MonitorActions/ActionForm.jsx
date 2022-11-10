@@ -14,7 +14,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { createAction } from "../../Redux/Organization";
+import { createAction, updateAction } from "../../Redux/Organization";
 
 import { DateRangePicker, LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
@@ -114,11 +114,11 @@ export function BasicDateRangePicker({ props }) {
       const end = new Date();
 
       const startYear = start.getFullYear();
-      const startMonth = start.getMonth();
+      const startMonth = start.getMonth() + 1;
       const startDate = start.getDate();
 
       const endYear = end.getFullYear();
-      const endMonth = end.getMonth();
+      const endMonth = end.getMonth() + 1;
       const endDate = end.getDate();
 
       handleChange(null, true, {
@@ -134,11 +134,11 @@ export function BasicDateRangePicker({ props }) {
     }
 
     const startYear = parseInt(start.split("/")[2]);
-    const startMonth = parseInt(start.split("/")[1]) - 1;
+    const startMonth = parseInt(start.split("/")[1]);
     const startDate = parseInt(start.split("/")[0]);
 
     const endYear = parseInt(end.split("/")[2]);
-    const endMonth = parseInt(end.split("/")[1]) - 1;
+    const endMonth = parseInt(end.split("/")[1]);
     const endDate = parseInt(end.split("/")[0]);
 
     handleChange(null, true, {
@@ -151,8 +151,8 @@ export function BasicDateRangePicker({ props }) {
     });
 
     return [
-      new Date(startYear, startMonth, startDate),
-      new Date(endYear, endMonth, endDate),
+      new Date(startYear, startMonth - 1, startDate),
+      new Date(endYear, endMonth - 1, endDate),
     ];
   });
 
@@ -304,7 +304,6 @@ export default function ActionForm({ props }) {
             size="small"
             onClick={() => {
               dispatch(createAction({ action: options }));
-              console.log(options);
               setIsOpen(false);
             }}
           >
@@ -316,7 +315,10 @@ export default function ActionForm({ props }) {
           <Button
             variant="contained"
             size="small"
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              dispatch(updateAction({ action: options }));
+              setIsOpen(false);
+            }}
           >
             Update
           </Button>

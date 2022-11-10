@@ -26,7 +26,8 @@ import {
 } from "../Styles_&_Components/Styles";
 import ResultantGraph from "./ResultantGraph";
 import ActionForm from "./ActionForm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { destroyAction } from "../../Redux/Organization";
 
 // const actions = [
 //   {
@@ -94,6 +95,49 @@ export default function MonitorActions({ props }) {
     setIsOpen(true);
   };
 
+  const dispatch = useDispatch();
+
+  // const averageBurnoutTrend = (duration) => {
+  //   const { averageBurnout } = organization.organizationInfo;
+  //   const { start, end } = duration;
+  //   const len = averageBurnout.length;
+
+  //   const date1 =
+  //     start.split("/")[1] +
+  //     "/" +
+  //     start.split("/")[0] +
+  //     "/" +
+  //     start.split("/")[2];
+
+  //   const date2 =
+  //     end.split("/")[1] + "/" + end.split("/")[0] + "/" + end.split("/")[2];
+
+  //   const startDate = new Date(date1);
+  //   const endDate = new Date(date2);
+  //   const currDate = new Date();
+
+  //   const diffTime = Math.abs(endDate - startDate);
+  //   const currDiffTime = Math.abs(currDate - startDate);
+  //   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  //   const currDiffDays = Math.ceil(currDiffTime / (1000 * 60 * 60 * 24));
+  // };
+
+  const getData = (view, actionType, duration) => {
+    let dataset;
+
+    switch (
+      actionType
+
+      // case "average burnout trend":
+      //   averageBurnoutTrend(duration);
+      //   break;
+      //* and so on
+    ) {
+    }
+
+    return dataset;
+  };
+
   return (
     actions && (
       <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
@@ -105,38 +149,46 @@ export default function MonitorActions({ props }) {
               Monitor Actions
             </Typography>
 
-            <SearchBar
-              props={{ label: "Search for actions", data: ["fuzzy ", "dizzy"] }}
-            />
+            <Stack direction="row" justifyContent="space-between">
+              <SearchBar
+                props={{
+                  label: "Search for actions",
+                  data: ["fuzzy", "dizzy"],
+                }}
+              />
+
+              {/* <Tooltip
+                title="Add an action"
+                placement="right"
+                TransitionComponent={Zoom}
+              > */}
+              <Button
+                // sx={{ alignSelf: "center", bgcolor: "#E5E8E8" }}
+                endIcon={<Add />}
+                sx={{ color: "#2ECC71" }}
+                size="large"
+                onClick={() => {
+                  setOptions(initialOptions);
+                  handleClick();
+                }}
+              >
+                Create Action
+              </Button>
+              {/* </Tooltip> */}
+            </Stack>
 
             <Stack sx={{ ...fixedWindow }}>
               <Stack gap={3} mt={3}>
-                <Tooltip
-                  title="Add an action"
-                  placement="right"
-                  TransitionComponent={Zoom}
-                >
-                  <IconButton
-                    sx={{ alignSelf: "center", bgcolor: "#E5E8E8" }}
-                    onClick={() => {
-                      setOptions(initialOptions);
-                      handleClick();
-                    }}
-                  >
-                    <Add sx={{ fontSize: "3rem" }} />
-                  </IconButton>
-                </Tooltip>
-
                 <Stack gap={0.2}>
                   <Paper
                     elevation={1}
                     sx={{
                       display: "flex",
-                      gap: 1,
-                      p: 1.5,
+                      p: 2,
+                      borderRadius: 0,
                       borderTopLeftRadius: 10,
                       borderTopRightRadius: 10,
-                      color: "#4a4f76",
+                      color: "#f55f4b",
                     }}
                   >
                     <Typography
@@ -152,99 +204,132 @@ export default function MonitorActions({ props }) {
                       variant="div"
                       component="div"
                       fontWeight="bold"
-                      width="20%"
+                      width="40%"
                     >
                       Action Type
                     </Typography>
 
-                    <Typography
+                    {/* <Typography
                       variant="div"
                       component="div"
                       fontWeight="bold"
                       width="25%"
                     >
                       Duration
-                    </Typography>
+                    </Typography> */}
 
                     <Typography
                       variant="div"
                       component="div"
                       fontWeight="bold"
-                      width="15%"
+                      width="20%"
                     >
                       Status
                     </Typography>
                   </Paper>
 
                   {actions.map((action, index) => {
+                    // const datasets = getData(
+                    //   action.view,
+                    //   action.actionType,
+                    //   action.duration
+                    // );
+
                     return (
-                      <Paper
-                        elevation={1}
+                      <Accordion
+                        elevation={2}
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 2,
-                          p: 1.5,
-                          borderRadius: 0.5,
+                          "&:before": { display: "none" },
+                          bgcolor: "inherit",
                         }}
-                        key={index}
                       >
-                        <Accordion
-                          elevation={0}
+                        <AccordionSummary
+                          aria-controls={`${index}-content`}
+                          id={`${index}-header`}
                           sx={{
-                            "&:before": { display: "none" },
-                            bgcolor: "inherit",
+                            color: "black",
+                            textTransform: "capitalize",
                           }}
                         >
-                          <AccordionSummary
-                            expandIcon={<ExpandMore />}
-                            aria-controls={`${action._id}-content`}
-                            id={`${action._id}-header`}
-                            sx={{ color: "black", paddingX: 0 }}
-                          >
-                            <Typography
-                              variant="div"
-                              component="div"
-                              width="40%"
-                            >
-                              {action.name}
-                            </Typography>
+                          <Typography variant="div" component="div" width="40%">
+                            {action.name}
+                          </Typography>
 
-                            <Typography
-                              variant="div"
-                              component="div"
-                              width="20%"
-                            >
-                              {action.actionType}
-                            </Typography>
+                          <Typography variant="div" component="div" width="40%">
+                            {action.actionType}
+                          </Typography>
 
-                            <Typography
-                              variant="div"
-                              component="div"
-                              width="25%"
-                            >
-                              {action.duration.start} - {action.duration.end}
-                            </Typography>
+                          <Typography variant="div" component="div" width="20%">
+                            {action.isCompleted ? "Completed" : "Pending"}
+                          </Typography>
+                        </AccordionSummary>
 
-                            <Typography
-                              variant="div"
-                              component="div"
-                              width="15%"
-                            >
-                              {action.isCompleted ? "Completed" : "Pending"}
-                            </Typography>
-                          </AccordionSummary>
+                        <AccordionDetails sx={{}}>
+                          <Divider sx={{ borderBottomWidth: 1.5 }} />
 
-                          <AccordionDetails
-                            sx={{
-                              paddingX: 0,
-                            }}
-                          >
-                            <Typography component="div">
-                              {action.description}
-                            </Typography>
-                            Line chart here!
-                            {/* <ResultantGraph
+                          <Stack mt={2} gap={2}>
+                            <Stack direction="row" gap={1}>
+                              <Typography
+                                variant="div"
+                                component="div"
+                                fontWeight="bold"
+                              >
+                                Duration:
+                              </Typography>
+
+                              <Typography variant="div" component="div">
+                                {action.duration.start} - {action.duration.end}
+                              </Typography>
+                            </Stack>
+
+                            <Stack direction="row" gap={1}>
+                              <Typography
+                                variant="div"
+                                component="div"
+                                fontWeight="bold"
+                              >
+                                Description:
+                              </Typography>
+
+                              <Typography variant="div" component="div">
+                                {action.description}
+                              </Typography>
+                            </Stack>
+
+                            <Stack direction="row" gap={1}>
+                              <Typography
+                                variant="div"
+                                component="div"
+                                fontWeight="bold"
+                              >
+                                Total Savings:
+                              </Typography>
+
+                              <Typography variant="div" component="div">
+                                ${900}
+                              </Typography>
+                            </Stack>
+
+                            <Stack direction="row" gap={1}>
+                              <Typography
+                                variant="div"
+                                component="div"
+                                fontWeight="bold"
+                              >
+                                Average Burnout Drop:
+                              </Typography>
+
+                              <Typography variant="div" component="div">
+                                5%
+                              </Typography>
+                            </Stack>
+                          </Stack>
+
+                          <Typography mt={4} variant="h4" component="div">
+                            Results:
+                          </Typography>
+
+                          <ResultantGraph
                             props={{
                               chartData: {
                                 labels: [
@@ -255,7 +340,26 @@ export default function MonitorActions({ props }) {
                                   "April 9",
                                   "April 10",
                                 ],
-                                datasets: data[filters],
+                                datasets: [
+                                  {
+                                    label: "Radiology",
+                                    data: [29, 20, 10, 5, 0, 0],
+                                    borderColor: "deeppink",
+                                    backgroundColor: "pink",
+                                  },
+                                  {
+                                    label: "Cardiology",
+                                    data: [9, 3, 10, 5, 8, 0],
+                                    borderColor: "deepskyblue",
+                                    backgroundColor: "skyblue",
+                                  },
+                                  {
+                                    label: "Paediatrics",
+                                    data: [19, 10, 10, 15, 0, 29],
+                                    borderColor: "coral",
+                                    backgroundColor: "#FFCBA4",
+                                  },
+                                ],
                               },
 
                               options: {
@@ -270,36 +374,52 @@ export default function MonitorActions({ props }) {
                                 },
                               },
                             }}
-                          /> */}
-                          </AccordionDetails>
+                          />
+                        </AccordionDetails>
 
-                          <AccordionActions>
-                            <Button
-                              onClick={() => {
-                                setOptions(() => {
-                                  return { ...action, title: "Edit Action" };
-                                });
-
-                                handleClick();
+                        <AccordionActions>
+                          <IconButton
+                            onClick={() => {
+                              dispatch(destroyAction({ actionId: action._id }));
+                            }}
+                          >
+                            <Delete
+                              sx={{
+                                color: "#f55f4b",
                               }}
-                            >
-                              Edit
-                            </Button>
+                            />
+                          </IconButton>
 
-                            <IconButton onClick={() => {}}>
-                              <Delete
-                                sx={{
-                                  color: "#f55f4b",
-                                }}
-                              />
-                            </IconButton>
-                          </AccordionActions>
-                        </Accordion>
+                          <Button
+                            disabled={action.isCompleted}
+                            onClick={() => {
+                              setOptions(() => {
+                                return { ...action, title: "Edit Action" };
+                              });
 
-                        {/* {index !== actions.length - 1 && (
-                        <Divider sx={{ borderBottomWidth: 3 }} />
-                      )} */}
-                      </Paper>
+                              handleClick();
+                            }}
+                          >
+                            Edit
+                          </Button>
+                        </AccordionActions>
+                      </Accordion>
+                      // <Paper
+                      //   elevation={1}
+                      //   sx={{
+                      //     // display: "flex",
+                      //     // flexDirection: "column",
+                      //     // gap: 2,
+                      //     p: 1.5,
+                      //     borderRadius: 0.5,
+                      //   }}
+                      //   key={index}
+                      // >
+
+                      //   {/* {index !== actions.length - 1 && (
+                      //   <Divider sx={{ borderBottomWidth: 3 }} />
+                      // )} */}
+                      // </Paper>
                     );
                   })}
                 </Stack>

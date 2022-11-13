@@ -512,12 +512,13 @@ export default function Analytics({ props }) {
 
                       return null;
                     });
-                    console.log(stats);
+
                     stats.safe *= 100 / totalUsers;
                     stats.low *= 100 / totalUsers;
                     stats.medium *= 100 / totalUsers;
                     stats.high *= 100 / totalUsers;
                     stats.danger *= 100 / totalUsers;
+
 
                     return (
                       <DepartmentsChart
@@ -586,9 +587,13 @@ export default function Analytics({ props }) {
                           danger: 0,
                         };
 
+                        let totalUsers = 0;
+
                         if (users) {
                           users.map((user) => {
-                            const { workingHours } = user;
+                            totalUsers++;
+                            const len = user.workingHours.length;
+                            const workingHours = user.workingHours[len - 1];
 
                             if (workingHours <= 9) data.safe++;
                             else if (workingHours > 9 && workingHours <= 11)
@@ -601,6 +606,9 @@ export default function Analytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
@@ -620,9 +628,13 @@ export default function Analytics({ props }) {
                           danger: 0,
                         };
 
+                        let totalUsers = 0;
+
                         if (users) {
                           users.map((user) => {
-                            const { dailyStepCount } = user;
+                            totalUsers++;
+                            const len = user.dailyStepCount.length;
+                            const dailyStepCount = user.dailyStepCount[len - 1];
 
                             if (dailyStepCount < 10000) data.safe++;
                             else if (
@@ -644,6 +656,9 @@ export default function Analytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
@@ -664,11 +679,13 @@ export default function Analytics({ props }) {
                           danger: 0,
                         };
 
+                        let totalUsers = 0;
+
                         if (users) {
                           users.map((user) => {
-                            const {
-                              mood: { moodType },
-                            } = user;
+                            totalUsers++;
+                            const len = user.mood.length;
+                            const { moodType } = user.mood[len - 1];
 
                             switch (moodType) {
                               case "angry":
@@ -693,6 +710,9 @@ export default function Analytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
@@ -712,9 +732,13 @@ export default function Analytics({ props }) {
                           danger: 0,
                         };
 
+                        let totalUsers = 0;
+
                         if (users) {
                           users.map((user) => {
-                            const { sleepHours } = user;
+                            totalUsers++;
+                            const len = user.sleepHours.length;
+                            const sleepHours = user.sleepHours[len - 1];
 
                             if (sleepHours > 8) data.safe++;
                             else if (sleepHours <= 8 && sleepHours >= 6)
@@ -727,6 +751,9 @@ export default function Analytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
@@ -735,7 +762,7 @@ export default function Analytics({ props }) {
                     }}
                   />
 
-                  {/* <HealthTracker
+                  <HealthTracker
                     props={{
                       data: (function () {
                         const data = {
@@ -746,11 +773,13 @@ export default function Analytics({ props }) {
                           danger: 0,
                         };
 
+                        let totalUsers = 0;
+
                         if (users) {
                           users.map((user) => {
-                            const {
-                              interaction: { workingAlone },
-                            } = user;
+                            totalUsers++;
+                            const len = user.interaction.length;
+                            const { workingAlone } = user.interaction[len - 1];
 
                             if (workingAlone < 2) data.safe++;
                             else if (workingAlone >= 2 && workingAlone < 3)
@@ -763,13 +792,16 @@ export default function Analytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
                       })(),
                       title: "Team Support",
                     }}
-                  /> */}
+                  />
                 </Paper>
               </Stack>
 

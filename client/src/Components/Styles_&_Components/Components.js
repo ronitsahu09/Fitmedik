@@ -29,7 +29,7 @@ import {
   Archive,
   ArrowForward,
   Delete,
-  InfoRounded,
+  InfoOutlined,
   MoreVert,
   Search,
 } from "@mui/icons-material";
@@ -93,7 +93,7 @@ export function CustomSelect({ props }) {
           Radiology
         </MenuItem>
         <MenuItem value={2} sx={{ fontSize: "0.9rem" }}>
-          Cardiology
+          Neurology
         </MenuItem>
         <ListSubheader
           sx={{ color: "black", fontWeight: "500", fontSize: "1.1rem" }}
@@ -101,10 +101,19 @@ export function CustomSelect({ props }) {
           Diseases
         </ListSubheader>
         <MenuItem value={3} sx={{ fontSize: "0.9rem" }}>
-          Strees
+          Work Life Balance
         </MenuItem>
         <MenuItem value={4} sx={{ fontSize: "0.9rem" }}>
-          Fatigue
+          Physical Fatigue
+        </MenuItem>
+        <MenuItem value={4} sx={{ fontSize: "0.9rem" }}>
+          Mood
+        </MenuItem>
+        <MenuItem value={4} sx={{ fontSize: "0.9rem" }}>
+          Sleep Quality
+        </MenuItem>
+        <MenuItem value={4} sx={{ fontSize: "0.9rem" }}>
+          Team Support
         </MenuItem>
       </Select>
     </FormControl>
@@ -283,7 +292,7 @@ export function GraphInfo({ props }) {
       TransitionComponent={Zoom}
     >
       <IconButton>
-        <InfoRounded fontSize="small" />
+        <InfoOutlined fontSize="small" />
       </IconButton>
     </Tooltip>
   );
@@ -305,13 +314,10 @@ export function CustomTabs() {
         allowScrollButtonsMobile
         aria-label="scrollable force tabs example"
       >
-        <Tab label="20 April" />
-        <Tab label="21 April" />
-        <Tab label="22 April" />
-        <Tab label="23 April" />
-        <Tab label="24 April" />
-        <Tab label="25 April" />
-        <Tab label="26 April" />
+        <Tab label="I Quarter" />
+        <Tab label="II Quarter" />
+        <Tab label="III Quarter" />
+        <Tab label="IV Quarter" />
       </Tabs>
     </Box>
   );

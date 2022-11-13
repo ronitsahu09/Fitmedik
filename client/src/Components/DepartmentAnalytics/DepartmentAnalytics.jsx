@@ -24,6 +24,8 @@ export default function DepartmentAnalytics({ props }) {
     return departments.filter((dept) => dept._id === id)[0];
   });
 
+  const users = department?.users;
+
   /*
    * Fetch average Burnout according to department id later.
    ! Currently we are fetching the average burnout of the whole organization
@@ -71,7 +73,9 @@ export default function DepartmentAnalytics({ props }) {
               return null;
             });
 
-            data.map((count) => +((count * 100) / users.length).toFixed(1));
+            data = data.map(
+              (count) => +((count * 100) / users.length).toFixed(1)
+            );
           }
 
           return data;
@@ -675,11 +679,13 @@ export default function DepartmentAnalytics({ props }) {
                           danger: 0,
                         };
 
-                        const users = department?.users;
+                        let totalUsers = 0;
 
                         if (users) {
                           users.map((user) => {
-                            const { workingHours } = user;
+                            totalUsers++;
+                            const len = user.workingHours.length;
+                            const workingHours = user.workingHours[len - 1];
 
                             if (workingHours <= 9) data.safe++;
                             else if (workingHours > 9 && workingHours <= 11)
@@ -692,6 +698,9 @@ export default function DepartmentAnalytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
@@ -711,11 +720,13 @@ export default function DepartmentAnalytics({ props }) {
                           danger: 0,
                         };
 
-                        const users = department?.users;
+                        let totalUsers = 0;
 
                         if (users) {
                           users.map((user) => {
-                            const { dailyStepCount } = user;
+                            totalUsers++;
+                            const len = user.dailyStepCount.length;
+                            const dailyStepCount = user.dailyStepCount[len - 1];
 
                             if (dailyStepCount < 10000) data.safe++;
                             else if (
@@ -737,6 +748,9 @@ export default function DepartmentAnalytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
@@ -757,13 +771,13 @@ export default function DepartmentAnalytics({ props }) {
                           danger: 0,
                         };
 
-                        const users = department?.users;
+                        let totalUsers = 0;
 
                         if (users) {
                           users.map((user) => {
-                            const {
-                              mood: { moodType },
-                            } = user;
+                            totalUsers++;
+                            const len = user.mood.length;
+                            const { moodType } = user.mood[len - 1];
 
                             switch (moodType) {
                               case "angry":
@@ -788,6 +802,9 @@ export default function DepartmentAnalytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
@@ -807,11 +824,13 @@ export default function DepartmentAnalytics({ props }) {
                           danger: 0,
                         };
 
-                        const users = department?.users;
+                        let totalUsers = 0;
 
                         if (users) {
                           users.map((user) => {
-                            const { sleepHours } = user;
+                            totalUsers++;
+                            const len = user.sleepHours.length;
+                            const sleepHours = user.sleepHours[len - 1];
 
                             if (sleepHours > 8) data.safe++;
                             else if (sleepHours <= 8 && sleepHours >= 6)
@@ -824,6 +843,9 @@ export default function DepartmentAnalytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
@@ -832,7 +854,7 @@ export default function DepartmentAnalytics({ props }) {
                     }}
                   />
 
-                  {/* <HealthTracker
+                  <HealthTracker
                     props={{
                       data: (function () {
                         const data = {
@@ -843,14 +865,13 @@ export default function DepartmentAnalytics({ props }) {
                           danger: 0,
                         };
 
-                        const users = department?.users;
-
+                        let totalUsers = 0;
 
                         if (users) {
                           users.map((user) => {
-                            const {
-                              interaction: { workingAlone },
-                            } = user;
+                            totalUsers++;
+                            const len = user.interaction.length;
+                            const { workingAlone } = user.interaction[len - 1];
 
                             if (workingAlone < 2) data.safe++;
                             else if (workingAlone >= 2 && workingAlone < 3)
@@ -863,13 +884,16 @@ export default function DepartmentAnalytics({ props }) {
 
                             return null;
                           });
+
+                          const percent = 100 / totalUsers;
+                          for (let property in data) data[property] *= percent;
                         }
 
                         return data;
                       })(),
                       title: "Team Support",
                     }}
-                  /> */}
+                  />
                 </Paper>
               </Stack>
 

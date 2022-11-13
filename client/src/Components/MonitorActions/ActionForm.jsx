@@ -218,6 +218,37 @@ export default function ActionForm({ props }) {
           />
 
           <FormControl variant="standard">
+            <InputLabel htmlFor="viewType-select">Action</InputLabel>
+            <Select
+              id="viewType-select"
+              value={options.view}
+              onChange={(e) => {
+                setOptions((prevState) => ({
+                  ...prevState,
+                  view: e.target.value,
+                }));
+              }}
+              label="View"
+            >
+              <ListSubheader
+                sx={{ color: "black", fontSize: "1.1rem", fontWeight: "bold" }}
+              >
+                Organization
+              </ListSubheader>
+
+              <MenuItem value="hospital">Hospital</MenuItem>
+
+              <ListSubheader
+                sx={{ color: "black", fontSize: "1.1rem", fontWeight: "bold" }}
+              >
+                Department
+              </ListSubheader>
+              <MenuItem value="radiology">Radiology</MenuItem>
+              <MenuItem value="neurology">Neurology</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* <FormControl variant="standard">
             <InputLabel id="viewType">View</InputLabel>
             <Select
               labelId="viewType"
@@ -234,7 +265,7 @@ export default function ActionForm({ props }) {
               <MenuItem value="organization">Organization</MenuItem>
               <MenuItem value="department">Department</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
 
           <FormControl variant="standard">
             <InputLabel htmlFor="actionType-select">Action</InputLabel>

@@ -28,7 +28,7 @@ const DarkTooltip = styled(({ className, ...props }) => (
 }));
 
 function TooltipContent({ props }) {
-  const { title, color } = props;
+  const { title, percent, color } = props;
 
   return (
     <Stack direction="row" alignItems="center">
@@ -37,7 +37,7 @@ function TooltipContent({ props }) {
         {title}:
       </Typography>
       <Typography variant="p" component="p">
-        18%
+        {percent}%
       </Typography>
     </Stack>
   );
@@ -45,6 +45,7 @@ function TooltipContent({ props }) {
 
 export default function DepartmentsChart({ props }) {
   const department = props;
+  const { safe, low, medium, high, danger } = props.stats;
 
   return (
     <Stack direction="row" alignItems="center" gap={1.5}>
@@ -54,60 +55,76 @@ export default function DepartmentsChart({ props }) {
 
       <Box sx={{ ...strip }}>
         <DarkTooltip
-          title={<TooltipContent props={{ title: "Safe", color: "#06b58c" }} />}
+          title={
+            <TooltipContent
+              props={{ title: "Safe", precent: safe, color: "#06b58c" }}
+            />
+          }
         >
           <Box
             sx={{
               bgcolor: "#06b58c",
-              width: `calc(${department.stats.safe}% + 0%)`,
-            }}
-          ></Box>
-        </DarkTooltip>
-
-        <DarkTooltip
-          title={<TooltipContent props={{ title: "Low", color: "#8fabdd" }} />}
-        >
-          <Box
-            sx={{
-              bgcolor: "#8fabdd",
-              width: `calc(${department.stats.low}% + 0%)`,
+              width: `calc(${safe}% + 0%)`,
             }}
           ></Box>
         </DarkTooltip>
 
         <DarkTooltip
           title={
-            <TooltipContent props={{ title: "Medium", color: "#fed966" }} />
+            <TooltipContent
+              props={{ title: "Low", percent: low, color: "#8fabdd" }}
+            />
+          }
+        >
+          <Box
+            sx={{
+              bgcolor: "#8fabdd",
+              width: `calc(${low}% + 0%)`,
+            }}
+          ></Box>
+        </DarkTooltip>
+
+        <DarkTooltip
+          title={
+            <TooltipContent
+              props={{ title: "Medium", percent: medium, color: "#fed966" }}
+            />
           }
         >
           <Box
             sx={{
               bgcolor: "#fed966",
-              width: `calc(${department.stats.medium}% + 0%)`,
-            }}
-          ></Box>
-        </DarkTooltip>
-
-        <DarkTooltip
-          title={<TooltipContent props={{ title: "High", color: "#f08725" }} />}
-        >
-          <Box
-            sx={{
-              bgcolor: "#f08725",
-              width: `calc(${department.stats.high}% + 0%)`,
+              width: `calc(${medium}% + 0%)`,
             }}
           ></Box>
         </DarkTooltip>
 
         <DarkTooltip
           title={
-            <TooltipContent props={{ title: "Danger", color: "#f55f4b" }} />
+            <TooltipContent
+              props={{ title: "High", percent: high, color: "#f08725" }}
+            />
+          }
+        >
+          <Box
+            sx={{
+              bgcolor: "#f08725",
+              width: `calc(${high}% + 0%)`,
+            }}
+          ></Box>
+        </DarkTooltip>
+
+        <DarkTooltip
+          title={
+            <TooltipContent
+              props={{ title: "Danger", percent: danger, color: "#f55f4b" }}
+            />
           }
         >
           <Box
             sx={{
               bgcolor: "#f55f4b",
-              width: `calc(${department.stats.danger}% + 0%)`,
+              width: `calc(${danger}% + 0%)`,
             }}
           ></Box>
         </DarkTooltip>

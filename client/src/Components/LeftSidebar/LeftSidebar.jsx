@@ -32,6 +32,7 @@ export default function LeftSidebar() {
         >
           <Box
             component={NavLink}
+            end
             style={({ isActive }) =>
               isActive ? { color: "#f55f4b" } : { color: "grey" }
             }
@@ -100,7 +101,9 @@ export default function LeftSidebar() {
           </Box>
         </Tooltip>
 
-        <Tooltip
+        {/* Notifications Hidden */}
+
+        {/* <Tooltip
           title="Notifications"
           placement="right-start"
           TransitionComponent={Zoom}
@@ -117,7 +120,7 @@ export default function LeftSidebar() {
               <Notifications fontSize="large" />
             </IconButton>
           </Box>
-        </Tooltip>
+        </Tooltip> */}
 
         <Tooltip
           title="Monitor Actions"

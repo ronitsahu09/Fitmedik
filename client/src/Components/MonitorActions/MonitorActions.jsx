@@ -29,61 +29,20 @@ import ActionForm from "./ActionForm";
 import { useDispatch, useSelector } from "react-redux";
 import { destroyAction } from "../../Redux/Organization";
 
-// const actions = [
-//   {
-//     _id: "bb222af",
-//     name: "Average Burnout Trend",
-//     description: "Monitor the average burnout trend b/w THIS date to THIS date",
-//     isCompleted: false,
-//     duration: {
-//       start: "10/10/2022",
-//       end: "23/10/2022",
-//     },
-//     actionType: "average burnout trend",
-//     view: "organization",
-//   },
-
-//   {
-//     _id: "bb222bf",
-//     name: "Organization's Physical Fatigue",
-//     description: "Changed staff. Monitor Physical Fatigue now",
-//     isCompleted: true,
-//     duration: {
-//       start: "12/10/2022",
-//       end: "2/11/2022",
-//     },
-//     actionType: "mood",
-//     view: "department",
-//   },
-
-//   {
-//     _id: "bb222gf",
-//     name: "Highly vulnerable Professions",
-//     description: "Monitor the professions with high burnout.",
-//     duration: {
-//       start: "10/10/2022",
-//       end: "23/10/2022",
-//     },
-//     view: "organization",
-//     isCompleted: false,
-//     actionType: "high risk profession",
-//   },
-// ];
-
-const initialOptions = {
-  title: "Create Action",
-  name: null,
-  description: null,
-  duration: {
-    start: null,
-    end: null,
-  },
-  isCompleted: false,
-  view: "organization",
-  actionType: "average burnout trend",
-};
-
 export default function MonitorActions({ props }) {
+  const initialOptions = {
+    title: "Create Action",
+    name: null,
+    description: null,
+    duration: {
+      start: null,
+      end: null,
+    },
+    isCompleted: false,
+    view: "hospital",
+    actionType: "average burnout trend",
+  };
+
   const { appHeight } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState(initialOptions);
@@ -157,13 +116,7 @@ export default function MonitorActions({ props }) {
                 }}
               />
 
-              {/* <Tooltip
-                title="Add an action"
-                placement="right"
-                TransitionComponent={Zoom}
-              > */}
               <Button
-                // sx={{ alignSelf: "center", bgcolor: "#E5E8E8" }}
                 endIcon={<Add />}
                 sx={{ color: "#2ECC71" }}
                 size="large"
@@ -174,7 +127,6 @@ export default function MonitorActions({ props }) {
               >
                 Create Action
               </Button>
-              {/* </Tooltip> */}
             </Stack>
 
             <Stack sx={{ ...fixedWindow }}>
@@ -237,6 +189,7 @@ export default function MonitorActions({ props }) {
 
                     return (
                       <Accordion
+                        key={index}
                         elevation={2}
                         sx={{
                           "&:before": { display: "none" },
@@ -325,56 +278,59 @@ export default function MonitorActions({ props }) {
                             </Stack>
                           </Stack>
 
-                          <Typography mt={4} variant="h4" component="div">
-                            Results:
-                          </Typography>
+                          {action.isCompleted && (
+                            <>
+                              <Typography mt={4} variant="h4" component="div">
+                                Results:
+                              </Typography>
 
-                          <ResultantGraph
-                            props={{
-                              chartData: {
-                                labels: [
-                                  "April 5",
-                                  "April 6",
-                                  "April 7",
-                                  "April 8",
-                                  "April 9",
-                                  "April 10",
-                                ],
-                                datasets: [
-                                  {
-                                    label: "Radiology",
-                                    data: [29, 20, 10, 5, 0, 0],
-                                    borderColor: "deeppink",
-                                    backgroundColor: "pink",
+                              <ResultantGraph
+                                props={{
+                                  chartData: {
+                                    labels: [
+                                      "April 5",
+                                      "April 6",
+                                      "April 7",
+                                      "April 8",
+                                      "April 9",
+                                      "April 10",
+                                    ],
+                                    datasets: [
+                                      {
+                                        label: "Radiology",
+                                        data: [29, 20, 10, 5, 0, 0],
+                                        borderColor: "deeppink",
+                                        backgroundColor: "pink",
+                                      },
+                                      {
+                                        label: "Cardiology",
+                                        data: [9, 3, 10, 5, 8, 0],
+                                        borderColor: "deepskyblue",
+                                        backgroundColor: "skyblue",
+                                      },
+                                      {
+                                        label: "Paediatrics",
+                                        data: [19, 10, 10, 15, 0, 29],
+                                        borderColor: "coral",
+                                        backgroundColor: "#FFCBA4",
+                                      },
+                                    ],
                                   },
-                                  {
-                                    label: "Cardiology",
-                                    data: [9, 3, 10, 5, 8, 0],
-                                    borderColor: "deepskyblue",
-                                    backgroundColor: "skyblue",
+                                  options: {
+                                    reponsive: true,
+                                    maintainAspectRatio: false,
+                                    plugins: {
+                                      doughnutLabelsLine: false,
+                                    },
+                                    scales: {
+                                      x: { ticks: { color: "black" } },
+                                      y: { ticks: { color: "black" } },
+                                    },
                                   },
-                                  {
-                                    label: "Paediatrics",
-                                    data: [19, 10, 10, 15, 0, 29],
-                                    borderColor: "coral",
-                                    backgroundColor: "#FFCBA4",
-                                  },
-                                ],
-                              },
-
-                              options: {
-                                reponsive: true,
-                                maintainAspectRatio: false,
-                                plugins: {
-                                  doughnutLabelsLine: false,
-                                },
-                                scales: {
-                                  x: { ticks: { color: "black" } },
-                                  y: { ticks: { color: "black" } },
-                                },
-                              },
-                            }}
-                          />
+                                }}
+                              />
+                            </>
+                          )}
                         </AccordionDetails>
 
                         <AccordionActions>
@@ -404,22 +360,6 @@ export default function MonitorActions({ props }) {
                           </Button>
                         </AccordionActions>
                       </Accordion>
-                      // <Paper
-                      //   elevation={1}
-                      //   sx={{
-                      //     // display: "flex",
-                      //     // flexDirection: "column",
-                      //     // gap: 2,
-                      //     p: 1.5,
-                      //     borderRadius: 0.5,
-                      //   }}
-                      //   key={index}
-                      // >
-
-                      //   {/* {index !== actions.length - 1 && (
-                      //   <Divider sx={{ borderBottomWidth: 3 }} />
-                      // )} */}
-                      // </Paper>
                     );
                   })}
                 </Stack>

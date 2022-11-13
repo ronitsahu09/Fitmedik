@@ -56,8 +56,17 @@ export default function CostSavings({ props }) {
                   }}
                 />
               </Stack>
-              <Paper sx={{ ...graphCanvas, ...info, p: "1.5rem" }}>
-                <Stack>
+
+              <Paper
+                sx={{
+                  ...graphCanvas,
+                  ...info,
+                  m: "auto",
+                  p: "1.5rem",
+                  width: "fit-content",
+                }}
+              >
+                <Stack direction="row" gap={2} alignItems="center">
                   <Typography
                     sx={{
                       color: "#999999",
@@ -65,88 +74,20 @@ export default function CostSavings({ props }) {
                       fontWeight: "bold",
                     }}
                   >
-                    Losses
+                    Total Savings:
                   </Typography>
 
-                  <Box sx={{ ...values, color: "#f55f4b" }}>
-                    <IconButton
-                      color="inherit"
-                      sx={{
-                        cursor: "text",
-                        bgcolor: "rgba(245, 95, 75, 0.05)",
-                        p: 1,
-                      }}
-                    >
-                      <Box component={FontAwesomeIcon} icon={faArrowDownLong} />
-                    </IconButton>
-                    <Typography variant="div" component="div">
-                      $600
-                    </Typography>
-                  </Box>
-                </Stack>
-
-                <Stack>
                   <Typography
+                    variant="div"
+                    component="div"
                     sx={{
-                      color: "#999999",
                       fontSize: "24px",
                       fontWeight: "bold",
+                      color: "#f55f4b",
                     }}
                   >
-                    Profit
+                    $3000400 - $5000000
                   </Typography>
-
-                  <Box sx={{ ...values, color: "#06b58c" }}>
-                    <IconButton
-                      color="inherit"
-                      sx={{
-                        cursor: "text",
-                        bgcolor: "rgba(245, 95, 75, 0.05);",
-                        p: 1,
-                      }}
-                    >
-                      <Box
-                        component={FontAwesomeIcon}
-                        sx={{ transform: "rotate(180deg)" }}
-                        icon={faArrowDownLong}
-                      />
-                    </IconButton>
-
-                    <Typography variant="div" component="div">
-                      $900
-                    </Typography>
-                  </Box>
-                </Stack>
-                <Stack>
-                  <Typography
-                    sx={{
-                      color: "#999999",
-                      fontSize: "24px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Total Savings
-                  </Typography>
-
-                  <Box sx={{ ...values, color: "#f55f4b" }}>
-                    <IconButton
-                      color="inherit"
-                      sx={{
-                        cursor: "text",
-                        bgcolor: "rgba(245, 95, 75, 0.05);",
-                        p: 1,
-                      }}
-                    >
-                      <Box
-                        component={FontAwesomeIcon}
-                        sx={{ transform: "rotate(90deg)" }}
-                        icon={faArrowRightArrowLeft}
-                      />
-                    </IconButton>
-                    <Typography variant="div" component="div">
-                      $300
-                    </Typography>
-                  </Box>
                 </Stack>
               </Paper>
 

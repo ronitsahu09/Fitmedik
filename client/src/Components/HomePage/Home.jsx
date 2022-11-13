@@ -97,10 +97,11 @@ export default function Home({ props }) {
                   <Typography
                     variant="div"
                     component="div"
-                    fontSize="3rem"
+                    fontSize="1.1rem"
+                    fontWeight="bold"
                     color="#f55f4b"
                   >
-                    $800
+                    $6999929 - $3980000
                   </Typography>
                 </Stack>
                 <Typography textAlign="center" variant="h6" component="div">

@@ -17,12 +17,84 @@ import {
 import { quesContainer, question } from "./Styles";
 import { info, values } from "./Styles";
 
-const data = {
+const data1 = {
   labels: ["Low", "Medium", "High"],
   datasets: [
     {
       label: "MBI", //Change this label
-      data: [22, 17, 13],
+      data: [22, 28, 50],
+      backgroundColor: ["#06b58c", "#fed966", "#f55f4b"],
+      borderColor: ["#06b58c", "#fed966", "#f55f4b"],
+      datalabels: {
+        anchor: "end",
+        color: "white",
+        backgroundColor: function (context) {
+          return context.dataset.backgroundColor;
+        },
+        display: function (context) {
+          const index = context.dataIndex;
+          const {
+            dataset: { data },
+          } = context;
+
+          return data[index] > 10;
+        },
+        formatter: function (value) {
+          return `${value} %`;
+        },
+        borderRadius: 25,
+        borderWidth: 2,
+        borderColor: "white",
+        padding: 4,
+        font: { weight: "bold" },
+      },
+      borderAlign: "inner",
+    },
+  ],
+};
+
+const data2 = {
+  labels: ["Low", "Medium", "High"],
+  datasets: [
+    {
+      label: "MBI", //Change this label
+      data: [35, 30, 35],
+      backgroundColor: ["#06b58c", "#fed966", "#f55f4b"],
+      borderColor: ["#06b58c", "#fed966", "#f55f4b"],
+      datalabels: {
+        anchor: "end",
+        color: "white",
+        backgroundColor: function (context) {
+          return context.dataset.backgroundColor;
+        },
+        display: function (context) {
+          const index = context.dataIndex;
+          const {
+            dataset: { data },
+          } = context;
+
+          return data[index] > 10;
+        },
+        formatter: function (value) {
+          return `${value} %`;
+        },
+        borderRadius: 25,
+        borderWidth: 2,
+        borderColor: "white",
+        padding: 4,
+        font: { weight: "bold" },
+      },
+      borderAlign: "inner",
+    },
+  ],
+};
+
+const data3 = {
+  labels: ["Low", "Medium", "High"],
+  datasets: [
+    {
+      label: "MBI", //Change this label
+      data: [41, 19, 40],
       backgroundColor: ["#06b58c", "#fed966", "#f55f4b"],
       borderColor: ["#06b58c", "#fed966", "#f55f4b"],
       datalabels: {
@@ -146,7 +218,7 @@ export default function Survey({ props }) {
                   <Typography
                     variant="div"
                     component="div"
-                    sx={{ ...values, color: "#f55f4b" }}
+                    sx={{ ...values, color: "#06b58c" }}
                   >
                     800
                   </Typography>
@@ -166,7 +238,7 @@ export default function Survey({ props }) {
                   <Typography
                     variant="div"
                     component="div"
-                    sx={{ ...values, color: "#06b58c" }}
+                    sx={{ ...values, color: "#fed966" }}
                   >
                     800
                   </Typography>
@@ -232,7 +304,7 @@ export default function Survey({ props }) {
                       Occupational exhaustion
                     </Typography>
                     <Box sx={{ height: "2in" }}>
-                      <PieChart props={{ chartData: data, options }} />
+                      <PieChart props={{ chartData: data1, options }} />
                     </Box>
                   </Stack>
                 </Paper>
@@ -254,7 +326,7 @@ export default function Survey({ props }) {
                       Loss of Empathy
                     </Typography>
                     <Box sx={{ height: "2in" }}>
-                      <PieChart props={{ chartData: data, options }} />
+                      <PieChart props={{ chartData: data2, options }} />
                     </Box>
                   </Stack>
                 </Paper>
@@ -276,7 +348,7 @@ export default function Survey({ props }) {
                       Accomplishment assesment
                     </Typography>
                     <Box sx={{ height: "2in" }}>
-                      <PieChart props={{ chartData: data, options }} />
+                      <PieChart props={{ chartData: data3, options }} />
                     </Box>
                   </Stack>
                 </Paper>

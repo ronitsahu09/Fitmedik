@@ -53,7 +53,7 @@ export default function HealthTracker({ props }) {
     datasets: [
       {
         label: title,
-        data: Object.entries(data).map((property) => property[1]),
+        data: Object.entries(data).map((property) => parseFloat(property[1].toFixed(2))),
         backgroundColor: [
           "hsl(7, 89%, 63%)",
           "hsl(29, 87%, 54%)",

@@ -519,6 +519,8 @@ export default function Analytics({ props }) {
                     stats.high *= 100 / totalUsers;
                     stats.danger *= 100 / totalUsers;
 
+                    for (let property in stats)
+                      stats[property] = parseFloat(stats[property].toFixed(2));
 
                     return (
                       <DepartmentsChart

@@ -74,7 +74,7 @@ export default function CostSavings({ props }) {
                       fontWeight: "bold",
                     }}
                   >
-                    Total Savings:
+                    Cost Savings:
                   </Typography>
 
                   <Typography
@@ -83,7 +83,7 @@ export default function CostSavings({ props }) {
                     sx={{
                       fontSize: "24px",
                       fontWeight: "bold",
-                      color: "#f55f4b",
+                      color: "#06b58c",
                     }}
                   >
                     $3000400 - $5000000

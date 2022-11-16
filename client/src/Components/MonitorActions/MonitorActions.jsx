@@ -46,6 +46,7 @@ export default function MonitorActions({ props }) {
   const { appHeight } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState(initialOptions);
+  const [expanded, setExpanded] = useState(false);
 
   const organization = useSelector((state) => state.organization);
   const actions = organization?.organizationInfo?.actions;
@@ -161,15 +162,6 @@ export default function MonitorActions({ props }) {
                       Action Type
                     </Typography>
 
-                    {/* <Typography
-                      variant="div"
-                      component="div"
-                      fontWeight="bold"
-                      width="25%"
-                    >
-                      Duration
-                    </Typography> */}
-
                     <Typography
                       variant="div"
                       component="div"
@@ -194,6 +186,10 @@ export default function MonitorActions({ props }) {
                         sx={{
                           "&:before": { display: "none" },
                           bgcolor: "inherit",
+                          transition: "0.3s ease-in-out",
+                          "&:hover": {
+                            bgcolor: "#E5E7E9",
+                          },
                         }}
                       >
                         <AccordionSummary

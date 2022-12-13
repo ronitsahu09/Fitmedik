@@ -891,7 +891,7 @@ export default function DepartmentAnalytics({ props }) {
 
                         return data;
                       })(),
-                      title: "Team Support",
+                      title: "Interaction Index",
                     }}
                   />
                 </Paper>

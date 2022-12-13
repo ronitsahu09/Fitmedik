@@ -519,8 +519,12 @@ export default function Analytics({ props }) {
                     stats.high *= 100 / totalUsers;
                     stats.danger *= 100 / totalUsers;
 
-                    for (let property in stats)
-                      stats[property] = parseFloat(stats[property].toFixed(2));
+                    for (let property in stats) {
+                      const num = stats[property].toString();
+                      stats[property] = Number(
+                        num.slice(0, num.indexOf(".") + 3)
+                      );
+                    }
 
                     return (
                       <DepartmentsChart
@@ -801,7 +805,7 @@ export default function Analytics({ props }) {
 
                         return data;
                       })(),
-                      title: "Team Support",
+                      title: "Interaction Index",
                     }}
                   />
                 </Paper>

@@ -220,7 +220,7 @@ export default function Survey({ props }) {
                     component="div"
                     sx={{ ...values, color: "#06b58c" }}
                   >
-                    800
+                    341
                   </Typography>
                 </Stack>
 
@@ -240,7 +240,7 @@ export default function Survey({ props }) {
                     component="div"
                     sx={{ ...values, color: "#fed966" }}
                   >
-                    800
+                    476
                   </Typography>
                 </Stack>
 
@@ -260,7 +260,7 @@ export default function Survey({ props }) {
                     component="div"
                     sx={{ ...values, color: "#f55f4b" }}
                   >
-                    800
+                    139
                   </Typography>
                 </Stack>
               </Paper>

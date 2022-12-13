@@ -46,7 +46,7 @@ function TooltipContent({ props }) {
 export default function DepartmentsChart({ props }) {
   const department = props;
   const { safe, low, medium, high, danger } = props.stats;
-
+  
   return (
     <Stack direction="row" alignItems="center" gap={1.5}>
       <Box component={Link} to={`${department._id}`} sx={{ ...title }}>
@@ -57,7 +57,7 @@ export default function DepartmentsChart({ props }) {
         <DarkTooltip
           title={
             <TooltipContent
-              props={{ title: "Safe", precent: safe, color: "#06b58c" }}
+              props={{ title: "Safe", percent: safe, color: "#06b58c" }}
             />
           }
         >

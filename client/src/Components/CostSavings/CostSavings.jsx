@@ -61,7 +61,7 @@ export default function CostSavings({ props }) {
                 sx={{
                   ...graphCanvas,
                   ...info,
-                  m: "auto",
+                  // m: "auto",
                   p: "1.5rem",
                   width: "fit-content",
                 }}
@@ -86,7 +86,7 @@ export default function CostSavings({ props }) {
                       color: "#06b58c",
                     }}
                   >
-                    $3000400 - $5000000
+                    $3,000,400 - $5,000,000
                   </Typography>
                 </Stack>
               </Paper>

@@ -186,9 +186,9 @@ export default function MonitorActions({ props }) {
                         sx={{
                           "&:before": { display: "none" },
                           bgcolor: "inherit",
-                          transition: "0.3s ease-in-out",
+                          transition: "0.2s ease-in-out",
                           "&:hover": {
-                            bgcolor: "#E5E7E9",
+                            bgcolor: "hsl(0, 0%, 96%)",
                           },
                         }}
                       >
@@ -317,6 +317,10 @@ export default function MonitorActions({ props }) {
                                     maintainAspectRatio: false,
                                     plugins: {
                                       doughnutLabelsLine: false,
+                                      title: {
+                                        display: true,
+                                        text: "Y-axis: Cost Savings in $100,000",
+                                      },
                                     },
                                     scales: {
                                       x: { ticks: { color: "black" } },

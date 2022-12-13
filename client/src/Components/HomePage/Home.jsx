@@ -102,7 +102,7 @@ export default function Home({ props }) {
                     color="#06b58c"
                     textAlign="center"
                   >
-                    $6999929 - $3980000
+                    $6,999,929 - $3,980,000
                   </Typography>
                 </Stack>
                 <Typography textAlign="center" variant="h6" component="div">

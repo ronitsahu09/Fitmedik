@@ -66,7 +66,7 @@ const data = [
 
 export default function LineChart({ props }) {
   const { filters } = props;
-  
+
   const chartData = {
     labels: ["April 5", "April 6", "April 7", "April 8", "April 9", "April 10"],
     datasets: data[filters],
@@ -77,6 +77,10 @@ export default function LineChart({ props }) {
     maintainAspectRatio: false,
     plugins: {
       doughnutLabelsLine: false,
+      title: {
+        display: true,
+        text: "Y-axis: Cost Savings in $100,000",
+      },
     },
     scales: {
       x: { ticks: { color: "black" } },

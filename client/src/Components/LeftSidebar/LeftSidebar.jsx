@@ -156,7 +156,7 @@ export default function LeftSidebar() {
           </Tooltip>
         </Box>
 
-        <Box component={Link} to="/">
+        <Box component={Link} to="/login">
           <Tooltip
             title="Login"
             placement="right-start"

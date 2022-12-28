@@ -68,3 +68,10 @@ select {
   transform: translateZ(0);
   will-change: transform;
 }
+
+.bg_morph {
+  background-image: url(./Assets/Images/Login/bg.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

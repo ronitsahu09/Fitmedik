@@ -212,7 +212,13 @@ const LoginScreen = () => {
                 alignItems="center"
               >
                 <Typography variant="h6" sx={{ fontSize: 12 }}>
-                  Forgot your password? <Link href="/login">Click here</Link>
+                  Forgot your password?{" "}
+                  <Link
+                    href="/login"
+                    sx={{ color: "#ff6355", fontWeight: "900" }}
+                  >
+                    Click here
+                  </Link>
                 </Typography>
               </Grid>
             </Grid>

@@ -71,6 +71,7 @@ const LeftLogin = () => {
               <Link
                 href="https://fitmedik.com"
                 sx={{ color: "#ff6355", fontWeight: "900" }}
+                target="_blank"
               >
                 Click here
               </Link>

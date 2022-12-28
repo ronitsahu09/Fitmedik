@@ -11,24 +11,22 @@ import { Visibility, VisibilityOff, Key, Email } from "@mui/icons-material";
 import "./styles.css";
 import { validateEmail } from "../../Utils/HelperFunctions";
 import LeftLogin from "./Left";
-import { useNavigate } from "react-router-dom";
 
-const ForgotPasswordScreen = () => {
+const SetupPasswordScreen = () => {
   const [email, setEmail] = React.useState("");
-  const [otp, setOtp] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [repassword, setRePassword] = React.useState("");
   const [passVisible, setPassVisible] = React.useState(false);
-  const [isFirst, setIsFirst] = React.useState(true);
 
   const [emailErrorText, setEmailErrorText] = React.useState("");
-  const [otpErrorText, setOtpErrorText] = React.useState("");
-
-  const navigate = useNavigate();
+  const [passwordErrorText, setPasswordErrorText] = React.useState("");
+  const [repasswordErrorText, setRePasswordErrorText] = React.useState("");
 
   const toggleVisibility = () => {
     setPassVisible(!passVisible);
   };
 
-  const emailValidate = () => {
+  const validate = () => {
     let isValid = true;
 
     // Validation checks for E-mail
@@ -41,46 +39,46 @@ const ForgotPasswordScreen = () => {
       setEmailErrorText("Please enter your E-mail ID");
     }
 
-    if (isValid === true) {
-      setEmailErrorText("");
+    if (repassword !== password) {
+      isValid = false;
+      setRePasswordErrorText(
+        "Re-entered password do not match with the password"
+      );
     }
-
-    return isValid;
-  };
-
-  const otpValidate = () => {
-    let isValid = true;
 
     // Validation checks for Password
-    if (otp.length !== 6) {
+    if (password.length < 6) {
       isValid = false;
-      setOtpErrorText("Please enter a valid OTP");
+      setPasswordErrorText("Please enter a valid password");
     }
-    if (otp.length === 0) {
+    if (password.length === 0) {
       isValid = false;
-      setOtpErrorText("Please enter the OTP");
+      setPasswordErrorText("Please enter your password");
+    }
+
+    // Validation checks for Re-entered Password
+    if (repassword.length < 6) {
+      isValid = false;
+      setRePasswordErrorText("Please enter a valid password");
+    }
+    if (repassword.length === 0) {
+      isValid = false;
+      setRePasswordErrorText("Please enter your password");
     }
 
     if (isValid === true) {
-      setOtpErrorText("");
+      setEmailErrorText("");
+      setPasswordErrorText("");
     }
 
     return isValid;
   };
 
-  const onClickNext = async () => {
-    if (isFirst) {
-      const isValid = emailValidate();
-      if (isValid === true) {
-        // Request OTP API Call here
-        setIsFirst(false);
-      }
-    } else {
-      const isValid = otpValidate();
-      if (isValid === true) {
-        // Verify OTP API Call here
-        navigate("/setuppassword");
-      }
+  const Continue = async () => {
+    const isValid = validate();
+
+    if (isValid) {
+      // API Call is implemented here
     }
   };
 
@@ -117,7 +115,7 @@ const ForgotPasswordScreen = () => {
                 alignItems="center"
               >
                 <Typography variant="h4" sx={{ fontWeight: "800" }}>
-                  Forgot Password
+                  Setup Password
                 </Typography>
               </Grid>
 
@@ -156,7 +154,7 @@ const ForgotPasswordScreen = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   error={emailErrorText.length !== 0}
                   helperText={emailErrorText}
-                  disabled={!isFirst}
+                  disabled={true}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -179,12 +177,11 @@ const ForgotPasswordScreen = () => {
                   required
                   variant="outlined"
                   fullWidth
-                  value={otp}
-                  placeholder="OTP"
-                  onChange={(e) => setOtp(e.target.value)}
-                  error={otpErrorText.length !== 0}
-                  helperText={otpErrorText}
-                  disabled={isFirst}
+                  value={password}
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  error={passwordErrorText.length !== 0}
+                  helperText={passwordErrorText}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -205,6 +202,45 @@ const ForgotPasswordScreen = () => {
                   }}
                 />
               </Grid>
+
+              <Grid container item xs={12} alignItems="center">
+                <Typography
+                  variant="h6"
+                  style={{ fontSize: 16, fontWeight: "800", marginBottom: 4 }}
+                >
+                  Re-enter Password<span style={{ color: "red" }}>*</span>
+                </Typography>
+                <TextField
+                  type={passVisible === true ? "text" : "password"}
+                  required
+                  variant="outlined"
+                  fullWidth
+                  value={password}
+                  placeholder="Re-enter Password"
+                  onChange={(e) => setRePassword(e.target.value)}
+                  error={repasswordErrorText.length !== 0}
+                  helperText={repasswordErrorText}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Key />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={toggleVisibility}>
+                          {passVisible === true ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+
               <Grid
                 container
                 item
@@ -219,10 +255,10 @@ const ForgotPasswordScreen = () => {
                   justifyContent="center"
                   alignItems="center"
                   className="fp-button"
-                  onClick={onClickNext}
+                  onClick={Continue}
                 >
                   <Typography variant="h6" sx={{ color: "white" }}>
-                    {isFirst === true ? "Request OTP" : "Verify OTP"}
+                    Continue
                   </Typography>
                 </Grid>
               </Grid>
@@ -235,4 +271,4 @@ const ForgotPasswordScreen = () => {
   );
 };
 
-export default ForgotPasswordScreen;
+export default SetupPasswordScreen;

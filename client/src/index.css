@@ -15,3 +15,56 @@ body {
 select {
   border: none;
 }
+
+.center-fit {
+  max-width: 100%;
+  max-height: 100vh;
+}
+
+.blur400 {
+  filter: blur(400px);
+  transform: translate3d(0, 0, 0);
+  perspective: 1000;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.blur300 {
+  filter: blur(300px);
+  transform: translate3d(0, 0, 0);
+  perspective: 1000;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.blur200 {
+  filter: blur(200px);
+  transform: translate3d(0, 0, 0);
+  perspective: 1000;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.blur100 {
+  filter: blur(100px);
+  transform: translate3d(0, 0, 0);
+  perspective: 1000;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.blur75 {
+  filter: blur(75px);
+  transform: translate3d(0, 0, 0);
+  perspective: 1000;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.blur50 {
+  filter: blur(50px);
+  transform: translate3d(0, 0, 0);
+  perspective: 1000;
+  transform: translateZ(0);
+  will-change: transform;
+}

@@ -1,0 +1,86 @@
+.glassmorph_style {
+  box-sizing: border-box;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(24px);
+  transform: translateZ(0);
+  will-change: transform;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.glassmorph_title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 38px;
+  color: #ffffff;
+}
+
+.glassmorph_content {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+  color: #ffffff;
+  opacity: 0.8;
+}
+
+.glassmorph_chip {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 6px 12px;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+}
+
+.glassmorph_chip_text {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .glassmorph_title {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 30px;
+    color: #ffffff;
+  }
+
+  .glassmorph_content {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #ffffff;
+    opacity: 0.8;
+  }
+}
+
+.glassmorph_button::before {
+  content: "Try Feature Now";
+}
+
+.glassmorph_button:hover::before {
+  content: "Try Feature Now";
+}

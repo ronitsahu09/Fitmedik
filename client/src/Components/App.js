@@ -10,6 +10,7 @@ import Notifications from "./Notifications/Notifications";
 import { getOrganization } from "../Redux/Organization";
 import { useDispatch } from "react-redux";
 import MonitorActions from "./MonitorActions/MonitorActions";
+import LoginScreen from "./Login/Login";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -63,6 +64,8 @@ function App() {
           path="monitoractions"
           element={<MonitorActions props={{ appHeight }} />}
         />
+
+        <Route path="/login" element={<LoginScreen props={{ appHeight }} />} />
       </Routes>
     </div>
   );

@@ -1,0 +1,41 @@
+.login-button {
+  padding: 5px;
+  background-color: #ff6355;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.login-button:hover {
+  background-color: #ff3e2c;
+  cursor: pointer;
+}
+
+.login-ellipse1 {
+  position: absolute;
+  left: 100px;
+  top: 300px;
+  z-index: -1;
+  height: 150px;
+  width: 150px;
+  background-color: #ff6355;
+}
+
+.login-ellipse2 {
+  position: absolute;
+  left: 300px;
+  top: 200px;
+  z-index: -1;
+  height: 150px;
+  width: 150px;
+  background-color: white;
+}
+
+.login-ellipse3 {
+  position: absolute;
+  left: 400px;
+  top: 250px;
+  z-index: -1;
+  height: 150px;
+  width: 150px;
+  background-color: #ffbf00;
+}

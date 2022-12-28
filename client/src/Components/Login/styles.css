@@ -39,3 +39,10 @@
   width: 150px;
   background-color: #ffbf00;
 }
+
+.login-bg {
+  background-image: url(../../Assets/Images/Login/bg.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

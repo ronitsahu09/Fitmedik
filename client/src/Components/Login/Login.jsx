@@ -72,7 +72,7 @@ const LoginScreen = () => {
           container
           item
           xs={12}
-          md={6}
+          md={12}
           lg={6}
           justifyContent="center"
           alignItems="center"

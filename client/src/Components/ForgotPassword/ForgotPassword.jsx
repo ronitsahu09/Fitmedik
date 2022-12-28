@@ -4,7 +4,6 @@ import {
   Grid,
   Typography,
   TextField,
-  Link,
   IconButton,
   InputAdornment,
 } from "@mui/material";
@@ -13,7 +12,7 @@ import "./styles.css";
 import { validateEmail } from "../../Utils/HelperFunctions";
 import LeftLogin from "./Left";
 
-const LoginScreen = () => {
+const ForgotPasswordScreen = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passVisible, setPassVisible] = React.useState(false);
@@ -97,7 +96,7 @@ const LoginScreen = () => {
                 alignItems="center"
               >
                 <Typography variant="h4" sx={{ fontWeight: "800" }}>
-                  Login to your Account
+                  Forgot password
                 </Typography>
               </Grid>
 
@@ -196,30 +195,13 @@ const LoginScreen = () => {
                   item
                   justifyContent="center"
                   alignItems="center"
-                  className="login-button"
+                  className="fp-button"
                   onClick={Login}
                 >
                   <Typography variant="h6" sx={{ color: "white" }}>
                     Login
                   </Typography>
                 </Grid>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Typography variant="h6" sx={{ fontSize: 12 }}>
-                  Forgot your password?{" "}
-                  <Link
-                    href="/forgotpassword"
-                    sx={{ color: "#ff6355", fontWeight: "900" }}
-                  >
-                    Click here
-                  </Link>
-                </Typography>
               </Grid>
             </Grid>
           </Grid>
@@ -230,4 +212,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default ForgotPasswordScreen;

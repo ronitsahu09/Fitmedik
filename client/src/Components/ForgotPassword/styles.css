@@ -1,0 +1,18 @@
+.fp-button {
+  padding: 5px;
+  background-color: #ff6355;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.fp-button:hover {
+  background-color: #ff3e2c;
+  cursor: pointer;
+}
+
+.fp-bg {
+  background-image: url(../../Assets/Images/Login/bg.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

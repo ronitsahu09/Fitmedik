@@ -9,20 +9,21 @@ const LeftLogin = () => {
     <Grid
       item
       xs={12}
-      md={6}
+      md={12}
       lg={6}
       sx={{
         backgroundColor: "#191B20",
-        height: "100vh",
+        minHeight: "100vh",
         pt: 5,
         pb: 5,
         zIndex: 1,
       }}
       style={{ zIndex: 1 }}
+      className="login-bg"
     >
-      <div className="login-ellipse1 blur75" />
+      {/* <div className="login-ellipse1 blur75" />
       <div className="login-ellipse2 blur75" />
-      <div className="login-ellipse3 blur75" />
+      <div className="login-ellipse3 blur75" /> */}
 
       <Grid container rowSpacing={6}>
         <Grid container item xs={12}>

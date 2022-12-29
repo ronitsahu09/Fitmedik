@@ -16,7 +16,9 @@ const SetupPasswordScreen = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [repassword, setRePassword] = React.useState("");
+
   const [passVisible, setPassVisible] = React.useState(false);
+  const [repassVisible, setRePassVisible] = React.useState(false);
 
   const [emailErrorText, setEmailErrorText] = React.useState("");
   const [passwordErrorText, setPasswordErrorText] = React.useState("");
@@ -26,50 +28,44 @@ const SetupPasswordScreen = () => {
     setPassVisible(!passVisible);
   };
 
+  const toggleReVisibility = () => {
+    setRePassVisible(!repassVisible);
+  };
+
   const validate = () => {
     let isValid = true;
 
     // Validation checks for E-mail
-    if (!validateEmail(email)) {
-      isValid = false;
-      setEmailErrorText("Please enter a valid E-mail ID");
-    }
     if (email.length === 0) {
       isValid = false;
       setEmailErrorText("Please enter your E-mail ID");
-    }
+    } else if (!validateEmail(email)) {
+      isValid = false;
+      setEmailErrorText("Please enter a valid E-mail ID");
+    } else setEmailErrorText("");
 
-    if (repassword !== password) {
+    // Validation checks for Password
+    if (password.length === 0) {
+      isValid = false;
+      setPasswordErrorText("Please enter your password");
+    } else if (password.length < 6) {
+      isValid = false;
+      setPasswordErrorText("Please enter a valid password");
+    } else setPasswordErrorText("");
+
+    // Validation checks for Re-entered Password
+    if (repassword.length === 0) {
+      isValid = false;
+      setRePasswordErrorText("Please enter your password");
+    } else if (repassword.length < 6) {
+      isValid = false;
+      setRePasswordErrorText("Please enter a valid password");
+    } else if (repassword !== password) {
       isValid = false;
       setRePasswordErrorText(
         "Re-entered password do not match with the password"
       );
-    }
-
-    // Validation checks for Password
-    if (password.length < 6) {
-      isValid = false;
-      setPasswordErrorText("Please enter a valid password");
-    }
-    if (password.length === 0) {
-      isValid = false;
-      setPasswordErrorText("Please enter your password");
-    }
-
-    // Validation checks for Re-entered Password
-    if (repassword.length < 6) {
-      isValid = false;
-      setRePasswordErrorText("Please enter a valid password");
-    }
-    if (repassword.length === 0) {
-      isValid = false;
-      setRePasswordErrorText("Please enter your password");
-    }
-
-    if (isValid === true) {
-      setEmailErrorText("");
-      setPasswordErrorText("");
-    }
+    } else setRePasswordErrorText("");
 
     return isValid;
   };
@@ -211,11 +207,11 @@ const SetupPasswordScreen = () => {
                   Re-enter Password<span style={{ color: "red" }}>*</span>
                 </Typography>
                 <TextField
-                  type={passVisible === true ? "text" : "password"}
+                  type={repassVisible === true ? "text" : "password"}
                   required
                   variant="outlined"
                   fullWidth
-                  value={password}
+                  value={repassword}
                   placeholder="Re-enter Password"
                   onChange={(e) => setRePassword(e.target.value)}
                   error={repasswordErrorText.length !== 0}
@@ -228,8 +224,8 @@ const SetupPasswordScreen = () => {
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton onClick={toggleVisibility}>
-                          {passVisible === true ? (
+                        <IconButton onClick={toggleReVisibility}>
+                          {repassVisible === true ? (
                             <VisibilityOff />
                           ) : (
                             <Visibility />

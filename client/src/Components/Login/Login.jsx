@@ -29,29 +29,22 @@ const LoginScreen = () => {
     let isValid = true;
 
     // Validation checks for E-mail
-    if (!validateEmail(email)) {
-      isValid = false;
-      setEmailErrorText("Please enter a valid E-mail ID");
-    }
     if (email.length === 0) {
       isValid = false;
       setEmailErrorText("Please enter your E-mail ID");
-    }
+    } else if (!validateEmail(email)) {
+      isValid = false;
+      setEmailErrorText("Please enter a valid E-mail ID");
+    } else setEmailErrorText("");
 
     // Validation checks for Password
-    if (password.length < 6) {
-      isValid = false;
-      setPasswordErrorText("Please enter a valid password");
-    }
     if (password.length === 0) {
       isValid = false;
       setPasswordErrorText("Please enter your password");
-    }
-
-    if (isValid === true) {
-      setEmailErrorText("");
-      setPasswordErrorText("");
-    }
+    } else if (password.length < 6) {
+      isValid = false;
+      setPasswordErrorText("Please enter a valid password");
+    } else setPasswordErrorText("");
 
     return isValid;
   };

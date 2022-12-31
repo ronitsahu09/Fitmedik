@@ -13,6 +13,7 @@ import MonitorActions from "./MonitorActions/MonitorActions";
 import LoginScreen from "./Login/Login";
 import ForgotPasswordScreen from "./ForgotPassword/ForgotPassword";
 import SetupPasswordScreen from "./SetupPassword/SetupPassword";
+import CustomerOnboardingFormPage from "./CustomerOnboardingForm";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -77,6 +78,11 @@ function App() {
         <Route
           path="/setuppassword"
           element={<SetupPasswordScreen props={{ appHeight }} />}
+        />
+
+        <Route
+          path="/onboard-customer"
+          element={<CustomerOnboardingFormPage props={{ appHeight }} />}
         />
       </Routes>
     </div>

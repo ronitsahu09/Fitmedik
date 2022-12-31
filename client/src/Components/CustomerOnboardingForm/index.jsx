@@ -53,7 +53,6 @@ const CustomerOnboardingFormPage = () => {
         hospDetailsError,
         setHospitalDetailsError
       );
-      isValid = true;
     } else if (mode === MGER_SECTION) {
       isValid = validateManagerSection(managerDetails);
       if (managerDetails.length === 0) {

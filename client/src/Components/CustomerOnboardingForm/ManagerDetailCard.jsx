@@ -149,17 +149,19 @@ const ManagerDetailCard = ({
       <Grid item container xs={12} justifyContent="center" alignItems="center">
         <Button
           variant="contained"
-          color="primary"
+          color="error"
           endIcon={<Delete />}
           onClick={remove}
+          sx={{ mr: 1, borderRadius: 99 }}
         >
           Remove
         </Button>
         <Button
           variant="contained"
-          color="primary"
+          color="success"
           endIcon={<Save />}
           onClick={save}
+          sx={{ ml: 1, borderRadius: 99 }}
         >
           Save
         </Button>

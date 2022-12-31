@@ -1,4 +1,4 @@
-import { Button, Box } from "@mui/material";
+import { Button, Box, Snackbar, Alert } from "@mui/material";
 import { ArrowBack, ArrowForward, RestartAlt, Send } from "@mui/icons-material";
 import React from "react";
 import HospitalSection from "./HospitalSection";
@@ -13,6 +13,7 @@ const OPDT_SECTION = 2;
 const CustomerOnboardingFormPage = () => {
   const ref = React.useRef(null);
   const [mode, setMode] = React.useState(HOSP_SECTION);
+  const [open, setOpen] = React.useState(false);
 
   const [hospDetails, setHospitalDetails] = React.useState({
     name: "",
@@ -55,6 +56,7 @@ const CustomerOnboardingFormPage = () => {
     } else if (mode === MGER_SECTION) {
       isValid = validateManagerSection(managerDetails);
       // isValid = true;
+      if (!isValid) setOpen(true);
     } else {
       isValid = true;
     }
@@ -103,6 +105,10 @@ const CustomerOnboardingFormPage = () => {
     ]);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div ref={ref}>
       {mode === HOSP_SECTION && (
@@ -117,6 +123,14 @@ const CustomerOnboardingFormPage = () => {
           managerDetails={managerDetails}
           setManagerDetails={setManagerDetails}
         />
+      )}
+
+      {open && (
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            Please save highlighted the fields
+          </Alert>
+        </Snackbar>
       )}
 
       <Box

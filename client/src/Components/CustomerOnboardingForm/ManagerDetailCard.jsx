@@ -4,9 +4,17 @@ import React from "react";
 import { validateEmail } from "../../Utils/HelperFunctions";
 
 const ManagerDetailCard = ({
-  managerDetails = [{ name: "", title: "", email: "", index: 0 }],
+  managerDetails = [
+    { name: "", title: "", email: "", index: 0, validated: false },
+  ],
   setManagerDetails,
-  managerDetail = { name: "", title: "", email: "", index: 0 },
+  managerDetail = {
+    name: "",
+    title: "",
+    email: "",
+    index: 0,
+    validated: false,
+  },
 }) => {
   const [name, setName] = React.useState(managerDetail.name);
   const [title, setTitle] = React.useState(managerDetail.title);
@@ -83,6 +91,7 @@ const ManagerDetailCard = ({
         mb: 1,
         pl: 4,
         pr: 4,
+        border: managerDetail.validated === false ? "1px solid red" : 0,
       }}
       className="cof-hs-container"
     >

@@ -14,6 +14,7 @@ const CustomerOnboardingFormPage = () => {
   const ref = React.useRef(null);
   const [mode, setMode] = React.useState(HOSP_SECTION);
   const [open, setOpen] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState("");
 
   const [hospDetails, setHospitalDetails] = React.useState({
     name: "",
@@ -55,8 +56,14 @@ const CustomerOnboardingFormPage = () => {
       isValid = true;
     } else if (mode === MGER_SECTION) {
       isValid = validateManagerSection(managerDetails);
-      // isValid = true;
-      if (!isValid) setOpen(true);
+      if (managerDetails.length === 0) {
+        setErrorMsg("There must be atleast one manager");
+        setOpen(true);
+        isValid = false;
+      } else if (!isValid) {
+        setErrorMsg("Please save the highlighted fields");
+        setOpen(true);
+      }
     } else {
       isValid = true;
     }
@@ -128,7 +135,7 @@ const CustomerOnboardingFormPage = () => {
       {open && (
         <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            Please save highlighted the fields
+            {errorMsg}
           </Alert>
         </Snackbar>
       )}

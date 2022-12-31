@@ -54,7 +54,7 @@ const CustomerOnboardingFormPage = () => {
       isValid = true;
     } else if (mode === MGER_SECTION) {
       isValid = validateManagerSection(managerDetails);
-      isValid = true;
+      // isValid = true;
     } else {
       isValid = true;
     }

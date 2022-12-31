@@ -35,7 +35,7 @@ const ManagerDetailCard = ({
     if (email.length === 0) {
       isValid = false;
       setEmailError("E-mail field is empty");
-    } else if (validateEmail(email)) {
+    } else if (!validateEmail(email)) {
       isValid = false;
       setEmailError("Invalid E-mail ID provided");
     } else {
@@ -71,85 +71,91 @@ const ManagerDetailCard = ({
   };
 
   return (
-    <div style={{ width: "100vw" }} className="cof-hs-container">
-      <Grid container sx={{ pt: 4, pb: 4 }} rowSpacing={2}>
-        <Grid container item xs={12}>
-          <Typography mb={0.5} variant="h6">
-            Manager Name
-          </Typography>
-          <TextField
-            required
-            fullWidth
-            value={name}
-            placeholder="Name"
-            type="text"
-            error={nameError.length !== 0}
-            helperText={nameError}
-            onChange={(e) => setName(e.target.value)}
-            variant="outlined"
-          />
-        </Grid>
-
-        <Grid container item xs={12}>
-          <Typography mb={0.5} variant="h6">
-            Manager Title
-          </Typography>
-          <TextField
-            required
-            fullWidth
-            value={title}
-            placeholder="Title"
-            type="text"
-            error={titleError.length !== 0}
-            helperText={titleError}
-            onChange={(e) => setTitle(e.target.value)}
-            variant="outlined"
-          />
-        </Grid>
-
-        <Grid container item xs={12}>
-          <Typography mb={0.5} variant="h6">
-            Manager E-mail
-          </Typography>
-          <TextField
-            required
-            fullWidth
-            value={name}
-            placeholder="E-mail ID (eg. 'youremail@domain.com')"
-            type="email"
-            error={emailError.length !== 0}
-            helperText={emailError}
-            onChange={(e) => setEmail(e.target.value)}
-            variant="outlined"
-          />
-        </Grid>
-
-        <Grid
-          item
-          container
-          xs={12}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            endIcon={<Delete />}
-            onClick={remove}
-          >
-            Remove
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            endIcon={<Save />}
-            onClick={save}
-          >
-            Save
-          </Button>
-        </Grid>
+    <Grid
+      container
+      rowSpacing={2}
+      sx={{
+        width: "100vw",
+        backgroundColor: "rgb(230, 230, 230)",
+        borderTopRightRadius: 99,
+        borderBottomLeftRadius: 99,
+        mt: 1,
+        mb: 1,
+        pl: 4,
+        pr: 4,
+      }}
+      className="cof-hs-container"
+    >
+      <Grid container item xs={12}>
+        <Typography mb={0.5} variant="h6">
+          Manager Name
+        </Typography>
+        <TextField
+          required
+          fullWidth
+          value={name}
+          placeholder="Name"
+          type="text"
+          error={nameError.length !== 0}
+          helperText={nameError}
+          onChange={(e) => setName(e.target.value)}
+          variant="outlined"
+        />
       </Grid>
-    </div>
+
+      <Grid container item xs={12}>
+        <Typography mb={0.5} variant="h6">
+          Manager Title
+        </Typography>
+        <TextField
+          required
+          fullWidth
+          value={title}
+          placeholder="Title"
+          type="text"
+          error={titleError.length !== 0}
+          helperText={titleError}
+          onChange={(e) => setTitle(e.target.value)}
+          variant="outlined"
+        />
+      </Grid>
+
+      <Grid container item xs={12}>
+        <Typography mb={0.5} variant="h6">
+          Manager E-mail
+        </Typography>
+        <TextField
+          required
+          fullWidth
+          value={email}
+          placeholder="E-mail ID (eg. 'youremail@domain.com')"
+          type="email"
+          error={emailError.length !== 0}
+          helperText={emailError}
+          onChange={(e) => setEmail(e.target.value)}
+          variant="outlined"
+        />
+      </Grid>
+
+      <Grid item container xs={12} justifyContent="center" alignItems="center">
+        <Button
+          variant="contained"
+          color="primary"
+          endIcon={<Delete />}
+          onClick={remove}
+        >
+          Remove
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          endIcon={<Save />}
+          onClick={save}
+        >
+          Save
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 

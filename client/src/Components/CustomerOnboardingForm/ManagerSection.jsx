@@ -32,7 +32,7 @@ const ManagerSection = ({
             </Typography>
           </Grid>
           {managerDetails.map((val, index) => {
-            val = { ...val, index };
+            val.index = index;
             console.log("nice", val);
             return (
               <ManagerDetailCard

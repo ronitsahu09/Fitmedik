@@ -5,3 +5,22 @@ export const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
+
+export const validateUrl = (urlString) => {
+  let url;
+  try {
+    url = new URL(urlString);
+  } catch (_) {
+    return false;
+  }
+  return url.protocol === "http:" || url.protocol === "https:";
+};
+
+export const validateNumber = (num) => {
+  return String(num).match(/^\d+$/);
+};
+
+export const validateDecimalNumber = (num) => {
+  const re = /^[0-9]+\.[0-9]+$/;
+  return String(num).match(re);
+};

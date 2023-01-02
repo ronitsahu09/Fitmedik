@@ -3,7 +3,11 @@ import { ArrowBack, ArrowForward, RestartAlt, Send } from "@mui/icons-material";
 import React from "react";
 import HospitalSection from "./HospitalSection";
 import "./styles.css";
-import { validateHospSection, validateManagerSection } from "./validate";
+import {
+  validateHospSection,
+  validateManagerSection,
+  validateOpdtSection,
+} from "./validate";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
 
@@ -88,7 +92,11 @@ const CustomerOnboardingFormPage = () => {
         setOpen(true);
       }
     } else {
-      isValid = true;
+      isValid = validateOpdtSection(
+        opdtDetails,
+        opdtDetailsError,
+        setOpdtDetailsError
+      );
     }
 
     if (isValid && mode === OPDT_SECTION) {

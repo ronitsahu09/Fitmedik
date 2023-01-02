@@ -223,13 +223,11 @@ export const validateOpdtSection = (
     temp = { ...temp, noOfBeds: "" };
   }
 
-  if (!validateDecimalNumber(opdtDetails.averageOccupancy)) {
-    isValid = false;
-    temp = {
-      ...temp,
-      averageOccupancy: "Invalid number",
-    };
-  } else if (Number(opdtDetails.averageOccupancy) < 0) {
+  console.log(opdtDetails.averageOccupancy);
+  if (
+    !validateDecimalNumber(opdtDetails.averageOccupancy) &&
+    !validateNumber(opdtDetails.averageOccupancy)
+  ) {
     isValid = false;
     temp = {
       ...temp,
@@ -237,12 +235,12 @@ export const validateOpdtSection = (
     };
   } else if (
     Number(opdtDetails.averageOccupancy) > 100 ||
-    Number(opdtDetails.averageOccupancy < 0)
+    Number(opdtDetails.averageOccupancy) < 0
   ) {
     isValid = false;
     temp = {
       ...temp,
-      averageOccupancy: "Number is not in percentage",
+      averageOccupancy: "Number is not a percentage",
     };
   } else {
     temp = { ...temp, averageOccupancy: "" };

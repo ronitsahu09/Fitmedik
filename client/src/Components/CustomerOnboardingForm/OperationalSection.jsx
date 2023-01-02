@@ -223,9 +223,17 @@ const OperationalSection = ({
               fullWidth
               required
               variant={"outlined"}
-              placeholder="Average Occupancy"
+              type="number"
+              placeholder="Average Occupancy (in percentage)"
               error={opdtDetailsError.averageOccupancy.length !== 0}
               helperText={opdtDetailsError.averageOccupancy}
+              value={opdtDetails.averageOccupancy}
+              onChange={(e) =>
+                setOpdtDetails({
+                  ...opdtDetails,
+                  averageOccupancy: e.target.value,
+                })
+              }
             />
           </Grid>
 

@@ -21,6 +21,6 @@ export const validateNumber = (num) => {
 };
 
 export const validateDecimalNumber = (num) => {
-  const re = /^[-+]?[0-9]+\.[0-9]+$/;
+  const re = /^[0-9]+\.[0-9]+$/;
   return String(num).match(re);
 };

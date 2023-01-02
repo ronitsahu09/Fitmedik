@@ -5,6 +5,7 @@ import HospitalSection from "./HospitalSection";
 import "./styles.css";
 import { validateHospSection, validateManagerSection } from "./validate";
 import ManagerSection from "./ManagerSection";
+import OperationalSection from "./OperationalSection";
 
 const HOSP_SECTION = 0;
 const MGER_SECTION = 1;
@@ -44,6 +45,29 @@ const CustomerOnboardingFormPage = () => {
       validated: false,
     },
   ]);
+
+  const [opdtDetails, setOpdtDetails] = React.useState({
+    annualSalNurse: "",
+    annualSalPhysician: "",
+    annualSalPhysicianSupport: "",
+    annualSalTechnician: "",
+    annualSalAdminManagement: "",
+    noOfBeds: "",
+    averageOccupancy: 0,
+    avgOpd: "",
+    avgIpd: "",
+  });
+  const [opdtDetailsError, setOpdtDetailsError] = React.useState({
+    annualSalNurse: "",
+    annualSalPhysician: "",
+    annualSalPhysicianSupport: "",
+    annualSalTechnician: "",
+    annualSalAdminManagement: "",
+    noOfBeds: "",
+    averageOccupancy: "",
+    avgOpd: "",
+    avgIpd: "",
+  });
 
   const next = () => {
     let isValid = false;
@@ -109,6 +133,29 @@ const CustomerOnboardingFormPage = () => {
         email: "",
       },
     ]);
+
+    setOpdtDetails({
+      annualSalNurse: "",
+      annualSalPhysician: "",
+      annualSalPhysicianSupport: "",
+      annualSalTechnician: "",
+      annualSalAdminManagement: "",
+      noOfBeds: "",
+      averageOccupancy: 0,
+      avgOpd: "",
+      avgIpd: "",
+    });
+    setOpdtDetailsError({
+      annualSalNurse: "",
+      annualSalPhysician: "",
+      annualSalPhysicianSupport: "",
+      annualSalTechnician: "",
+      annualSalAdminManagement: "",
+      noOfBeds: "",
+      averageOccupancy: "",
+      avgOpd: "",
+      avgIpd: "",
+    });
   };
 
   const handleClose = () => {
@@ -128,6 +175,13 @@ const CustomerOnboardingFormPage = () => {
         <ManagerSection
           managerDetails={managerDetails}
           setManagerDetails={setManagerDetails}
+        />
+      )}
+      {mode === OPDT_SECTION && (
+        <OperationalSection
+          opdtDetails={opdtDetails}
+          opdtDetailsError={opdtDetailsError}
+          setOpdtDetails={setOpdtDetails}
         />
       )}
 

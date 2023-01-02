@@ -19,3 +19,8 @@ export const validateUrl = (urlString) => {
 export const validateNumber = (num) => {
   return String(num).match(/^\d+$/);
 };
+
+export const validateDecimalNumber = (num) => {
+  const re = /^[-+]?[0-9]+\.[0-9]+$/;
+  return String(num).match(re);
+};

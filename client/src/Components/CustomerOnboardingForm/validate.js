@@ -1,5 +1,15 @@
-import { validateNumber, validateUrl } from "../../Utils/HelperFunctions";
-import { employeeSizeOptions, hospitalTypeOptions } from "./data";
+import {
+  validateDecimalNumber,
+  validateNumber,
+  validateUrl,
+} from "../../Utils/HelperFunctions";
+import {
+  employeeSizeOptions,
+  hospitalTypeOptions,
+  avgPdOptions,
+  avgSalOptions,
+  noOfBedsOptions,
+} from "./data";
 
 export const validateHospSection = (
   hospDetails = {
@@ -125,5 +135,139 @@ export const validateManagerSection = (
   managerDetails.forEach((val) => {
     isValid &&= val.validated;
   });
+  return isValid;
+};
+
+export const validateOpdtSection = (
+  opdtDetails = {
+    annualSalNurse: "",
+    annualSalPhysician: "",
+    annualSalPhysicianSupport: "",
+    annualSalTechnician: "",
+    annualSalAdminManagement: "",
+    noOfBeds: "",
+    averageOccupancy: 0,
+    avgOpd: "",
+    avgIpd: "",
+  },
+  opdtDetailsError = {
+    annualSalNurse: "",
+    annualSalPhysician: "",
+    annualSalPhysicianSupport: "",
+    annualSalTechnician: "",
+    annualSalAdminManagement: "",
+    noOfBeds: "",
+    averageOccupancy: "",
+    avgOpd: "",
+    avgIpd: "",
+  },
+  setOpdtDetailsError
+) => {
+  let isValid = true;
+
+  let temp = opdtDetailsError;
+
+  if (!avgSalOptions.includes(opdtDetails.annualSalNurse)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      annualSalNurse: "Invalid input for average annual salary",
+    };
+  } else {
+    temp = { ...temp, annualSalNurse: "" };
+  }
+  if (!avgSalOptions.includes(opdtDetails.annualSalPhysician)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      annualSalPhysician: "Invalid input for average annual salary",
+    };
+  } else {
+    temp = { ...temp, annualSalPhysician: "" };
+  }
+  if (!avgSalOptions.includes(opdtDetails.annualSalPhysicianSupport)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      annualSalPhysicianSupport: "Invalid input for average annual salary",
+    };
+  } else {
+    temp = { ...temp, annualSalPhysicianSupport: "" };
+  }
+  if (!avgSalOptions.includes(opdtDetails.annualSalTechnician)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      annualSalTechnician: "Invalid input for average annual salary",
+    };
+  } else {
+    temp = { ...temp, annualSalTechnician: "" };
+  }
+  if (!avgSalOptions.includes(opdtDetails.annualSalAdminManagement)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      annualSalAdminManagement: "Invalid input for average annual salary",
+    };
+  } else {
+    temp = { ...temp, annualSalAdminManagement: "" };
+  }
+
+  if (!noOfBedsOptions.includes(opdtDetails.noOfBeds)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      noOfBeds: "Invalid input for average annual salary",
+    };
+  } else {
+    temp = { ...temp, noOfBeds: "" };
+  }
+
+  if (!validateDecimalNumber(opdtDetails.averageOccupancy)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      averageOccupancy: "Invalid number",
+    };
+  } else if (Number(opdtDetails.averageOccupancy) < 0) {
+    isValid = false;
+    temp = {
+      ...temp,
+      averageOccupancy: "Invalid number",
+    };
+  } else if (
+    Number(opdtDetails.averageOccupancy) > 100 ||
+    Number(opdtDetails.averageOccupancy < 0)
+  ) {
+    isValid = false;
+    temp = {
+      ...temp,
+      averageOccupancy: "Number is not in percentage",
+    };
+  } else {
+    temp = { ...temp, averageOccupancy: "" };
+  }
+
+  if (!avgPdOptions.includes(opdtDetails.avgOpd)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      avgOpd: "Invalid input for average annual salary",
+    };
+  } else {
+    temp = { ...temp, avgOpd: "" };
+  }
+  if (!avgPdOptions.includes(opdtDetails.avgIpd)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      avgIpd: "Invalid input for average annual salary",
+    };
+  } else {
+    temp = { ...temp, avgIpd: "" };
+  }
+
+  setOpdtDetailsError(temp);
+
   return isValid;
 };

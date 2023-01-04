@@ -143,7 +143,7 @@ export default function LeftSidebar() {
       </Stack>
 
       <Stack gap={3}>
-        <Box component={Link} to="/">
+        <Box component={Link} to="/settings">
           <Tooltip
             title="Settings"
             placement="right-start"

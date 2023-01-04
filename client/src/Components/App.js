@@ -16,6 +16,8 @@ import SetupPasswordScreen from "./SetupPassword/SetupPassword";
 import CustomerOnboardingFormPage from "./CustomerOnboardingForm";
 import AdminDashboard from "./AdminDashboard";
 import SeeAllCustomers from "./AdminCustomers";
+import SettingsPage from "./SettingsPage";
+import ManageEmployees from "./SettingsPage/ManageEmployees";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -100,6 +102,13 @@ function App() {
         <Route
           path="/admin/edit-customer"
           element={<CustomerOnboardingFormPage props={appHeight} />}
+        />
+
+        <Route path="/settings" element={<SettingsPage props={appHeight} />} />
+
+        <Route
+          path="/employees"
+          element={<ManageEmployees props={appHeight} />}
         />
       </Routes>
     </div>

@@ -14,6 +14,8 @@ import LoginScreen from "./Login/Login";
 import ForgotPasswordScreen from "./ForgotPassword/ForgotPassword";
 import SetupPasswordScreen from "./SetupPassword/SetupPassword";
 import CustomerOnboardingFormPage from "./CustomerOnboardingForm";
+import AdminDashboard from "./AdminDashboard";
+import SeeAllCustomers from "./AdminCustomers";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -81,8 +83,23 @@ function App() {
         />
 
         <Route
-          path="/onboard-customer"
+          path="/admin/onboard-customer"
           element={<CustomerOnboardingFormPage props={{ appHeight }} />}
+        />
+
+        <Route
+          path="/admin/dashboard"
+          element={<AdminDashboard props={appHeight} />}
+        />
+
+        <Route
+          path="/admin/all-customers"
+          element={<SeeAllCustomers props={appHeight} />}
+        />
+
+        <Route
+          path="/admin/edit-customer"
+          element={<CustomerOnboardingFormPage props={appHeight} />}
         />
       </Routes>
     </div>

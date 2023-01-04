@@ -15,6 +15,7 @@ const ManagerSection = ({
     },
   ],
   setManagerDetails,
+  adminMode,
 }) => {
   return (
     <div className="cof-hs-container">
@@ -40,6 +41,7 @@ const ManagerSection = ({
                 setManagerDetails={setManagerDetails}
                 managerDetails={managerDetails}
                 managerDetail={val}
+                adminMode={adminMode}
               />
             );
           })}

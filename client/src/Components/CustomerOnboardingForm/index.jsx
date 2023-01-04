@@ -1,5 +1,11 @@
 import { Button, Box, Snackbar, Alert } from "@mui/material";
-import { ArrowBack, ArrowForward, RestartAlt, Send } from "@mui/icons-material";
+import {
+  ArrowBack,
+  ArrowForward,
+  Edit,
+  RestartAlt,
+  Send,
+} from "@mui/icons-material";
 import React from "react";
 import HospitalSection from "./HospitalSection";
 import "./styles.css";
@@ -10,16 +16,59 @@ import {
 } from "./validate";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
+import { useLocation } from "react-router-dom";
 
 const HOSP_SECTION = 0;
 const MGER_SECTION = 1;
 const OPDT_SECTION = 2;
 
+export const EDIT = "EDIT";
+export const ADD = "ADD";
+export const READ = "READ";
+
 const CustomerOnboardingFormPage = () => {
   const ref = React.useRef(null);
   const [mode, setMode] = React.useState(HOSP_SECTION);
   const [open, setOpen] = React.useState(false);
+  const [adminMode, setAdminMode] = React.useState(ADD);
   const [errorMsg, setErrorMsg] = React.useState("");
+
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
+  const [errorText, setErrorText] = React.useState("");
+
+  const wasAdded = React.useRef(false);
+
+  const location = useLocation();
+
+  const GetCustomeData = async (id) => {
+    setLoading(false);
+    setError(false);
+    setErrorText("");
+  };
+
+  React.useState(() => {
+    try {
+      const customerId = location.state.customerId;
+
+      if (customerId) {
+        // Call API call
+        setAdminMode(READ);
+        GetCustomeData(customerId);
+        wasAdded.current = true;
+      } else {
+        setAdminMode(ADD);
+        setLoading(false);
+        setError(false);
+        setErrorText("");
+        wasAdded.current = false;
+      }
+    } catch (e) {
+      setError(true);
+      setErrorText("An error occured");
+      setLoading(false);
+    }
+  }, []);
 
   const [hospDetails, setHospitalDetails] = React.useState({
     name: "",
@@ -73,6 +122,10 @@ const CustomerOnboardingFormPage = () => {
     avgIpd: "",
   });
 
+  const originalHospDetails = React.useRef(hospDetails);
+  const originalManagerDetails = React.useRef(managerDetails);
+  const originalOpdtDetails = React.useRef(opdtDetails);
+
   const next = () => {
     let isValid = false;
     if (mode === HOSP_SECTION) {
@@ -115,15 +168,10 @@ const CustomerOnboardingFormPage = () => {
   const reset = () => {
     setMode(HOSP_SECTION);
 
-    setHospitalDetails({
-      name: "",
-      employeeSize: "",
-      type: "",
-      city: "",
-      country: "",
-      link: "",
-      subscriptionCount: 0,
-    });
+    if (wasAdded.current) setAdminMode(READ);
+    else setAdminMode(ADD);
+
+    setHospitalDetails(originalHospDetails);
     setHospitalDetailsError({
       name: "",
       employeeSize: "",
@@ -134,25 +182,9 @@ const CustomerOnboardingFormPage = () => {
       subscriptionCount: "",
     });
 
-    setManagerDetails([
-      {
-        name: "",
-        title: "",
-        email: "",
-      },
-    ]);
+    setManagerDetails(originalManagerDetails);
 
-    setOpdtDetails({
-      annualSalNurse: "",
-      annualSalPhysician: "",
-      annualSalPhysicianSupport: "",
-      annualSalTechnician: "",
-      annualSalAdminManagement: "",
-      noOfBeds: "",
-      averageOccupancy: 0,
-      avgOpd: "",
-      avgIpd: "",
-    });
+    setOpdtDetails(originalOpdtDetails);
     setOpdtDetailsError({
       annualSalNurse: "",
       annualSalPhysician: "",
@@ -208,15 +240,17 @@ const CustomerOnboardingFormPage = () => {
           right: 50,
         }}
       >
-        <Button
-          onClick={reset}
-          color="primary"
-          endIcon={<RestartAlt />}
-          variant="contained"
-          sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
-        >
-          Reset
-        </Button>
+        {adminMode !== READ && (
+          <Button
+            onClick={reset}
+            color="primary"
+            endIcon={<RestartAlt />}
+            variant="contained"
+            sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+          >
+            Reset
+          </Button>
+        )}
         <Button
           onClick={prev}
           color="error"
@@ -227,15 +261,28 @@ const CustomerOnboardingFormPage = () => {
         >
           Previous
         </Button>
-        <Button
-          onClick={next}
-          color="success"
-          endIcon={mode === OPDT_SECTION ? <Send /> : <ArrowForward />}
-          variant="contained"
-          sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
-        >
-          {mode === OPDT_SECTION ? "Submit" : "Continue"}
-        </Button>
+        {adminMode === READ && (
+          <Button
+            onClick={() => setAdminMode(EDIT)}
+            color="primary"
+            endIcon={<Edit />}
+            variant="contained"
+            sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+          >
+            Edit
+          </Button>
+        )}
+        {(mode !== OPDT_SECTION || adminMode !== READ) && (
+          <Button
+            onClick={next}
+            color="success"
+            endIcon={mode === OPDT_SECTION ? <Send /> : <ArrowForward />}
+            variant="contained"
+            sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+          >
+            {mode === OPDT_SECTION ? "Submit" : "Next"}
+          </Button>
+        )}
       </Box>
     </div>
   );

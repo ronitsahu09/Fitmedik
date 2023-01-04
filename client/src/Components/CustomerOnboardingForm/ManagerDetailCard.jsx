@@ -1,6 +1,7 @@
 import { Delete, Save } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
+import { READ } from ".";
 import { validateEmail } from "../../Utils/HelperFunctions";
 
 const ManagerDetailCard = ({
@@ -15,6 +16,7 @@ const ManagerDetailCard = ({
     index: 0,
     validated: false,
   },
+  adminMode,
 }) => {
   const [name, setName] = React.useState(managerDetail.name);
   const [title, setTitle] = React.useState(managerDetail.title);
@@ -55,7 +57,6 @@ const ManagerDetailCard = ({
 
   const remove = () => {
     const temp = [];
-    console.log(managerDetails);
     managerDetails.forEach((val) => {
       if (val.index !== managerDetail.index) temp.push(val);
     });
@@ -91,7 +92,10 @@ const ManagerDetailCard = ({
         mb: 1,
         pl: 4,
         pr: 4,
-        border: managerDetail.validated === false ? "1px solid red" : 0,
+        border:
+          managerDetail.validated === false && adminMode !== READ
+            ? "1px solid red"
+            : 0,
       }}
       className="cof-hs-container"
     >
@@ -99,73 +103,102 @@ const ManagerDetailCard = ({
         <Typography mb={0.5} variant="h6">
           Manager Name
         </Typography>
-        <TextField
-          required
-          fullWidth
-          value={name}
-          placeholder="Name"
-          type="text"
-          error={nameError.length !== 0}
-          helperText={nameError}
-          onChange={(e) => setName(e.target.value)}
-          variant="outlined"
-        />
+
+        {adminMode !== READ ? (
+          <TextField
+            required
+            fullWidth
+            value={name}
+            placeholder="Name"
+            type="text"
+            error={nameError.length !== 0}
+            helperText={nameError}
+            onChange={(e) => setName(e.target.value)}
+            variant="outlined"
+          />
+        ) : (
+          <Typography variant="h6" fontWeight="200">
+            {name}
+          </Typography>
+        )}
       </Grid>
 
       <Grid container item xs={12}>
         <Typography mb={0.5} variant="h6">
           Manager Title
         </Typography>
-        <TextField
-          required
-          fullWidth
-          value={title}
-          placeholder="Title"
-          type="text"
-          error={titleError.length !== 0}
-          helperText={titleError}
-          onChange={(e) => setTitle(e.target.value)}
-          variant="outlined"
-        />
+
+        {adminMode !== READ ? (
+          <TextField
+            required
+            fullWidth
+            value={title}
+            placeholder="Title"
+            type="text"
+            error={titleError.length !== 0}
+            helperText={titleError}
+            onChange={(e) => setTitle(e.target.value)}
+            variant="outlined"
+          />
+        ) : (
+          <Typography variant="h6" fontWeight="200">
+            {title}
+          </Typography>
+        )}
       </Grid>
 
       <Grid container item xs={12}>
         <Typography mb={0.5} variant="h6">
           Manager E-mail
         </Typography>
-        <TextField
-          required
-          fullWidth
-          value={email}
-          placeholder="E-mail ID (eg. 'youremail@domain.com')"
-          type="email"
-          error={emailError.length !== 0}
-          helperText={emailError}
-          onChange={(e) => setEmail(e.target.value)}
-          variant="outlined"
-        />
+
+        {adminMode !== READ ? (
+          <TextField
+            required
+            fullWidth
+            value={email}
+            placeholder="E-mail ID (eg. 'youremail@domain.com')"
+            type="email"
+            error={emailError.length !== 0}
+            helperText={emailError}
+            onChange={(e) => setEmail(e.target.value)}
+            variant="outlined"
+          />
+        ) : (
+          <Typography variant="h6" fontWeight="200">
+            {email}
+          </Typography>
+        )}
       </Grid>
 
-      <Grid item container xs={12} justifyContent="center" alignItems="center">
-        <Button
-          variant="contained"
-          color="error"
-          endIcon={<Delete />}
-          onClick={remove}
-          sx={{ mr: 1, borderRadius: 99 }}
+      {adminMode !== READ && (
+        <Grid
+          item
+          container
+          xs={12}
+          justifyContent="center"
+          alignItems="center"
         >
-          Remove
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          endIcon={<Save />}
-          onClick={save}
-          sx={{ ml: 1, borderRadius: 99 }}
-        >
-          Save
-        </Button>
-      </Grid>
+          <Button
+            variant="contained"
+            color="error"
+            endIcon={<Delete />}
+            onClick={remove}
+            sx={{ mr: 1, borderRadius: 99 }}
+          >
+            Remove
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            endIcon={<Save />}
+            onClick={save}
+            sx={{ ml: 1, borderRadius: 99 }}
+          >
+            Save
+          </Button>
+        </Grid>
+      )}
     </Grid>
   );
 };

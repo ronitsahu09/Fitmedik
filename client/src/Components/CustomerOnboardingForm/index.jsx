@@ -41,7 +41,7 @@ const CustomerOnboardingFormPage = () => {
 
   const location = useLocation();
 
-  const GetCustomeData = async (id) => {
+  const GetCustomerData = async (id) => {
     setLoading(false);
     setError(false);
     setErrorText("");
@@ -54,7 +54,7 @@ const CustomerOnboardingFormPage = () => {
       if (customerId) {
         // Call API call
         setAdminMode(READ);
-        GetCustomeData(customerId);
+        GetCustomerData(customerId);
         wasAdded.current = true;
       } else {
         setAdminMode(ADD);
@@ -136,13 +136,15 @@ const CustomerOnboardingFormPage = () => {
       );
     } else if (mode === MGER_SECTION) {
       isValid = validateManagerSection(managerDetails);
-      if (managerDetails.length === 0) {
-        setErrorMsg("There must be atleast one manager");
-        setOpen(true);
-        isValid = false;
-      } else if (!isValid) {
-        setErrorMsg("Please save the highlighted fields");
-        setOpen(true);
+      if (adminMode !== READ) {
+        if (managerDetails.length === 0) {
+          setErrorMsg("There must be atleast one manager");
+          setOpen(true);
+          isValid = false;
+        } else if (!isValid) {
+          setErrorMsg("Please save the highlighted fields");
+          setOpen(true);
+        }
       }
     } else {
       isValid = validateOpdtSection(
@@ -152,9 +154,9 @@ const CustomerOnboardingFormPage = () => {
       );
     }
 
-    if (isValid && mode === OPDT_SECTION) {
+    if (adminMode !== READ && isValid && mode === OPDT_SECTION) {
       // API call for submitting all data
-    } else if (isValid) {
+    } else if (isValid || adminMode === READ) {
       setMode(mode + 1);
     }
   };
@@ -171,7 +173,7 @@ const CustomerOnboardingFormPage = () => {
     if (wasAdded.current) setAdminMode(READ);
     else setAdminMode(ADD);
 
-    setHospitalDetails(originalHospDetails);
+    setHospitalDetails(originalHospDetails.current);
     setHospitalDetailsError({
       name: "",
       employeeSize: "",
@@ -182,9 +184,9 @@ const CustomerOnboardingFormPage = () => {
       subscriptionCount: "",
     });
 
-    setManagerDetails(originalManagerDetails);
+    setManagerDetails(originalManagerDetails.current);
 
-    setOpdtDetails(originalOpdtDetails);
+    setOpdtDetails(originalOpdtDetails.current);
     setOpdtDetailsError({
       annualSalNurse: "",
       annualSalPhysician: "",
@@ -209,12 +211,14 @@ const CustomerOnboardingFormPage = () => {
           hospDetails={hospDetails}
           hospDetailsError={hospDetailsError}
           setHospDetails={setHospitalDetails}
+          adminMode={adminMode}
         />
       )}
       {mode === MGER_SECTION && (
         <ManagerSection
           managerDetails={managerDetails}
           setManagerDetails={setManagerDetails}
+          adminMode={adminMode}
         />
       )}
       {mode === OPDT_SECTION && (
@@ -222,6 +226,7 @@ const CustomerOnboardingFormPage = () => {
           opdtDetails={opdtDetails}
           opdtDetailsError={opdtDetailsError}
           setOpdtDetails={setOpdtDetails}
+          adminMode={adminMode}
         />
       )}
 

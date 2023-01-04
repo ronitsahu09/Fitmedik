@@ -3,6 +3,7 @@ import { Grid, Typography, Button } from "@mui/material";
 import ManagerDetailCard from "./ManagerDetailCard";
 import { Add } from "@mui/icons-material";
 import "./styles.css";
+import { READ } from ".";
 
 const ManagerSection = ({
   managerDetails = [
@@ -34,7 +35,6 @@ const ManagerSection = ({
           </Grid>
           {managerDetails.map((val, index) => {
             val.index = index;
-            console.log("nice", val);
             return (
               <ManagerDetailCard
                 key={index}
@@ -45,32 +45,34 @@ const ManagerSection = ({
               />
             );
           })}
-          <Grid
-            container
-            item
-            xs={12}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Button
-              variant="text"
-              startIcon={<Add />}
-              onClick={() =>
-                setManagerDetails([
-                  ...managerDetails,
-                  {
-                    name: "",
-                    email: "",
-                    title: "",
-                    index: 0,
-                    validated: false,
-                  },
-                ])
-              }
+          {adminMode !== READ && (
+            <Grid
+              container
+              item
+              xs={12}
+              justifyContent="center"
+              alignItems="center"
             >
-              Add manager
-            </Button>
-          </Grid>
+              <Button
+                variant="text"
+                startIcon={<Add />}
+                onClick={() =>
+                  setManagerDetails([
+                    ...managerDetails,
+                    {
+                      name: "",
+                      email: "",
+                      title: "",
+                      index: 0,
+                      validated: false,
+                    },
+                  ])
+                }
+              >
+                Add manager
+              </Button>
+            </Grid>
+          )}
         </Grid>
         <Grid item xs={1} />
       </Grid>

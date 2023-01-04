@@ -57,7 +57,6 @@ const ManagerDetailCard = ({
 
   const remove = () => {
     const temp = [];
-    console.log(managerDetails);
     managerDetails.forEach((val) => {
       if (val.index !== managerDetail.index) temp.push(val);
     });
@@ -93,7 +92,10 @@ const ManagerDetailCard = ({
         mb: 1,
         pl: 4,
         pr: 4,
-        border: managerDetail.validated === false ? "1px solid red" : 0,
+        border:
+          managerDetail.validated === false && adminMode !== READ
+            ? "1px solid red"
+            : 0,
       }}
       className="cof-hs-container"
     >
@@ -169,26 +171,34 @@ const ManagerDetailCard = ({
         )}
       </Grid>
 
-      <Grid item container xs={12} justifyContent="center" alignItems="center">
-        <Button
-          variant="contained"
-          color="error"
-          endIcon={<Delete />}
-          onClick={remove}
-          sx={{ mr: 1, borderRadius: 99 }}
+      {adminMode !== READ && (
+        <Grid
+          item
+          container
+          xs={12}
+          justifyContent="center"
+          alignItems="center"
         >
-          Remove
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          endIcon={<Save />}
-          onClick={save}
-          sx={{ ml: 1, borderRadius: 99 }}
-        >
-          Save
-        </Button>
-      </Grid>
+          <Button
+            variant="contained"
+            color="error"
+            endIcon={<Delete />}
+            onClick={remove}
+            sx={{ mr: 1, borderRadius: 99 }}
+          >
+            Remove
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            endIcon={<Save />}
+            onClick={save}
+            sx={{ ml: 1, borderRadius: 99 }}
+          >
+            Save
+          </Button>
+        </Grid>
+      )}
     </Grid>
   );
 };

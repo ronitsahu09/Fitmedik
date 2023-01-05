@@ -10,36 +10,6 @@
   cursor: pointer;
 }
 
-.login-ellipse1 {
-  position: absolute;
-  left: 100px;
-  top: 300px;
-  z-index: -1;
-  height: 150px;
-  width: 150px;
-  background-color: #ff6355;
-}
-
-.login-ellipse2 {
-  position: absolute;
-  left: 300px;
-  top: 200px;
-  z-index: -1;
-  height: 150px;
-  width: 150px;
-  background-color: white;
-}
-
-.login-ellipse3 {
-  position: absolute;
-  left: 400px;
-  top: 250px;
-  z-index: -1;
-  height: 150px;
-  width: 150px;
-  background-color: #ffbf00;
-}
-
 .login-bg {
   background-image: url(../../Assets/Images/Login/bg.svg);
   background-position: center;

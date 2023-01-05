@@ -1,10 +1,12 @@
 import React from "react";
 import { Grid, Typography, TextField, Autocomplete } from "@mui/material";
-import { employeeSizeOptions, hospitalTypeOptions } from "./data";
+import {
+  employeeSizeOptions,
+  hospitalTypeOptions,
+} from "../CustomerOnboardingForm/data";
 import "./styles.css";
-
-import { useNavigate } from "react-router-dom";
 import Header from "../Header";
+import { useNavigate } from "react-router-dom";
 
 const HospitalSection = ({
   hospDetails = {
@@ -28,18 +30,12 @@ const HospitalSection = ({
   setHospDetails,
 }) => {
   const navigate = useNavigate();
-
   return (
     <div className="cof-hs-container">
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
         <Grid item xs={1} />
         <Grid container item xs={10} rowSpacing={3}>
-          <Header navigate={navigate} title={"Hospital Detail"} />
-          <Grid item xs={12}>
-            <Typography variant="h5" fontWeight="400">
-              Enter the details of the Hospital
-            </Typography>
-          </Grid>
+          <Header navigate={navigate} title="Hospital Details" />
 
           {/* Hospital Name */}
           <Grid container item xs={12}>

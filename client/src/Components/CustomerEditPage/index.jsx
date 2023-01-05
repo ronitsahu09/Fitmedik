@@ -1,37 +1,42 @@
-import { Button, Box, Snackbar, Alert } from "@mui/material";
-import {
-  ArrowBack,
-  ArrowForward,
-  Edit,
-  RestartAlt,
-  Send,
-} from "@mui/icons-material";
+import { Button, Box } from "@mui/material";
+import { ArrowBack, ArrowForward, RestartAlt, Send } from "@mui/icons-material";
 import React from "react";
 import HospitalSection from "./HospitalSection";
 import "./styles.css";
 import {
   validateHospSection,
-  validateManagerSection,
   validateOpdtSection,
-} from "./validate";
-import ManagerSection from "./ManagerSection";
+} from "../CustomerOnboardingForm/validate";
 import OperationalSection from "./OperationalSection";
+import { useParams } from "react-router-dom";
 
 const HOSP_SECTION = 0;
-const MGER_SECTION = 1;
-const OPDT_SECTION = 2;
+const OPDT_SECTION = 1;
 
 const CustomerOnboardingFormPage = () => {
-  const ref = React.useRef(null);
   const [mode, setMode] = React.useState(HOSP_SECTION);
-  const [open, setOpen] = React.useState(false);
-  const [errorMsg, setErrorMsg] = React.useState("");
 
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
-  const AddCustomerData = () => {
+  const customerId = React.useRef(null);
+  const { id } = useParams();
+  customerId.current = id;
+
+  const GetCustomerData = () => {
+    console.log(customerId.current);
+    // API Call
+    setLoading(false);
+    setError(false);
+    setErrorText(false);
+  };
+
+  React.useEffect(() => {
+    GetCustomerData();
+  }, []);
+
+  const EditCustomerData = () => {
     setLoading(false);
     setError(false);
     setErrorText(false);
@@ -56,16 +61,6 @@ const CustomerOnboardingFormPage = () => {
     subscriptionCount: "",
   });
 
-  const [managerDetails, setManagerDetails] = React.useState([
-    {
-      name: "",
-      title: "",
-      email: "",
-      index: 0,
-      validated: false,
-    },
-  ]);
-
   const [opdtDetails, setOpdtDetails] = React.useState({
     annualSalNurse: "",
     annualSalPhysician: "",
@@ -89,6 +84,9 @@ const CustomerOnboardingFormPage = () => {
     avgIpd: "",
   });
 
+  const originalHospitalDetails = React.useRef(hospDetails);
+  const originalOpdtDetails = React.useRef(opdtDetails);
+
   const next = () => {
     let isValid = false;
     if (mode === HOSP_SECTION) {
@@ -97,16 +95,6 @@ const CustomerOnboardingFormPage = () => {
         hospDetailsError,
         setHospitalDetailsError
       );
-    } else if (mode === MGER_SECTION) {
-      isValid = validateManagerSection(managerDetails);
-      if (managerDetails.length === 0) {
-        setErrorMsg("There must be atleast one manager");
-        setOpen(true);
-        isValid = false;
-      } else if (!isValid) {
-        setErrorMsg("Please save the highlighted fields");
-        setOpen(true);
-      }
     } else {
       isValid = validateOpdtSection(
         opdtDetails,
@@ -117,7 +105,7 @@ const CustomerOnboardingFormPage = () => {
 
     if (isValid && mode === OPDT_SECTION) {
       // API call for submitting all data
-      AddCustomerData();
+      EditCustomerData();
     } else if (isValid) {
       setMode(mode + 1);
     }
@@ -132,15 +120,7 @@ const CustomerOnboardingFormPage = () => {
   const reset = () => {
     setMode(HOSP_SECTION);
 
-    setHospitalDetails({
-      name: "",
-      employeeSize: "",
-      type: "",
-      city: "",
-      country: "",
-      link: "",
-      subscriptionCount: 0,
-    });
+    setHospitalDetails(originalHospitalDetails.current);
     setHospitalDetailsError({
       name: "",
       employeeSize: "",
@@ -151,27 +131,7 @@ const CustomerOnboardingFormPage = () => {
       subscriptionCount: "",
     });
 
-    setManagerDetails([
-      {
-        name: "",
-        title: "",
-        email: "",
-        index: 0,
-        validated: false,
-      },
-    ]);
-
-    setOpdtDetails({
-      annualSalNurse: "",
-      annualSalPhysician: "",
-      annualSalPhysicianSupport: "",
-      annualSalTechnician: "",
-      annualSalAdminManagement: "",
-      noOfBeds: "",
-      averageOccupancy: 0,
-      avgOpd: "",
-      avgIpd: "",
-    });
+    setOpdtDetails(originalOpdtDetails.current);
     setOpdtDetailsError({
       annualSalNurse: "",
       annualSalPhysician: "",
@@ -185,12 +145,8 @@ const CustomerOnboardingFormPage = () => {
     });
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
-    <div ref={ref}>
+    <div>
       {mode === HOSP_SECTION && (
         <HospitalSection
           hospDetails={hospDetails}
@@ -198,26 +154,13 @@ const CustomerOnboardingFormPage = () => {
           setHospDetails={setHospitalDetails}
         />
       )}
-      {mode === MGER_SECTION && (
-        <ManagerSection
-          managerDetails={managerDetails}
-          setManagerDetails={setManagerDetails}
-        />
-      )}
+
       {mode === OPDT_SECTION && (
         <OperationalSection
           opdtDetails={opdtDetails}
           opdtDetailsError={opdtDetailsError}
           setOpdtDetails={setOpdtDetails}
         />
-      )}
-
-      {open && (
-        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            {errorMsg}
-          </Alert>
-        </Snackbar>
       )}
 
       <Box

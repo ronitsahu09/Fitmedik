@@ -1,14 +1,14 @@
-.admin-customers-button {
+.customer-manager-button {
   border: 0.5px grey;
   border-style: solid none none none;
   transition: 0.3s;
 }
 
-.admin-customers-button:hover {
+.customer-manager-button:hover {
   box-shadow: 0px 0px 2px 0.5px grey;
   cursor: pointer;
 }
 
-.admin-customers-button-bottom {
+.customer-manager-button-bottom {
   border-style: solid none;
 }

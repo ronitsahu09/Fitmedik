@@ -1,6 +1,10 @@
 import React from "react";
 import { Grid, Typography, TextField, Autocomplete } from "@mui/material";
-import { avgPdOptions, avgSalOptions, noOfBedsOptions } from "./data";
+import {
+  avgPdOptions,
+  avgSalOptions,
+  noOfBedsOptions,
+} from "../CustomerOnboardingForm/data";
 import "./styles.css";
 
 const OperationalSection = ({

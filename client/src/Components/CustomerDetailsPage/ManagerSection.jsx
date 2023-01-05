@@ -1,7 +1,6 @@
 import React from "react";
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import ManagerDetailCard from "./ManagerDetailCard";
-import { Add } from "@mui/icons-material";
 import "./styles.css";
 
 const ManagerSection = ({
@@ -11,10 +10,8 @@ const ManagerSection = ({
       title: "",
       email: "",
       index: 0,
-      validated: false,
     },
   ],
-  setManagerDetails,
 }) => {
   return (
     <div className="cof-hs-container">
@@ -32,42 +29,14 @@ const ManagerSection = ({
             </Typography>
           </Grid>
           {managerDetails.map((val, index) => {
-            val.index = index;
             return (
               <ManagerDetailCard
                 key={index}
-                setManagerDetails={setManagerDetails}
                 managerDetails={managerDetails}
                 managerDetail={val}
               />
             );
           })}
-          <Grid
-            container
-            item
-            xs={12}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Button
-              variant="text"
-              startIcon={<Add />}
-              onClick={() =>
-                setManagerDetails([
-                  ...managerDetails,
-                  {
-                    name: "",
-                    email: "",
-                    title: "",
-                    index: 0,
-                    validated: false,
-                  },
-                ])
-              }
-            >
-              Add manager
-            </Button>
-          </Grid>
         </Grid>
         <Grid item xs={1} />
       </Grid>

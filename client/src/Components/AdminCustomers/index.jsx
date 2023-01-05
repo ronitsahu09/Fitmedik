@@ -1,7 +1,9 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, IconButton, Typography } from "@mui/material";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import { Edit, Person } from "@mui/icons-material";
+import Header from "../Header";
 
 const SeeAllCustomers = () => {
   const [customers, setCustomers] = React.useState([
@@ -18,7 +20,17 @@ const SeeAllCustomers = () => {
   const navigate = useNavigate();
 
   const goToCustomer = (customerId) => {
-    navigate("/admin/onboard-customer", { state: { customerId } });
+    navigate(`/admin/customer/${customerId}`);
+  };
+
+  const goToCustomerEdit = (e, customerId) => {
+    e.stopPropagation();
+    navigate(`/admin/edit-customer/${customerId}`);
+  };
+
+  const goToCustomerManagers = (e, customerId) => {
+    e.stopPropagation();
+    navigate(`/admin/customer-managers/${customerId}`);
   };
 
   const GetAllCustomers = async () => {
@@ -34,11 +46,37 @@ const SeeAllCustomers = () => {
 
   return (
     <div>
-      <Grid container>
+      <Grid container sx={{ pt: 4, pb: 4 }}>
         <Grid item xs={1} />
         <Grid container item xs={10}>
-          <Grid item xs={12} sx={{ mt: 6, mb: 6 }}>
-            <Typography variant="h2">All customers</Typography>
+          <Header navigate={navigate} title={"All Customers"} />
+          <Grid
+            container
+            item
+            xs={12}
+            sx={{ border: "0.5px grey", borderStyle: "solid none" }}
+            p={2}
+          >
+            <Grid item xs={2.5}>
+              <Typography variant="h6" fontWeight="800">
+                Customer ID
+              </Typography>
+            </Grid>
+            <Grid item xs={2.5}>
+              <Typography variant="h6" fontWeight="800">
+                Hospital Name
+              </Typography>
+            </Grid>
+            <Grid item xs={2.5}>
+              <Typography variant="h6" fontWeight="800">
+                Hospital Type
+              </Typography>
+            </Grid>
+            <Grid item xs={2.5}>
+              <Typography variant="h6" fontWeight="800">
+                Website Link
+              </Typography>
+            </Grid>
           </Grid>
           {customers.map((val, index) => (
             <Grid
@@ -46,34 +84,47 @@ const SeeAllCustomers = () => {
               item
               xs={12}
               key={index}
-              className="admin-customers-button"
+              className={
+                index === customers.length - 1
+                  ? "admin-customers-button admin-customers-button-bottom"
+                  : "admin-customers-button"
+              }
               p={2}
-              sx={{ mt: 1, mb: 1 }}
               onClick={() => goToCustomer(val.customerId)}
             >
-              <Grid item xs={3}>
-                <Typography variant="h6" color="white">
-                  <span style={{ fontWeight: "200" }}>Customer ID: </span>
+              <Grid item xs={2.5}>
+                <Typography variant="h6" fontWeight="200">
                   {val.customerId}
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6" color="white">
-                  <span style={{ fontWeight: "200" }}>Name: </span>
+              <Grid item xs={2.5}>
+                <Typography variant="h6" fontWeight="200">
                   {val.name}
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6" color="white">
-                  <span style={{ fontWeight: "200" }}>Type: </span>
+              <Grid item xs={2.5}>
+                <Typography variant="h6" fontWeight="200">
                   {val.type}
                 </Typography>
               </Grid>
-              <Grid item xs={3}>
-                <Typography variant="h6" color="white">
-                  <span style={{ fontWeight: "200" }}>Link: </span>
+              <Grid item xs={2.5}>
+                <Typography variant="h6" fontWeight="200">
                   {val.link}
                 </Typography>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton
+                  onClick={(e) => goToCustomerEdit(e, val.customerId)}
+                >
+                  <Edit />
+                </IconButton>
+              </Grid>
+              <Grid item xs={1}>
+                <IconButton
+                  onClick={(e) => goToCustomerManagers(e, val.customerId)}
+                >
+                  <Person />
+                </IconButton>
               </Grid>
             </Grid>
           ))}

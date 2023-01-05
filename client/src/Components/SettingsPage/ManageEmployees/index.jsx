@@ -7,19 +7,13 @@ import {
   Chip,
   Badge,
 } from "@mui/material";
-import {
-  Add,
-  ClearAll,
-  Delete,
-  DoneAll,
-  Email,
-  KeyboardArrowLeft,
-} from "@mui/icons-material";
+import { Add, ClearAll, Delete, DoneAll, Email } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
 import ConfirmDialog from "../../ConfirmDialog";
 import AddEmployeeDialog from "../AddEmployeeDialog";
 import LoadingPage from "../../LoadingPage";
+import Header from "../../Header";
 
 const ManageEmployees = () => {
   const [employees, setEmployees] = React.useState([
@@ -89,28 +83,17 @@ const ManageEmployees = () => {
   }, []);
 
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
+
   return (
     <div>
       {loading === true ? (
         <LoadingPage />
       ) : (
         <div>
-          <Grid container sx={{ mt: 4, mb: 4 }}>
+          <Grid container sx={{ pt: 4, pb: 4 }}>
             <Grid item xs={1} />
             <Grid container item xs={10} alignItems="center">
-              <Grid item xs={2} sx={{ mb: 4 }}>
-                <IconButton size={"large"} onClick={goBack}>
-                  <KeyboardArrowLeft sx={{ fontSize: 64, color: "black" }} />
-                </IconButton>
-              </Grid>
-              <Grid item xs={10} sx={{ mb: 4 }}>
-                <Typography variant="h2" fontWeight="900">
-                  Manage Employees
-                </Typography>
-              </Grid>
+              <Header navigate={navigate} title="Manage Employees" />
               <Grid
                 container
                 item

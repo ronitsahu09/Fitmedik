@@ -18,6 +18,9 @@ import AdminDashboard from "./AdminDashboard";
 import SeeAllCustomers from "./AdminCustomers";
 import SettingsPage from "./SettingsPage";
 import ManageEmployees from "./SettingsPage/ManageEmployees";
+import CustomerDetailsPage from "./CustomerDetailsPage/index";
+import CustomerEditPage from "./CustomerEditPage/index";
+import CustomerManagerEditPage from "./CustomerManagerEditPage";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -100,8 +103,18 @@ function App() {
         />
 
         <Route
-          path="/admin/edit-customer"
-          element={<CustomerOnboardingFormPage props={appHeight} />}
+          path="/admin/customer/:id"
+          element={<CustomerDetailsPage props={{ appHeight }} />}
+        />
+
+        <Route
+          path="/admin/edit-customer/:id"
+          element={<CustomerEditPage props={{ appHeight }} />}
+        />
+
+        <Route
+          path="/admin/customer-managers/:id"
+          element={<CustomerManagerEditPage props={appHeight} />}
         />
 
         <Route path="/settings" element={<SettingsPage props={appHeight} />} />

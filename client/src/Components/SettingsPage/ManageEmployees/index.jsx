@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import "../styles.css";
-import ConfirmDialog from "../../../ConfirmDialog";
+import ConfirmDialog from "../../ConfirmDialog";
 import AddEmployeeDialog from "../AddEmployeeDialog";
 
 const ManageEmployees = () => {

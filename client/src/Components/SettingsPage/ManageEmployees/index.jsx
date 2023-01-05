@@ -38,7 +38,7 @@ const ManageEmployees = () => {
   const delEmail = React.useRef(null);
 
   const GetEmployees = async () => {
-    // setLoading(false);
+    setLoading(false);
     setError(false);
     setErrorText("");
 

@@ -1,0 +1,14 @@
+.settings-item {
+  border: 0.5px grey;
+  border-style: solid none none none;
+  transition: 0.3s;
+}
+
+.settings-item:hover {
+  box-shadow: 0px 0px 2px 0.5px grey;
+  cursor: pointer;
+}
+
+.settings-item-bottom {
+  border-style: solid none;
+}

@@ -22,6 +22,7 @@ import CustomerDetailsPage from "./CustomerDetailsPage/index";
 import CustomerEditPage from "./CustomerEditPage/index";
 import CustomerManagerEditPage from "./CustomerManagerEditPage";
 import DepartmentsPage from "./SettingsPage/DepartmentsPage";
+import AddTreatmentPartner from "./AddTreatmentPartner";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -116,6 +117,11 @@ function App() {
         <Route
           path="/admin/customer-managers/:id"
           element={<CustomerManagerEditPage props={appHeight} />}
+        />
+
+        <Route
+          path="/admin/add-treatment-partner"
+          element={<AddTreatmentPartner props={appHeight} />}
         />
 
         <Route path="/settings" element={<SettingsPage props={appHeight} />} />

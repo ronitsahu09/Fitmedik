@@ -21,6 +21,7 @@ import ManageEmployees from "./SettingsPage/ManageEmployees";
 import CustomerDetailsPage from "./CustomerDetailsPage/index";
 import CustomerEditPage from "./CustomerEditPage/index";
 import CustomerManagerEditPage from "./CustomerManagerEditPage";
+import DepartmentsPage from "./SettingsPage/DepartmentsPage";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -120,8 +121,13 @@ function App() {
         <Route path="/settings" element={<SettingsPage props={appHeight} />} />
 
         <Route
-          path="/employees"
+          path="/employees/:department"
           element={<ManageEmployees props={appHeight} />}
+        />
+
+        <Route
+          path="/departments"
+          element={<DepartmentsPage props={appHeight} />}
         />
       </Routes>
     </div>

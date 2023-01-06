@@ -14,6 +14,14 @@ const AdminDashboard = () => {
     navigate("/admin/all-customers");
   };
 
+  const addTreatmentPartner = () => {
+    navigate("/admin/add-treatment-partner");
+  };
+
+  const seeAllTPs = () => {
+    navigate("/admin/all-treatment-partners");
+  };
+
   return (
     <div>
       <Grid container>
@@ -50,14 +58,17 @@ const AdminDashboard = () => {
             </div>
           </Grid>
           <Grid container item xs={12} md={6} lg={6}>
-            <div className="admin-dashboard-button">
+            <div
+              className="admin-dashboard-button"
+              onClick={() => addTreatmentPartner()}
+            >
               <Typography variant="h6" color="white" sx={{ m: 6 }}>
                 Add treatment partner
               </Typography>
             </div>
           </Grid>
           <Grid container item xs={12} md={6} lg={6}>
-            <div className="admin-dashboard-button">
+            <div className="admin-dashboard-button" onClick={() => seeAllTPs()}>
               <Typography variant="h6" color="white" sx={{ m: 6 }}>
                 See all treatment partners
               </Typography>

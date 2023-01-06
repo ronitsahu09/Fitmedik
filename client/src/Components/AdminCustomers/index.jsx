@@ -77,6 +77,11 @@ const SeeAllCustomers = () => {
                 Website Link
               </Typography>
             </Grid>
+            <Grid item xs={2}>
+              <Typography variant="h6" fontWeight="800">
+                Actions
+              </Typography>
+            </Grid>
           </Grid>
           {customers.map((val, index) => (
             <Grid

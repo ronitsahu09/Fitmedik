@@ -22,6 +22,11 @@ import CustomerDetailsPage from "./CustomerDetailsPage/index";
 import CustomerEditPage from "./CustomerEditPage/index";
 import CustomerManagerEditPage from "./CustomerManagerEditPage";
 import DepartmentsPage from "./SettingsPage/DepartmentsPage";
+import AddTreatmentPartner from "./AddTreatmentPartner";
+import SeeAllTreatmentPartners from "./AdminTreatmentPartners";
+import TreatmentPartnerEditPage from "./TreatmentPartnerEditPage";
+import TreatmentPartnerDetailPage from "./TreatmentPartnerDetailPage";
+import AdminTPEventPage from "./AdminTPEventPage";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -116,6 +121,31 @@ function App() {
         <Route
           path="/admin/customer-managers/:id"
           element={<CustomerManagerEditPage props={appHeight} />}
+        />
+
+        <Route
+          path="/admin/add-treatment-partner"
+          element={<AddTreatmentPartner props={appHeight} />}
+        />
+
+        <Route
+          path="/admin/all-treatment-partners"
+          element={<SeeAllTreatmentPartners props={appHeight} />}
+        />
+
+        <Route
+          path="/admin/edit-treatment-partner/:id"
+          element={<TreatmentPartnerEditPage props={appHeight} />}
+        />
+
+        <Route
+          path="/admin/treatment-partner-detail/:id"
+          element={<TreatmentPartnerDetailPage props={appHeight} />}
+        />
+
+        <Route
+          path="/admin/treatment-partner-events/:id"
+          element={<AdminTPEventPage props={appHeight} />}
         />
 
         <Route path="/settings" element={<SettingsPage props={appHeight} />} />

@@ -17,12 +17,16 @@ const HospitalSection = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="cof-hs-container">
+    <div>
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
         <Grid item xs={1} />
-        <Grid container item xs={10} rowSpacing={3}>
+        <Grid container item xs={10}>
           <Header navigate={navigate} title="Hospital Details" />
+        </Grid>
+        <Grid item xs={1} />
 
+        <Grid item xs={1} />
+        <Grid container item xs={10} rowSpacing={3}>
           {/* Hospital Name */}
           <Grid container item xs={12}>
             <Typography mb={0.5} variant="h6">

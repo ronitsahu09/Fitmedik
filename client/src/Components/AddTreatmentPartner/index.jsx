@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Grid,
-  Typography,
-  TextField,
-  TextareaAutosize,
-  Checkbox,
-  Button,
-} from "@mui/material";
+import { Grid, Typography, TextField, Checkbox, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header";
 import { Add } from "@mui/icons-material";
@@ -136,6 +129,8 @@ const AddTreatmentPartner = () => {
               onChange={(e) => setProviderAbout(e.target.value)}
               error={providerAboutError.length !== 0}
               helperText={providerAboutError}
+              multiline={true}
+              rows={3}
             />
           </Grid>
 
@@ -254,7 +249,7 @@ const AddTreatmentPartner = () => {
                 required
                 fullWidth
                 variant={"outlined"}
-                placeholder="Link"
+                placeholder="Link (eg. 'https://yourlink.com')"
                 value={link}
                 type="text"
                 onChange={(e) => setLink(e.target.value)}
@@ -262,6 +257,12 @@ const AddTreatmentPartner = () => {
                 helperText={linkError}
               />
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h5" fontWeight="800" color="red">
+              * Events for this treatment partner are to be added under the see
+              all partners page
+            </Typography>
           </Grid>
         </Grid>
         <Grid item xs={1} />

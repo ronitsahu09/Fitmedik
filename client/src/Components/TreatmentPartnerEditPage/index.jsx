@@ -1,11 +1,11 @@
 import React from "react";
 import { Grid, Typography, TextField, Checkbox, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../Header";
-import { Add, RestartAlt } from "@mui/icons-material";
+import { Edit, RestartAlt } from "@mui/icons-material";
 import { validateUrl } from "../../Utils/HelperFunctions";
 
-const AddTreatmentPartner = () => {
+const TreatmentPartnerEditPage = () => {
   const navigate = useNavigate();
 
   const [data, setData] = React.useState({
@@ -25,17 +25,27 @@ const AddTreatmentPartner = () => {
   const [providerAboutError, setProviderAboutError] = React.useState("");
   const [linkError, setLinkError] = React.useState("");
 
-  const [loading, setLoading] = React.useState(false);
+  const { id } = useParams();
+
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
-  const AddTreatmentPartner = () => {
-    if (validate()) {
-      // Call API
-    }
-  };
+  const originalData = React.useRef({
+    sectionHeading: "",
+    providerName: "",
+    providerAbout: "",
+    valueAdded: "",
+    duration: "",
+    thesis: "",
+    expectedImpact: "",
+    link: "",
+    dashboardDisplay: false,
+  });
 
-  const reset = () => {
+  const GetTreatmentPartner = async () => {
+    console.log(id);
+
     setData({
       sectionHeading: "",
       providerName: "",
@@ -45,8 +55,39 @@ const AddTreatmentPartner = () => {
       thesis: "",
       expectedImpact: "",
       link: "",
-      dashboardDisplay: true,
+      dashboardDisplay: false,
     });
+
+    originalData.current = {
+      sectionHeading: "",
+      providerName: "",
+      providerAbout: "",
+      valueAdded: "",
+      duration: "",
+      thesis: "",
+      expectedImpact: "",
+      link: "",
+      dashboardDisplay: false,
+    };
+
+    setLoading(false);
+    setError(false);
+    setErrorText("");
+  };
+
+  React.useRef(() => {
+    GetTreatmentPartner();
+  }, []);
+
+  const UpdatePartner = () => {
+    console.log(id);
+    if (validate()) {
+      // Call API
+    }
+  };
+
+  const reset = () => {
+    setData(originalData.current);
 
     setSectionHeadingError("");
     setProviderNameError("");
@@ -97,7 +138,7 @@ const AddTreatmentPartner = () => {
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
         <Grid item xs={1} />
         <Grid container item xs={10}>
-          <Header navigate={navigate} title="Add a Treatment Partner" />
+          <Header navigate={navigate} title="Update Treatment Partner" />
         </Grid>
         <Grid item xs={1} />
 
@@ -339,15 +380,15 @@ const AddTreatmentPartner = () => {
           sx={{ borderRadius: 99, ml: 1 }}
           size="large"
           color="error"
-          startIcon={<Add />}
-          onClick={AddTreatmentPartner}
+          startIcon={<Edit />}
+          onClick={UpdatePartner}
           variant="contained"
         >
-          Add Treatment Partner
+          Update Treatment Partner
         </Button>
       </div>
     </div>
   );
 };
 
-export default AddTreatmentPartner;
+export default TreatmentPartnerEditPage;

@@ -17,10 +17,10 @@ const SettingsPage = () => {
             item
             xs={12}
             className="settings-item settings-item-bottom"
-            onClick={() => navigate("/employees")}
+            onClick={() => navigate("/departments")}
           >
             <Typography variant="h5" fontWeight="400" sx={{ m: 2 }}>
-              Manage Employees
+              Manage Employees & Departments
             </Typography>
           </Grid>
         </Grid>

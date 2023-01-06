@@ -1,68 +1,62 @@
 import React from "react";
-import {
-  IconButton,
-  Grid,
-  Typography,
-  Button,
-  Chip,
-  Badge,
-} from "@mui/material";
-import { Add, ClearAll, Delete, DoneAll, Email } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+import { IconButton, Grid, Typography, Button, Chip } from "@mui/material";
+import { Add, Delete } from "@mui/icons-material";
+import { useNavigate, useParams } from "react-router-dom";
 import "../styles.css";
 import ConfirmDialog from "../../ConfirmDialog";
-import AddEmployeeDialog from "../AddEmployeeDialog";
 import LoadingPage from "../../LoadingPage";
 import Header from "../../Header";
+import AddManagerDialog from "../AddManagerDialog";
 
 const ManageEmployees = () => {
-  const [employees, setEmployees] = React.useState([
-    { name: "", email: "", status: false },
-  ]);
-  const [selectedEmployees, setSelectedEmployees] = React.useState([]);
+  const [employees, setEmployees] = React.useState([]);
+  const [emails, setEmails] = React.useState([]);
 
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
   const [confirmOpen, setConfirmOpen] = React.useState(false);
-  const [sendOpen, setSendOpen] = React.useState(false);
   const [addOpen, setAddOpen] = React.useState(false);
+
+  const { department } = useParams();
 
   const delEmail = React.useRef(null);
 
   const GetEmployees = async () => {
+    console.log(department);
     setLoading(false);
     setError(false);
     setErrorText("");
 
     setConfirmOpen(false);
-    setSendOpen(false);
     setAddOpen(false);
 
-    setEmployees([
+    const tempEmployees = [
       {
-        name: "abc",
         email: "abc@gmail.com",
         status: false,
-        department: "nurse",
       },
       {
-        name: "def",
         email: "def@gmail.com",
         status: true,
-        department: "doctor",
       },
       {
-        name: "jkl",
         email: "jkl@gmail.com",
         status: false,
-        department: "doctor",
       },
-    ]);
+    ];
+
+    setEmployees(tempEmployees);
+
+    tempEmployees.forEach((val) => {
+      emails.push(val.email);
+    });
+
+    setEmails(emails);
   };
 
-  const AddEmployee = async (name, email, department) => {
+  const AddEmployee = async (department, emails) => {
     GetEmployees();
   };
 
@@ -70,16 +64,8 @@ const ManageEmployees = () => {
     GetEmployees();
   };
 
-  const SendInvite = async () => {
-    const selectedEmployeeData = [];
-    selectedEmployees.forEach((val) => {
-      selectedEmployeeData.push(employees[val]);
-    });
-  };
-
   React.useEffect(() => {
     GetEmployees();
-    setSelectedEmployees([]);
   }, []);
 
   const navigate = useNavigate();
@@ -101,24 +87,19 @@ const ManageEmployees = () => {
                 style={{ border: "0.5px black", borderStyle: "solid none" }}
                 sx={{ p: 2 }}
               >
-                <Grid item xs={2.5}>
-                  <Typography variant="h6" fontWeight="800">
-                    Name
-                  </Typography>
-                </Grid>
-                <Grid item xs={2.5}>
+                <Grid item xs={5}>
                   <Typography variant="h6" fontWeight="800">
                     E-mail
                   </Typography>
                 </Grid>
-                <Grid item xs={2.5}>
+                <Grid item xs={5}>
                   <Typography variant="h6" fontWeight="800">
                     Status
                   </Typography>
                 </Grid>
-                <Grid item xs={2.5}>
+                <Grid item xs={2}>
                   <Typography variant="h6" fontWeight="800">
-                    Department
+                    Actions
                   </Typography>
                 </Grid>
               </Grid>
@@ -130,34 +111,19 @@ const ManageEmployees = () => {
                   key={index}
                   sx={{
                     p: 2,
-                    backgroundColor: selectedEmployees.includes(index)
-                      ? "lightgrey"
-                      : "inherit",
                   }}
                   className={
                     index === employees.length - 1
                       ? "settings-item settings-item-bottom"
                       : "settings-item"
                   }
-                  onClick={() => {
-                    if (selectedEmployees.includes(index))
-                      setSelectedEmployees(
-                        selectedEmployees.filter((val) => val !== index)
-                      );
-                    else setSelectedEmployees([...selectedEmployees, index]);
-                  }}
                 >
-                  <Grid item xs={2.5}>
-                    <Typography variant="h6" fontWeight="100">
-                      {val.name}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={2.5}>
+                  <Grid item xs={5}>
                     <Typography variant="h6" fontWeight="100">
                       {val.email}
                     </Typography>
                   </Grid>
-                  <Grid item xs={2.5}>
+                  <Grid item xs={5}>
                     <Typography variant="h6">
                       {val.status === true ? (
                         <Chip
@@ -172,11 +138,6 @@ const ManageEmployees = () => {
                           variant="outlined"
                         />
                       )}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={2.5}>
-                    <Typography variant="h6" fontWeight="100">
-                      {val.department}
                     </Typography>
                   </Grid>
                   <Grid item xs={2}>
@@ -210,31 +171,6 @@ const ManageEmployees = () => {
           >
             <Button
               variant="contained"
-              startIcon={<DoneAll />}
-              size="large"
-              disabled={selectedEmployees.length === employees.length}
-              onClick={() => {
-                let temp = [];
-                for (let i = 0; i < employees.length; i++) temp.push(i);
-                setSelectedEmployees(temp);
-              }}
-              sx={{ mr: 1 }}
-            >
-              Select All
-            </Button>
-            <Button
-              variant="contained"
-              startIcon={<ClearAll />}
-              size="large"
-              sx={{ mr: 1 }}
-              disabled={selectedEmployees.length === 0}
-              onClick={() => setSelectedEmployees([])}
-              color="error"
-            >
-              De-select All
-            </Button>
-            <Button
-              variant="contained"
               color="success"
               startIcon={<Add />}
               size="large"
@@ -243,17 +179,6 @@ const ManageEmployees = () => {
             >
               Add employees
             </Button>
-            <Badge badgeContent={selectedEmployees.length} color="error">
-              <Button
-                variant="contained"
-                startIcon={<Email />}
-                size="large"
-                disabled={selectedEmployees.length === 0}
-                onClick={() => setSendOpen(true)}
-              >
-                Invite
-              </Button>
-            </Badge>
           </div>
 
           {confirmOpen === true && (
@@ -271,29 +196,14 @@ const ManageEmployees = () => {
             />
           )}
 
-          {sendOpen === true && (
-            <ConfirmDialog
-              open={sendOpen}
-              header={"Send invitation E-mails?"}
-              text={
-                "An invitation e-mail will be sent to all employees, this action cannot be reversed."
-              }
-              onCancel={() => setSendOpen(false)}
-              onConfirm={() => {
-                setSendOpen(false);
-                SendInvite();
-              }}
-            />
-          )}
-
-          {addOpen === true && (
-            <AddEmployeeDialog
+          {addOpen && (
+            <AddManagerDialog
               open={addOpen}
               onCancel={() => setAddOpen(false)}
-              onConfirm={(name, email, department) => {
-                setAddOpen(false);
-                AddEmployee(name, email, department);
-              }}
+              onConfirm={(department, emails) =>
+                AddEmployee(department, emails)
+              }
+              addedData={{ emails, department }}
             />
           )}
         </div>

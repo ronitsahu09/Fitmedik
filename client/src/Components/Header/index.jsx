@@ -17,7 +17,7 @@ const Header = ({ navigate, title, showBackButton = true }) => {
         </Grid>
       )}
       <Grid container item xs={10} sx={{ mb: 4 }} alignItems="center">
-        <Typography variant="h2" fontWeight="900">
+        <Typography variant="h3" fontWeight="700">
           {title}
         </Typography>
       </Grid>

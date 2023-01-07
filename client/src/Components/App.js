@@ -27,6 +27,7 @@ import SeeAllTreatmentPartners from "./AdminTreatmentPartners";
 import TreatmentPartnerEditPage from "./TreatmentPartnerEditPage";
 import TreatmentPartnerDetailPage from "./TreatmentPartnerDetailPage";
 import AdminTPEventPage from "./AdminTPEventPage";
+import TreatmentPartnersPage from "./TreatmentPartnersPage";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -100,12 +101,12 @@ function App() {
 
         <Route
           path="/admin/dashboard"
-          element={<AdminDashboard props={appHeight} />}
+          element={<AdminDashboard props={{ appHeight }} />}
         />
 
         <Route
           path="/admin/all-customers"
-          element={<SeeAllCustomers props={appHeight} />}
+          element={<SeeAllCustomers props={{ appHeight }} />}
         />
 
         <Route
@@ -120,44 +121,52 @@ function App() {
 
         <Route
           path="/admin/customer-managers/:id"
-          element={<CustomerManagerEditPage props={appHeight} />}
+          element={<CustomerManagerEditPage props={{ appHeight }} />}
         />
 
         <Route
           path="/admin/add-treatment-partner"
-          element={<AddTreatmentPartner props={appHeight} />}
+          element={<AddTreatmentPartner props={{ appHeight }} />}
         />
 
         <Route
           path="/admin/all-treatment-partners"
-          element={<SeeAllTreatmentPartners props={appHeight} />}
+          element={<SeeAllTreatmentPartners props={{ appHeight }} />}
         />
 
         <Route
           path="/admin/edit-treatment-partner/:id"
-          element={<TreatmentPartnerEditPage props={appHeight} />}
+          element={<TreatmentPartnerEditPage props={{ appHeight }} />}
         />
 
         <Route
           path="/admin/treatment-partner-detail/:id"
-          element={<TreatmentPartnerDetailPage props={appHeight} />}
+          element={<TreatmentPartnerDetailPage props={{ appHeight }} />}
         />
 
         <Route
           path="/admin/treatment-partner-events/:id"
-          element={<AdminTPEventPage props={appHeight} />}
+          element={<AdminTPEventPage props={{ appHeight }} />}
         />
 
-        <Route path="/settings" element={<SettingsPage props={appHeight} />} />
+        <Route
+          path="/settings"
+          element={<SettingsPage props={{ appHeight }} />}
+        />
 
         <Route
           path="/employees/:department"
-          element={<ManageEmployees props={appHeight} />}
+          element={<ManageEmployees props={{ appHeight }} />}
         />
 
         <Route
           path="/departments"
-          element={<DepartmentsPage props={appHeight} />}
+          element={<DepartmentsPage props={{ appHeight }} />}
+        />
+
+        <Route
+          path="/treatment-partners"
+          element={<TreatmentPartnersPage props={{ appHeight }} />}
         />
       </Routes>
     </div>

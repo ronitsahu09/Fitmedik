@@ -25,8 +25,8 @@ const ManagerDetailCard = ({
         borderBottomLeftRadius: 99,
         mt: 1,
         mb: 1,
-        pl: 4,
-        pr: 4,
+        p: 4,
+        pb: 6,
       }}
       className="cof-hs-container"
     >

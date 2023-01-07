@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, Typography, TextField, Autocomplete } from "@mui/material";
 import { avgPdOptions, avgSalOptions, noOfBedsOptions } from "./data";
 import "./styles.css";
+import Header from "../Header";
 
 const OperationalSection = ({
   opdtDetails = {
@@ -29,15 +30,20 @@ const OperationalSection = ({
   setOpdtDetails,
 }) => {
   return (
-    <div className="cof-hs-container">
-      <Grid container sx={{ width: "100vw" }}>
+    <div>
+      <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
+        <Grid item xs={1} />
+        <Grid container item xs={10}>
+          <Header
+            navigate={null}
+            title="Operational Details"
+            showBackButton={false}
+          />
+        </Grid>
+        <Grid item xs={1} />
+
         <Grid item xs={1} />
         <Grid container item xs={10} rowSpacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h2" fontWeight="900">
-              Operational Details
-            </Typography>
-          </Grid>
           <Grid item xs={12}>
             <Typography variant="h5" fontWeight="400">
               Enter the operational details of the Hospital

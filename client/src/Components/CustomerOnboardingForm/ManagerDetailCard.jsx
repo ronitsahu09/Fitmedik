@@ -88,8 +88,8 @@ const ManagerDetailCard = ({
         borderBottomLeftRadius: 99,
         mt: 1,
         mb: 1,
-        pl: 4,
-        pr: 4,
+        p: 4,
+        pb: 6,
         border: managerDetail.validated === false ? "1px solid red" : 0,
       }}
       className="cof-hs-container"

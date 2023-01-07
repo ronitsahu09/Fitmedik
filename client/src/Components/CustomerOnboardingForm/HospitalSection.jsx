@@ -30,7 +30,7 @@ const HospitalSection = ({
   const navigate = useNavigate();
 
   return (
-    <div className="cof-hs-container">
+    <div>
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
         <Grid item xs={1} />
         <Grid container item xs={10}>

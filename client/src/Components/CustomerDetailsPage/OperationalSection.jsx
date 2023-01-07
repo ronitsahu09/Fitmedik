@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
 import "./styles.css";
+import Header from "../Header";
 
 const OperationalSection = ({
   opdtDetails = {
@@ -14,28 +15,22 @@ const OperationalSection = ({
     avgOpd: "",
     avgIpd: "",
   },
-  opdtDetailsError = {
-    annualSalNurse: "",
-    annualSalPhysician: "",
-    annualSalPhysicianSupport: "",
-    annualSalTechnician: "",
-    annualSalAdminManagement: "",
-    noOfBeds: "",
-    averageOccupancy: "",
-    avgOpd: "",
-    avgIpd: "",
-  },
 }) => {
   return (
-    <div className="cof-hs-container">
-      <Grid container sx={{ width: "100vw" }}>
+    <div>
+      <Grid container sx={{ width: "100vw", pb: 4, pt: 4 }}>
+        <Grid item xs={1} />
+        <Grid container item xs={10}>
+          <Header
+            navigate={null}
+            title="Operational Details"
+            showBackButton={false}
+          />
+        </Grid>
+        <Grid item xs={1} />
+
         <Grid item xs={1} />
         <Grid container item xs={10} rowSpacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h2" fontWeight="900">
-              Operational Details
-            </Typography>
-          </Grid>
           <Grid item xs={12}>
             <Typography variant="h5" fontWeight="400">
               Enter the operational details of the Hospital

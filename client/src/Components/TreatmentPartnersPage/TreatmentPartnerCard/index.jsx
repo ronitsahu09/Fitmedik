@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Link, Stack, Typography } from "@mui/material";
+import { Button, Grid, Link, Stack, Typography } from "@mui/material";
 
 const TreatmentPartnerCard = ({
   data = {
@@ -21,16 +21,16 @@ const TreatmentPartnerCard = ({
         <Grid item xs={1} />
         <Grid container item xs={7.5} rowSpacing={3}>
           <Grid item xs={12}>
-            <Typography variant="h4" fontWeight="800" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" fontWeight="800" sx={{ mb: 0.5 }}>
               Name of the Provider
             </Typography>
-            <Typography variant="h5" fontWeight="200">
+            <Typography variant="h6" fontWeight="200">
               {data.providerName}
             </Typography>
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h5" fontWeight="800" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" fontWeight="800" sx={{ mb: 0.5 }}>
               Value Added
             </Typography>
             <Typography variant="h6" fontWeight="200">
@@ -39,7 +39,7 @@ const TreatmentPartnerCard = ({
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h5" fontWeight="800" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" fontWeight="800" sx={{ mb: 0.5 }}>
               Thesis
             </Typography>
             <Typography variant="h6" fontWeight="200">
@@ -48,7 +48,7 @@ const TreatmentPartnerCard = ({
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h5" fontWeight="800" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" fontWeight="800" sx={{ mb: 0.5 }}>
               Expected Impact
             </Typography>
             <Typography variant="h6" fontWeight="200">
@@ -71,7 +71,9 @@ const TreatmentPartnerCard = ({
             </Link>
           </Grid>
         </Grid>
-        <Grid container item xs={3.5}></Grid>
+        <Grid item xs={3.5}>
+          <Button variant="contained">Reach out to Onboard</Button>
+        </Grid>
       </Grid>
     </Stack>
   );

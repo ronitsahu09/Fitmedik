@@ -1,13 +1,16 @@
 import React from "react";
-import { Grid, Stack } from "@mui/material";
-import Header from "../Header";
+import { Grid, Stack, Typography } from "@mui/material";
 import TreatmentPartnerCard from "./TreatmentPartnerCard";
-import { AppWrapper } from "../Styles_&_Components/Styles";
+import {
+  AppWrapper,
+  fixedWindow,
+  middle,
+  middleWindow,
+} from "../Styles_&_Components/Styles";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
+import RightSidebar from "../RightSidebar/RightSidebar";
 
-const TreatmentPartnersPage = ({ props }) => {
-  const { appHeight } = props;
-
+const TreatmentPartnersPage = () => {
   const [data, setData] = React.useState([
     {
       sectionHeading: "",
@@ -35,6 +38,28 @@ const TreatmentPartnersPage = ({ props }) => {
         link: "",
         dashboardDisplay: false,
       },
+      {
+        sectionHeading: "",
+        providerName: "",
+        providerAbout: "",
+        valueAdded: "",
+        duration: "",
+        thesis: "",
+        expectedImpact: "",
+        link: "",
+        dashboardDisplay: false,
+      },
+      {
+        sectionHeading: "",
+        providerName: "",
+        providerAbout: "",
+        valueAdded: "",
+        duration: "",
+        thesis: "",
+        expectedImpact: "",
+        link: "",
+        dashboardDisplay: false,
+      },
     ]);
   };
 
@@ -45,25 +70,26 @@ const TreatmentPartnersPage = ({ props }) => {
   return (
     <Stack sx={{ ...AppWrapper, height: "100vh" }} direction="row">
       <LeftSidebar />
-      <Grid container sx={{ overflow: "scroll", minHeight: "100vh" }}>
-        <Grid item xs={1} />
-        <Grid container item xs={10}>
-          <Header
-            showBackButton={false}
-            navigate={null}
-            title={"Treatment Partners"}
-          />
-        </Grid>
-        <Grid item xs={1} />
 
-        <Grid item xs={1} />
-        <Grid container item xs={10}>
-          {data.map((val, index) => (
-            <TreatmentPartnerCard data={val} key={index} />
-          ))}
-        </Grid>
-        <Grid item xs={1} />
-      </Grid>
+      <Stack sx={{ ...middle }}>
+        <Stack sx={{ ...middleWindow }}>
+          <Typography variant="h3" component="div" fontWeight="700">
+            Treatment Partners
+          </Typography>
+
+          <Stack sx={{ ...fixedWindow }}>
+            <Stack gap={3} mt={3}>
+              <Stack direction="column" alignItems="center" gap="0.5rem">
+                {data.map((val, index) => (
+                  <Grid container item xs={12}>
+                    <TreatmentPartnerCard data={val} key={index} />
+                  </Grid>
+                ))}
+              </Stack>
+            </Stack>
+          </Stack>
+        </Stack>
+      </Stack>
     </Stack>
   );
 };

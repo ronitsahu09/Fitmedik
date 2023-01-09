@@ -36,7 +36,7 @@ const CustomerDetailsPage = () => {
   React.useEffect(() => {
     const token = GetAdminToken();
     if (!token) navigate("/admin/login");
-    GetCustomerData();
+    else GetCustomerData();
   }, []);
 
   const [hospDetails, setHospitalDetails] = React.useState({

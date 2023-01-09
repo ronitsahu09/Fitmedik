@@ -72,8 +72,8 @@ const DepartmentsPage = ({ props }) => {
                   }}
                   className={
                     index === departments.length - 1
-                      ? "settings-item settings-item-bottom"
-                      : "settings-item"
+                      ? "inner-settings-item inner-settings-item-bottom"
+                      : "inner-settings-item"
                   }
                   onClick={() => navigate(`/employees/${val.name}`)}
                 >

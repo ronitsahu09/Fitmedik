@@ -114,8 +114,8 @@ const ManageEmployees = () => {
                   }}
                   className={
                     index === employees.length - 1
-                      ? "settings-item settings-item-bottom"
-                      : "settings-item"
+                      ? "inner-settings-item inner-settings-item-bottom"
+                      : "inner-settings-item"
                   }
                 >
                   <Grid item xs={5}>

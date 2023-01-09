@@ -5,7 +5,8 @@ import HospitalSection from "./HospitalSection";
 import "./styles.css";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { GetToken } from "../../Cookies/admin";
 
 const HOSP_SECTION = 0;
 const MGER_SECTION = 1;
@@ -14,34 +15,39 @@ const OPDT_SECTION = 2;
 const CustomerDetailsPage = () => {
   const [mode, setMode] = React.useState(HOSP_SECTION);
 
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(false);
-  const [errorText, setErrorText] = React.useState("");
+  // const [loading, setLoading] = React.useState(true);
+  // const [error, setError] = React.useState(false);
+  // const [errorText, setErrorText] = React.useState("");
+
   const customerId = React.useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const { id } = useParams();
   customerId.current = id;
 
   const GetCustomerData = () => {
-    console.log(customerId.current);
-    // API Call
-    setLoading(false);
-    setError(false);
-    setErrorText(false);
+    const data = location.state.customer;
+    setHospitalDetails(data);
+    setManagerDetails(data.hospital_manager);
+    setOpdtDetails(data.operational_details);
   };
 
   React.useEffect(() => {
+    const token = GetToken();
+    if (!token) navigate("/admin/login");
     GetCustomerData();
   }, []);
 
   const [hospDetails, setHospitalDetails] = React.useState({
     name: "",
-    employeeSize: "",
-    type: "",
+    employee_size: "",
+    typeofHospital: "",
     city: "",
     country: "",
-    link: "",
-    subscriptionCount: 0,
+    website: "",
+    subscription_size: 0,
+    location: "",
   });
 
   const [managerDetails, setManagerDetails] = React.useState([
@@ -49,8 +55,6 @@ const CustomerDetailsPage = () => {
       name: "",
       title: "",
       email: "",
-      index: 0,
-      validated: false,
     },
   ]);
 

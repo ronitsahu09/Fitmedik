@@ -8,7 +8,6 @@ import {
   middleWindow,
 } from "../Styles_&_Components/Styles";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
-import RightSidebar from "../RightSidebar/RightSidebar";
 
 const TreatmentPartnersPage = () => {
   const [data, setData] = React.useState([

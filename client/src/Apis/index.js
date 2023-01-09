@@ -2,62 +2,52 @@ import axios from "axios";
 
 export const get = async (header, endpoint) => {
   try {
+    if (navigator.onLine === false)
+      throw new Error("Not connected to the internet");
+
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/${endpoint}`,
+      `${process.env.REACT_APP_BASE_URL}${endpoint}`,
       header
     );
-    if (response.status === 200) return { status: true, data: response.data };
-    else
-      return {
-        status: false,
-        message: response.data || response.data.message || "An error occured",
-      };
+    console.log(response);
+    if (response.status === 200) return response.data;
+    else throw new Error("An error occured");
   } catch (e) {
-    return {
-      status: false,
-      message: e.response || e.response.data || "An error occured",
-    };
+    throw e;
   }
 };
 
 export const post = async (header, data, endpoint) => {
   try {
+    if (navigator.onLine === false)
+      throw new Error("Not connected to the internet");
     const response = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/${endpoint}`,
+      `${process.env.REACT_APP_BASE_URL}${endpoint}`,
       data,
-      header
+      { headers: { "Content-Type": "application/json" } }
     );
-    if (response.status === 200) return { status: true, data: response.data };
-    else
-      return {
-        status: false,
-        message: response.data || response.data.message || "An error occured",
-      };
+    console.log(response);
+    if (response.status === 200) return response.data;
+    else throw new Error("An error occured");
   } catch (e) {
-    return {
-      status: false,
-      message: e.response || e.response.data || "An error occured",
-    };
+    throw e;
   }
 };
 
 export const put = async (header, data, endpoint) => {
   try {
+    if (navigator.onLine === false)
+      throw new Error("Not connected to the internet");
+
     const response = await axios.put(
-      `${process.env.REACT_APP_BASE_URL}/${endpoint}`,
+      `${process.env.REACT_APP_BASE_URL}${endpoint}`,
       data,
       header
     );
-    if (response.status === 200) return { status: true, data: response.data };
-    else
-      return {
-        status: false,
-        message: response.data || response.data.message || "An error occured",
-      };
+    console.log(response);
+    if (response.status === 200) return response.data;
+    else throw new Error("An error occured");
   } catch (e) {
-    return {
-      status: false,
-      message: e.response || e.response.data || "An error occured",
-    };
+    throw e;
   }
 };

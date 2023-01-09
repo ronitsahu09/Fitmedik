@@ -28,6 +28,7 @@ import TreatmentPartnerEditPage from "./TreatmentPartnerEditPage";
 import TreatmentPartnerDetailPage from "./TreatmentPartnerDetailPage";
 import AdminTPEventPage from "./AdminTPEventPage";
 import TreatmentPartnersPage from "./TreatmentPartnersPage";
+import AdminLogin from "./AdminLogin";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -93,6 +94,8 @@ function App() {
           path="/setuppassword"
           element={<SetupPasswordScreen props={{ appHeight }} />}
         />
+
+        <Route path="/admin/login" element={<AdminLogin />} />
 
         <Route
           path="/admin/onboard-customer"

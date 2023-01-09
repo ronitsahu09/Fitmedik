@@ -31,12 +31,6 @@ const OperationalSection = ({
 
         <Grid item xs={1} />
         <Grid container item xs={10} rowSpacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h5" fontWeight="400">
-              Enter the operational details of the Hospital
-            </Typography>
-          </Grid>
-
           {/* Average  Salary of a Nurse */}
           <Grid container item xs={12}>
             <Typography mb={0.5} variant="h6">

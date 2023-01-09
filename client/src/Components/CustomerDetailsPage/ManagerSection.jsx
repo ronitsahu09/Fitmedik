@@ -29,11 +29,6 @@ const ManagerSection = ({
 
         <Grid item xs={1} />
         <Grid container item xs={10} rowSpacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h5" fontWeight="400">
-              Enter the details of the all the Managers
-            </Typography>
-          </Grid>
           {managerDetails.map((val, index) => {
             return (
               <ManagerDetailCard

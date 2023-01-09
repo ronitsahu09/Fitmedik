@@ -7,12 +7,12 @@ import { useNavigate } from "react-router-dom";
 const HospitalSection = ({
   hospDetails = {
     name: "",
-    employeeSize: "",
-    type: "",
+    employee_size: "",
+    typeOfHospital: "",
     city: "",
     country: "",
-    link: "",
-    subscriptionCount: 0,
+    website: "",
+    subscription_size: 0,
   },
 }) => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const HospitalSection = ({
         <Grid item xs={1} />
         <Grid container item xs={10} rowSpacing={3}>
           {/* Hospital Name */}
-          <Grid container item xs={12}>
+          <Grid item xs={12}>
             <Typography mb={0.5} variant="h6">
               Hospital Name
             </Typography>
@@ -38,24 +38,24 @@ const HospitalSection = ({
           </Grid>
 
           {/* Employeee Size */}
-          <Grid container item xs={12}>
+          <Grid item xs={12}>
             <Typography mb={0.5} variant="h6">
               Employee Size
             </Typography>
 
             <Typography variant="h6" fontWeight="200">
-              {hospDetails.employeeSize}
+              {hospDetails.employee_size}
             </Typography>
           </Grid>
 
           {/* Type of Hospital */}
-          <Grid container item xs={12}>
+          <Grid item xs={12}>
             <Typography mb={0.5} variant="h6">
               Type of Hospital
             </Typography>
 
             <Typography variant="h6" fontWeight="200">
-              {hospDetails.type}
+              {hospDetails.typeOfHospital}
             </Typography>
           </Grid>
 
@@ -80,6 +80,16 @@ const HospitalSection = ({
             </Typography>
           </Grid>
 
+          {/* Country of Hospital */}
+          <Grid item xs={12}>
+            <Typography mb={0.5} variant="h6">
+              Location of Hospital
+            </Typography>
+            <Typography variant="h6" fontWeight="200">
+              {hospDetails.location}
+            </Typography>
+          </Grid>
+
           {/* Website link of Hospital */}
           <Grid item xs={12}>
             <Typography mb={0.5} variant="h6">
@@ -87,7 +97,7 @@ const HospitalSection = ({
             </Typography>
 
             <Typography variant="h6" fontWeight="200">
-              {hospDetails.link}
+              {hospDetails.website}
             </Typography>
           </Grid>
 
@@ -98,7 +108,7 @@ const HospitalSection = ({
             </Typography>
 
             <Typography variant="h6" fontWeight="200">
-              {hospDetails.subscriptionCount}
+              {hospDetails.subscription_size}
             </Typography>
           </Grid>
         </Grid>

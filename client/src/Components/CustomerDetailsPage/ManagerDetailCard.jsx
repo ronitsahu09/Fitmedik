@@ -30,7 +30,7 @@ const ManagerDetailCard = ({
       }}
       className="cof-hs-container"
     >
-      <Grid container item xs={12}>
+      <Grid item xs={12}>
         <Typography mb={0.5} variant="h6">
           Manager Name
         </Typography>
@@ -40,7 +40,7 @@ const ManagerDetailCard = ({
         </Typography>
       </Grid>
 
-      <Grid container item xs={12}>
+      <Grid item xs={12}>
         <Typography mb={0.5} variant="h6">
           Manager Title
         </Typography>
@@ -50,7 +50,7 @@ const ManagerDetailCard = ({
         </Typography>
       </Grid>
 
-      <Grid container item xs={12}>
+      <Grid item xs={12}>
         <Typography mb={0.5} variant="h6">
           Manager E-mail
         </Typography>

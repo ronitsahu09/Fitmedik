@@ -12,7 +12,7 @@ import React from "react";
 import { validateEmail } from "../../Utils/HelperFunctions";
 import { Login, VerifyOtp } from "../../Apis/Admin/Login";
 import { useNavigate } from "react-router-dom";
-import { GetToken, login } from "../../Cookies/admin";
+import { GetAdminToken, LoginAdmin } from "../../Cookies/admin";
 
 const AdminLogin = () => {
   const [email, setEmail] = React.useState("");
@@ -39,7 +39,7 @@ const AdminLogin = () => {
   };
 
   React.useEffect(() => {
-    const token = GetToken();
+    const token = GetAdminToken();
     console.log(token);
     if (token) navigate("/admin/dashboard");
   }, []);
@@ -67,7 +67,7 @@ const AdminLogin = () => {
         setIsOtp,
       });
       if (verified) {
-        login(adminToken);
+        LoginAdmin(adminToken);
         navigate("/admin/dashboard");
       }
     }

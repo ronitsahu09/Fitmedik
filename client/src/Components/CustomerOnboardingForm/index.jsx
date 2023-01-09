@@ -11,7 +11,7 @@ import {
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
 import { AddCustomerApi } from "../../Apis/Admin/Customers";
-import { GetToken } from "../../Cookies/admin";
+import { GetAdminToken } from "../../Cookies/admin";
 import { useNavigate } from "react-router-dom";
 
 const HOSP_SECTION = 0;
@@ -31,7 +31,7 @@ const CustomerOnboardingFormPage = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const token = GetToken();
+    const token = GetAdminToken();
     if (!token) navigate("/admin/login");
   }, []);
 
@@ -45,7 +45,7 @@ const CustomerOnboardingFormPage = () => {
       active_state: true,
       poc_manager: managerDetails[0],
     };
-    const res = AddCustomerApi(GetToken(), data, {
+    const res = AddCustomerApi(GetAdminToken(), data, {
       setLoading,
       setError,
       setErrorText,

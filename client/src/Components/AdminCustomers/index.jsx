@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Edit, Person } from "@mui/icons-material";
 import Header from "../Header";
 import { GetAllCustomersApi } from "../../Apis/Admin/Customers";
-import { GetToken } from "../../Cookies/admin";
+import { GetAdminToken } from "../../Cookies/admin";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 
@@ -17,7 +17,7 @@ const SeeAllCustomers = () => {
 
   const navigate = useNavigate();
 
-  const token = GetToken();
+  const token = GetAdminToken();
 
   const goToCustomer = (customerId, index) => {
     navigate(`/admin/customer/${customerId}`, {

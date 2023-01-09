@@ -1,15 +1,16 @@
 import Cookies from "js-cookie";
+import { COOKIE_EXPIRY } from "../Utils/api-constants";
 
 const ADMIN_TOKEN = "admin_token";
 
-export const login = (token) => {
-  Cookies.set(ADMIN_TOKEN, token, { expires: 1 });
+export const LoginAdmin = (token) => {
+  Cookies.set(ADMIN_TOKEN, token, { expires: COOKIE_EXPIRY });
 };
 
-export const Logout = () => {
+export const LogoutAdmin = () => {
   Cookies.get(ADMIN_TOKEN) && Cookies.remove(ADMIN_TOKEN);
 };
 
-export const GetToken = () => {
+export const GetAdminToken = () => {
   return Cookies.get(ADMIN_TOKEN);
 };

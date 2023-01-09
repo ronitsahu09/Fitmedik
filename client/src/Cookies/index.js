@@ -1,22 +1,16 @@
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { COOKIE_EXPIRY } from "../Utils/api-constants";
 
 const TOKEN = "token";
 
-export const login = (token) => {
-  Cookies.set(TOKEN, token, { expires: 2 });
+export const LoginUser = (token) => {
+  Cookies.set(TOKEN, token, { expires: COOKIE_EXPIRY });
 };
 
-export const logout = () => {
-  const navigate = useNavigate();
+export const LogoutUser = () => {
   Cookies.get(TOKEN) && Cookies.remove(TOKEN);
-  navigate("/login");
 };
 
-export const getToken = () => {
-  if (!Cookies.get(TOKEN)) {
-    logout();
-    return null;
-  }
+export const GetUserToken = () => {
   return Cookies.get(TOKEN);
 };

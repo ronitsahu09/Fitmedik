@@ -9,7 +9,7 @@ import {
 } from "../CustomerOnboardingForm/validate";
 import OperationalSection from "./OperationalSection";
 import { useLocation, useNavigate } from "react-router-dom";
-import { GetToken } from "../../Cookies/admin";
+import { GetAdminToken } from "../../Cookies/admin";
 import { EditCustomerApi } from "../../Apis/Admin/Customers";
 
 const HOSP_SECTION = 0;
@@ -34,7 +34,7 @@ const CustomerEditPage = () => {
   };
 
   React.useEffect(() => {
-    const token = GetToken();
+    const token = GetAdminToken();
     if (!token) navigate("/admin/login");
     else GetCustomerData();
   }, []);
@@ -48,7 +48,7 @@ const CustomerEditPage = () => {
       id: hospDetails._id,
     };
     console.log(data);
-    const res = EditCustomerApi(GetToken(), data, {
+    const res = EditCustomerApi(GetAdminToken(), data, {
       setLoading,
       setError,
       setErrorText,

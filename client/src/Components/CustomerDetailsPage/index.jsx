@@ -6,7 +6,7 @@ import "./styles.css";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { GetToken } from "../../Cookies/admin";
+import { GetAdminToken } from "../../Cookies/admin";
 
 const HOSP_SECTION = 0;
 const MGER_SECTION = 1;
@@ -34,7 +34,7 @@ const CustomerDetailsPage = () => {
   };
 
   React.useEffect(() => {
-    const token = GetToken();
+    const token = GetAdminToken();
     if (!token) navigate("/admin/login");
     GetCustomerData();
   }, []);

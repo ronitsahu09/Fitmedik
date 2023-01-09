@@ -5,7 +5,7 @@ import "./styles.css";
 import { Add } from "@mui/icons-material";
 import AddManagerDialog from "./AddManagerDialog";
 import Header from "../Header";
-import { GetToken } from "../../Cookies/admin";
+import { GetAdminToken } from "../../Cookies/admin";
 import { AddManagerApi, GetAllManagersApi } from "../../Apis/Admin/Customers";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
@@ -26,7 +26,7 @@ const CustomerManagerEditPage = () => {
 
   const GetAllManagers = async () => {
     // API call here
-    const token = GetToken();
+    const token = GetAdminToken();
     if (!token) navigate("/admin/login");
     else
       GetAllManagersApi(customerId.current, token, {
@@ -38,7 +38,7 @@ const CustomerManagerEditPage = () => {
   };
 
   const AddManager = async (name, title, email) => {
-    const token = GetToken();
+    const token = GetAdminToken();
     if (!token) navigate("/admin/login");
     else
       AddManagerApi(

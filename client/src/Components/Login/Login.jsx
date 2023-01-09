@@ -7,11 +7,15 @@ import {
   Link,
   IconButton,
   InputAdornment,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { Visibility, VisibilityOff, Key, Email } from "@mui/icons-material";
 import "./styles.css";
 import { validateEmail } from "../../Utils/HelperFunctions";
 import LeftLogin from "./Left";
+import { LoginManagerApi } from "../../Apis/Hospital/Auth";
+import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
   const [email, setEmail] = React.useState("");
@@ -20,6 +24,13 @@ const LoginScreen = () => {
 
   const [emailErrorText, setEmailErrorText] = React.useState("");
   const [passwordErrorText, setPasswordErrorText] = React.useState("");
+
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(false);
+  const [errorText, setErrorText] = React.useState("");
+  const [token, setToken] = React.useState("");
+
+  const navigate = useNavigate();
 
   const toggleVisibility = () => {
     setPassVisible(!passVisible);
@@ -53,7 +64,11 @@ const LoginScreen = () => {
     const isValid = validate();
 
     if (isValid) {
-      // API Call is implemented here
+      const res = await LoginManagerApi(
+        { email, password },
+        { setLoading, setError, setErrorText, setToken }
+      );
+      if (res) navigate("/");
     }
   };
 
@@ -193,7 +208,7 @@ const LoginScreen = () => {
                   onClick={Login}
                 >
                   <Typography variant="h6" sx={{ color: "white" }}>
-                    Login
+                    {loading ? "Logging in..." : "Login"}
                   </Typography>
                 </Grid>
               </Grid>
@@ -219,6 +234,22 @@ const LoginScreen = () => {
           <Grid item xs={1} />
         </Grid>
       </Grid>
+
+      {error && (
+        <Snackbar
+          open={error}
+          autoHideDuration={5000}
+          onClose={() => setError(false)}
+        >
+          <Alert
+            onClose={() => setError(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {errorText}
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };

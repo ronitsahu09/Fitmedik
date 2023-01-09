@@ -44,6 +44,7 @@ export const AddPasswordApi = async (password, token, setters) => {
     setters.setLoading(false);
     setters.setError(false);
     setters.setErrorText("");
+    if (response.error) throw new Error(response.error);
     if (!response.email)
       throw new Error(
         "Manager has not been added, kindly contact the POC manager"
@@ -78,6 +79,26 @@ export const ForgotPasswordApi = async (email, setters) => {
     return true;
   } catch (e) {
     console.log(e);
+    setters.setLoading(false);
+    setters.setError(true);
+    setters.setErrorText(e.toString());
+    return false;
+  }
+};
+
+export const LoginManagerApi = async (data, setters) => {
+  setters.setLoading(true);
+  setters.setError(false);
+  setters.setErrorText("");
+  try {
+    const response = await api.post({}, data, "/manager/login");
+    if (response.error) throw new Error(response.error);
+    setters.setLoading(false);
+    setters.setError(false);
+    setters.setErrorText("");
+    setters.setToken(response);
+    return true;
+  } catch (e) {
     setters.setLoading(false);
     setters.setError(true);
     setters.setErrorText(e.toString());

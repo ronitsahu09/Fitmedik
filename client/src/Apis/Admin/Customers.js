@@ -47,6 +47,8 @@ export const AddCustomerApi = async (token, data, setters) => {
     setters.setLoading(false);
     setters.setError(false);
     setters.setErrorText("");
+    if (response.error) throw new Error(response.error);
+
     console.log(response);
     return true;
   } catch (e) {
@@ -77,6 +79,8 @@ export const EditCustomerApi = async (token, data, setters) => {
     setters.setLoading(false);
     setters.setError(false);
     setters.setErrorText("");
+    if (response.error) throw new Error(response.error);
+
     console.log(response);
     return true;
   } catch (e) {
@@ -102,7 +106,6 @@ export const GetAllManagersApi = async (id, token, setters) => {
 
   try {
     const response = await api.get(headerInfo, `/allHospitalManagers/${id}`);
-    if (response.error) throw new Error(response.error);
     setters.setLoading(false);
     setters.setError(false);
     setters.setErrorText("");

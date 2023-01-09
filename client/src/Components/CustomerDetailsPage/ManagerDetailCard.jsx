@@ -2,10 +2,6 @@ import { Grid, Typography } from "@mui/material";
 import React from "react";
 
 const ManagerDetailCard = ({
-  managerDetails = [
-    { name: "", title: "", email: "", index: 0, validated: false },
-  ],
-  setManagerDetails,
   managerDetail = {
     name: "",
     title: "",

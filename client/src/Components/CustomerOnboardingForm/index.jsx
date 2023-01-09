@@ -1,11 +1,5 @@
 import { Button, Box, Snackbar, Alert } from "@mui/material";
-import {
-  ArrowBack,
-  ArrowForward,
-  Edit,
-  RestartAlt,
-  Send,
-} from "@mui/icons-material";
+import { ArrowBack, ArrowForward, RestartAlt, Send } from "@mui/icons-material";
 import React from "react";
 import HospitalSection from "./HospitalSection";
 import "./styles.css";
@@ -16,6 +10,9 @@ import {
 } from "./validate";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
+import { AddCustomerApi } from "../../Apis/Admin/Customers";
+import { GetToken } from "../../Cookies/admin";
+import { useNavigate } from "react-router-dom";
 
 const HOSP_SECTION = 0;
 const MGER_SECTION = 1;
@@ -27,24 +24,44 @@ const CustomerOnboardingFormPage = () => {
   const [open, setOpen] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
 
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
-  const AddCustomerData = () => {
-    setLoading(false);
-    setError(false);
-    setErrorText(false);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const token = GetToken();
+    if (!token) navigate("/admin/login");
+  }, []);
+
+  const AddCustomerData = async () => {
+    console.log(managerDetails);
+    const data = {
+      ...hospDetails,
+      hospital_manager: managerDetails,
+      operational_details: opdtDetails,
+      documents: [],
+      active_state: true,
+      poc_manager: managerDetails[0],
+    };
+    const res = AddCustomerApi(GetToken(), data, {
+      setLoading,
+      setError,
+      setErrorText,
+    });
+    if (res) navigate("/admin/dashboard");
   };
 
   const [hospDetails, setHospitalDetails] = React.useState({
     name: "",
-    employeeSize: "",
-    type: "",
+    employee_size: "",
+    typeOfHospital: "",
     city: "",
     country: "",
-    link: "",
-    subscriptionCount: 0,
+    website: "",
+    subscription_size: 0,
+    location: "",
   });
   const [hospDetailsError, setHospitalDetailsError] = React.useState({
     name: "",
@@ -54,6 +71,7 @@ const CustomerOnboardingFormPage = () => {
     country: "",
     link: "",
     subscriptionCount: "",
+    location: "",
   });
 
   const [managerDetails, setManagerDetails] = React.useState([
@@ -134,12 +152,12 @@ const CustomerOnboardingFormPage = () => {
 
     setHospitalDetails({
       name: "",
-      employeeSize: "",
-      type: "",
+      employee_size: "",
+      typeOfHospital: "",
       city: "",
       country: "",
-      link: "",
-      subscriptionCount: 0,
+      website: "",
+      subscription_size: 0,
     });
     setHospitalDetailsError({
       name: "",
@@ -220,6 +238,22 @@ const CustomerOnboardingFormPage = () => {
         </Snackbar>
       )}
 
+      {error && (
+        <Snackbar
+          open={error}
+          autoHideDuration={5000}
+          onClose={() => setError(false)}
+        >
+          <Alert
+            onClose={() => setError(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {errorText}
+          </Alert>
+        </Snackbar>
+      )}
+
       <Box
         sx={{
           position: "fixed",
@@ -233,6 +267,7 @@ const CustomerOnboardingFormPage = () => {
           endIcon={<RestartAlt />}
           variant="contained"
           sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+          disabled={loading}
         >
           Reset
         </Button>
@@ -243,7 +278,7 @@ const CustomerOnboardingFormPage = () => {
           startIcon={<ArrowBack />}
           variant="contained"
           sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
-          disabled={mode === HOSP_SECTION}
+          disabled={mode === HOSP_SECTION || loading}
         >
           Previous
         </Button>
@@ -254,6 +289,7 @@ const CustomerOnboardingFormPage = () => {
           endIcon={mode === OPDT_SECTION ? <Send /> : <ArrowForward />}
           variant="contained"
           sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+          disabled={loading}
         >
           {mode === OPDT_SECTION ? "Submit" : "Next"}
         </Button>

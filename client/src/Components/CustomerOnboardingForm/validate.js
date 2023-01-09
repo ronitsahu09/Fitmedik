@@ -11,15 +11,28 @@ import {
   noOfBedsOptions,
 } from "./data";
 
+const locCheck = (location = "") => {
+  const coords = location.split(" ");
+  const lat = Number(coords[0]);
+  const long = Number(coords[1]);
+  if (
+    (!validateDecimalNumber(lat) && !validateNumber(lat)) ||
+    (!validateDecimalNumber(long) && !validateNumber(long))
+  )
+    return false;
+  return true;
+};
+
 export const validateHospSection = (
   hospDetails = {
     name: "",
-    employeeSize: "",
-    type: "",
+    employee_size: "",
+    typeOfHospital: "",
     city: "",
     country: "",
-    link: "",
-    subscriptionCount: 0,
+    website: "",
+    subscription_size: 0,
+    location: "",
   },
   hospDetailsError = {
     name: "",
@@ -29,6 +42,7 @@ export const validateHospSection = (
     country: "",
     link: "",
     subscriptionCount: "",
+    location: "",
   },
   setHospDetailsError
 ) => {
@@ -43,7 +57,7 @@ export const validateHospSection = (
     temp = { ...temp, name: "" };
   }
 
-  if (!employeeSizeOptions.includes(hospDetails.employeeSize)) {
+  if (!employeeSizeOptions.includes(hospDetails.employee_size)) {
     isValid = false;
     temp = {
       ...temp,
@@ -53,7 +67,7 @@ export const validateHospSection = (
     temp = { ...temp, employeeSize: "" };
   }
 
-  if (!hospitalTypeOptions.includes(hospDetails.type)) {
+  if (!hospitalTypeOptions.includes(hospDetails.typeOfHospital)) {
     isValid = false;
     temp = {
       ...temp,
@@ -83,13 +97,13 @@ export const validateHospSection = (
     temp = { ...temp, country: "" };
   }
 
-  if (hospDetails.link === "") {
+  if (hospDetails.website === "") {
     isValid = false;
     temp = {
       ...temp,
       link: "Website link field is empty",
     };
-  } else if (!validateUrl(hospDetails.link)) {
+  } else if (!validateUrl(hospDetails.website)) {
     isValid = false;
     temp = {
       ...temp,
@@ -99,13 +113,13 @@ export const validateHospSection = (
     temp = { ...temp, link: "" };
   }
 
-  if (!validateNumber(hospDetails.subscriptionCount)) {
+  if (!validateNumber(hospDetails.subscription_size)) {
     isValid = false;
     temp = {
       ...temp,
       subscriptionCount: "Invalid number",
     };
-  } else if (Number(hospDetails.subscriptionCount) < 0) {
+  } else if (Number(hospDetails.subscription_size) <= 0) {
     isValid = false;
     temp = {
       ...temp,
@@ -113,6 +127,31 @@ export const validateHospSection = (
     };
   } else {
     temp = { ...temp, subscriptionCount: "" };
+  }
+
+  if (hospDetails.location.length === 0) {
+    isValid = false;
+    temp = {
+      ...temp,
+      location: "Field is empty",
+    };
+  } else if (hospDetails.location.split(" ").length !== 2) {
+    isValid = false;
+    temp = {
+      ...temp,
+      location: "Invalid coordinates",
+    };
+  } else if (!locCheck(hospDetails.location)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      location: "Invalid coordinates",
+    };
+  } else {
+    temp = {
+      ...temp,
+      location: "",
+    };
   }
 
   setHospDetailsError(temp);

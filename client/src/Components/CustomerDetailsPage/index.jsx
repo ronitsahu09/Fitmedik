@@ -89,7 +89,7 @@ const CustomerDetailsPage = () => {
         <ManagerSection managerDetails={managerDetails} />
       )}
       {mode === OPDT_SECTION && (
-        <OperationalSection opdtDetails={opdtDetails} />
+        <OperationalSection opdtDetails={opdtDetails[0]} />
       )}
 
       <Box

@@ -24,7 +24,7 @@ export const post = async (header, data, endpoint) => {
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}${endpoint}`,
       data,
-      { headers: { "Content-Type": "application/json" } }
+      header
     );
     console.log(response);
     if (response.status === 200) return response.data;

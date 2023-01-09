@@ -7,6 +7,7 @@ import Header from "../Header";
 import { GetAllCustomersApi } from "../../Apis/Admin/Customers";
 import { GetToken } from "../../Cookies/admin";
 import LoadingPage from "../LoadingPage";
+import ErrorPage from "../ErrorPage";
 
 const SeeAllCustomers = () => {
   const [customers, setCustomers] = React.useState([]);
@@ -34,7 +35,7 @@ const SeeAllCustomers = () => {
     navigate(`/admin/customer-managers/${customerId}`);
   };
 
-  React.useEffect(() => {
+  const GetAllCustomersFunc = () => {
     if (!token) navigate("/admin/login");
     else
       GetAllCustomersApi(token, {
@@ -43,12 +44,18 @@ const SeeAllCustomers = () => {
         setErrorText,
         setCustomers,
       });
+  };
+
+  React.useEffect(() => {
+    GetAllCustomersFunc();
   }, []);
 
   return (
     <div>
       {loading ? (
         <LoadingPage />
+      ) : error ? (
+        <ErrorPage onRetry={GetAllCustomersFunc} errorText={errorText} />
       ) : (
         <Grid container sx={{ pt: 4, pb: 4 }}>
           <Grid item xs={1} />

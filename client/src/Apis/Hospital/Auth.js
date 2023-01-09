@@ -57,3 +57,30 @@ export const AddPasswordApi = async (password, token, setters) => {
     return false;
   }
 };
+
+export const ForgotPasswordApi = async (email, setters) => {
+  const data = { email };
+
+  setters.setLoading(true);
+  setters.setError(false);
+  setters.setErrorText("");
+
+  const headerInfo = {};
+
+  try {
+    const response = await api.post(headerInfo, data, `/forgetPassword`);
+    if (response.error) throw new Error(response.error);
+    setters.setLoading(false);
+    setters.setError(false);
+    setters.setErrorText("");
+    setters.setIsFirst(false);
+    console.log(response);
+    return true;
+  } catch (e) {
+    console.log(e);
+    setters.setLoading(false);
+    setters.setError(true);
+    setters.setErrorText(e.toString());
+    return false;
+  }
+};

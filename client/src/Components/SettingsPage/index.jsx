@@ -29,7 +29,7 @@ const SettingsPage = () => {
             container
             xs={12}
             md={5.5}
-            onClick={() => navigate("/departments")}
+            onClick={() => navigate("/organization-details")}
             className="settings-item"
             sx={style}
             justifyContent="center"

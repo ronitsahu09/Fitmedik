@@ -120,17 +120,15 @@ const SeeAllCustomers = () => {
                     {val.website}
                   </Typography>
                 </Grid>
-                <Grid item xs={0.5}>
+                <Grid item xs={0.75}>
                   <IconButton
                     onClick={(e) => goToCustomerEdit(e, val._id, index)}
                   >
                     <Edit />
                   </IconButton>
                 </Grid>
-                <Grid item xs={0.5}>
-                  <IconButton
-                    onClick={(e) => goToCustomerManagers(e, val.customerId)}
-                  >
+                <Grid item xs={0.75}>
+                  <IconButton onClick={(e) => goToCustomerManagers(e, val._id)}>
                     <Person />
                   </IconButton>
                 </Grid>

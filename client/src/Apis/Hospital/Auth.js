@@ -1,4 +1,5 @@
 import * as api from "../../Apis/index";
+import { LoginUser } from "../../Cookies";
 
 export const GetSetupPasswordDataApi = async (accessToken, setters) => {
   setters.setLoading(true);
@@ -97,6 +98,7 @@ export const LoginManagerApi = async (data, setters) => {
     setters.setError(false);
     setters.setErrorText("");
     setters.setToken(response);
+    LoginUser(response);
     return true;
   } catch (e) {
     setters.setLoading(false);

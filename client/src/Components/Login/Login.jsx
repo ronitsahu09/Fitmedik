@@ -16,8 +16,10 @@ import { validateEmail } from "../../Utils/HelperFunctions";
 import LeftLogin from "./Left";
 import { LoginManagerApi } from "../../Apis/Hospital/Auth";
 import { useNavigate } from "react-router-dom";
+import { GetUserToken } from "../../Cookies";
 
-const LoginScreen = () => {
+const LoginScreen = ({ props }) => {
+  const { setUserToken } = props;
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passVisible, setPassVisible] = React.useState(false);
@@ -28,9 +30,12 @@ const LoginScreen = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
-  const [token, setToken] = React.useState("");
 
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (GetUserToken()) navigate("/");
+  }, []);
 
   const toggleVisibility = () => {
     setPassVisible(!passVisible);
@@ -66,7 +71,7 @@ const LoginScreen = () => {
     if (isValid) {
       const res = await LoginManagerApi(
         { email, password },
-        { setLoading, setError, setErrorText, setToken }
+        { setLoading, setError, setErrorText, setToken: setUserToken }
       );
       if (res) navigate("/");
     }

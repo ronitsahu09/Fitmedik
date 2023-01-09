@@ -29,10 +29,23 @@ import TreatmentPartnerDetailPage from "./TreatmentPartnerDetailPage";
 import AdminTPEventPage from "./AdminTPEventPage";
 import TreatmentPartnersPage from "./TreatmentPartnersPage";
 import AdminLogin from "./AdminLogin";
+import { GetUserToken } from "../Cookies/index";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [userToken, setUserToken] = useState(null);
+
+  useEffect(() => {
+    if (!userToken) {
+      const cookieToken = GetUserToken();
+      if (!cookieToken) navigate("/login");
+      else setUserToken(cookieToken);
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(getOrganization({ organizationId: "6370c9710c923cf45642e127" }));
@@ -54,36 +67,39 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home props={{ appHeight }} />} />
+        <Route path="/" element={<Home props={{ appHeight, userToken }} />} />
         <Route
           path="/analytics"
-          element={<Analytics props={{ appHeight }} />}
+          element={<Analytics props={{ appHeight, userToken }} />}
         />
         <Route
           path="/analytics/:id"
-          element={<DepartmentAnalytics props={{ appHeight }} />}
+          element={<DepartmentAnalytics props={{ appHeight, userToken }} />}
         />
         <Route
           path="notifications"
-          element={<Notifications props={{ appHeight }} />}
+          element={<Notifications props={{ appHeight, userToken }} />}
         />
 
         <Route
           path="costsavings"
-          element={<CostSavings props={{ appHeight }} />}
+          element={<CostSavings props={{ appHeight, userToken }} />}
         />
 
         <Route
           path="surveyresults"
-          element={<Survey props={{ appHeight }} />}
+          element={<Survey props={{ appHeight, userToken }} />}
         />
 
         <Route
           path="monitoractions"
-          element={<MonitorActions props={{ appHeight }} />}
+          element={<MonitorActions props={{ appHeight, userToken }} />}
         />
 
-        <Route path="/login" element={<LoginScreen props={{ appHeight }} />} />
+        <Route
+          path="/login"
+          element={<LoginScreen props={{ appHeight, setUserToken }} />}
+        />
 
         <Route
           path="/forgotpassword"
@@ -154,22 +170,22 @@ function App() {
 
         <Route
           path="/settings"
-          element={<SettingsPage props={{ appHeight }} />}
+          element={<SettingsPage props={{ appHeight, userToken }} />}
         />
 
         <Route
           path="/employees/:department"
-          element={<ManageEmployees props={{ appHeight }} />}
+          element={<ManageEmployees props={{ appHeight, userToken }} />}
         />
 
         <Route
           path="/departments"
-          element={<DepartmentsPage props={{ appHeight }} />}
+          element={<DepartmentsPage props={{ appHeight, userToken }} />}
         />
 
         <Route
           path="/treatment-partners"
-          element={<TreatmentPartnersPage props={{ appHeight }} />}
+          element={<TreatmentPartnersPage props={{ appHeight, userToken }} />}
         />
       </Routes>
     </div>

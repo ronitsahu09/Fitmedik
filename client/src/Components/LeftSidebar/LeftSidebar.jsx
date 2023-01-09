@@ -7,6 +7,7 @@ import {
   Settings,
   LoginRounded,
   Monitor,
+  Handshake,
 } from "@mui/icons-material";
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
@@ -137,6 +138,25 @@ export default function LeftSidebar() {
           >
             <IconButton sx={{ color: "inherit" }}>
               <Monitor fontSize="large" />
+            </IconButton>
+          </Box>
+        </Tooltip>
+
+        <Tooltip
+          title="Treatment Partners"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/treatment-partners"
+          >
+            <IconButton sx={{ color: "inherit" }}>
+              <Handshake fontSize="large" />
             </IconButton>
           </Box>
         </Tooltip>

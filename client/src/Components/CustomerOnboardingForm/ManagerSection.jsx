@@ -3,6 +3,7 @@ import { Grid, Typography, Button } from "@mui/material";
 import ManagerDetailCard from "./ManagerDetailCard";
 import { Add } from "@mui/icons-material";
 import "./styles.css";
+import Header from "../Header";
 
 const ManagerSection = ({
   managerDetails = [
@@ -16,16 +17,31 @@ const ManagerSection = ({
   ],
   setManagerDetails,
 }) => {
+  const remove = (index) => {
+    const temp = [];
+    console.log(managerDetails);
+    managerDetails.forEach((val, idx) => {
+      if (idx !== index) temp.push(val);
+    });
+    setManagerDetails(temp);
+    console.log(temp);
+  };
+
   return (
-    <div className="cof-hs-container">
-      <Grid container sx={{ width: "100vw" }}>
+    <div>
+      <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
+        <Grid item xs={1} />
+        <Grid container item xs={10}>
+          <Header
+            navigate={null}
+            title="Manager Details"
+            showBackButton={false}
+          />
+        </Grid>
+        <Grid item xs={1} />
+
         <Grid item xs={1} />
         <Grid container item xs={10} rowSpacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h2" fontWeight="900">
-              Manager Details
-            </Typography>
-          </Grid>
           <Grid item xs={12}>
             <Typography variant="h5" fontWeight="400">
               Enter the details of the all the Managers
@@ -39,6 +55,8 @@ const ManagerSection = ({
                 setManagerDetails={setManagerDetails}
                 managerDetails={managerDetails}
                 managerDetail={val}
+                index={index}
+                remove={() => remove(index)}
               />
             );
           })}
@@ -59,7 +77,7 @@ const ManagerSection = ({
                     name: "",
                     email: "",
                     title: "",
-                    index: 0,
+                    index: managerDetails.length + 1,
                     validated: false,
                   },
                 ])

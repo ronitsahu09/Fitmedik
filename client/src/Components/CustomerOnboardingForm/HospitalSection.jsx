@@ -9,12 +9,13 @@ import Header from "../Header";
 const HospitalSection = ({
   hospDetails = {
     name: "",
-    employeeSize: "",
-    type: "",
+    employee_size: "",
+    typeOfHospital: "",
     city: "",
     country: "",
-    link: "",
-    subscriptionCount: 0,
+    website: "",
+    subscription_size: 0,
+    location: "",
   },
   hospDetailsError = {
     name: "",
@@ -24,13 +25,14 @@ const HospitalSection = ({
     country: "",
     link: "",
     subscriptionCount: "",
+    location: "",
   },
   setHospDetails,
 }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="cof-hs-container">
+    <div>
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
         <Grid item xs={1} />
         <Grid container item xs={10}>
@@ -79,10 +81,10 @@ const HospitalSection = ({
               onChange={(_, value) => {
                 setHospDetails({
                   ...hospDetails,
-                  employeeSize: value,
+                  employee_size: value,
                 });
               }}
-              value={hospDetails.employeeSize}
+              value={hospDetails.employee_size}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -108,10 +110,10 @@ const HospitalSection = ({
               onChange={(_, value) => {
                 setHospDetails({
                   ...hospDetails,
-                  type: value,
+                  typeOfHospital: value,
                 });
               }}
-              value={hospDetails.type}
+              value={hospDetails.typeOfHospital}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -167,6 +169,27 @@ const HospitalSection = ({
             />
           </Grid>
 
+          {/* Location of Hospital */}
+          <Grid item xs={12}>
+            <Typography mb={0.5} variant="h6">
+              Location of Hospital
+            </Typography>
+
+            <TextField
+              required
+              fullWidth
+              variant={"outlined"}
+              placeholder="Location of Hospital ('latitute longitude')"
+              error={hospDetailsError.location.length !== 0}
+              helperText={hospDetailsError.location}
+              value={hospDetails.location}
+              type="text"
+              onChange={(e) =>
+                setHospDetails({ ...hospDetails, location: e.target.value })
+              }
+            />
+          </Grid>
+
           {/* Website link of Hospital */}
           <Grid item xs={12}>
             <Typography mb={0.5} variant="h6">
@@ -180,10 +203,10 @@ const HospitalSection = ({
               placeholder="Website Link (eg. 'https://yourhospital.com')"
               error={hospDetailsError.link.length !== 0}
               helperText={hospDetailsError.link}
-              value={hospDetails.link}
+              value={hospDetails.website}
               type="text"
               onChange={(e) =>
-                setHospDetails({ ...hospDetails, link: e.target.value })
+                setHospDetails({ ...hospDetails, website: e.target.value })
               }
             />
           </Grid>
@@ -201,12 +224,12 @@ const HospitalSection = ({
               placeholder="Subscription count"
               error={hospDetailsError.subscriptionCount.length !== 0}
               helperText={hospDetailsError.subscriptionCount}
-              value={hospDetails.subscriptionCount}
+              value={hospDetails.subscription_size}
               type="number"
               onChange={(e) =>
                 setHospDetails({
                   ...hospDetails,
-                  subscriptionCount: e.target.value,
+                  subscription_size: e.target.value,
                 })
               }
             />

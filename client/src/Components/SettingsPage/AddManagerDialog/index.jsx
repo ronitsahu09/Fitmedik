@@ -149,11 +149,12 @@ const AddManagerDialog = ({ open, onCancel, onConfirm, addedData = null }) => {
         <Grid container item xs={12} flexWrap="wrap" flexDirection="row">
           {emails.map((val, index) => (
             <Chip
-              sx={{ ml: 0.125, mr: 0.125 }}
+              sx={{ ml: 0.125, mr: 0.125, mt: 0.125, mb: 0.125 }}
               label={val}
               onClick={() => removeEmail(index)}
               onDelete={() => removeEmail(index)}
               color="primary"
+              key={index}
             />
           ))}
         </Grid>
@@ -186,7 +187,7 @@ const AddManagerDialog = ({ open, onCancel, onConfirm, addedData = null }) => {
               variant="contained"
               onClick={() => {
                 if (validate()) {
-                  onConfirm(email, department);
+                  onConfirm(department, emails);
                 }
               }}
               color="success"

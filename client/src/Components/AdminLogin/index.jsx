@@ -1,44 +1,86 @@
-import React from "react";
-import { AppWrapper } from "../Styles_&_Components/Styles";
 import {
   Grid,
-  Typography,
   TextField,
-  Link,
-  IconButton,
+  Typography,
   InputAdornment,
-  Snackbar,
+  IconButton,
   Alert,
+  Snackbar,
 } from "@mui/material";
 import { Visibility, VisibilityOff, Key, Email } from "@mui/icons-material";
-import "./styles.css";
+import React from "react";
 import { validateEmail } from "../../Utils/HelperFunctions";
-import LeftLogin from "./Left";
-import { LoginManagerApi } from "../../Apis/Hospital/Auth";
+import { Login, VerifyOtp } from "../../Apis/Admin/Login";
 import { useNavigate } from "react-router-dom";
-import { GetUserToken } from "../../Cookies";
+import { GetAdminToken, LoginAdmin } from "../../Cookies/admin";
 
-const LoginScreen = ({ props }) => {
-  const { setUserToken } = props;
+const AdminLogin = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passVisible, setPassVisible] = React.useState(false);
 
+  const [otp, setOtp] = React.useState("");
+  const [isOtp, setIsOtp] = React.useState(false);
+
   const [emailErrorText, setEmailErrorText] = React.useState("");
   const [passwordErrorText, setPasswordErrorText] = React.useState("");
+  const [otpErrorText, setOtpErrorText] = React.useState("");
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
-  const navigate = useNavigate();
+  const [adminToken, setAdminToken] = React.useState("");
 
-  React.useEffect(() => {
-    if (GetUserToken()) navigate("/");
-  }, []);
+  const navigate = useNavigate();
 
   const toggleVisibility = () => {
     setPassVisible(!passVisible);
+  };
+
+  React.useEffect(() => {
+    const token = GetAdminToken();
+    console.log(token);
+    if (token) navigate("/admin/dashboard");
+  }, []);
+
+  const LoginAdminCreds = async () => {
+    const isValid = validate();
+
+    if (isValid) {
+      // API Call is implemented here
+      Login(
+        { email, password },
+        { setLoading, setError, setErrorText, setIsOtp, setAdminToken }
+      );
+    }
+  };
+
+  const Verify = async () => {
+    const isValid = validateOtp();
+
+    if (isValid) {
+      const verified = await VerifyOtp(otp, {
+        setLoading,
+        setError,
+        setErrorText,
+        setIsOtp,
+      });
+      if (verified) {
+        LoginAdmin(adminToken);
+        navigate("/admin/dashboard");
+      }
+    }
+  };
+
+  const validateOtp = () => {
+    let isValid = true;
+    // Validation checks for OTP
+    if (otp.length === 0) {
+      isValid = false;
+      setOtpErrorText("Please enter your OTP");
+    } else setOtpErrorText("");
+    return isValid;
   };
 
   const validate = () => {
@@ -65,37 +107,29 @@ const LoginScreen = ({ props }) => {
     return isValid;
   };
 
-  const Login = async () => {
-    const isValid = validate();
-
-    if (isValid) {
-      const res = await LoginManagerApi(
-        { email, password },
-        { setLoading, setError, setErrorText, setToken: setUserToken }
-      );
-      if (res) navigate("/");
-    }
-  };
-
   return (
-    <div style={{ ...AppWrapper, minHeight: "100vh" }}>
-      <Grid container>
-        <LeftLogin />
+    <div style={{ minHeight: "100vh" }}>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{ minHeight: "100vh" }}
+      >
         <Grid
           container
           item
           xs={12}
-          md={12}
-          lg={6}
           justifyContent="center"
           alignItems="center"
           p={{ xs: 5, md: 5, lg: 0 }}
         >
-          <Grid item xs={1} />
+          <Grid item xs={3} />
           <Grid
             container
             item
-            xs={10}
+            xs={6}
+            justifyContent="center"
+            alignItems="center"
             style={{
               boxShadow: "0px 0px 2px 0.5px grey",
               borderRadius: 5,
@@ -110,7 +144,7 @@ const LoginScreen = ({ props }) => {
                 alignItems="center"
               >
                 <Typography variant="h4" sx={{ fontWeight: "800" }}>
-                  Login to your Account
+                  Admin Login
                 </Typography>
               </Grid>
 
@@ -156,6 +190,7 @@ const LoginScreen = ({ props }) => {
                       </InputAdornment>
                     ),
                   }}
+                  disabled={isOtp}
                 />
               </Grid>
 
@@ -164,37 +199,70 @@ const LoginScreen = ({ props }) => {
                   variant="h6"
                   style={{ fontSize: 16, fontWeight: "800", marginBottom: 4 }}
                 >
-                  Password<span style={{ color: "red" }}>*</span>
+                  {isOtp === false ? "Password" : "OTP"}
+                  <span style={{ color: "red" }}>*</span>
                 </Typography>
-                <TextField
-                  type={passVisible === true ? "text" : "password"}
-                  required
-                  variant="outlined"
-                  fullWidth
-                  value={password}
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  error={passwordErrorText.length !== 0}
-                  helperText={passwordErrorText}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Key />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton onClick={toggleVisibility}>
-                          {passVisible === true ? (
-                            <VisibilityOff />
-                          ) : (
-                            <Visibility />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
+                {isOtp === false ? (
+                  <TextField
+                    type={passVisible === true ? "text" : "password"}
+                    required
+                    variant="outlined"
+                    fullWidth
+                    value={password}
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    error={passwordErrorText.length !== 0}
+                    helperText={passwordErrorText}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Key />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={toggleVisibility}>
+                            {passVisible === true ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                ) : (
+                  <TextField
+                    type={passVisible === true ? "text" : "password"}
+                    required
+                    variant="outlined"
+                    fullWidth
+                    value={otp}
+                    placeholder="OTP"
+                    onChange={(e) => setOtp(e.target.value)}
+                    error={otpErrorText.length !== 0}
+                    helperText={otpErrorText}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Key />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton onClick={toggleVisibility}>
+                            {passVisible === true ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
               </Grid>
               <Grid
                 container
@@ -210,33 +278,26 @@ const LoginScreen = ({ props }) => {
                   justifyContent="center"
                   alignItems="center"
                   className="login-button"
-                  onClick={Login}
+                  onClick={
+                    loading
+                      ? () => {}
+                      : isOtp === false
+                      ? LoginAdminCreds
+                      : Verify
+                  }
                 >
                   <Typography variant="h6" sx={{ color: "white" }}>
-                    {loading ? "Logging in..." : "Login"}
+                    {loading
+                      ? "Loading..."
+                      : isOtp === false
+                      ? "Login"
+                      : "Verify OTP"}
                   </Typography>
                 </Grid>
               </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Typography variant="h6" sx={{ fontSize: 12 }}>
-                  Forgot your password?{" "}
-                  <Link
-                    href="/forgotpassword"
-                    sx={{ color: "#ff6355", fontWeight: "900" }}
-                  >
-                    Click here
-                  </Link>
-                </Typography>
-              </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={1} />
+          <Grid item xs={3} />
         </Grid>
       </Grid>
 
@@ -259,4 +320,4 @@ const LoginScreen = ({ props }) => {
   );
 };
 
-export default LoginScreen;
+export default AdminLogin;

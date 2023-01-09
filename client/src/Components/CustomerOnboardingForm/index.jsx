@@ -158,6 +158,7 @@ const CustomerOnboardingFormPage = () => {
       country: "",
       website: "",
       subscription_size: 0,
+      location: "",
     });
     setHospitalDetailsError({
       name: "",
@@ -167,6 +168,7 @@ const CustomerOnboardingFormPage = () => {
       country: "",
       link: "",
       subscriptionCount: "",
+      location: "",
     });
 
     setManagerDetails([

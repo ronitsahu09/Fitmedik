@@ -17,6 +17,16 @@ const ManagerSection = ({
   ],
   setManagerDetails,
 }) => {
+  const remove = (index) => {
+    const temp = [];
+    console.log(managerDetails);
+    managerDetails.forEach((val, idx) => {
+      if (idx !== index) temp.push(val);
+    });
+    setManagerDetails(temp);
+    console.log(temp);
+  };
+
   return (
     <div>
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
@@ -45,6 +55,8 @@ const ManagerSection = ({
                 setManagerDetails={setManagerDetails}
                 managerDetails={managerDetails}
                 managerDetail={val}
+                index={index}
+                remove={() => remove(index)}
               />
             );
           })}
@@ -65,7 +77,7 @@ const ManagerSection = ({
                     name: "",
                     email: "",
                     title: "",
-                    index: 0,
+                    index: managerDetails.length + 1,
                     validated: false,
                   },
                 ])

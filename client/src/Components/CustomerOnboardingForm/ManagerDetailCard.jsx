@@ -15,6 +15,8 @@ const ManagerDetailCard = ({
     index: 0,
     validated: false,
   },
+  index,
+  remove,
 }) => {
   const [name, setName] = React.useState(managerDetail.name);
   const [title, setTitle] = React.useState(managerDetail.title);
@@ -51,14 +53,6 @@ const ManagerDetailCard = ({
     }
 
     return isValid;
-  };
-
-  const remove = () => {
-    const temp = [];
-    managerDetails.forEach((val) => {
-      if (val.index !== managerDetail.index) temp.push(val);
-    });
-    setManagerDetails(temp);
   };
 
   const save = () => {
@@ -168,6 +162,21 @@ const ManagerDetailCard = ({
           Save
         </Button>
       </Grid>
+
+      {index === 0 && (
+        <Grid
+          item
+          container
+          xs={12}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography variant="h6" fontWeight="500">
+            <span style={{ color: "red" }}>*</span>This manager will be
+            considered as the main point of contact
+          </Typography>
+        </Grid>
+      )}
     </Grid>
   );
 };

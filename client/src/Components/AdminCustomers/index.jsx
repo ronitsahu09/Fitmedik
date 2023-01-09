@@ -25,9 +25,11 @@ const SeeAllCustomers = () => {
     });
   };
 
-  const goToCustomerEdit = (e, customerId) => {
+  const goToCustomerEdit = (e, customerId, index) => {
     e.stopPropagation();
-    navigate(`/admin/edit-customer/${customerId}`);
+    navigate(`/admin/edit-customer/${customerId}`, {
+      state: { customer: customers[index] },
+    });
   };
 
   const goToCustomerManagers = (e, customerId) => {
@@ -119,7 +121,9 @@ const SeeAllCustomers = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={0.5}>
-                  <IconButton onClick={(e) => goToCustomerEdit(e, val._id)}>
+                  <IconButton
+                    onClick={(e) => goToCustomerEdit(e, val._id, index)}
+                  >
                     <Edit />
                   </IconButton>
                 </Grid>

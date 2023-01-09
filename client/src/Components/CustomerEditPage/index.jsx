@@ -1,4 +1,4 @@
-import { Button, Box } from "@mui/material";
+import { Button, Box, Alert, Snackbar } from "@mui/material";
 import { ArrowBack, ArrowForward, RestartAlt, Send } from "@mui/icons-material";
 import React from "react";
 import HospitalSection from "./HospitalSection";
@@ -8,48 +8,64 @@ import {
   validateOpdtSection,
 } from "../CustomerOnboardingForm/validate";
 import OperationalSection from "./OperationalSection";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { GetToken } from "../../Cookies/admin";
+import { EditCustomerApi } from "../../Apis/Admin/Customers";
 
 const HOSP_SECTION = 0;
 const OPDT_SECTION = 1;
 
-const CustomerOnboardingFormPage = () => {
+const CustomerEditPage = () => {
   const [mode, setMode] = React.useState(HOSP_SECTION);
 
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
-  const customerId = React.useRef(null);
-  const { id } = useParams();
-  customerId.current = id;
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const GetCustomerData = () => {
-    console.log(customerId.current);
-    // API Call
-    setLoading(false);
-    setError(false);
-    setErrorText(false);
+    const data = location.state.customer;
+    setHospitalDetails(data);
+    setOpdtDetails(data.operational_details[0]);
+    originalHospitalDetails.current = data;
+    originalOpdtDetails.current = data.operational_details;
   };
 
   React.useEffect(() => {
-    GetCustomerData();
+    const token = GetToken();
+    if (!token) navigate("/admin/login");
+    else GetCustomerData();
   }, []);
 
   const EditCustomerData = () => {
-    setLoading(false);
-    setError(false);
-    setErrorText(false);
+    const data = {
+      ...hospDetails,
+      operational_details: opdtDetails,
+      documents: [],
+      active_state: true,
+      id: hospDetails._id,
+    };
+    console.log(data);
+    const res = EditCustomerApi(GetToken(), data, {
+      setLoading,
+      setError,
+      setErrorText,
+    });
+    if (res) navigate("/admin/dashboard");
   };
 
   const [hospDetails, setHospitalDetails] = React.useState({
+    _id: "",
     name: "",
-    employeeSize: "",
-    type: "",
+    employee_size: "",
+    typeOfHospital: "",
     city: "",
     country: "",
-    link: "",
-    subscriptionCount: 0,
+    website: "",
+    subscription_size: "",
+    location: "",
   });
   const [hospDetailsError, setHospitalDetailsError] = React.useState({
     name: "",
@@ -176,6 +192,7 @@ const CustomerOnboardingFormPage = () => {
           endIcon={<RestartAlt />}
           variant="contained"
           sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+          disabled={loading}
         >
           Reset
         </Button>
@@ -186,7 +203,7 @@ const CustomerOnboardingFormPage = () => {
           startIcon={<ArrowBack />}
           variant="contained"
           sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
-          disabled={mode === HOSP_SECTION}
+          disabled={mode === HOSP_SECTION || loading}
         >
           Previous
         </Button>
@@ -197,12 +214,29 @@ const CustomerOnboardingFormPage = () => {
           endIcon={mode === OPDT_SECTION ? <Send /> : <ArrowForward />}
           variant="contained"
           sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+          disabled={loading}
         >
           {mode === OPDT_SECTION ? "Submit" : "Next"}
         </Button>
       </Box>
+
+      {error && (
+        <Snackbar
+          open={error}
+          autoHideDuration={5000}
+          onClose={() => setError(false)}
+        >
+          <Alert
+            onClose={() => setError(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {errorText}
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };
 
-export default CustomerOnboardingFormPage;
+export default CustomerEditPage;

@@ -57,3 +57,33 @@ export const AddCustomerApi = async (token, data, setters) => {
     return false;
   }
 };
+
+export const EditCustomerApi = async (token, data, setters) => {
+  setters.setLoading(true);
+  setters.setError(false);
+  setters.setErrorText("");
+
+  const headerInfo = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    if (navigator.onLine === false)
+      throw new Error("Not connected to the internet");
+    const response = await api.put(headerInfo, data, "/organization");
+    setters.setLoading(false);
+    setters.setError(false);
+    setters.setErrorText("");
+    console.log(response);
+    return true;
+  } catch (e) {
+    console.log(e);
+    setters.setLoading(false);
+    setters.setError(true);
+    setters.setErrorText(e.toString());
+    return false;
+  }
+};

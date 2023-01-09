@@ -37,7 +37,7 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [userToken, setUserToken] = useState(null);
+  const [userToken, setUserToken] = useState(GetUserToken());
 
   useEffect(() => {
     if (!userToken) {

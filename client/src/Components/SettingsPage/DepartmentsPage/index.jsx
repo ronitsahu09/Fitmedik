@@ -6,9 +6,15 @@ import "../styles.css";
 import AddManagerDialog from "../AddManagerDialog";
 import LoadingPage from "../../LoadingPage";
 import Header from "../../Header";
+import {
+  AddDepartmentApi,
+  GetAllDepartmentsApi,
+} from "../../../Apis/Hospital/Departments";
+import ErrorPage from "../../ErrorPage";
 
-const DepartmentsPage = () => {
-  const [departments, setDepartments] = React.useState([{ name: "" }]);
+const DepartmentsPage = ({ props }) => {
+  const [departments, setDepartments] = React.useState([]);
+  const { userToken } = props;
 
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
@@ -17,17 +23,23 @@ const DepartmentsPage = () => {
   const [addOpen, setAddOpen] = React.useState(false);
 
   const GetDepartments = async () => {
-    setLoading(false);
-    setError(false);
-    setErrorText("");
-
-    setAddOpen(false);
-
-    setDepartments([{ name: "abc" }]);
+    GetAllDepartmentsApi(userToken, {
+      setLoading,
+      setError,
+      setErrorText,
+      setDepartments,
+      setAddOpen,
+    });
   };
 
-  const AddEmployee = async (department, emails) => {
-    GetDepartments();
+  const AddDepartment = async (department, emails) => {
+    AddDepartmentApi(userToken, department, emails, {
+      setLoading,
+      setError,
+      setErrorText,
+      setDepartments,
+      setAddOpen,
+    });
   };
 
   React.useEffect(() => {
@@ -40,6 +52,8 @@ const DepartmentsPage = () => {
     <div>
       {loading === true ? (
         <LoadingPage />
+      ) : error ? (
+        <ErrorPage onRetry={GetDepartments} errorText={errorText} />
       ) : (
         <div>
           <Grid container sx={{ pt: 4, pb: 4 }}>
@@ -115,7 +129,7 @@ const DepartmentsPage = () => {
               onCancel={() => setAddOpen(false)}
               onConfirm={(department, emails) => {
                 setAddOpen(false);
-                AddEmployee(department, emails);
+                AddDepartment(department, emails);
               }}
             />
           )}

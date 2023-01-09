@@ -91,7 +91,7 @@ function App() {
         />
 
         <Route
-          path="/setuppassword"
+          path="/setupPassword/:accessToken"
           element={<SetupPasswordScreen props={{ appHeight }} />}
         />
 

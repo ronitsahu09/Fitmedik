@@ -58,7 +58,7 @@ const CustomerManagerEditPage = () => {
       {loading ? (
         <LoadingPage />
       ) : error ? (
-        <ErrorPage />
+        <ErrorPage errorText={errorText} onRetry={GetAllManagers} />
       ) : (
         <div>
           <Grid container sx={{ pt: 4, pb: 4 }}>

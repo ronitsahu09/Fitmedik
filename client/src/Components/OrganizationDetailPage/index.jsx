@@ -7,6 +7,7 @@ import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
 import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
+import { GetOrganizationApi } from "../../Apis/Hospital/Organization";
 
 const HOSP_SECTION = 0;
 const MGER_SECTION = 1;
@@ -16,12 +17,19 @@ const OrganizationDetailPage = ({ props }) => {
   const [mode, setMode] = React.useState(HOSP_SECTION);
   const { userToken } = props;
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
   const GetCustomerData = () => {
-    // API call here
+    GetOrganizationApi(userToken, {
+      setLoading,
+      setError,
+      setErrorText,
+      setHospitalDetails,
+      setManagerDetails,
+      setOpdtDetails,
+    });
   };
 
   React.useEffect(() => {

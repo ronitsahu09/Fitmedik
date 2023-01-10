@@ -148,3 +148,5 @@ export const AddManagerApi = async (id, token, data, setters) => {
     setters.setErrorText(e.toString());
   }
 };
+
+const GetCustomerById = async () => {};

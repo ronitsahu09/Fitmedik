@@ -43,7 +43,7 @@ const CustomerOnboardingFormPage = () => {
       operational_details: opdtDetails,
       documents: [],
       active_state: true,
-      poc_manager: managerDetails[0],
+      poc_manager: { ...managerDetails[0], phone: "9876543210" },
     };
     const res = AddCustomerApi(GetAdminToken(), data, {
       setLoading,

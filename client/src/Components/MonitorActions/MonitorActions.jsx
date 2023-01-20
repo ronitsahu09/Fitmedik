@@ -1,12 +1,9 @@
 import { Add, Delete, ExpandMore } from "@mui/icons-material";
 import {
   Box,
-  Unstable_Grid2 as Grid,
   IconButton,
   Stack,
-  Tooltip,
   Typography,
-  Zoom,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -30,26 +27,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { destroyAction } from "../../Redux/Organization";
 
 export default function MonitorActions({ props }) {
+  const organization = useSelector((state) => state.organization);
+  const actions = organization?.organizationInfo?.actions;
+
   const initialOptions = {
     title: "Create Action",
-    name: null,
-    description: null,
-    duration: {
-      start: null,
-      end: null,
-    },
+    name: "",
+    description: "",
+    duration: [
+      {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: "selection",
+      },
+    ],
     isCompleted: false,
     view: "hospital",
-    actionType: "average burnout trend",
+    actionType: "average-burnout-trend",
   };
 
   const { appHeight } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState(initialOptions);
-  const [expanded, setExpanded] = useState(false);
+  const [query, setQuery] = useState("");
 
-  const organization = useSelector((state) => state.organization);
-  const actions = organization?.organizationInfo?.actions;
+  const filteredActions = actions?.filter((action) =>
+    action.name.toLowerCase().includes(query.toLowerCase().trim())
+  );
 
   const handleClick = (bool) => {
     setIsOpen(true);
@@ -113,13 +117,18 @@ export default function MonitorActions({ props }) {
               <SearchBar
                 props={{
                   label: "Search for actions",
-                  data: ["fuzzy", "dizzy"],
+                  query,
+                  setQuery,
                 }}
               />
 
               <Button
                 endIcon={<Add />}
-                sx={{ color: "#2ECC71" }}
+                sx={{
+                  color: "#2ECC71",
+                  fontWeight: "bold",
+                  fontSize: "1.1rem",
+                }}
                 size="large"
                 onClick={() => {
                   setOptions(initialOptions);
@@ -172,13 +181,7 @@ export default function MonitorActions({ props }) {
                     </Typography>
                   </Paper>
 
-                  {actions.map((action, index) => {
-                    // const datasets = getData(
-                    //   action.view,
-                    //   action.actionType,
-                    //   action.duration
-                    // );
-
+                  {filteredActions.map((action, index) => {
                     return (
                       <Accordion
                         key={index}
@@ -227,7 +230,8 @@ export default function MonitorActions({ props }) {
                               </Typography>
 
                               <Typography variant="div" component="div">
-                                {action.duration.start} - {action.duration.end}
+                                {action.duration.startDate} -{" "}
+                                {action.duration.endDate}
                               </Typography>
                             </Stack>
 
@@ -282,51 +286,9 @@ export default function MonitorActions({ props }) {
 
                               <ResultantGraph
                                 props={{
-                                  chartData: {
-                                    labels: [
-                                      "April 5",
-                                      "April 6",
-                                      "April 7",
-                                      "April 8",
-                                      "April 9",
-                                      "April 10",
-                                    ],
-                                    datasets: [
-                                      {
-                                        label: "Radiology",
-                                        data: [29, 20, 10, 5, 0, 0],
-                                        borderColor: "deeppink",
-                                        backgroundColor: "pink",
-                                      },
-                                      {
-                                        label: "Cardiology",
-                                        data: [9, 3, 10, 5, 8, 0],
-                                        borderColor: "deepskyblue",
-                                        backgroundColor: "skyblue",
-                                      },
-                                      {
-                                        label: "Paediatrics",
-                                        data: [19, 10, 10, 15, 0, 29],
-                                        borderColor: "coral",
-                                        backgroundColor: "#FFCBA4",
-                                      },
-                                    ],
-                                  },
-                                  options: {
-                                    reponsive: true,
-                                    maintainAspectRatio: false,
-                                    plugins: {
-                                      doughnutLabelsLine: false,
-                                      title: {
-                                        display: true,
-                                        text: "Y-axis: Cost Savings in $100,000",
-                                      },
-                                    },
-                                    scales: {
-                                      x: { ticks: { color: "black" } },
-                                      y: { ticks: { color: "black" } },
-                                    },
-                                  },
+                                  view: action.view,
+                                  actionType: action.type,
+                                  duration: action.duration,
                                 }}
                               />
                             </>
@@ -336,7 +298,12 @@ export default function MonitorActions({ props }) {
                         <AccordionActions>
                           <IconButton
                             onClick={() => {
-                              dispatch(destroyAction({ actionId: action._id }));
+                              dispatch(
+                                destroyAction({
+                                  actionId: action._id,
+                                  _id: organization.organizationInfo?._id,
+                                })
+                              );
                             }}
                           >
                             <Delete
@@ -350,7 +317,21 @@ export default function MonitorActions({ props }) {
                             disabled={action.isCompleted}
                             onClick={() => {
                               setOptions(() => {
-                                return { ...action, title: "Edit Action" };
+                                return {
+                                  ...action,
+                                  duration: [
+                                    {
+                                      startDate: new Date(
+                                        action.duration.startDate
+                                      ),
+                                      endDate: new Date(
+                                        action.duration.endDate
+                                      ),
+                                      key: "selection",
+                                    },
+                                  ],
+                                  title: "Edit Action",
+                                };
                               });
 
                               handleClick();

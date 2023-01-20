@@ -16,7 +16,7 @@ export const logo = {
 
 export const monitoring = {
   flex: 1,
-  bgcolor: "#ffffff",
+  bgcolor: "#181B20",
   borderRadius: "16px",
   display: "flex",
   flexDirection: "column",
@@ -35,8 +35,8 @@ export const monitorLogoWrapper = {
 export const bottomBlur = {
   width: "100%",
   height: "20%",
-  background:
-    "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 42.71%, #FFFFFF 68.75%, #FFFFFF 100%);",
+  // background:
+  //   "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 42.71%, #FFFFFF 68.75%, #FFFFFF 100%);",
   position: "absolute",
   bottom: "0",
 };

@@ -28,7 +28,7 @@ const createAction = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_URL}/organization/create_action`,
-        { ...formData, _id: "6370c9710c923cf45642e127" }
+        { ...formData }
       );
       return { data };
     } catch (error) {
@@ -44,7 +44,7 @@ const updateAction = createAsyncThunk(
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/organization/update_action`,
-        { ...formData, organizationId: "6370c9710c923cf45642e127" }
+        { ...formData }
       );
       console.log(response);
       return { data: response.data };
@@ -60,7 +60,7 @@ const destroyAction = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_URL}/organization/destroy_action`,
-        { ...formData, organizationId: "6370c9710c923cf45642e127" }
+        { ...formData }
       );
       return { data };
     } catch (error) {

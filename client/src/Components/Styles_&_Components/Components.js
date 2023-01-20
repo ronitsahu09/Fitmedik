@@ -7,6 +7,7 @@ import {
   CardContent,
   CardHeader,
   IconButton,
+  InputAdornment,
   Menu,
   Stack,
   Tab,
@@ -115,37 +116,6 @@ export function CustomSelect({ props }) {
         <MenuItem value={4} sx={{ fontSize: "0.9rem" }}>
           Team Support
         </MenuItem>
-      </Select>
-    </FormControl>
-  );
-}
-
-export function RegularSelectMenu({ props }) {
-  const { label, title, options, currMonth, setCurrMonth } = props;
-
-  const handleChange = (event) => {
-    setCurrMonth(event.target.value);
-  };
-
-  return (
-    <FormControl variant="standard" sx={{ minWidth: 120 }} size="small">
-      <InputLabel id={`${label}-selectMenu-label`}>{title}</InputLabel>
-      <Select
-        labelId={`${label}-selectMenu-label`}
-        id={`${label}-selectMenu`}
-        value={currMonth}
-        label={title}
-        onChange={handleChange}
-      >
-        {options.map((opt, indx) => {
-          const { value, legend } = opt;
-
-          return (
-            <MenuItem key={indx} value={value}>
-              {legend}
-            </MenuItem>
-          );
-        })}
       </Select>
     </FormControl>
   );
@@ -324,21 +294,36 @@ export function CustomTabs() {
 }
 
 export function SearchBar({ props }) {
-  const { label, data } = props;
+  const { label, data, query, setQuery } = props;
 
   return (
-    <Autocomplete
-      disablePortal
-      id={`${label}-searchbar`}
-      popupIcon={<Search />}
-      options={data}
-      sx={{
-        width: "70%",
-        [`& .${autocompleteClasses.popupIndicator}`]: {
-          transform: "none",
-        },
+    <TextField
+      label={label}
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      sx={{ width: "70%" }}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <Search />
+          </InputAdornment>
+        ),
       }}
-      renderInput={(params) => <TextField {...params} label={label} />}
     />
+    // <Autocomplete
+    //   disablePortal
+    //   id={`${label}-searchbar`}
+    //   value={query}
+    //   onChange={(e) => setQuery(e.target.value)}
+    //   popupIcon={<Search />}
+    //   options={data}
+    //   sx={{
+    //     width: "70%",
+    //     [`& .${autocompleteClasses.popupIndicator}`]: {
+    //       transform: "none",
+    //     },
+    //   }}
+    //   renderInput={(params) => <TextField {...params} label={label} />}
+    // />
   );
 }

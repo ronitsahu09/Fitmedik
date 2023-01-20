@@ -40,16 +40,16 @@ function App() {
 
   const [userToken, setUserToken] = useState(GetUserToken());
 
-  useEffect(() => {
-    if (!userToken) {
-      const cookieToken = GetUserToken();
-      if (!cookieToken) navigate("/login");
-      else setUserToken(cookieToken);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!userToken) {
+  //     const cookieToken = GetUserToken();
+  //     if (!cookieToken) navigate("/login");
+  //     else setUserToken(cookieToken);
+  //   }
+  // }, []);
 
   useEffect(() => {
-    dispatch(getOrganization({ organizationId: "6370c9710c923cf45642e127" }));
+    dispatch(getOrganization({ organizationId: "63c95da1317e07dbcc906fa8" }));
 
     const reportAppHeight = () => {
       setAppHeight(`${window.innerHeight}px`);
@@ -62,6 +62,7 @@ function App() {
 
     return () => {
       window.removeEventListener("resize", reportAppHeight, false);
+      window.removeEventListener("orientationchange", reportAppHeight);
     };
   }, [dispatch]);
 

@@ -32,10 +32,10 @@ export default function RightSidebar() {
     const data = { safe: 0, low: 0, medium: 0, high: 0, danger: 0 };
 
     users.map((user) => {
-      const { burnout } = user;
-      const len = burnout.length;
+      const { health_data: healthData } = user;
+      const len = healthData.length;
 
-      switch (burnout[len - 1]) {
+      switch (healthData[len - 1]?.burnout) {
         case 1:
           data.safe++;
           break;
@@ -69,77 +69,82 @@ export default function RightSidebar() {
           <Box sx={{ ...bottomBlur }}></Box>
         </Box>
 
-        <Typography variant="h5" component="p" fontWeight="500">
+        <Typography variant="h5" component="p" fontWeight="500" color="white">
           Realtime Burnout Monitoring
         </Typography>
 
         <Stack gap={4} alignItems="flex-start" alignSelf="center">
-          <Stack direction="row" alignItems="center" spacing={2.1}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={2.1}
+            color="#f55f4b"
+          >
             <Box sx={{ ...colorDot, bgcolor: "#f55f4b" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
               {status.danger}
             </Typography>
-            <Typography
-              variant="p"
-              component="div"
-              sx={{ fontWeight: 500, color: "#f55f4b" }}
-            >
+            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
               Danger
             </Typography>
           </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={2.1}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={2.1}
+            color="#f08725"
+          >
             <Box sx={{ ...colorDot, bgcolor: "#f08725" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
               {status.high}
             </Typography>
-            <Typography
-              variant="p"
-              component="div"
-              sx={{ fontWeight: 500, color: "#f08725" }}
-            >
+            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
               High
             </Typography>
           </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={2.1}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={2.1}
+            color="#fed966"
+          >
             <Box sx={{ ...colorDot, bgcolor: "#fed966" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
               {status.medium}
             </Typography>
-            <Typography
-              variant="p"
-              component="div"
-              sx={{ fontWeight: 500, color: "#fed966" }}
-            >
+            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
               Medium
             </Typography>
           </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={2.1}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={2.1}
+            color="#8fabdd"
+          >
             <Box sx={{ ...colorDot, bgcolor: "#8fabdd" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
               {status.low}
             </Typography>
-            <Typography
-              variant="p"
-              component="div"
-              sx={{ fontWeight: 500, color: "#8fabdd" }}
-            >
+            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
               Low
             </Typography>
           </Stack>
 
-          <Stack direction="row" alignItems="center" spacing={2.1}>
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={2.1}
+            color="#06b58c"
+          >
             <Box sx={{ ...colorDot, bgcolor: "#06b58c" }}></Box>
             <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
               {status.safe}
             </Typography>
-            <Typography
-              variant="p"
-              component="div"
-              sx={{ fontWeight: 500, color: "#06b58c" }}
-            >
+            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
               Safe
             </Typography>
           </Stack>

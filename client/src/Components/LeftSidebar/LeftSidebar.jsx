@@ -54,7 +54,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "#f55f4b" } : { color: "grey" }
+              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
             }
             to="/analytics"
           >
@@ -73,7 +73,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "#f55f4b" } : { color: "grey" }
+              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
             }
             to="/costsavings"
           >
@@ -92,7 +92,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "#f55f4b" } : { color: "grey" }
+              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
             }
             to="/surveyresults"
           >
@@ -113,7 +113,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "#f55f4b" } : { color: "grey" }
+              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
             }
             to="/notifications"
           >
@@ -132,7 +132,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "#f55f4b" } : { color: "grey" }
+              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
             }
             to="/monitoractions"
           >
@@ -151,7 +151,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "#f55f4b" } : { color: "grey" }
+              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
             }
             to="/treatment-partners"
           >
@@ -170,7 +170,7 @@ export default function LeftSidebar() {
             TransitionComponent={Zoom}
             arrow
           >
-            <IconButton>
+            <IconButton sx={{ color: "grey" }}>
               <Settings fontSize="large" />
             </IconButton>
           </Tooltip>
@@ -183,7 +183,7 @@ export default function LeftSidebar() {
             TransitionComponent={Zoom}
             arrow
           >
-            <IconButton>
+            <IconButton sx={{ color: "grey" }}>
               <LoginRounded fontSize="large" />
             </IconButton>
           </Tooltip>

@@ -11,6 +11,7 @@ export default function useFilter(users) {
 
     return { value, startDate, endDate };
   });
+
   const [modalOpen, setModalOpen] = useState(false);
   const [config, setConfig] = useState({ labels: [], data: [], title: "" });
 
@@ -44,7 +45,7 @@ export default function useFilter(users) {
     ) {
       let count = 0;
       let avg = users.reduce((prev, user) => {
-        const { healthData } = user;
+        let { health_data: healthData } = user;
 
         healthData = healthData.filter(
           (record) => record.date === currDate.toLocaleDateString()
@@ -75,7 +76,7 @@ export default function useFilter(users) {
         label = "Last 30 days";
         break;
       case 0:
-        label = `${filter.endDate.toLocaleDateString()} to ${filter.endDate.toLocaleDateString()}`;
+        label = `${filter.startDate.toLocaleDateString()} to ${filter.endDate.toLocaleDateString()}`;
         break;
     }
 

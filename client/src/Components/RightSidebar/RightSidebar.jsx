@@ -80,11 +80,19 @@ export default function RightSidebar() {
             spacing={2.1}
             color="#f55f4b"
           >
-            <Box sx={{ ...colorDot, bgcolor: "#f55f4b" }}></Box>
-            <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
+            <Box sx={{ ...colorDot, bgcolor: "#f55f4b", color: "black" }}></Box>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               {status.danger}
             </Typography>
-            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="p"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               Danger
             </Typography>
           </Stack>
@@ -96,10 +104,18 @@ export default function RightSidebar() {
             color="#f08725"
           >
             <Box sx={{ ...colorDot, bgcolor: "#f08725" }}></Box>
-            <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               {status.high}
             </Typography>
-            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="p"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               High
             </Typography>
           </Stack>
@@ -111,10 +127,18 @@ export default function RightSidebar() {
             color="#fed966"
           >
             <Box sx={{ ...colorDot, bgcolor: "#fed966" }}></Box>
-            <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               {status.medium}
             </Typography>
-            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="p"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               Medium
             </Typography>
           </Stack>
@@ -126,10 +150,18 @@ export default function RightSidebar() {
             color="#8fabdd"
           >
             <Box sx={{ ...colorDot, bgcolor: "#8fabdd" }}></Box>
-            <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               {status.low}
             </Typography>
-            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="p"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               Low
             </Typography>
           </Stack>
@@ -141,10 +173,18 @@ export default function RightSidebar() {
             color="#06b58c"
           >
             <Box sx={{ ...colorDot, bgcolor: "#06b58c" }}></Box>
-            <Typography variant="h5" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               {status.safe}
             </Typography>
-            <Typography variant="p" component="div" sx={{ fontWeight: 500 }}>
+            <Typography
+              variant="p"
+              component="div"
+              sx={{ fontWeight: 500, color: "black" }}
+            >
               Safe
             </Typography>
           </Stack>

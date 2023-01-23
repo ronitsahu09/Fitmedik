@@ -10,13 +10,13 @@ export const rightSidebar = {
 };
 
 export const logo = {
-  width: "70%",
+  width: "60%",
   alignSelf: "center",
 };
 
 export const monitoring = {
   flex: 1,
-  bgcolor: "#181B20",
+  // bgcolor: "",
   borderRadius: "16px",
   display: "flex",
   flexDirection: "column",

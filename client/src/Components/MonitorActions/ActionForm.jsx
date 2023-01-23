@@ -169,7 +169,7 @@ export default function ActionForm({ props }) {
               <MenuItem value="physical-fatigue">Physical Fatigue</MenuItem>
               <MenuItem value="mood">Mood</MenuItem>
               <MenuItem value="sleep-quality">Sleep Quality</MenuItem>
-              <MenuItem value="team-support">Team Support</MenuItem>
+              <MenuItem value="interaction-index">Interaction Index</MenuItem>
             </Select>
           </FormControl>
 

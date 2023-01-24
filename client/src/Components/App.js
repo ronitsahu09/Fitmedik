@@ -40,13 +40,13 @@ function App() {
 
   const [userToken, setUserToken] = useState(GetUserToken());
 
-  useEffect(() => {
+  const initialise = () => {
     if (!userToken) {
       const cookieToken = GetUserToken();
       if (!cookieToken) navigate("/login");
       else setUserToken(cookieToken);
     }
-  }, []);
+  };
 
   useEffect(() => {
     dispatch(getOrganization({ organizationId: "6370c9710c923cf45642e127" }));
@@ -175,7 +175,7 @@ function App() {
         />
 
         <Route
-          path="/employees/:department"
+          path="/employees/:departmentId"
           element={<ManageEmployees props={{ appHeight, userToken }} />}
         />
 

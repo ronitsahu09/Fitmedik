@@ -75,7 +75,11 @@ const DepartmentsPage = ({ props }) => {
                       ? "inner-settings-item inner-settings-item-bottom"
                       : "inner-settings-item"
                   }
-                  onClick={() => navigate(`/employees/${val.name}`)}
+                  onClick={() =>
+                    navigate(`/employees/${val._id}`, {
+                      state: { departmentName: val.name },
+                    })
+                  }
                 >
                   <Grid container item xs={10} alignItems="center">
                     <Typography variant="h6" fontWeight="100">

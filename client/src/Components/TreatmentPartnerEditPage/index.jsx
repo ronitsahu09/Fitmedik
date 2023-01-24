@@ -1,17 +1,30 @@
 import React from "react";
-import { Grid, Typography, TextField, Checkbox, Button } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  TextField,
+  Checkbox,
+  Button,
+  Alert,
+  Snackbar,
+} from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "../Header";
 import { Edit, RestartAlt } from "@mui/icons-material";
 import { validateUrl } from "../../Utils/HelperFunctions";
+import {
+  EditTreatmentPartnerApi,
+  GetTreatmentPartnerByIdApi,
+} from "../../Apis/Admin/TreatmentPartners";
+import { GetAdminToken } from "../../Cookies/admin";
 
 const TreatmentPartnerEditPage = () => {
   const navigate = useNavigate();
 
   const [data, setData] = React.useState({
-    sectionHeading: "",
-    providerName: "",
-    providerAbout: "",
+    heading: "",
+    provider: "",
+    about: "",
     valueAdded: "",
     duration: "",
     thesis: "",
@@ -32,9 +45,9 @@ const TreatmentPartnerEditPage = () => {
   const [errorText, setErrorText] = React.useState("");
 
   const originalData = React.useRef({
-    sectionHeading: "",
-    providerName: "",
-    providerAbout: "",
+    heading: "",
+    provider: "",
+    about: "",
     valueAdded: "",
     duration: "",
     thesis: "",
@@ -44,45 +57,31 @@ const TreatmentPartnerEditPage = () => {
   });
 
   const GetTreatmentPartner = async () => {
-    console.log(id);
-
-    setData({
-      sectionHeading: "",
-      providerName: "",
-      providerAbout: "",
-      valueAdded: "",
-      duration: "",
-      thesis: "",
-      expectedImpact: "",
-      link: "",
-      dashboardDisplay: false,
+    GetTreatmentPartnerByIdApi(id, GetAdminToken(), {
+      setLoading,
+      setError,
+      setErrorText,
+      setData,
+      originalData,
     });
-
-    originalData.current = {
-      sectionHeading: "",
-      providerName: "",
-      providerAbout: "",
-      valueAdded: "",
-      duration: "",
-      thesis: "",
-      expectedImpact: "",
-      link: "",
-      dashboardDisplay: false,
-    };
-
-    setLoading(false);
-    setError(false);
-    setErrorText("");
   };
 
-  React.useRef(() => {
-    GetTreatmentPartner();
+  React.useEffect(() => {
+    const token = GetAdminToken();
+    if (!token) navigate("/admin/login");
+    else GetTreatmentPartner();
   }, []);
 
-  const UpdatePartner = () => {
+  const UpdatePartner = async () => {
     console.log(id);
     if (validate()) {
-      // Call API
+      const res = await EditTreatmentPartnerApi(
+        GetAdminToken(),
+        { ...data, id },
+        { setLoading, setError, setErrorText }
+      );
+
+      if (res) navigate("/admin/dashboard");
     }
   };
 
@@ -102,28 +101,28 @@ const TreatmentPartnerEditPage = () => {
   const validate = () => {
     let isValid = true;
 
-    if (data.sectionHeading.length === 0) {
+    if (data.heading.length === 0) {
       isValid = false;
       setSectionHeadingError("Field is empty");
     } else {
       setSectionHeadingError("");
     }
 
-    if (data.providerName.length === 0) {
+    if (data.provider.length === 0) {
       isValid = false;
       setProviderNameError("Field is empty");
     } else {
       setProviderNameError("");
     }
 
-    if (data.providerAbout.length === 0) {
+    if (data.about.length === 0) {
       isValid = false;
       setProviderAboutError("Field is empty");
     } else {
       setProviderAboutError("");
     }
 
-    if (data.link.length !== 0 && !validateUrl(data.link)) {
+    if (data.link && data.link.length !== 0 && !validateUrl(data.link)) {
       isValid = false;
       setLinkError("Link is invalid");
     } else {
@@ -159,11 +158,9 @@ const TreatmentPartnerEditPage = () => {
               fullWidth
               variant={"outlined"}
               placeholder="Section Heading"
-              value={data.sectionHeading}
+              value={data.heading}
               type="text"
-              onChange={(e) =>
-                setData({ ...data, sectionHeading: e.target.value })
-              }
+              onChange={(e) => setData({ ...data, heading: e.target.value })}
               error={sectionHeadingError.length !== 0}
               helperText={sectionHeadingError}
             />
@@ -178,11 +175,9 @@ const TreatmentPartnerEditPage = () => {
               fullWidth
               variant={"outlined"}
               placeholder="Name of provider"
-              value={data.providerName}
+              value={data.provider}
               type="text"
-              onChange={(e) =>
-                setData({ ...data, providerName: e.target.value })
-              }
+              onChange={(e) => setData({ ...data, provider: e.target.value })}
               error={providerNameError.length !== 0}
               helperText={providerNameError}
             />
@@ -197,11 +192,9 @@ const TreatmentPartnerEditPage = () => {
               fullWidth
               variant={"outlined"}
               placeholder="About the provider"
-              value={data.providerAbout}
+              value={data.about}
               type="text"
-              onChange={(e) =>
-                setData({ ...data, providerAbout: e.target.value })
-              }
+              onChange={(e) => setData({ ...data, about: e.target.value })}
               error={providerAboutError.length !== 0}
               helperText={providerAboutError}
               multiline={true}
@@ -383,10 +376,27 @@ const TreatmentPartnerEditPage = () => {
           startIcon={<Edit />}
           onClick={UpdatePartner}
           variant="contained"
+          disabled={loading}
         >
-          Update Treatment Partner
+          {loading ? "Loading..." : "Update Treatment Partner"}
         </Button>
       </div>
+
+      {error && (
+        <Snackbar
+          open={error}
+          autoHideDuration={5000}
+          onClose={() => setError(false)}
+        >
+          <Alert
+            onClose={() => setError(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {errorText}
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };

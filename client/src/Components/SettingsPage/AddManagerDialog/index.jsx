@@ -187,7 +187,7 @@ const AddManagerDialog = ({ open, onCancel, onConfirm, addedData = null }) => {
               variant="contained"
               onClick={() => {
                 if (validate()) {
-                  onConfirm(department, emails);
+                  onConfirm(emails);
                 }
               }}
               color="success"

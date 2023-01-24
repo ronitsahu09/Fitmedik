@@ -3,9 +3,9 @@ import { Button, Grid, Link, Stack, Typography } from "@mui/material";
 
 const TreatmentPartnerCard = ({
   data = {
-    sectionHeading: "",
-    providerName: "",
-    providerAbout: "",
+    heading: "",
+    provider: "",
+    about: "",
     valueAdded: "",
     duration: "",
     thesis: "",
@@ -25,7 +25,7 @@ const TreatmentPartnerCard = ({
               Name of the Provider
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.providerName}
+              {data.provider}
             </Typography>
           </Grid>
 
@@ -61,7 +61,7 @@ const TreatmentPartnerCard = ({
               Duration
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.providerName}
+              {data.provider}
             </Typography>
           </Grid>
 

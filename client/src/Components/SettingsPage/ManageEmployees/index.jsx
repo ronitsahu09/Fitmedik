@@ -1,14 +1,18 @@
 import React from "react";
 import { IconButton, Grid, Typography, Button, Chip } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../styles.css";
 import ConfirmDialog from "../../ConfirmDialog";
 import LoadingPage from "../../LoadingPage";
 import Header from "../../Header";
 import AddManagerDialog from "../AddManagerDialog";
+import {
+  AddDepartmentUserApi,
+  GetDepartmentUsersApi,
+} from "../../../Apis/Hospital/Departments";
 
-const ManageEmployees = () => {
+const ManageEmployees = ({ props }) => {
   const [employees, setEmployees] = React.useState([]);
   const [emails, setEmails] = React.useState([]);
 
@@ -16,48 +20,40 @@ const ManageEmployees = () => {
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
+  const { userToken } = props;
+
   const [confirmOpen, setConfirmOpen] = React.useState(false);
   const [addOpen, setAddOpen] = React.useState(false);
 
-  const { department } = useParams();
+  const { departmentId } = useParams();
+
+  const location = useLocation();
+
+  const department = location.state.departmentName;
 
   const delEmail = React.useRef(null);
 
   const GetEmployees = async () => {
-    console.log(department);
-    setLoading(false);
-    setError(false);
-    setErrorText("");
-
-    setConfirmOpen(false);
-    setAddOpen(false);
-
-    const tempEmployees = [
-      {
-        email: "abc@gmail.com",
-        status: false,
-      },
-      {
-        email: "def@gmail.com",
-        status: true,
-      },
-      {
-        email: "jkl@gmail.com",
-        status: false,
-      },
-    ];
-
-    setEmployees(tempEmployees);
-
-    tempEmployees.forEach((val) => {
-      emails.push(val.email);
+    GetDepartmentUsersApi(userToken, departmentId, {
+      setLoading,
+      setError,
+      setErrorText,
+      setAddOpen,
+      setEmails,
+      setEmployees,
     });
-
-    setEmails(emails);
   };
 
-  const AddEmployee = async (department, emails) => {
-    GetEmployees();
+  const AddEmployee = async (emails) => {
+    console.log(departmentId);
+    AddDepartmentUserApi(userToken, departmentId, emails, {
+      setLoading,
+      setError,
+      setErrorText,
+      setAddOpen,
+      setEmails,
+      setEmployees,
+    });
   };
 
   const DeleteEmployee = async (email) => {
@@ -79,7 +75,10 @@ const ManageEmployees = () => {
           <Grid container sx={{ pt: 4, pb: 4 }}>
             <Grid item xs={1} />
             <Grid container item xs={10} alignItems="center">
-              <Header navigate={navigate} title="Manage Employees" />
+              <Header
+                navigate={navigate}
+                title={`Manage Employees for ${department}`}
+              />
               <Grid
                 container
                 item
@@ -125,7 +124,7 @@ const ManageEmployees = () => {
                   </Grid>
                   <Grid item xs={5}>
                     <Typography variant="h6">
-                      {val.status === true ? (
+                      {val.status ? (
                         <Chip
                           color="success"
                           label="Active"

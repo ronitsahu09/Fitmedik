@@ -42,7 +42,9 @@ const SeeAllTreatmentPartners = () => {
   };
 
   React.useEffect(() => {
-    GetAllTp();
+    const token = GetAdminToken();
+    if (!token) navigate("/admin/login");
+    else GetAllTp();
   }, []);
 
   return (

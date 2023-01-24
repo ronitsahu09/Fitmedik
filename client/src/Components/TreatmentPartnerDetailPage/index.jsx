@@ -37,7 +37,9 @@ const TreatmentPartnerDetailPage = () => {
   };
 
   React.useEffect(() => {
-    GetTreatmentPartner();
+    const token = GetAdminToken();
+    if (!token) navigate("/admin/login");
+    else GetTreatmentPartner();
   }, []);
 
   return (

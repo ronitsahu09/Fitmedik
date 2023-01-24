@@ -38,6 +38,11 @@ const AddTreatmentPartner = () => {
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
+  React.useEffect(() => {
+    const token = GetAdminToken();
+    if (!token) navigate("/admin/login");
+  }, []);
+
   const AddTreatmentPartner = async () => {
     if (validate()) {
       const res = await AddTreatmentPartnetApi(GetAdminToken(), data, {

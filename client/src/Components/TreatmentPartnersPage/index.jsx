@@ -12,9 +12,9 @@ import LeftSidebar from "../LeftSidebar/LeftSidebar";
 const TreatmentPartnersPage = () => {
   const [data, setData] = React.useState([
     {
-      sectionHeading: "",
-      providerName: "",
-      providerAbout: "",
+      heading: "",
+      provider: "",
+      about: "",
       valueAdded: "",
       duration: "",
       thesis: "",
@@ -27,9 +27,9 @@ const TreatmentPartnersPage = () => {
   const GetTreatmentPartners = async () => {
     setData([
       {
-        sectionHeading: "",
-        providerName: "",
-        providerAbout: "",
+        heading: "",
+        provider: "",
+        about: "",
         valueAdded: "",
         duration: "",
         thesis: "",
@@ -38,9 +38,9 @@ const TreatmentPartnersPage = () => {
         dashboardDisplay: false,
       },
       {
-        sectionHeading: "",
-        providerName: "",
-        providerAbout: "",
+        heading: "",
+        provider: "",
+        about: "",
         valueAdded: "",
         duration: "",
         thesis: "",
@@ -49,9 +49,9 @@ const TreatmentPartnersPage = () => {
         dashboardDisplay: false,
       },
       {
-        sectionHeading: "",
-        providerName: "",
-        providerAbout: "",
+        heading: "",
+        provider: "",
+        about: "",
         valueAdded: "",
         duration: "",
         thesis: "",

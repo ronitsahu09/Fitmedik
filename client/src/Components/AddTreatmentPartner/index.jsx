@@ -1,17 +1,26 @@
 import React from "react";
-import { Grid, Typography, TextField, Checkbox, Button } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  TextField,
+  Checkbox,
+  Button,
+  Alert,
+  Snackbar,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header";
 import { Add, RestartAlt } from "@mui/icons-material";
 import { validateUrl } from "../../Utils/HelperFunctions";
+import { AddTreatmentPartnetApi } from "../../Apis/Admin/TreatmentPartners";
+import { GetAdminToken } from "../../Cookies/admin";
 
 const AddTreatmentPartner = () => {
   const navigate = useNavigate();
-
   const [data, setData] = React.useState({
-    sectionHeading: "",
-    providerName: "",
-    providerAbout: "",
+    heading: "",
+    provider: "",
+    about: "",
     valueAdded: "",
     duration: "",
     thesis: "",
@@ -29,17 +38,23 @@ const AddTreatmentPartner = () => {
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
 
-  const AddTreatmentPartner = () => {
+  const AddTreatmentPartner = async () => {
     if (validate()) {
-      // Call API
+      const res = await AddTreatmentPartnetApi(GetAdminToken(), data, {
+        setLoading,
+        setError,
+        setErrorText,
+      });
+
+      if (res) navigate("/admin/dashboard");
     }
   };
 
   const reset = () => {
     setData({
-      sectionHeading: "",
-      providerName: "",
-      providerAbout: "",
+      heading: "",
+      provider: "",
+      about: "",
       valueAdded: "",
       duration: "",
       thesis: "",
@@ -61,21 +76,21 @@ const AddTreatmentPartner = () => {
   const validate = () => {
     let isValid = true;
 
-    if (data.sectionHeading.length === 0) {
+    if (data.heading.length === 0) {
       isValid = false;
       setSectionHeadingError("Field is empty");
     } else {
       setSectionHeadingError("");
     }
 
-    if (data.providerName.length === 0) {
+    if (data.provider.length === 0) {
       isValid = false;
       setProviderNameError("Field is empty");
     } else {
       setProviderNameError("");
     }
 
-    if (data.providerAbout.length === 0) {
+    if (data.about.length === 0) {
       isValid = false;
       setProviderAboutError("Field is empty");
     } else {
@@ -118,11 +133,9 @@ const AddTreatmentPartner = () => {
               fullWidth
               variant={"outlined"}
               placeholder="Section Heading"
-              value={data.sectionHeading}
+              value={data.heading}
               type="text"
-              onChange={(e) =>
-                setData({ ...data, sectionHeading: e.target.value })
-              }
+              onChange={(e) => setData({ ...data, heading: e.target.value })}
               error={sectionHeadingError.length !== 0}
               helperText={sectionHeadingError}
             />
@@ -137,11 +150,9 @@ const AddTreatmentPartner = () => {
               fullWidth
               variant={"outlined"}
               placeholder="Name of provider"
-              value={data.providerName}
+              value={data.provider}
               type="text"
-              onChange={(e) =>
-                setData({ ...data, providerName: e.target.value })
-              }
+              onChange={(e) => setData({ ...data, provider: e.target.value })}
               error={providerNameError.length !== 0}
               helperText={providerNameError}
             />
@@ -156,11 +167,9 @@ const AddTreatmentPartner = () => {
               fullWidth
               variant={"outlined"}
               placeholder="About the provider"
-              value={data.providerAbout}
+              value={data.about}
               type="text"
-              onChange={(e) =>
-                setData({ ...data, providerAbout: e.target.value })
-              }
+              onChange={(e) => setData({ ...data, about: e.target.value })}
               error={providerAboutError.length !== 0}
               helperText={providerAboutError}
               multiline={true}
@@ -341,11 +350,28 @@ const AddTreatmentPartner = () => {
           color="error"
           startIcon={<Add />}
           onClick={AddTreatmentPartner}
+          disabled={loading}
           variant="contained"
         >
-          Add Treatment Partner
+          {loading ? "Submitting" : "Add Treatment Partner"}
         </Button>
       </div>
+
+      {error && (
+        <Snackbar
+          open={error}
+          autoHideDuration={5000}
+          onClose={() => setError(false)}
+        >
+          <Alert
+            onClose={() => setError(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {errorText}
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 };

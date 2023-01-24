@@ -2,9 +2,15 @@ import React from "react";
 import { Grid, Typography } from "@mui/material";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import { GetAdminToken } from "../../Cookies/admin";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const token = GetAdminToken();
+    if (!token) navigate("/admin/login");
+  }, []);
 
   const addCustomer = () => {
     navigate("/admin/onboard-customer");

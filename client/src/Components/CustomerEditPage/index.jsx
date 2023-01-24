@@ -28,7 +28,7 @@ const CustomerEditPage = () => {
   const GetCustomerData = () => {
     const data = location.state.customer;
     setHospitalDetails(data);
-    setOpdtDetails(data.operational_details[0]);
+    setOpdtDetails(data.operational_details);
     originalHospitalDetails.current = data;
     originalOpdtDetails.current = data.operational_details;
   };

@@ -1,6 +1,6 @@
-import * as api from "../index";
+import * as api from "../../Apis/index";
 
-export const GetAllDepartmentsApi = async (token, setters) => {
+export const AddTreatmentPartnetApi = async (token, data, setters) => {
   setters.setLoading(true);
   setters.setError(false);
   setters.setErrorText("");
@@ -11,88 +11,25 @@ export const GetAllDepartmentsApi = async (token, setters) => {
       Authorization: `Bearer ${token}`,
     },
   };
-
+  console.log(data);
   try {
-    const response = await api.get(headerInfo, `/allDept`);
-    setters.setLoading(false);
-    setters.setError(false);
-    setters.setAddOpen(false);
-    setters.setErrorText("");
-    if (response.error) throw new Error(response.error);
-    setters.setDepartments(response);
-  } catch (e) {
-    console.log(e);
-    setters.setLoading(false);
-    setters.setError(true);
-    setters.setAddOpen(false);
-    setters.setErrorText(e.toString());
-  }
-};
-
-export const AddDepartmentApi = async (token, department, emails, setters) => {
-  setters.setLoading(true);
-  setters.setError(false);
-  setters.setErrorText("");
-
-  const data = { name: department, users: emails };
-
-  const headerInfo = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  try {
-    const response = await api.post(headerInfo, data, "/addDept");
+    const response = await api.post(headerInfo, data, "/addPartner");
     setters.setLoading(false);
     setters.setError(false);
     setters.setErrorText("");
     if (response.error) throw new Error(response.error);
-    GetAllDepartmentsApi(token, setters);
+    console.log(response);
+    return true;
   } catch (e) {
     console.log(e);
     setters.setLoading(false);
     setters.setError(true);
     setters.setErrorText(e.toString());
+    return false;
   }
 };
 
-export const AddDepartmentUserApi = async (
-  token,
-  departmentId,
-  emails,
-  setters
-) => {
-  setters.setLoading(true);
-  setters.setError(false);
-  setters.setErrorText("");
-
-  const data = { department: departmentId, emails };
-
-  const headerInfo = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  try {
-    const response = await api.post(headerInfo, data, "/addUser");
-    setters.setLoading(false);
-    setters.setError(false);
-    setters.setErrorText("");
-    if (response.error) throw new Error(response.error);
-    GetDepartmentUsersApi(token, departmentId, setters);
-  } catch (e) {
-    console.log(e);
-    setters.setLoading(false);
-    setters.setError(true);
-    setters.setErrorText(e.toString());
-  }
-};
-
-export const GetDepartmentUsersApi = async (token, departmentId, setters) => {
+export const GetAllTreatmentPartnersApi = async (token, setters) => {
   setters.setLoading(true);
   setters.setError(false);
   setters.setErrorText("");
@@ -105,24 +42,73 @@ export const GetDepartmentUsersApi = async (token, departmentId, setters) => {
   };
 
   try {
-    const response = await api.get(headerInfo, `/allUsers`);
+    const response = await api.get(headerInfo, `/allPartners`);
     setters.setLoading(false);
     setters.setError(false);
-    setters.setAddOpen(false);
     setters.setErrorText("");
     console.log(response);
     if (response.error) throw new Error(response.error);
-    const temp = [];
-    response.forEach((val) => {
-      temp.push(val.email);
-    });
-    setters.setEmails(temp);
-    setters.setEmployees(response);
+    setters.setTreatmentPartners(response);
   } catch (e) {
     console.log(e);
     setters.setLoading(false);
     setters.setError(true);
-    setters.setAddOpen(false);
     setters.setErrorText(e.toString());
+  }
+};
+
+export const GetTreatmentPartnerByIdApi = async (id, token, setters) => {
+  setters.setLoading(true);
+  setters.setError(false);
+  setters.setErrorText("");
+
+  const headerInfo = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await api.get(headerInfo, `/singlePartner/${id}`);
+    setters.setLoading(false);
+    setters.setError(false);
+    setters.setErrorText("");
+    if (response.error) throw new Error(response.error);
+    if (setters.originalData) setters.originalData.current = response;
+    setters.setData(response);
+  } catch (e) {
+    console.log(e);
+    setters.setLoading(false);
+    setters.setError(true);
+    setters.setErrorText(e.toString());
+  }
+};
+
+export const EditTreatmentPartnerApi = async (token, data, setters) => {
+  setters.setLoading(true);
+  setters.setError(false);
+  setters.setErrorText("");
+
+  const headerInfo = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await api.put(headerInfo, data, "/updatePartner");
+    setters.setLoading(false);
+    setters.setError(false);
+    setters.setErrorText("");
+    if (response.error) throw new Error(response.error);
+    return true;
+  } catch (e) {
+    console.log(e);
+    setters.setLoading(false);
+    setters.setError(true);
+    setters.setErrorText(e.toString());
+    return false;
   }
 };

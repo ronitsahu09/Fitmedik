@@ -54,9 +54,11 @@ export default function Analytics({ props }) {
 
           if (users) {
             users.map((user) => {
-              const { mood } = user;
+              const { health_data: healthData } = user;
 
-              switch (mood.moodType) {
+              const len = healthData.len;
+
+              switch (healthData[len - 1]?.mood?.moodType) {
                 case "joy":
                   data[1]++;
                   break;
@@ -716,7 +718,6 @@ export default function Analytics({ props }) {
                           const percent = 100 / totalUsers;
                           for (let property in data) data[property] *= percent;
                         }
-
                         return data;
                       })(),
 

@@ -156,7 +156,7 @@ export default function ActionForm({ props }) {
                 Trend
               </ListSubheader>
 
-              <MenuItem value="average-burnout-trend">
+              <MenuItem value="average burnout trend">
                 Average Burnout Trend
               </MenuItem>
 
@@ -165,11 +165,11 @@ export default function ActionForm({ props }) {
               >
                 Burnout Indicator
               </ListSubheader>
-              <MenuItem value="work-life-balance">Work Life Balance</MenuItem>
-              <MenuItem value="physical-fatigue">Physical Fatigue</MenuItem>
+              <MenuItem value="work life balance">Work Life Balance</MenuItem>
+              <MenuItem value="physical fatigue">Physical Fatigue</MenuItem>
               <MenuItem value="mood">Mood</MenuItem>
-              <MenuItem value="sleep-quality">Sleep Quality</MenuItem>
-              <MenuItem value="interaction-index">Interaction Index</MenuItem>
+              <MenuItem value="sleep quality">Sleep Quality</MenuItem>
+              <MenuItem value="interaction index">Interaction Index</MenuItem>
             </Select>
           </FormControl>
 

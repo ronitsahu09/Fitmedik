@@ -48,7 +48,7 @@ export default function ResultantGraph({ props }) {
     while (start.getTime() <= end.getTime()) {
       let count = 0;
       let avg = target.reduce((prev, user) => {
-        const { health_data: healthData } = user;
+        let { health_data: healthData } = user;
 
         healthData = healthData.filter(
           (record) => record.date === start.toLocaleDateString()
@@ -56,9 +56,9 @@ export default function ResultantGraph({ props }) {
 
         let burnout;
 
-        if (actionType === "average-burnout-trend") {
+        if (actionType === "average burnout trend") {
           burnout = healthData[0]?.burnout || 0;
-        } else if (actionType === "work-life-balance") {
+        } else if (actionType === "work life balance") {
           const workingHours = healthData[0]?.working_hours || 0;
           let score;
 
@@ -69,8 +69,8 @@ export default function ResultantGraph({ props }) {
           else score = 5;
 
           burnout = score;
-        } else if (actionType === "physical-fatigue") {
-          const dailyStepCount = burnout[0]?.daily_step_count || 0;
+        } else if (actionType === "physical fatigue") {
+          const dailyStepCount = healthData[0]?.daily_step_count || 0;
           let score;
 
           if (dailyStepCount < 10000) score = 1;
@@ -81,13 +81,31 @@ export default function ResultantGraph({ props }) {
           else score = 5;
 
           burnout = score;
-        }
-        //  else if (actionType === "mood") {
+        } else if (actionType === "mood") {
+          const mood = healthData[0]?.mood?.moodType || 0;
+          let score;
 
-        //   const mood = burnout[0]?.
+          switch (mood) {
+            case "joy":
+              score = 1;
+              break;
+            case "neutral":
+              score = 2;
+              break;
+            case "sadness":
+              score = 3;
+              break;
+            case "fear":
+              score = 4;
+              break;
+            case "anger":
+              score = 5;
+              break;
+            default:
+          }
 
-        // }
-        else if (actionType === "sleep-quality") {
+          burnout = score;
+        } else if (actionType === "sleep quality") {
           const sleepHours = healthData[0]?.sleep_hours;
           let score;
 
@@ -98,7 +116,7 @@ export default function ResultantGraph({ props }) {
           else score = 5;
 
           burnout = score;
-        } else if (actionType === "team-support") {
+        } else if (actionType === "team support") {
           const workingAlone = healthData[0]?.interaction?.working_alone;
           let score;
 

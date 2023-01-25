@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
-import { SearchBar } from "../Styles_&_Components/Components";
+import { SearchBar, TemporaryLogo } from "../Styles_&_Components/Components";
 import {
   AppWrapper,
   fixedWindow,
@@ -43,7 +43,7 @@ export default function MonitorActions({ props }) {
     ],
     isCompleted: false,
     view: "hospital",
-    actionType: "average-burnout-trend",
+    actionType: "average burnout trend",
   };
 
   const { appHeight } = props;
@@ -55,57 +55,17 @@ export default function MonitorActions({ props }) {
     action.name.toLowerCase().includes(query.toLowerCase().trim())
   );
 
-  const handleClick = (bool) => {
+  const handleClick = () => {
     setIsOpen(true);
   };
 
   const dispatch = useDispatch();
 
-  // const averageBurnoutTrend = (duration) => {
-  //   const { averageBurnout } = organization.organizationInfo;
-  //   const { start, end } = duration;
-  //   const len = averageBurnout.length;
-
-  //   const date1 =
-  //     start.split("/")[1] +
-  //     "/" +
-  //     start.split("/")[0] +
-  //     "/" +
-  //     start.split("/")[2];
-
-  //   const date2 =
-  //     end.split("/")[1] + "/" + end.split("/")[0] + "/" + end.split("/")[2];
-
-  //   const startDate = new Date(date1);
-  //   const endDate = new Date(date2);
-  //   const currDate = new Date();
-
-  //   const diffTime = Math.abs(endDate - startDate);
-  //   const currDiffTime = Math.abs(currDate - startDate);
-  //   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  //   const currDiffDays = Math.ceil(currDiffTime / (1000 * 60 * 60 * 24));
-  // };
-
-  const getData = (view, actionType, duration) => {
-    let dataset;
-
-    switch (
-      actionType
-
-      // case "average burnout trend":
-      //   averageBurnoutTrend(duration);
-      //   break;
-      //* and so on
-    ) {
-    }
-
-    return dataset;
-  };
-
   return (
     actions && (
       <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
         <LeftSidebar />
+        <TemporaryLogo />
 
         <Stack sx={{ ...middle }}>
           <Stack sx={{ ...middleWindow }}>
@@ -287,7 +247,7 @@ export default function MonitorActions({ props }) {
                               <ResultantGraph
                                 props={{
                                   view: action.view,
-                                  actionType: action.type,
+                                  actionType: action.actionType,
                                   duration: action.duration,
                                 }}
                               />

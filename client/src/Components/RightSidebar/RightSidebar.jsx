@@ -69,7 +69,7 @@ export default function RightSidebar() {
           <Box sx={{ ...bottomBlur }}></Box>
         </Box>
 
-        <Typography variant="h5" component="p" fontWeight="500" color="white">
+        <Typography variant="h5" component="p" fontWeight="500">
           Realtime Burnout Monitoring
         </Typography>
 

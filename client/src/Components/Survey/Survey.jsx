@@ -6,6 +6,7 @@ import {
   CustomTabs,
   GraphInfo,
   Legend,
+  TemporaryLogo,
 } from "../Styles_&_Components/Components";
 import {
   AppWrapper,
@@ -174,7 +175,7 @@ export default function Survey({ props }) {
   return (
     <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
       <LeftSidebar />
-
+      <TemporaryLogo />
       <Stack sx={{ ...middle }}>
         <Stack sx={{ ...middleWindow }}>
           <Typography variant="h3" component="div" fontWeight="700">

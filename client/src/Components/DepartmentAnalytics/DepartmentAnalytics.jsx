@@ -5,7 +5,11 @@ import { AverageBurnoutTrend } from "../AverageBurnoutTrend/AverageBurnoutTrend"
 import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
-import { GraphInfo, Legend } from "../Styles_&_Components/Components";
+import {
+  GraphInfo,
+  Legend,
+  TemporaryLogo,
+} from "../Styles_&_Components/Components";
 import {
   AppWrapper,
   fixedWindow,
@@ -28,14 +32,6 @@ export default function DepartmentAnalytics({ props }) {
 
   const fakeUsers = useSelector(
     (state) => state.organization.organizationInfo?.fakeUsers
-  );
-
-  /*
-   * Fetch average Burnout according to department id later.
-   ! Currently we are fetching the average burnout of the whole organization
-   */
-  const averageBurnout = useSelector(
-    (state) => state?.organization?.organizationInfo?.averageBurnout
   );
 
   const PieOptions = {
@@ -578,7 +574,7 @@ export default function DepartmentAnalytics({ props }) {
     department && (
       <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
         <LeftSidebar />
-
+        <TemporaryLogo />
         <Stack sx={{ ...middle }}>
           <Stack sx={{ ...middleWindow }}>
             <Typography

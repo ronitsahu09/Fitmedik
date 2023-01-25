@@ -6,17 +6,16 @@ export const rightSidebar = {
   display: { xs: "none", w950: "flex" },
   p: "1.5rem",
   pt: "2.8rem",
-  gap: "1.5rem",
+  gap: "1rem",
 };
 
 export const logo = {
-  width: "60%",
+  width: "50%",
   alignSelf: "center",
 };
 
 export const monitoring = {
   flex: 1,
-  // bgcolor: "",
   borderRadius: "16px",
   display: "flex",
   flexDirection: "column",
@@ -27,16 +26,17 @@ export const monitoring = {
 };
 
 export const monitorLogoWrapper = {
+  margin: 'auto',
   mt: 3,
   position: "relative",
-  width: "100%",
+  width: "90%",
 };
 
 export const bottomBlur = {
   width: "100%",
   height: "20%",
-  // background:
-  //   "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 42.71%, #FFFFFF 68.75%, #FFFFFF 100%);",
+  background:
+    "linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.85) 42.71%, #FFFFFF 68.75%, #FFFFFF 100%);",
   position: "absolute",
   bottom: "0",
 };
@@ -46,3 +46,4 @@ export const colorDot = {
   height: "0.6cm",
   borderRadius: "50%",
 };
+

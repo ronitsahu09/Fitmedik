@@ -54,7 +54,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
             }
             to="/analytics"
           >
@@ -73,7 +73,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
             }
             to="/costsavings"
           >
@@ -92,7 +92,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
             }
             to="/surveyresults"
           >
@@ -113,7 +113,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
             }
             to="/notifications"
           >
@@ -132,7 +132,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
             }
             to="/monitoractions"
           >
@@ -151,7 +151,7 @@ export default function LeftSidebar() {
           <Box
             component={NavLink}
             style={({ isActive }) =>
-              isActive ? { color: "hsl(166, 90%, 35%)" } : { color: "grey" }
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
             }
             to="/treatment-partners"
           >

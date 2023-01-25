@@ -1,6 +1,4 @@
 import {
-  Autocomplete,
-  autocompleteClasses,
   Box,
   Card,
   CardActions,
@@ -17,6 +15,7 @@ import {
   Typography,
   Zoom,
 } from "@mui/material";
+import tempLogo from "../../Assets/Images/Logo_1.svg";
 import { dot, PieDot } from "./Styles";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -294,7 +293,7 @@ export function CustomTabs() {
 }
 
 export function SearchBar({ props }) {
-  const { label, data, query, setQuery } = props;
+  const { label, query, setQuery } = props;
 
   return (
     <TextField
@@ -310,20 +309,13 @@ export function SearchBar({ props }) {
         ),
       }}
     />
-    // <Autocomplete
-    //   disablePortal
-    //   id={`${label}-searchbar`}
-    //   value={query}
-    //   onChange={(e) => setQuery(e.target.value)}
-    //   popupIcon={<Search />}
-    //   options={data}
-    //   sx={{
-    //     width: "70%",
-    //     [`& .${autocompleteClasses.popupIndicator}`]: {
-    //       transform: "none",
-    //     },
-    //   }}
-    //   renderInput={(params) => <TextField {...params} label={label} />}
-    // />
+  );
+}
+
+export function TemporaryLogo() {
+  return (
+    <Box sx={{ position: "absolute", right: '-5%', top: '3rem' }}>
+      <Box component="img" src={tempLogo} sx={{ width: "50%" }} />
+    </Box>
   );
 }

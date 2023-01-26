@@ -9,9 +9,12 @@ import {
 } from "../CustomerOnboardingForm/validate";
 import OperationalSection from "./OperationalSection";
 import TreatmentPartnersEdit from "./TreatmentPartners";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GetAdminToken } from "../../Cookies/admin";
-import { EditCustomerApi } from "../../Apis/Admin/Customers";
+import {
+  EditCustomerApi,
+  GetCustomerByIdApi,
+} from "../../Apis/Admin/Customers";
 
 const HOSP_SECTION = 0;
 const TRPT_SECTION = 1;
@@ -28,14 +31,16 @@ const CustomerEditPage = () => {
   const [errorText, setErrorText] = React.useState("");
 
   const navigate = useNavigate();
-  const location = useLocation();
+  const { id } = useParams();
 
   const GetCustomerData = () => {
-    const data = location.state.customer;
-    setHospitalDetails(data);
-    setOpdtDetails(data.operational_details);
-    originalHospitalDetails.current = data;
-    originalOpdtDetails.current = data.operational_details;
+    GetCustomerByIdApi(id, GetAdminToken(), {
+      setLoading,
+      setError,
+      setErrorText,
+      setHospitalDetails,
+      setOpdtDetails,
+    });
   };
 
   React.useEffect(() => {

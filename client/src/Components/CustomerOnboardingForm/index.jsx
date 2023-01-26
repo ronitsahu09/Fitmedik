@@ -10,13 +10,15 @@ import {
 } from "./validate";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
+import TreatmentPartnersAdd from "./TreatmentPartners";
 import { AddCustomerApi } from "../../Apis/Admin/Customers";
 import { GetAdminToken } from "../../Cookies/admin";
 import { useNavigate } from "react-router-dom";
 
 const HOSP_SECTION = 0;
 const MGER_SECTION = 1;
-const OPDT_SECTION = 2;
+const TRPT_SECTION = 2;
+const OPDT_SECTION = 3;
 
 const CustomerOnboardingFormPage = () => {
   const ref = React.useRef(null);
@@ -27,6 +29,9 @@ const CustomerOnboardingFormPage = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
+
+  const [selectedTreatmentPartners, setSelectedTreatmentPartners] =
+    React.useState([]);
 
   const navigate = useNavigate();
 
@@ -43,7 +48,8 @@ const CustomerOnboardingFormPage = () => {
       operational_details: opdtDetails,
       documents: [],
       active_state: true,
-      poc_manager: { ...managerDetails[0], phone: "9876543210" },
+      poc_manager: managerDetails[0],
+      partners: selectedTreatmentPartners,
     };
     const res = AddCustomerApi(GetAdminToken(), data, {
       setLoading,
@@ -125,12 +131,14 @@ const CustomerOnboardingFormPage = () => {
         setErrorMsg("Please save the highlighted fields");
         setOpen(true);
       }
-    } else {
+    } else if (mode === OPDT_SECTION) {
       isValid = validateOpdtSection(
         opdtDetails,
         opdtDetailsError,
         setOpdtDetailsError
       );
+    } else {
+      isValid = true;
     }
 
     if (isValid && mode === OPDT_SECTION) {
@@ -222,6 +230,12 @@ const CustomerOnboardingFormPage = () => {
         <ManagerSection
           managerDetails={managerDetails}
           setManagerDetails={setManagerDetails}
+        />
+      )}
+      {mode === TRPT_SECTION && (
+        <TreatmentPartnersAdd
+          selectedTreatmentPartners={selectedTreatmentPartners}
+          setSelectedTreatmentPartners={setSelectedTreatmentPartners}
         />
       )}
       {mode === OPDT_SECTION && (

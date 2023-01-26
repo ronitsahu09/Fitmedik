@@ -8,15 +8,20 @@ import {
   validateOpdtSection,
 } from "../CustomerOnboardingForm/validate";
 import OperationalSection from "./OperationalSection";
+import TreatmentPartnersEdit from "./TreatmentPartners";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GetAdminToken } from "../../Cookies/admin";
 import { EditCustomerApi } from "../../Apis/Admin/Customers";
 
 const HOSP_SECTION = 0;
-const OPDT_SECTION = 1;
+const TRPT_SECTION = 1;
+const OPDT_SECTION = 2;
 
 const CustomerEditPage = () => {
   const [mode, setMode] = React.useState(HOSP_SECTION);
+
+  const [selectedTreatmentPartners, setSelectedTreatmentPartners] =
+    React.useState();
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -170,7 +175,12 @@ const CustomerEditPage = () => {
           setHospDetails={setHospitalDetails}
         />
       )}
-
+      {mode === TRPT_SECTION && (
+        <TreatmentPartnersEdit
+          selectedTreatmentPartners={selectedTreatmentPartners}
+          setSelectedTreatmentPartners={setSelectedTreatmentPartners}
+        />
+      )}
       {mode === OPDT_SECTION && (
         <OperationalSection
           opdtDetails={opdtDetails}

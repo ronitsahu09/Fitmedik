@@ -7,10 +7,12 @@ import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { GetAdminToken } from "../../Cookies/admin";
+import TreatmentPartnersDetails from "./TreatmentPartners";
 
 const HOSP_SECTION = 0;
 const MGER_SECTION = 1;
-const OPDT_SECTION = 2;
+const TRPT_SECTION = 2;
+const OPDT_SECTION = 3;
 
 const CustomerDetailsPage = () => {
   const [mode, setMode] = React.useState(HOSP_SECTION);
@@ -88,6 +90,7 @@ const CustomerDetailsPage = () => {
       {mode === MGER_SECTION && (
         <ManagerSection managerDetails={managerDetails} />
       )}
+      {mode === TRPT_SECTION && <TreatmentPartnersDetails />}
       {mode === OPDT_SECTION && (
         <OperationalSection opdtDetails={opdtDetails} />
       )}

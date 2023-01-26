@@ -21,12 +21,12 @@ const AddTreatmentPartner = () => {
     heading: "",
     provider: "",
     about: "",
-    valueAdded: "",
+    value: "",
     duration: "",
     thesis: "",
-    expectedImpact: "",
+    expected_impact: "",
     link: "",
-    dashboardDisplay: false,
+    onDashboard: false,
   });
 
   const [sectionHeadingError, setSectionHeadingError] = React.useState("");
@@ -60,12 +60,12 @@ const AddTreatmentPartner = () => {
       heading: "",
       provider: "",
       about: "",
-      valueAdded: "",
+      value: "",
       duration: "",
       thesis: "",
-      expectedImpact: "",
+      expected_impact: "",
       link: "",
-      dashboardDisplay: true,
+      onDashboard: true,
     });
 
     setSectionHeadingError("");
@@ -212,7 +212,7 @@ const AddTreatmentPartner = () => {
                     onClick={() =>
                       setData({
                         ...data,
-                        dashboardDisplay: !data.dashboardDisplay,
+                        onDashboard: !data.onDashboard,
                       })
                     }
                     sx={{ mr: 1 }}
@@ -221,11 +221,11 @@ const AddTreatmentPartner = () => {
                     Show in dashboard?{" "}
                   </Typography>
                   <Checkbox
-                    checked={data.dashboardDisplay}
+                    checked={data.onDashboard}
                     onClick={() =>
                       setData({
                         ...data,
-                        dashboardDisplay: !data.dashboardDisplay,
+                        onDashboard: !data.onDashboard,
                       })
                     }
                   />
@@ -248,11 +248,9 @@ const AddTreatmentPartner = () => {
                 fullWidth
                 variant={"outlined"}
                 placeholder="Value Added"
-                value={data.valueAdded}
+                value={data.value}
                 type="text"
-                onChange={(e) =>
-                  setData({ ...data, valueAdded: e.target.value })
-                }
+                onChange={(e) => setData({ ...data, value: e.target.value })}
               />
             </Grid>
 
@@ -295,10 +293,10 @@ const AddTreatmentPartner = () => {
                 fullWidth
                 variant={"outlined"}
                 placeholder="Expected Impact"
-                value={data.expectedImpact}
+                value={data.expected_impact}
                 type="text"
                 onChange={(e) =>
-                  setData({ ...data, expectedImpact: e.target.value })
+                  setData({ ...data, expected_impact: e.target.value })
                 }
               />
             </Grid>

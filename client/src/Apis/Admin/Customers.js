@@ -166,7 +166,8 @@ export const GetCustomerByIdApi = async (id, token, setters) => {
     console.log(response);
     setters.setHospitalDetails(response.organization);
     setters.setOpdtDetails(response.organization.operational_details);
-    setters.setManagerDetails(response.allmanagers);
+    setters.setManagerDetails &&
+      setters.setManagerDetails(response.allmanagers);
   } catch (e) {
     console.log(e);
     setters.setLoading(false);

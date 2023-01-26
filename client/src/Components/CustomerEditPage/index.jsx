@@ -15,6 +15,8 @@ import {
   EditCustomerApi,
   GetCustomerByIdApi,
 } from "../../Apis/Admin/Customers";
+import LoadingPage from "../LoadingPage";
+import ErrorPage from "../ErrorPage";
 
 const HOSP_SECTION = 0;
 const TRPT_SECTION = 1;
@@ -49,16 +51,16 @@ const CustomerEditPage = () => {
     else GetCustomerData();
   }, []);
 
-  const EditCustomerData = () => {
+  const EditCustomerData = async () => {
     const data = {
       ...hospDetails,
       operational_details: opdtDetails,
       documents: [],
       active_state: true,
-      id: hospDetails._id,
+      id,
+      partners: selectedTreatmentPartners,
     };
-    console.log(data);
-    const res = EditCustomerApi(GetAdminToken(), data, {
+    const res = await EditCustomerApi(GetAdminToken(), data, {
       setLoading,
       setError,
       setErrorText,
@@ -173,82 +175,74 @@ const CustomerEditPage = () => {
 
   return (
     <div>
-      {mode === HOSP_SECTION && (
-        <HospitalSection
-          hospDetails={hospDetails}
-          hospDetailsError={hospDetailsError}
-          setHospDetails={setHospitalDetails}
-        />
-      )}
-      {mode === TRPT_SECTION && (
-        <TreatmentPartnersEdit
-          selectedTreatmentPartners={selectedTreatmentPartners}
-          setSelectedTreatmentPartners={setSelectedTreatmentPartners}
-        />
-      )}
-      {mode === OPDT_SECTION && (
-        <OperationalSection
-          opdtDetails={opdtDetails}
-          opdtDetailsError={opdtDetailsError}
-          setOpdtDetails={setOpdtDetails}
-        />
-      )}
+      {loading ? (
+        <LoadingPage loadingText={"Loading..."} />
+      ) : error ? (
+        <ErrorPage errorText={errorText} onRetry={GetCustomerData} />
+      ) : (
+        <div>
+          {mode === HOSP_SECTION && (
+            <HospitalSection
+              hospDetails={hospDetails}
+              hospDetailsError={hospDetailsError}
+              setHospDetails={setHospitalDetails}
+            />
+          )}
+          {mode === TRPT_SECTION && (
+            <TreatmentPartnersEdit
+              selectedTreatmentPartners={selectedTreatmentPartners}
+              setSelectedTreatmentPartners={setSelectedTreatmentPartners}
+            />
+          )}
+          {mode === OPDT_SECTION && (
+            <OperationalSection
+              opdtDetails={opdtDetails}
+              opdtDetailsError={opdtDetailsError}
+              setOpdtDetails={setOpdtDetails}
+            />
+          )}
 
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: 50,
-          right: 50,
-        }}
-      >
-        <Button
-          onClick={reset}
-          color="primary"
-          endIcon={<RestartAlt />}
-          variant="contained"
-          sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
-          disabled={loading}
-        >
-          Reset
-        </Button>
-
-        <Button
-          onClick={prev}
-          color="error"
-          startIcon={<ArrowBack />}
-          variant="contained"
-          sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
-          disabled={mode === HOSP_SECTION || loading}
-        >
-          Previous
-        </Button>
-
-        <Button
-          onClick={next}
-          color="success"
-          endIcon={mode === OPDT_SECTION ? <Send /> : <ArrowForward />}
-          variant="contained"
-          sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
-          disabled={loading}
-        >
-          {mode === OPDT_SECTION ? "Submit" : "Next"}
-        </Button>
-      </Box>
-
-      {error && (
-        <Snackbar
-          open={error}
-          autoHideDuration={5000}
-          onClose={() => setError(false)}
-        >
-          <Alert
-            onClose={() => setError(false)}
-            severity="error"
-            sx={{ width: "100%" }}
+          <Box
+            sx={{
+              position: "fixed",
+              bottom: 50,
+              right: 50,
+            }}
           >
-            {errorText}
-          </Alert>
-        </Snackbar>
+            <Button
+              onClick={reset}
+              color="primary"
+              endIcon={<RestartAlt />}
+              variant="contained"
+              sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+              disabled={loading}
+            >
+              Reset
+            </Button>
+
+            <Button
+              onClick={prev}
+              color="error"
+              startIcon={<ArrowBack />}
+              variant="contained"
+              sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+              disabled={mode === HOSP_SECTION || loading}
+            >
+              Previous
+            </Button>
+
+            <Button
+              onClick={next}
+              color="success"
+              endIcon={mode === OPDT_SECTION ? <Send /> : <ArrowForward />}
+              variant="contained"
+              sx={{ borderRadius: 99, marginLeft: 0.5, marginRight: 0.5 }}
+              disabled={loading}
+            >
+              {mode === OPDT_SECTION ? "Submit" : "Next"}
+            </Button>
+          </Box>
+        </div>
       )}
     </div>
   );

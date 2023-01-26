@@ -41,8 +41,6 @@ export const AddCustomerApi = async (token, data, setters) => {
   };
 
   try {
-    if (navigator.onLine === false)
-      throw new Error("Not connected to the internet");
     const response = await api.post(headerInfo, data, "/organization");
     setters.setLoading(false);
     setters.setError(false);
@@ -73,8 +71,6 @@ export const EditCustomerApi = async (token, data, setters) => {
   };
 
   try {
-    if (navigator.onLine === false)
-      throw new Error("Not connected to the internet");
     const response = await api.put(headerInfo, data, "/organization");
     setters.setLoading(false);
     setters.setError(false);
@@ -149,4 +145,33 @@ export const AddManagerApi = async (id, token, data, setters) => {
   }
 };
 
-const GetCustomerById = async () => {};
+export const GetCustomerByIdApi = async (id, token, setters) => {
+  setters.setLoading(true);
+  setters.setError(false);
+  setters.setErrorText("");
+
+  const headerInfo = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await api.get(headerInfo, `/getDetailsOrganization/${id}`);
+    setters.setLoading(false);
+    setters.setError(false);
+    setters.setErrorText("");
+    if (response.error) throw new Error(response.error);
+    console.log(response);
+    setters.setHospitalDetails(response.organization);
+    setters.setOpdtDetails(response.organization.operational_details);
+    setters.setManagerDetails &&
+      setters.setManagerDetails(response.allmanagers);
+  } catch (e) {
+    console.log(e);
+    setters.setLoading(false);
+    setters.setError(true);
+    setters.setErrorText(e.toString());
+  }
+};

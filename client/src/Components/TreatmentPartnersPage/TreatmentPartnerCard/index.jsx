@@ -6,12 +6,12 @@ const TreatmentPartnerCard = ({
     heading: "",
     provider: "",
     about: "",
-    valueAdded: "",
+    value: "",
     duration: "",
     thesis: "",
-    expectedImpact: "",
+    expected_impact: "",
     link: "",
-    dashboardDisplay: false,
+    onDashboard: false,
   },
 }) => {
   return (
@@ -34,7 +34,7 @@ const TreatmentPartnerCard = ({
               Value Added
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.valueAdded}
+              {data.value}
             </Typography>
           </Grid>
 
@@ -52,7 +52,7 @@ const TreatmentPartnerCard = ({
               Expected Impact
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.expectedImpact}
+              {data.expected_impact}
             </Typography>
           </Grid>
 

@@ -19,17 +19,13 @@ const SeeAllCustomers = () => {
 
   const token = GetAdminToken();
 
-  const goToCustomer = (customerId, index) => {
-    navigate(`/admin/customer/${customerId}`, {
-      state: { customer: customers[index] },
-    });
+  const goToCustomer = (customerId) => {
+    navigate(`/admin/customer/${customerId}`);
   };
 
-  const goToCustomerEdit = (e, customerId, index) => {
+  const goToCustomerEdit = (e, customerId) => {
     e.stopPropagation();
-    navigate(`/admin/edit-customer/${customerId}`, {
-      state: { customer: customers[index] },
-    });
+    navigate(`/admin/edit-customer/${customerId}`);
   };
 
   const goToCustomerManagers = (e, customerId) => {
@@ -103,7 +99,7 @@ const SeeAllCustomers = () => {
                     : "admin-customers-button"
                 }
                 p={2}
-                onClick={() => goToCustomer(val.customerId, index)}
+                onClick={() => goToCustomer(val._id)}
               >
                 <Grid item xs={3.5}>
                   <Typography variant="h6" fontWeight="200">
@@ -121,9 +117,7 @@ const SeeAllCustomers = () => {
                   </Typography>
                 </Grid>
                 <Grid item xs={0.75}>
-                  <IconButton
-                    onClick={(e) => goToCustomerEdit(e, val._id, index)}
-                  >
+                  <IconButton onClick={(e) => goToCustomerEdit(e, val._id)}>
                     <Edit />
                   </IconButton>
                 </Grid>

@@ -1,4 +1,4 @@
-import { IconButton, Paper, Stack, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,11 +12,7 @@ import {
 } from "chart.js";
 
 import { Line } from "react-chartjs-2";
-import { RegularSelectMenu } from "../../Styles_&_Components/Components";
 import { graphCanvas } from "../../Styles_&_Components/Styles";
-import { useState } from "react";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import { useEffect } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -29,103 +25,17 @@ ChartJS.register(
   Legend
 );
 
-const monthMap = {
-  1: "January",
-  2: "February",
-  3: "March",
-  4: "April",
-  5: "May",
-  6: "June",
-  7: "July",
-  8: "August",
-  9: "September",
-  10: "October",
-  11: "November",
-  12: "December",
-};
-
-export default function TrendGraph({ props }) {
-  const { averageBurnout } = props;
-
-  const [currMonth, setCurrMonth] = useState("");
-  const [currEndDate, setCurrEndDate] = useState(-1);
-  const range = 6;
-
-  const handlePreviousClick = () => {
-    setCurrEndDate((prevState) => {
-      const newState = prevState - range;
-
-      return newState - range > -1 ? newState : range;
-    });
-  };
-
-  const handleForwardClick = () => {
-    setCurrEndDate((prevState) => {
-      const newState = prevState + range;
-      const { avgBurnoutScores } = averageBurnout.filter(
-        (item) => item.month === currMonth
-      )[0];
-
-      return newState <= avgBurnoutScores.length
-        ? newState
-        : avgBurnoutScores.length;
-    });
-  };
-
-  useEffect(() => {
-    const len = averageBurnout?.length;
-    if (!len) return;
-
-    setCurrMonth(() => {
-      return averageBurnout[len - 1].month;
-    });
-
-    setCurrEndDate(() => {
-      const target = averageBurnout.filter(
-        (item) => item.month === averageBurnout[len - 1].month
-      )[0];
-
-      return target.avgBurnoutScores.length;
-    });
-  }, [averageBurnout]);
-
-  const getLabels = () => {
-    const label = [];
-
-    if (currEndDate > -1) {
-      let end = currEndDate;
-      for (let i = 0; i < range && end > -1; i++, end--) {
-        label.push(`${monthMap[currMonth]} ${end}`);
-      }
-    }
-
-    label.reverse();
-    return label;
-  };
-
-  const getData = () => {
-    const data = [];
-
-    if (currMonth !== "" && currEndDate > -1) {
-      const { avgBurnoutScores } = averageBurnout.filter(
-        (item) => item.month === currMonth
-      )[0];
-
-      for (let start = currEndDate - range; start < currEndDate; start++)
-        data.push(avgBurnoutScores[start]);
-    }
-
-    return data;
-  };
+export default function TrendGraph(props) {
+  const { labels, data, title } = props.config;
 
   const chartData = {
-    labels: getLabels(),
+    labels: labels,
     datasets: [
       {
-        label: "Burnout Trend",
-        data: getData(),
+        label: "Burnout",
+        data: data,
         fill: true,
-        backgroundColor: "#8fabdd",
+        backgroundColor: "rgb(143, 171, 221, .5)",
         borderColor: "hsl(218, 53%, 61%)",
       },
     ],
@@ -147,15 +57,23 @@ export default function TrendGraph({ props }) {
       x: {
         ticks: {
           color: "black",
+          display: false,
         },
+
+        title: {
+          display: true,
+          text: title,
+        },
+
         grid: {
           display: false,
         },
       },
+
       y: {
-        beginAtZero: true,
+        min: 1,
+        max: 5,
         ticks: {
-          display: false,
           stepSize: 1,
         },
         grid: {
@@ -166,61 +84,14 @@ export default function TrendGraph({ props }) {
   };
 
   return (
-    <Stack gap={2} width="100%">
-      {averageBurnout && (
-        <>
-          <Stack direction="row" justifyContent="space-between">
-            <Typography
-              component="div"
-              sx={{
-                fontSize: { xs: "1.8em", lg: "2em" },
-                fontWeight: "500",
-                mr: 2,
-              }}
-            >
-              Average Burnout
-            </Typography>
-            <Stack direction="row" gap={2}>
-              <RegularSelectMenu
-                props={{
-                  label: "averageBurnout-months",
-                  title: "Monthly",
-                  options: averageBurnout.map((item) => {
-                    return { value: item.month, legend: monthMap[item.month] };
-                  }),
-                  currMonth,
-                  setCurrMonth,
-                }}
-              />
-
-              <Stack direction="row" alignItems="center">
-                <IconButton onClick={handlePreviousClick}>
-                  <ArrowBackIos sx={{ fontSize: 16 }} />
-                </IconButton>
-                {currMonth !== "" && (
-                  <Typography variant="div" fontSize={13}>
-                    {monthMap[currMonth].slice(0, 3)} {currEndDate - range + 1}{" "}
-                    - {monthMap[currMonth].slice(0, 3)} {currEndDate}
-                  </Typography>
-                )}
-
-                <IconButton onClick={handleForwardClick}>
-                  <ArrowForwardIos sx={{ fontSize: 16 }} />
-                </IconButton>
-              </Stack>
-            </Stack>
-          </Stack>
-
-          <Paper
-            sx={{
-              ...graphCanvas,
-              width: "100%",
-            }}
-          >
-            <Line data={chartData} options={options} />
-          </Paper>
-        </>
-      )}
-    </Stack>
+    <Paper
+      sx={{
+        ...graphCanvas,
+        flex: 1,
+        width: "100%",
+      }}
+    >
+      <Line data={chartData} options={options} />
+    </Paper>
   );
 }

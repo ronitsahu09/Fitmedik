@@ -6,17 +6,16 @@ export const rightSidebar = {
   display: { xs: "none", w950: "flex" },
   p: "1.5rem",
   pt: "2.8rem",
-  gap: "1.5rem",
+  gap: "1rem",
 };
 
 export const logo = {
-  width: "70%",
+  width: "50%",
   alignSelf: "center",
 };
 
 export const monitoring = {
   flex: 1,
-  bgcolor: "#ffffff",
   borderRadius: "16px",
   display: "flex",
   flexDirection: "column",
@@ -27,9 +26,10 @@ export const monitoring = {
 };
 
 export const monitorLogoWrapper = {
+  margin: 'auto',
   mt: 3,
   position: "relative",
-  width: "100%",
+  width: "90%",
 };
 
 export const bottomBlur = {
@@ -46,3 +46,4 @@ export const colorDot = {
   height: "0.6cm",
   borderRadius: "50%",
 };
+

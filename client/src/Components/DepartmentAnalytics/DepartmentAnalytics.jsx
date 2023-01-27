@@ -1,11 +1,15 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { AverageBurnoutTrend } from "../AverageBurnoutTrend/AverageBurnoutTrend";
 import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
-import TrendGraph from "../Graphs/Trend_Graph/TrendGraph";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
-import { GraphInfo, Legend } from "../Styles_&_Components/Components";
+import {
+  GraphInfo,
+  Legend,
+  TemporaryLogo,
+} from "../Styles_&_Components/Components";
 import {
   AppWrapper,
   fixedWindow,
@@ -26,13 +30,27 @@ export default function DepartmentAnalytics({ props }) {
 
   const users = department?.users;
 
-  /*
-   * Fetch average Burnout according to department id later.
-   ! Currently we are fetching the average burnout of the whole organization
-   */
-  const averageBurnout = useSelector(
-    (state) => state?.organization?.organizationInfo?.averageBurnout
+  const fakeUsers = useSelector(
+    (state) => state.organization.organizationInfo?.fakeUsers
   );
+
+  const PieOptions = {
+    responsive: true,
+    layout: {
+      padding: 20,
+    },
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+
+      doughnutLabelsLine: false,
+      tooltip: {
+        enabled: false,
+      },
+    },
+  };
 
   const DepartmentStatusPieData = {
     labels: ["Safe", "Low", "Medium", "High", "Danger"],
@@ -46,10 +64,10 @@ export default function DepartmentAnalytics({ props }) {
             const { users } = department;
 
             users.map((user) => {
-              const { burnout } = user;
-              const len = burnout.length;
+              const { health_data: healthData } = user;
+              const len = healthData.length;
 
-              const burnoutScore = burnout[len - 1];
+              const burnoutScore = healthData[len - 1]?.burnout;
 
               switch (burnoutScore) {
                 case 5:
@@ -118,22 +136,92 @@ export default function DepartmentAnalytics({ props }) {
     ],
   };
 
-  const DepartmentStatusPieOptions = {
-    responsive: true,
-    layout: {
-      padding: 20,
-    },
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
+  const MoodPieData = {
+    labels: ["anger", "joy", "fear", "neutral", "sadness"],
 
-      doughnutLabelsLine: false,
-      tooltip: {
-        enabled: false,
+    datasets: [
+      {
+        label: "Mood",
+        data: (function () {
+          let data = [0, 0, 0, 0, 0];
+          let totalUsers = 0;
+
+          if (users) {
+            users.map((user) => {
+              const { mood } = user;
+
+              switch (mood.moodType) {
+                case "joy":
+                  data[1]++;
+                  break;
+                case "sadness":
+                  data[4]++;
+                  break;
+                case "fear":
+                  data[2]++;
+                  break;
+                case "anger":
+                  data[0]++;
+                  break;
+                case "neutral":
+                  data[3]++;
+                  break;
+                default:
+              }
+
+              return null;
+            });
+
+            totalUsers = users.length;
+            data = data.map(
+              (count) => +((count * 100) / totalUsers).toFixed(1)
+            );
+          }
+
+          return data;
+        })(),
+        backgroundColor: [
+          "hsl(7, 89%, 63%)",
+          "hsl(166, 94%, 37%)",
+          "hsl(29, 87%, 54%)",
+          "hsl(218, 53%, 71%)",
+          "hsl(45, 99%, 70%)",
+        ],
+        borderColor: [
+          "hsl(7, 89%, 63%)",
+          "hsl(166, 94%, 37%)",
+          "hsl(29, 87%, 54%)",
+          "hsl(218, 53%, 71%)",
+          "hsl(45, 99%, 70%)",
+        ],
+        datalabels: {
+          anchor: "end",
+          color: "white",
+          backgroundColor: function (context) {
+            return context.dataset.backgroundColor;
+          },
+          display: function (context) {
+            const index = context.dataIndex;
+            const {
+              dataset: { data },
+            } = context;
+
+            const fivePercent = (5 * (users?.length || 1)) / 100;
+
+            return data[index] > fivePercent;
+          },
+          formatter: function (value) {
+            return `${value} %`;
+          },
+          borderRadius: 25,
+          borderWidth: 2,
+          borderColor: "white",
+          padding: 4,
+          font: { weight: "bold" },
+        },
+        borderAlign: "inner",
       },
-    },
+    ],
   };
 
   const EmployeePieData = {
@@ -149,10 +237,10 @@ export default function DepartmentAnalytics({ props }) {
 
           if (users) {
             users.map((user) => {
-              const { profession, burnout } = user;
-              const len = burnout.length;
+              const { profession, health_data: healthData } = user;
+              const len = healthData.length;
 
-              if (burnout[len - 1] < 4) return null;
+              if (healthData[len - 1]?.burnout < 4) return null;
 
               totalUsers++;
 
@@ -177,9 +265,11 @@ export default function DepartmentAnalytics({ props }) {
 
               return null;
             });
-          }
 
-          data = data.map((count) => +((count * 100) / totalUsers).toFixed(1));
+            data = data.map(
+              (count) => +((count * 100) / totalUsers).toFixed(1)
+            );
+          }
 
           return data;
         })(),
@@ -228,24 +318,6 @@ export default function DepartmentAnalytics({ props }) {
     ],
   };
 
-  const EmployeePieOptions = {
-    responsive: true,
-    layout: {
-      padding: 20,
-    },
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-
-      doughnutLabelsLine: false,
-      tooltip: {
-        enabled: false,
-      },
-    },
-  };
-
   const genderPieData = {
     labels: ["Male", "Female", "Transgender", "Non-Binary", "Other"],
     datasets: [
@@ -259,9 +331,11 @@ export default function DepartmentAnalytics({ props }) {
 
           if (users) {
             users.map((user) => {
-              const len = user.burnout.length;
+              const { health_data: healthData } = user;
+              const len = healthData.length;
 
-              if (user.burnout[len - 1] < 4) return null;
+              if (healthData[len - 1]?.burnout < 4) return null;
+
               totalUsers++;
 
               switch (user.gender) {
@@ -331,24 +405,6 @@ export default function DepartmentAnalytics({ props }) {
     ],
   };
 
-  const genderPieOptions = {
-    responsive: true,
-    layout: {
-      padding: 20,
-    },
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-
-      doughnutLabelsLine: false,
-      tooltip: {
-        enabled: false,
-      },
-    },
-  };
-
   const ethnicityPieData = {
     labels: ["American Native", "Asian", "Coloured", "Other", "White"],
     datasets: [
@@ -362,9 +418,10 @@ export default function DepartmentAnalytics({ props }) {
 
           if (users) {
             users.map((user) => {
-              const len = user.burnout.length;
+              const { health_data: healthData } = user;
+              const len = healthData.length;
 
-              if (user.burnout[len - 1] < 4) return null;
+              if (healthData[len - 1]?.burnout < 4) return null;
 
               totalUsers++;
 
@@ -437,24 +494,6 @@ export default function DepartmentAnalytics({ props }) {
     ],
   };
 
-  const ethnicityPieOptions = {
-    responsive: true,
-    layout: {
-      padding: 20,
-    },
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-
-      doughnutLabelsLine: false,
-      tooltip: {
-        enabled: false,
-      },
-    },
-  };
-
   const ageGroupPieData = {
     labels: ["<18 years", "18-25 years", "26-40 years", "41-55 years", "55+"],
     datasets: [
@@ -468,10 +507,10 @@ export default function DepartmentAnalytics({ props }) {
 
           if (users) {
             users.map((user) => {
-              const { age } = user;
-              const len = user.burnout.length;
+              const { age, health_data: healthData } = user;
+              const len = healthData.length;
 
-              if (user.burnout[len - 1] < 4) return null;
+              if (healthData[len - 1]?.burnout < 4) return null;
 
               totalUsers++;
 
@@ -531,29 +570,11 @@ export default function DepartmentAnalytics({ props }) {
     ],
   };
 
-  const ageGroupPieOptions = {
-    responsive: true,
-    layout: {
-      padding: 20,
-    },
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        display: false,
-      },
-
-      doughnutLabelsLine: false,
-      tooltip: {
-        enabled: false,
-      },
-    },
-  };
-
   return (
     department && (
       <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
         <LeftSidebar />
-
+        <TemporaryLogo />
         <Stack sx={{ ...middle }}>
           <Stack sx={{ ...middleWindow }}>
             <Typography
@@ -603,7 +624,7 @@ export default function DepartmentAnalytics({ props }) {
                       <PieChart
                         props={{
                           chartData: DepartmentStatusPieData,
-                          options: DepartmentStatusPieOptions,
+                          options: PieOptions,
                         }}
                       />
                     </Box>
@@ -623,7 +644,7 @@ export default function DepartmentAnalytics({ props }) {
                   </Paper>
                 </Stack>
 
-                <TrendGraph props={{ averageBurnout }} />
+                <AverageBurnoutTrend fakeUsers={fakeUsers} />
               </Stack>
 
               <Stack gap={3}>
@@ -684,8 +705,12 @@ export default function DepartmentAnalytics({ props }) {
                         if (users) {
                           users.map((user) => {
                             totalUsers++;
-                            const len = user.workingHours.length;
-                            const workingHours = user.workingHours[len - 1];
+
+                            const { health_data: healthData } = user;
+
+                            const len = healthData.length;
+                            const workingHours =
+                              healthData[len - 1]?.working_hours;
 
                             if (workingHours <= 9) data.safe++;
                             else if (workingHours > 9 && workingHours <= 11)
@@ -725,8 +750,11 @@ export default function DepartmentAnalytics({ props }) {
                         if (users) {
                           users.map((user) => {
                             totalUsers++;
-                            const len = user.dailyStepCount.length;
-                            const dailyStepCount = user.dailyStepCount[len - 1];
+                            const { health_data: healthData } = user;
+
+                            const len = healthData.length;
+                            const dailyStepCount =
+                              healthData[len - 1]?.step_count;
 
                             if (dailyStepCount < 10000) data.safe++;
                             else if (
@@ -776,61 +804,10 @@ export default function DepartmentAnalytics({ props }) {
                         if (users) {
                           users.map((user) => {
                             totalUsers++;
-                            const len = user.mood.length;
-                            const { moodType } = user.mood[len - 1];
 
-                            switch (moodType) {
-                              case "angry":
-                                data.danger++;
-                                break;
-                              case "fear":
-                                data.high++;
-                                break;
-                              case "sad":
-                              case "disgust":
-                                data.medium++;
-                                break;
-                              case "neutral":
-                                data.low++;
-                                break;
-                              case "calm":
-                              case "happy":
-                                data.safe++;
-                                break;
-                              default:
-                            }
-
-                            return null;
-                          });
-
-                          const percent = 100 / totalUsers;
-                          for (let property in data) data[property] *= percent;
-                        }
-
-                        return data;
-                      })(),
-                      title: "Mood",
-                    }}
-                  />
-
-                  <HealthTracker
-                    props={{
-                      data: (function () {
-                        const data = {
-                          safe: 0,
-                          low: 0,
-                          medium: 0,
-                          high: 0,
-                          danger: 0,
-                        };
-
-                        let totalUsers = 0;
-
-                        if (users) {
-                          users.map((user) => {
-                            totalUsers++;
-                            const len = user.sleepHours.length;
-                            const sleepHours = user.sleepHours[len - 1];
+                            const { health_data: healthData } = user;
+                            const len = healthData.length;
+                            const sleepHours = healthData[len - 1]?.sleep_hours;
 
                             if (sleepHours > 8) data.safe++;
                             else if (sleepHours <= 8 && sleepHours >= 6)
@@ -870,8 +847,10 @@ export default function DepartmentAnalytics({ props }) {
                         if (users) {
                           users.map((user) => {
                             totalUsers++;
-                            const len = user.interaction.length;
-                            const { workingAlone } = user.interaction[len - 1];
+                            const { health_data: healthData } = user;
+                            const len = healthData.length;
+                            const workingAlone =
+                              healthData[len - 1]?.interaction?.working_alone;
 
                             if (workingAlone < 2) data.safe++;
                             else if (workingAlone >= 2 && workingAlone < 3)
@@ -894,6 +873,61 @@ export default function DepartmentAnalytics({ props }) {
                       title: "Interaction Index",
                     }}
                   />
+                </Paper>
+              </Stack>
+
+              <Stack gap={3}>
+                <Stack direction="row" alignItems="center">
+                  <Typography
+                    component="div"
+                    sx={{
+                      fontSize: { xs: "1.8em", lg: "2em" },
+                      fontWeight: "500",
+                      mr: 2,
+                    }}
+                  >
+                    Mood
+                  </Typography>
+
+                  <GraphInfo
+                    props={{
+                      title:
+                        //TODO: Write info here.
+                        "NULL",
+                    }}
+                  />
+                </Stack>
+
+                <Paper
+                  sx={{
+                    ...graphCanvas,
+                    p: 1,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <Box height="2.5in">
+                    <PieChart
+                      props={{
+                        chartData: MoodPieData,
+                        options: PieOptions,
+                      }}
+                    />
+                  </Box>
+
+                  <Stack direction="row" gap={2} alignSelf="center">
+                    <Box>
+                      <Legend props={{ title: "Joy", color: "#06b58c" }} />
+                      <Legend props={{ title: "Neutral", color: "#8fabdd" }} />
+                      <Legend props={{ title: "Sadness", color: "#fed966" }} />
+                    </Box>
+
+                    <Box>
+                      <Legend props={{ title: "Fear", color: "#f08725" }} />
+                      <Legend props={{ title: "Anger", color: "#f55f4b" }} />
+                    </Box>
+                  </Stack>
                 </Paper>
               </Stack>
 
@@ -931,7 +965,7 @@ export default function DepartmentAnalytics({ props }) {
                     <PieChart
                       props={{
                         chartData: EmployeePieData,
-                        options: EmployeePieOptions,
+                        options: PieOptions,
                       }}
                     />
                   </Box>
@@ -961,7 +995,7 @@ export default function DepartmentAnalytics({ props }) {
                       mr: 2,
                     }}
                   >
-                    Gender
+                    High Risk Gender
                   </Typography>
 
                   <GraphInfo
@@ -985,7 +1019,7 @@ export default function DepartmentAnalytics({ props }) {
                     <PieChart
                       props={{
                         chartData: genderPieData,
-                        options: genderPieOptions,
+                        options: PieOptions,
                       }}
                     />
                   </Box>
@@ -1022,7 +1056,7 @@ export default function DepartmentAnalytics({ props }) {
                       mr: 2,
                     }}
                   >
-                    Ethnicity
+                    High Risk Ethnicity
                   </Typography>
                   <GraphInfo
                     props={{
@@ -1045,7 +1079,7 @@ export default function DepartmentAnalytics({ props }) {
                     <PieChart
                       props={{
                         chartData: ethnicityPieData,
-                        options: ethnicityPieOptions,
+                        options: PieOptions,
                       }}
                     />
                   </Box>
@@ -1077,7 +1111,7 @@ export default function DepartmentAnalytics({ props }) {
                       mr: 2,
                     }}
                   >
-                    Age Groups
+                    High Risk Age Groups
                   </Typography>
                   <GraphInfo
                     props={{
@@ -1100,7 +1134,7 @@ export default function DepartmentAnalytics({ props }) {
                     <PieChart
                       props={{
                         chartData: ageGroupPieData,
-                        options: ageGroupPieOptions,
+                        options: PieOptions,
                       }}
                     />
                   </Box>

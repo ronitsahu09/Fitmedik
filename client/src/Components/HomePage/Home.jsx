@@ -14,6 +14,7 @@ import {
 import Speedometer from "../Graphs/Speedometer/Speedometer";
 import NewActiveUsers from "../Graphs/NewActiveUsers/NewActiveUsers";
 import { useSelector } from "react-redux";
+import { AverageBurnoutTrend } from "../AverageBurnoutTrend/AverageBurnoutTrend";
 
 export default function Home({ props }) {
   const { appHeight } = props;
@@ -22,8 +23,8 @@ export default function Home({ props }) {
     (state) => state.organization?.organizationInfo?.users
   );
 
-  const averageBurnout = useSelector(
-    (state) => state.organization?.organizationInfo?.averageBurnout
+  const fakeUsers = useSelector(
+    (state) => state.organization.organizationInfo?.fakeUsers
   );
 
   return (
@@ -63,12 +64,12 @@ export default function Home({ props }) {
 
                       if (users) {
                         users.map((user) => {
-                          const { burnout } = user;
-                          const len = burnout.length;
+                          const { health_data: healthData } = user;
+                          const len = healthData.length;
 
                           totalCount++;
 
-                          if (burnout[len - 1] < 4) return null;
+                          if (healthData[len - 1]?.burnout < 4) return null;
 
                           riskCount++;
 
@@ -111,7 +112,7 @@ export default function Home({ props }) {
               </Paper>
             </Stack>
 
-            <TrendGraph props={{ averageBurnout }} />
+            <AverageBurnoutTrend fakeUsers={fakeUsers} />
 
             <Box sx={{ height: 5 }}></Box>
           </Stack>

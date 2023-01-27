@@ -170,7 +170,7 @@ export default function LeftSidebar() {
             TransitionComponent={Zoom}
             arrow
           >
-            <IconButton>
+            <IconButton sx={{ color: "grey" }}>
               <Settings fontSize="large" />
             </IconButton>
           </Tooltip>
@@ -183,7 +183,7 @@ export default function LeftSidebar() {
             TransitionComponent={Zoom}
             arrow
           >
-            <IconButton>
+            <IconButton sx={{ color: "grey" }}>
               <LoginRounded fontSize="large" />
             </IconButton>
           </Tooltip>

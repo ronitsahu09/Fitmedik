@@ -13,185 +13,65 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createAction, updateAction } from "../../Redux/Organization";
-
-import { DateRangePicker, LocalizationProvider } from "@mui/x-date-pickers-pro";
-import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-
-import { useState } from "react";
-
-export function BasicDateRangePicker({ props }) {
-  const { start, end } = props.options.duration;
-  const { setOptions } = props;
-
-  const handleChange = (newValue, bool, args) => {
-    if (bool) {
-      const start =
-        args.startDate.toString() +
-        "/" +
-        args.startMonth.toString() +
-        "/" +
-        args.startYear.toString();
-
-      const end =
-        args.endDate.toString() +
-        "/" +
-        args.endMonth.toString() +
-        "/" +
-        args.endYear.toString();
-
-      setOptions((prevState) => ({
-        ...prevState,
-        duration: {
-          start,
-          end,
-        },
-      }));
-
-      return;
-    }
-
-    if (newValue[0]) {
-      const start =
-        newValue[0].$D.toString() +
-        "/" +
-        (1 + newValue[0].$M).toString() +
-        "/" +
-        newValue[0].$y.toString();
-
-      setOptions((prevState) => ({
-        ...prevState,
-        duration: { ...prevState.duration, start },
-      }));
-    } else {
-      const date = new Date();
-      const start =
-        date.getDate().toString() +
-        "/" +
-        (1 + date.getMonth()).toString() +
-        "/" +
-        date.getFullYear().toString();
-
-      setOptions((prevState) => ({
-        ...prevState,
-        duration: { ...prevState.duration, start },
-      }));
-    }
-
-    if (newValue[1]) {
-      const end =
-        newValue[1].$D.toString() +
-        "/" +
-        (1 + newValue[1].$M).toString() +
-        "/" +
-        newValue[1].$y.toString();
-
-      setOptions((prevState) => ({
-        ...prevState,
-        duration: { ...prevState.duration, end },
-      }));
-    } else {
-      const date = new Date();
-
-      const end =
-        date.getDate().toString() +
-        "/" +
-        (1 + date.getMonth()).toString() +
-        "/" +
-        date.getFullYear().toString();
-
-      setOptions((prevState) => ({
-        ...prevState,
-        duration: { ...prevState.duration, end },
-      }));
-    }
-  };
-
-  const [value, setValue] = useState(() => {
-    if (!start && !end) {
-      const start = new Date();
-      const end = new Date();
-
-      const startYear = start.getFullYear();
-      const startMonth = start.getMonth() + 1;
-      const startDate = start.getDate();
-
-      const endYear = end.getFullYear();
-      const endMonth = end.getMonth() + 1;
-      const endDate = end.getDate();
-
-      handleChange(null, true, {
-        startYear,
-        startMonth,
-        startDate,
-        endYear,
-        endMonth,
-        endDate,
-      });
-
-      return [start, end];
-    }
-
-    const startYear = parseInt(start.split("/")[2]);
-    const startMonth = parseInt(start.split("/")[1]);
-    const startDate = parseInt(start.split("/")[0]);
-
-    const endYear = parseInt(end.split("/")[2]);
-    const endMonth = parseInt(end.split("/")[1]);
-    const endDate = parseInt(end.split("/")[0]);
-
-    handleChange(null, true, {
-      startYear,
-      startMonth,
-      startDate,
-      endYear,
-      endMonth,
-      endDate,
-    });
-
-    return [
-      new Date(startYear, startMonth - 1, startDate),
-      new Date(endYear, endMonth - 1, endDate),
-    ];
-  });
-
-  return (
-    <LocalizationProvider
-      dateAdapter={AdapterDayjs}
-      localeText={{ start: "Check-in", end: "Check-out" }}
-    >
-      <DateRangePicker
-        value={value}
-        onChange={(newValue) => {
-          handleChange(newValue, false);
-
-          setValue(newValue);
-        }}
-        renderInput={(startProps, endProps) => (
-          <>
-            <TextField {...startProps} />
-            <Box sx={{ mx: 2 }}> to </Box>
-            <TextField {...endProps} />
-          </>
-        )}
-      />
-    </LocalizationProvider>
-  );
-}
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+import { DateRange } from "react-date-range";
+import { useRef } from "react";
 
 export default function ActionForm({ props }) {
   const { isOpen, setIsOpen, options, setOptions } = props;
+  const ref = useRef();
+  const departments = useSelector(
+    (state) => state.organization.organizationInfo?.departments
+  );
+  const _id = useSelector((state) => state.organization.organizationInfo?._id);
 
   const dispatch = useDispatch();
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+
+    if (options.title === "Create Action")
+      dispatch(
+        createAction({
+          action: {
+            ...options,
+            duration: {
+              startDate: options.duration[0].startDate.toDateString(),
+              endDate: options.duration[0].endDate.toDateString(),
+            },
+          },
+          _id,
+        })
+      );
+
+    if (options.title === "Edit Action")
+      dispatch(
+        updateAction({
+          action: {
+            ...options,
+            duration: {
+              startDate: options.duration[0].startDate.toDateString(),
+              endDate: options.duration[0].endDate.toDateString(),
+            },
+          },
+          _id,
+        })
+      );
+
+    setIsOpen(false);
+  }
 
   return (
     <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
       <DialogTitle>{options.title}</DialogTitle>
 
       <DialogContent>
-        <Stack gap={2}>
+        <Stack gap={2} component="form" ref={ref} onSubmit={handleFormSubmit}>
           <TextField
+            required
             id="action-name"
             label="Name"
             variant="standard"
@@ -205,6 +85,7 @@ export default function ActionForm({ props }) {
           />
 
           <TextField
+            required
             id="action-name"
             label="Description"
             variant="standard"
@@ -243,29 +124,18 @@ export default function ActionForm({ props }) {
               >
                 Department
               </ListSubheader>
-              <MenuItem value="radiology">Radiology</MenuItem>
-              <MenuItem value="neurology">Neurology</MenuItem>
+
+              {departments.map((dept, indx) => (
+                <MenuItem
+                  key={indx}
+                  sx={{ textTransform: "capitalize" }}
+                  value={dept._id}
+                >
+                  {dept.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
-
-          {/* <FormControl variant="standard">
-            <InputLabel id="viewType">View</InputLabel>
-            <Select
-              labelId="viewType"
-              id="viewType-standard"
-              value={options.view}
-              onChange={(e) => {
-                setOptions((prevState) => ({
-                  ...prevState,
-                  view: e.target.value,
-                }));
-              }}
-              label="View"
-            >
-              <MenuItem value="organization">Organization</MenuItem>
-              <MenuItem value="department">Department</MenuItem>
-            </Select>
-          </FormControl> */}
 
           <FormControl variant="standard">
             <InputLabel htmlFor="actionType-select">Action</InputLabel>
@@ -299,24 +169,11 @@ export default function ActionForm({ props }) {
               <MenuItem value="physical fatigue">Physical Fatigue</MenuItem>
               <MenuItem value="mood">Mood</MenuItem>
               <MenuItem value="sleep quality">Sleep Quality</MenuItem>
-              <MenuItem value="team support">Team Support</MenuItem>
-
-              <ListSubheader
-                sx={{ color: "black", fontSize: "1.1rem", fontWeight: "bold" }}
-              >
-                High Risk Demographics
-              </ListSubheader>
-
-              <MenuItem value="high risk profession">
-                High Risk Profession
-              </MenuItem>
-              <MenuItem value="gender">Gender</MenuItem>
-              <MenuItem value="ethnicity">Ethnicity</MenuItem>
-              <MenuItem value="age groups">Age Groups</MenuItem>
+              <MenuItem value="interaction index">Interaction Index</MenuItem>
             </Select>
           </FormControl>
 
-          <BasicDateRangePicker props={{ options, setOptions }} />
+          <ActionDuration props={{ options, setOptions }} />
         </Stack>
       </DialogContent>
 
@@ -333,10 +190,7 @@ export default function ActionForm({ props }) {
           <Button
             variant="contained"
             size="small"
-            onClick={() => {
-              dispatch(createAction({ action: options }));
-              setIsOpen(false);
-            }}
+            onClick={() => ref.current.requestSubmit()}
           >
             Create
           </Button>
@@ -346,15 +200,30 @@ export default function ActionForm({ props }) {
           <Button
             variant="contained"
             size="small"
-            onClick={() => {
-              dispatch(updateAction({ action: options }));
-              setIsOpen(false);
-            }}
+            onClick={() => ref.current.requestSubmit()}
           >
             Update
           </Button>
         )}
       </DialogActions>
     </Dialog>
+  );
+}
+
+function ActionDuration({ props }) {
+  const {
+    options: { duration },
+    setOptions,
+  } = props;
+
+  return (
+    <DateRange
+      editableDateInputs={true}
+      onChange={(item) =>
+        setOptions((prev) => ({ ...prev, duration: [item.selection] }))
+      }
+      moveRangeOnFirstSelection={false}
+      ranges={duration}
+    />
   );
 }

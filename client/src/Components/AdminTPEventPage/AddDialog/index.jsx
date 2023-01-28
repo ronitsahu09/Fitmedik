@@ -6,14 +6,14 @@ const AddEventDialog = ({ open, onCancel, onConfirm, data = null }) => {
   const [event, setEvent] = React.useState({
     name: "",
     desc: "",
-    type: "",
+    type_of_event: "",
     location: "",
     duration: "",
     price: "",
-    deliveryType: "",
-    whatHappens: "",
+    type_of_delivery: "",
+    about: "",
     expectedOutcome: "",
-    redirectLink: "",
+    link: "",
   });
 
   const [eventError, setEventError] = React.useState({
@@ -104,8 +104,10 @@ const AddEventDialog = ({ open, onCancel, onConfirm, data = null }) => {
             fullWidth
             required
             placeholder="Event type ('Online' or 'Offline')"
-            value={event.type}
-            onChange={(e) => setEvent({ ...event, type: e.target.value })}
+            value={event.type_of_event}
+            onChange={(e) =>
+              setEvent({ ...event, type_of_event: e.target.value })
+            }
             error={eventError.type.length !== 0}
             helperText={eventError.type}
             type="text"
@@ -168,9 +170,9 @@ const AddEventDialog = ({ open, onCancel, onConfirm, data = null }) => {
             fullWidth
             required
             placeholder="Event delivery type"
-            value={event.deliveryType}
+            value={event.type_of_delivery}
             onChange={(e) =>
-              setEvent({ ...event, deliveryType: e.target.value })
+              setEvent({ ...event, type_of_delivery: e.target.value })
             }
             error={eventError.deliveryType.length !== 0}
             helperText={eventError.deliveryType}
@@ -186,10 +188,8 @@ const AddEventDialog = ({ open, onCancel, onConfirm, data = null }) => {
             fullWidth
             required
             placeholder="What happens?"
-            value={event.whatHappens}
-            onChange={(e) =>
-              setEvent({ ...event, whatHappens: e.target.value })
-            }
+            value={event.about}
+            onChange={(e) => setEvent({ ...event, about: e.target.value })}
             error={eventError.whatHappens.length !== 0}
             helperText={eventError.whatHappens}
             type="text"
@@ -225,10 +225,8 @@ const AddEventDialog = ({ open, onCancel, onConfirm, data = null }) => {
             fullWidth
             required
             placeholder="Re-direct Link"
-            value={event.redirectLink}
-            onChange={(e) =>
-              setEvent({ ...event, redirectLink: e.target.value })
-            }
+            value={event.link}
+            onChange={(e) => setEvent({ ...event, link: e.target.value })}
             error={eventError.redirectLink.length !== 0}
             helperText={eventError.redirectLink}
             type="text"

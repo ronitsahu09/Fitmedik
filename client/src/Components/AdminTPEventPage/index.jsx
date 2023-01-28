@@ -7,6 +7,7 @@ import Header from "../Header";
 import EventCard from "./EventCard";
 import ConfirmDialog from "../ConfirmDialog";
 import AddEventDialog from "./AddDialog";
+import { GetAdminToken } from "../../Cookies/admin";
 
 const AdminTPEventPage = () => {
   const [events, setEvents] = React.useState([
@@ -14,14 +15,14 @@ const AdminTPEventPage = () => {
       id: 0,
       name: "",
       desc: "",
-      type: "",
+      type_of_event: "",
       location: "",
       duration: "",
       price: "",
-      deliveryType: "",
-      whatHappens: "",
+      type_of_delivery: "",
+      about: "",
       expectedOutcome: "",
-      redirectLink: "",
+      link: "",
     },
   ]);
 
@@ -66,14 +67,14 @@ const AdminTPEventPage = () => {
         id: 0,
         name: "",
         desc: "",
-        type: "",
+        type_of_event: "",
         location: "",
         duration: "",
         price: "",
-        deliveryType: "",
-        whatHappens: "",
+        type_of_delivery: "",
+        about: "",
         expectedOutcome: "",
-        redirectLink: "",
+        link: "",
       },
     ]);
   };

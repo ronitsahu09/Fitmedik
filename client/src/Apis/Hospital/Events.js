@@ -13,12 +13,12 @@ export const GetTPEventsApi = async (token, setters) => {
   };
 
   try {
-    const response = await api.get(headerInfo, `/allEvents`);
+    const response = await api.get(headerInfo, `/allPartnersOrg`);
     setters.setLoading(false);
     setters.setError(false);
     setters.setErrorText("");
     if (response.error) throw new Error(response.error);
-    setters.setData(response.events);
+    setters.setData(response.data);
   } catch (e) {
     console.log(e);
     setters.setLoading(false);

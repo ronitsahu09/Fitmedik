@@ -42,13 +42,21 @@ function App() {
 
   const initialise = () => {
     if (!userToken) {
-      const cookieToken = GetUserToken();
-      if (!cookieToken) navigate("/login");
-      else setUserToken(cookieToken);
+      if (
+        !window.location.href.match("admin") &&
+        !window.location.href.match("forgotpassword") &&
+        !window.location.href.match("setupPassword") &&
+        !window.location.href.match("login")
+      ) {
+        const cookieToken = GetUserToken();
+        if (!cookieToken) navigate("/login");
+        else setUserToken(cookieToken);
+      }
     }
   };
 
   useEffect(() => {
+    initialise();
     dispatch(getOrganization({ organizationId: "63c95da1317e07dbcc906fa8" }));
 
     const reportAppHeight = () => {

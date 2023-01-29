@@ -1,9 +1,11 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import Header from "../Header";
 import { colors } from "../../Utils/colors";
+import { LogoutUser } from "../../Cookies";
+import { Logout } from "@mui/icons-material";
 
 const SettingsPage = () => {
   const navigate = useNavigate();
@@ -109,6 +111,17 @@ const SettingsPage = () => {
         </Grid>
         <Grid item xs={1} />
       </Grid>
+      <div style={{ position: "fixed", bottom: 50, right: 50 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={LogoutUser}
+          startIcon={<Logout />}
+          size="large"
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };

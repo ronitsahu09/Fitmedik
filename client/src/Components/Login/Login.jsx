@@ -34,6 +34,7 @@ const LoginScreen = ({ props }) => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
+    console.log(GetUserToken());
     if (GetUserToken()) navigate("/");
   }, []);
 

@@ -8,23 +8,16 @@ import EventCard from "./EventCard";
 import ConfirmDialog from "../ConfirmDialog";
 import AddEventDialog from "./AddDialog";
 import { GetAdminToken } from "../../Cookies/admin";
+import {
+  AddTreatmentPartnerEventApi,
+  GetTreatmentPartnerEventsApi,
+  UpdateTreatmentPartnerEventApi,
+} from "../../Apis/Admin/Events";
+import LoadingPage from "../LoadingPage";
+import ErrorPage from "../ErrorPage";
 
 const AdminTPEventPage = () => {
-  const [events, setEvents] = React.useState([
-    {
-      id: 0,
-      name: "",
-      desc: "",
-      type_of_event: "",
-      location: "",
-      duration: "",
-      price: "",
-      type_of_delivery: "",
-      about: "",
-      expectedOutcome: "",
-      link: "",
-    },
-  ]);
+  const [events, setEvents] = React.useState([]);
 
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
@@ -34,16 +27,18 @@ const AdminTPEventPage = () => {
   const [editOpen, setEditOpen] = React.useState(false);
   const [confirmOpen, setConfirmOpen] = React.useState(false);
 
+  const [selectedEvent, setSelectedEvent] = React.useState({});
+
   const DeleteEvent = (id) => {
     GetAllEvents();
   };
 
   const AddEvent = (event) => {
-    GetAllEvents();
+    AddEventApi(event);
   };
 
   const UpdateEvent = (event) => {
-    GetAllEvents();
+    UpdateEventApi(event);
   };
 
   const navigate = useNavigate();
@@ -52,31 +47,42 @@ const AdminTPEventPage = () => {
 
   const GetAllEvents = async () => {
     // API call here
-    console.log(id);
+    console.log("events id", id);
 
-    setLoading(false);
-    setError(false);
-    setErrorText("");
+    GetTreatmentPartnerEventsApi(id, GetAdminToken(), {
+      setLoading,
+      setError,
+      setErrorText,
+      setEvents,
+    });
+  };
 
-    setAddOpen(false);
-    setEditOpen(false);
-    setConfirmOpen(false);
-
-    setEvents([
+  const AddEventApi = async (event) => {
+    AddTreatmentPartnerEventApi(
+      id,
+      GetAdminToken(),
+      { ...event, partner: id },
       {
-        id: 0,
-        name: "",
-        desc: "",
-        type_of_event: "",
-        location: "",
-        duration: "",
-        price: "",
-        type_of_delivery: "",
-        about: "",
-        expectedOutcome: "",
-        link: "",
-      },
-    ]);
+        setLoading,
+        setError,
+        setErrorText,
+        setEvents,
+      }
+    );
+  };
+
+  const UpdateEventApi = async (event) => {
+    UpdateTreatmentPartnerEventApi(
+      id,
+      GetAdminToken(),
+      { ...event, partner: id, id: event._id },
+      {
+        setLoading,
+        setError,
+        setErrorText,
+        setEvents,
+      }
+    );
   };
 
   React.useEffect(() => {
@@ -85,69 +91,81 @@ const AdminTPEventPage = () => {
 
   return (
     <div>
-      <Grid container sx={{ pt: 4, pb: 4 }}>
-        <Grid item xs={1} />
-        <Grid container item xs={10}>
-          <Header navigate={navigate} title={"Events"} />
+      {loading ? (
+        <LoadingPage loadingText={"Gathering information..."} />
+      ) : error ? (
+        <ErrorPage errorText={errorText} onRetry={GetAllEvents} />
+      ) : (
+        <div>
+          <Grid container sx={{ pt: 4, pb: 4 }}>
+            <Grid item xs={1} />
+            <Grid container item xs={10}>
+              <Header navigate={navigate} title={"Events"} />
 
-          {events.map((val, index) => (
-            <EventCard
-              event={val}
-              key={index}
-              onDeleteClick={() => setConfirmOpen(true)}
-              onEditClick={() => setEditOpen(true)}
+              {events.map((val, index) => (
+                <EventCard
+                  event={val}
+                  key={index}
+                  onDeleteClick={() => setConfirmOpen(true)}
+                  onEditClick={() => {
+                    setSelectedEvent(val);
+                    setEditOpen(true);
+                  }}
+                />
+              ))}
+            </Grid>
+            <Grid item xs={1} />
+          </Grid>
+
+          <Button
+            variant="contained"
+            color="error"
+            sx={{ position: "fixed", bottom: 50, right: 50, borderRadius: 99 }}
+            startIcon={<Add />}
+            size="large"
+            onClick={() => setAddOpen(true)}
+          >
+            Add Event
+          </Button>
+
+          {confirmOpen && (
+            <ConfirmDialog
+              header={"This event will be deleted."}
+              text={
+                "This event will be deleted and this action cannot be reversed."
+              }
+              onCancel={() => setConfirmOpen(false)}
+              onConfirm={(id) => {
+                setConfirmOpen(false);
+                DeleteEvent(id);
+              }}
+              open={confirmOpen}
             />
-          ))}
-        </Grid>
-        <Grid item xs={1} />
-      </Grid>
+          )}
 
-      <Button
-        variant="contained"
-        color="error"
-        sx={{ position: "fixed", bottom: 50, right: 50, borderRadius: 99 }}
-        startIcon={<Add />}
-        size="large"
-        onClick={() => setAddOpen(true)}
-      >
-        Add Event
-      </Button>
+          {addOpen && (
+            <AddEventDialog
+              onCancel={() => setAddOpen(false)}
+              onConfirm={(event) => {
+                setAddOpen(false);
+                AddEvent(event);
+              }}
+              open={addOpen}
+            />
+          )}
 
-      {confirmOpen && (
-        <ConfirmDialog
-          header={"This event will be deleted."}
-          text={
-            "This event will be deleted and this action cannot be reversed."
-          }
-          onCancel={() => setConfirmOpen(false)}
-          onConfirm={(id) => {
-            setConfirmOpen(false);
-            DeleteEvent(id);
-          }}
-          open={confirmOpen}
-        />
-      )}
-
-      {addOpen && (
-        <AddEventDialog
-          onCancel={() => setAddOpen(false)}
-          onConfirm={(event) => {
-            setAddOpen(false);
-            AddEvent(event);
-          }}
-          open={addOpen}
-        />
-      )}
-
-      {editOpen && (
-        <AddEventDialog
-          onCancel={() => setEditOpen(false)}
-          onConfirm={(event) => {
-            setAddOpen(false);
-            UpdateEvent(event);
-          }}
-          open={editOpen}
-        />
+          {editOpen && (
+            <AddEventDialog
+              onCancel={() => setEditOpen(false)}
+              onConfirm={(event) => {
+                setEditOpen(false);
+                UpdateEvent(event);
+              }}
+              open={editOpen}
+              data={selectedEvent}
+            />
+          )}
+        </div>
       )}
     </div>
   );

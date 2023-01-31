@@ -22,7 +22,13 @@ const EventCard = ({
   return (
     <Grid
       container
-      sx={{ backgroundColor: "rgb(240, 240, 240)", borderRadius: 10, p: 4 }}
+      sx={{
+        backgroundColor: "rgb(240, 240, 240)",
+        borderRadius: 10,
+        p: 4,
+        mt: 2,
+        mb: 2,
+      }}
       rowSpacing={2}
     >
       <Grid container item xs={12}>

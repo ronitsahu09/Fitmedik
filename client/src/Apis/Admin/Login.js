@@ -12,7 +12,6 @@ export const Login = async (data, setters) => {
     setters.setError(false);
     setters.setErrorText("");
     setters.setIsOtp(true);
-    setters.setAdminToken(response.accessToken);
   } catch (e) {
     setters.setLoading(false);
     setters.setError(true);
@@ -32,16 +31,15 @@ export const VerifyOtp = async (otp, setters) => {
     setters.setLoading(false);
     setters.setError(false);
     setters.setErrorText("");
-    console.log(response);
-
     if (response.error) throw new Error(response.error);
-
-    return response.status === "verified";
+    if (response.status !== "verified") throw new Error("User not verified");
+    setters.setAdminToken(response.accessToken);
+    return response.accessToken;
   } catch (e) {
     setters.setLoading(false);
     setters.setError(true);
     setters.setErrorText(e.toString());
 
-    return false;
+    return null;
   }
 };

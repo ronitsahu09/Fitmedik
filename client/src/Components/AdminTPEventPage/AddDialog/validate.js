@@ -41,16 +41,16 @@ export const validateEvent = (
   } else {
     temp = { ...temp, desc: "" };
   }
-
+  console.log(event.type_of_event);
   if (event.type_of_event.length === 0) {
     isValid = false;
     temp = { ...temp, type: "Field is empty" };
   } else if (
-    event.type_of_event !== "Offline" ||
-    event.type_of_event !== "Online"
+    event.type_of_event !== "offline" &&
+    event.type_of_event !== "online"
   ) {
     isValid = false;
-    temp = { ...temp, type: "Invalid data ('Online' or 'Offline' only)" };
+    temp = { ...temp, type: "Invalid data ('online' or 'offline' only)" };
   } else {
     temp = { ...temp, type: "" };
   }

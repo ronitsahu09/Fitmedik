@@ -103,7 +103,7 @@ const AddEventDialog = ({ open, onCancel, onConfirm, data = null }) => {
           <TextField
             fullWidth
             required
-            placeholder="Event type ('Online' or 'Offline')"
+            placeholder="Event type ('online' or 'offline')"
             value={event.type_of_event}
             onChange={(e) =>
               setEvent({ ...event, type_of_event: e.target.value })

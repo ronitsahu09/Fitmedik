@@ -26,6 +26,8 @@ import ActionForm from "./ActionForm";
 import { useDispatch, useSelector } from "react-redux";
 import { destroyAction } from "../../Redux/Organization";
 
+//TODO: Restrict form atrributes characters
+
 export default function MonitorActions({ props }) {
   const organization = useSelector((state) => state.organization);
   const actions = organization?.organizationInfo?.actions;

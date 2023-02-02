@@ -30,10 +30,6 @@ export default function DepartmentAnalytics({ props }) {
 
   const users = department?.users;
 
-  const fakeUsers = useSelector(
-    (state) => state.organization.organizationInfo?.fakeUsers
-  );
-
   const PieOptions = {
     responsive: true,
     layout: {
@@ -148,9 +144,11 @@ export default function DepartmentAnalytics({ props }) {
 
           if (users) {
             users.map((user) => {
-              const { mood } = user;
+              const { health_data: healthData } = user;
+              const len = healthData.length;
+              const moodType = healthData[len - 1].mood.moodType;
 
-              switch (mood.moodType) {
+              switch (moodType) {
                 case "joy":
                   data[1]++;
                   break;
@@ -644,7 +642,7 @@ export default function DepartmentAnalytics({ props }) {
                   </Paper>
                 </Stack>
 
-                <AverageBurnoutTrend fakeUsers={fakeUsers} />
+                <AverageBurnoutTrend users={users} />
               </Stack>
 
               <Stack gap={3}>

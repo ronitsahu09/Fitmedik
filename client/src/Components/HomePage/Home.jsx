@@ -23,10 +23,6 @@ export default function Home({ props }) {
     (state) => state.organization?.organizationInfo?.users
   );
 
-  const fakeUsers = useSelector(
-    (state) => state.organization.organizationInfo?.fakeUsers
-  );
-
   return (
     <Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
       <LeftSidebar />
@@ -112,7 +108,7 @@ export default function Home({ props }) {
               </Paper>
             </Stack>
 
-            <AverageBurnoutTrend fakeUsers={fakeUsers} />
+            <AverageBurnoutTrend users={users} />
 
             <Box sx={{ height: 5 }}></Box>
           </Stack>

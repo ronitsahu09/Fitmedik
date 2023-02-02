@@ -8,12 +8,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import OrganizationReducer from "./Redux/Organization";
-import DepartmentReducer from "./Redux/Department";
 
 const store = configureStore({
   reducer: {
     organization: OrganizationReducer,
-    department: DepartmentReducer,
   },
 });
 

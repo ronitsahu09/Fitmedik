@@ -53,20 +53,22 @@ export default function HealthTracker({ props }) {
     datasets: [
       {
         label: title,
-        data: Object.entries(data).map((property) => parseFloat(property[1].toFixed(2))),
+        data: Object.entries(data).map((property) =>
+          parseFloat(property[1].toFixed(2))
+        ),
         backgroundColor: [
-          "hsl(7, 89%, 63%)",
-          "hsl(29, 87%, 54%)",
-          "hsl(45, 99%, 70%)",
-          "hsl(218, 53%, 71%)",
           "hsl(166, 94%, 37%)",
+          "hsl(218, 53%, 71%)",
+          "hsl(45, 99%, 70%)",
+          "hsl(29, 87%, 54%)",
+          "hsl(7, 89%, 63%)",
         ],
         hoverBackgroundColor: [
-          "hsl(7, 89%, 57%)",
-          "hsl(29, 87%, 50%)",
-          "hsl(45, 99%, 64%)",
-          "hsl(218, 53%, 65%)",
           "hsl(166, 94%, 31%)",
+          "hsl(218, 53%, 65%)",
+          "hsl(45, 99%, 64%)",
+          "hsl(29, 87%, 50%)",
+          "hsl(7, 89%, 57%)",
         ],
         borderRadius: 5,
       },

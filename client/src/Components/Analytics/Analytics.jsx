@@ -56,7 +56,7 @@ export default function Analytics({ props }) {
             users.map((user) => {
               const { health_data: healthData } = user;
 
-              const len = healthData.len;
+              const len = healthData.length;
 
               switch (healthData[len - 1]?.mood?.moodType) {
                 case "joy":
@@ -692,7 +692,7 @@ export default function Analytics({ props }) {
 
                             const len = healthData.length;
                             const dailyStepCount =
-                              healthData[len - 1]?.daily_step_count;
+                              healthData[len - 1]?.step_count;
 
                             if (dailyStepCount < 10000) data.safe++;
                             else if (
@@ -714,7 +714,6 @@ export default function Analytics({ props }) {
 
                             return null;
                           });
-
                           const percent = 100 / totalUsers;
                           for (let property in data) data[property] *= percent;
                         }

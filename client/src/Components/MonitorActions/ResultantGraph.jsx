@@ -1,206 +1,206 @@
 import { Box, Stack } from "@mui/material";
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	Title,
+	Tooltip,
+	Legend,
 } from "chart.js";
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	Title,
+	Tooltip,
+	Legend
 );
 
 export default function ResultantGraph({ props }) {
-  const { view, actionType, duration } = props;
+	const { view, actionType, duration } = props;
 
-  const target = useSelector((state) => {
-    if (view === "hospital") return state.organization.organizationInfo?.users;
+	const target = useSelector((state) => {
+		if (view === "hospital") return state.organization.organizationInfo?.users;
 
-    const dept = state.organization.organizationInfo?.departments.filter(
-      (dept) => dept._id === view
-    )[0]?.users;
+		const dept = state.organization.organizationInfo?.departments.filter(
+			(dept) => dept._id === view
+		)[0]?.users;
 
-    return dept;
-  });
+		return dept;
+	});
 
-  const [config, setConfig] = useState({ labels: [], data: [] });
+	const [config, setConfig] = useState({ labels: [], data: [] });
 
-  useEffect(() => {
-    const start = new Date(duration.startDate);
-    const end = new Date(duration.endDate);
+	useEffect(() => {
+		const start = new Date(duration.startDate);
+		const end = new Date(duration.endDate);
 
-    const labels = [];
-    const data = [];
+		const labels = [];
+		const data = [];
 
-    while (start.getTime() <= end.getTime()) {
-      let count = 0;
-      let avg = target.reduce((prev, user) => {
-        let { health_data: healthData } = user;
+		while (start.getTime() <= end.getTime()) {
+			let count = 0;
+			let avg = target.reduce((prev, user) => {
+				let { health_data: healthData } = user;
 
-        healthData = healthData.filter(
-          (record) => record.date === start.toLocaleDateString()
-        );
+				healthData = healthData.filter(
+					(record) => record.date === start.toLocaleDateString()
+				);
 
-        let burnout;
+				let burnout;
 
-        if (actionType === "average burnout trend") {
-          burnout = healthData[0]?.burnout || 0;
-        } else if (actionType === "work life balance") {
-          const workingHours = healthData[0]?.working_hours || 0;
-          let score;
+				if (actionType === "average burnout trend") {
+					burnout = healthData[0]?.burnout || 0;
+				} else if (actionType === "work life balance") {
+					const workingHours = healthData[0]?.working_hours || 0;
+					let score;
 
-          if (workingHours <= 9) score = 1;
-          else if (workingHours > 9 && workingHours <= 11) score = 2;
-          else if (workingHours > 11 && workingHours <= 13) score = 3;
-          else if (workingHours > 13 && workingHours <= 15) score = 4;
-          else score = 5;
+					if (workingHours <= 9) score = 1;
+					else if (workingHours > 9 && workingHours <= 11) score = 2;
+					else if (workingHours > 11 && workingHours <= 13) score = 3;
+					else if (workingHours > 13 && workingHours <= 15) score = 4;
+					else score = 5;
 
-          burnout = score;
-        } else if (actionType === "physical fatigue") {
-          const dailyStepCount = healthData[0]?.daily_step_count || 0;
-          let score;
+					burnout = score;
+				} else if (actionType === "physical fatigue") {
+					const dailyStepCount = healthData[0]?.daily_step_count || 0;
+					let score;
 
-          if (dailyStepCount < 10000) score = 1;
-          else if (dailyStepCount >= 10000 && dailyStepCount <= 12000)
-            score = 2;
-          else if (dailyStepCount > 12000 && dailyStepCount <= 15000) score = 3;
-          else if (dailyStepCount > 15000 && dailyStepCount <= 17000) score = 4;
-          else score = 5;
+					if (dailyStepCount < 10000) score = 1;
+					else if (dailyStepCount >= 10000 && dailyStepCount <= 12000)
+						score = 2;
+					else if (dailyStepCount > 12000 && dailyStepCount <= 15000) score = 3;
+					else if (dailyStepCount > 15000 && dailyStepCount <= 17000) score = 4;
+					else score = 5;
 
-          burnout = score;
-        } else if (actionType === "mood") {
-          const mood = healthData[0]?.mood?.moodType || 0;
-          let score;
+					burnout = score;
+				} else if (actionType === "mood") {
+					const mood = healthData[0]?.mood?.moodType || 0;
+					let score;
 
-          switch (mood) {
-            case "joy":
-              score = 1;
-              break;
-            case "neutral":
-              score = 2;
-              break;
-            case "sadness":
-              score = 3;
-              break;
-            case "fear":
-              score = 4;
-              break;
-            case "anger":
-              score = 5;
-              break;
-            default:
-          }
+					switch (mood) {
+						case "joy":
+							score = 1;
+							break;
+						case "neutral":
+							score = 2;
+							break;
+						case "sadness":
+							score = 3;
+							break;
+						case "fear":
+							score = 4;
+							break;
+						case "anger":
+							score = 5;
+							break;
+						default:
+					}
 
-          burnout = score;
-        } else if (actionType === "sleep quality") {
-          const sleepHours = healthData[0]?.sleep_hours;
-          let score;
+					burnout = score;
+				} else if (actionType === "sleep quality") {
+					const sleepHours = healthData[0]?.sleep_hours;
+					let score;
 
-          if (sleepHours > 8) score = 1;
-          else if (sleepHours <= 8 && sleepHours >= 6) score = 2;
-          else if (sleepHours < 6 && sleepHours >= 5) score = 3;
-          else if (sleepHours < 5 && sleepHours >= 4) score = 4;
-          else score = 5;
+					if (sleepHours > 8) score = 1;
+					else if (sleepHours <= 8 && sleepHours >= 6) score = 2;
+					else if (sleepHours < 6 && sleepHours >= 5) score = 3;
+					else if (sleepHours < 5 && sleepHours >= 4) score = 4;
+					else score = 5;
 
-          burnout = score;
-        } else if (actionType === "team support") {
-          const workingAlone = healthData[0]?.interaction?.working_alone;
-          let score;
+					burnout = score;
+				} else if (actionType === "team support") {
+					const workingAlone = healthData[0]?.interaction?.working_alone;
+					let score;
 
-          if (workingAlone < 2) score = 1;
-          else if (workingAlone >= 2 && workingAlone < 3) score = 2;
-          else if (workingAlone >= 3 && workingAlone < 4) score = 3;
-          else if (workingAlone >= 4 && workingAlone < 5) score = 4;
-          else score = 5;
+					if (workingAlone < 2) score = 1;
+					else if (workingAlone >= 2 && workingAlone < 3) score = 2;
+					else if (workingAlone >= 3 && workingAlone < 4) score = 3;
+					else if (workingAlone >= 4 && workingAlone < 5) score = 4;
+					else score = 5;
 
-          burnout = score;
-        }
+					burnout = score;
+				}
 
-        if (burnout > 0) count++;
+				if (burnout > 0) count++;
 
-        return prev + burnout;
-      }, 0);
+				return prev + burnout;
+			}, 0);
 
-      avg = parseFloat((avg / count).toFixed(3));
+			avg = parseFloat((avg / count).toFixed(3));
 
-      data.push(avg);
-      labels.push(start.toLocaleDateString());
-      start.setDate(start.getDate() + 1);
-    }
+			data.push(avg);
+			labels.push(start.toLocaleDateString());
+			start.setDate(start.getDate() + 1);
+		}
 
-    setConfig({ labels, data });
-  }, [target]);
+		setConfig({ labels, data });
+	}, [target]);
 
-  const chartData = {
-    labels: config.labels,
-    datasets: [
-      {
-        label: "Result",
-        data: config.data,
-        backgroundColor: "rgb(143, 171, 221, .5)",
-        borderColor: "hsl(218, 53%, 61%)",
-      },
-    ],
-  };
+	const chartData = {
+		labels: config.labels,
+		datasets: [
+			{
+				label: "Result",
+				data: config.data,
+				backgroundColor: "rgb(143, 171, 221, .5)",
+				borderColor: "hsl(218, 53%, 61%)",
+			},
+		],
+	};
 
-  const options = {
-    responsive: true,
+	const options = {
+		responsive: true,
 
-    plugins: {
-      legend: {
-        display: false,
-      },
-      doughnutLabelsLine: false,
-    },
+		plugins: {
+			legend: {
+				display: false,
+			},
+			doughnutLabelsLine: false,
+		},
 
-    elements: {
-      point: {
-        radius: 5,
-      },
-    },
+		elements: {
+			point: {
+				radius: 5,
+			},
+		},
 
-    scales: {
-      x: {
-        ticks: {
-          color: "black",
-          display: false,
-        },
+		scales: {
+			x: {
+				ticks: {
+					color: "black",
+					display: false,
+				},
 
-        grid: {
-          display: false,
-        },
-      },
-      y: {
-        min: 1,
-        max: 5,
-        ticks: {
-          stepSize: 1,
-        },
-        grid: {
-          drawBorder: false,
-        },
-      },
-    },
-  };
+				grid: {
+					display: false,
+				},
+			},
+			y: {
+				min: 1,
+				max: 5,
+				ticks: {
+					stepSize: 1,
+				},
+				grid: {
+					drawBorder: false,
+				},
+			},
+		},
+	};
 
-  return (
-    <Stack mt={2}>
-      <Box width="100%">
-        <Line data={chartData} options={options} />
-      </Box>
-    </Stack>
-  );
+	return (
+		<Stack mt={2}>
+			<Box width="100%">
+				<Line data={chartData} options={options} />
+			</Box>
+		</Stack>
+	);
 }

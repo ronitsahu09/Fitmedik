@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { GetAdminToken } from "../Cookies/admin";
 
 const initialState = {
   organizationInfo: null,
@@ -9,9 +10,16 @@ const getOrganization = createAsyncThunk(
   "organization/getOrganization",
   async (formData) => {
     try {
+      // const token = GetAdminToken();
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_URL}/organization/get_organization`,
         formData
+        // {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // }
       );
 
       return { data };

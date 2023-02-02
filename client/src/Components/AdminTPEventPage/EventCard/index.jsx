@@ -7,14 +7,14 @@ const EventCard = ({
     id: 0,
     name: "",
     desc: "",
-    type: "",
+    type_of_event: "",
     location: "",
     duration: "",
     price: "",
-    deliveryType: "",
-    whatHappens: "",
+    type_of_delivery: "",
+    about: "",
     expectedOutcome: "",
-    redirectLink: "",
+    link: "",
   },
   onEditClick,
   onDeleteClick,
@@ -22,7 +22,13 @@ const EventCard = ({
   return (
     <Grid
       container
-      sx={{ backgroundColor: "rgb(240, 240, 240)", borderRadius: 10, p: 4 }}
+      sx={{
+        backgroundColor: "rgb(240, 240, 240)",
+        borderRadius: 10,
+        p: 4,
+        mt: 2,
+        mb: 2,
+      }}
       rowSpacing={2}
     >
       <Grid container item xs={12}>
@@ -53,7 +59,7 @@ const EventCard = ({
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" fontWeight="200">
-            {event.type}
+            {event.type_of_event}
           </Typography>
         </Grid>
       </Grid>
@@ -97,7 +103,7 @@ const EventCard = ({
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" fontWeight="200">
-            {event.deliveryType}
+            {event.type_of_delivery}
           </Typography>
         </Grid>
       </Grid>
@@ -108,7 +114,7 @@ const EventCard = ({
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" fontWeight="200">
-            {event.whatHappens}
+            {event.about}
           </Typography>
         </Grid>
       </Grid>
@@ -130,7 +136,7 @@ const EventCard = ({
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" fontWeight="200">
-            {event.redirectLink}
+            {event.link}
           </Typography>
         </Grid>
       </Grid>

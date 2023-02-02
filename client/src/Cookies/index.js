@@ -9,6 +9,7 @@ export const LoginUser = (token) => {
 
 export const LogoutUser = () => {
   Cookies.get(TOKEN) && Cookies.remove(TOKEN);
+  window.location.reload(false);
 };
 
 export const GetUserToken = () => {

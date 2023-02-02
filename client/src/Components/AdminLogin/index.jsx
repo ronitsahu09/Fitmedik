@@ -51,7 +51,7 @@ const AdminLogin = () => {
       // API Call is implemented here
       Login(
         { email, password },
-        { setLoading, setError, setErrorText, setIsOtp, setAdminToken }
+        { setLoading, setError, setErrorText, setIsOtp }
       );
     }
   };
@@ -60,14 +60,15 @@ const AdminLogin = () => {
     const isValid = validateOtp();
 
     if (isValid) {
-      const verified = await VerifyOtp(otp, {
+      const token = await VerifyOtp(otp, {
         setLoading,
         setError,
         setErrorText,
         setIsOtp,
+        setAdminToken,
       });
-      if (verified) {
-        LoginAdmin(adminToken);
+      if (token) {
+        LoginAdmin(token);
         navigate("/admin/dashboard");
       }
     }

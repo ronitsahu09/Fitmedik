@@ -2,14 +2,14 @@ export const validateEvent = (
   event = {
     name: "",
     desc: "",
-    type: "",
+    type_of_event: "",
     location: "",
     duration: "",
     price: "",
-    deliveryType: "",
-    whatHappens: "",
+    type_of_delivery: "",
+    about: "",
     expectedOutcome: "",
-    redirectLink: "",
+    link: "",
   },
   eventError = {
     name: "",
@@ -41,13 +41,16 @@ export const validateEvent = (
   } else {
     temp = { ...temp, desc: "" };
   }
-
-  if (event.type.length === 0) {
+  console.log(event.type_of_event);
+  if (event.type_of_event.length === 0) {
     isValid = false;
     temp = { ...temp, type: "Field is empty" };
-  } else if (event.type !== "Offline" || event.type !== "Online") {
+  } else if (
+    event.type_of_event !== "offline" &&
+    event.type_of_event !== "online"
+  ) {
     isValid = false;
-    temp = { ...temp, type: "Invalid data ('Online' or 'Offline' only)" };
+    temp = { ...temp, type: "Invalid data ('online' or 'offline' only)" };
   } else {
     temp = { ...temp, type: "" };
   }
@@ -73,14 +76,14 @@ export const validateEvent = (
     temp = { ...temp, price: "" };
   }
 
-  if (event.deliveryType.length === 0) {
+  if (event.type_of_delivery.length === 0) {
     isValid = false;
     temp = { ...temp, deliveryType: "Field is empty" };
   } else {
     temp = { ...temp, deliveryType: "" };
   }
 
-  if (event.whatHappens.length === 0) {
+  if (event.about.length === 0) {
     isValid = false;
     temp = { ...temp, whatHappens: "Field is empty" };
   } else {
@@ -94,7 +97,7 @@ export const validateEvent = (
     temp = { ...temp, expectedOutcome: "" };
   }
 
-  if (event.redirectLink.length === 0) {
+  if (event.link.length === 0) {
     isValid = false;
     temp = { ...temp, redirectLink: "Field is empty" };
   } else {

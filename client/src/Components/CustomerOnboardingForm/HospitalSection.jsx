@@ -31,6 +31,10 @@ const HospitalSection = ({
 }) => {
   const navigate = useNavigate();
 
+  const onFileChange = (event) => {
+    console.log(event.target.files);
+  };
+
   return (
     <div>
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
@@ -232,6 +236,22 @@ const HospitalSection = ({
                   subscription_size: e.target.value,
                 })
               }
+            />
+          </Grid>
+
+          {/* Upload documents */}
+          <Grid item xs={12}>
+            <Typography mb={0.5} variant="h6">
+              Upload documents here
+            </Typography>
+
+            <input
+              type="file"
+              onChange={(e) => {
+                console.log(e.target.files);
+              }}
+              multiple
+              accept="image/*"
             />
           </Grid>
         </Grid>

@@ -213,6 +213,37 @@ const CustomerOnboardingFormPage = () => {
     });
   };
 
+  const save = (lastSavedRef, name, email, title, index, validated) => {
+    const temp = [];
+    managerDetails.forEach((val) => {
+      if (val.index === index && validated) {
+        temp.push({
+          name,
+          title,
+          email,
+          index: index,
+          validated: true,
+        });
+        lastSavedRef.current = {
+          name,
+          title,
+          email,
+          index: index,
+          validated: true,
+        };
+      } else temp.push(val);
+    });
+    setManagerDetails(temp);
+  };
+
+  const remove = (index) => {
+    console.log(index);
+    console.log(managerDetails);
+    const temp = managerDetails.filter((_, idx) => idx !== index);
+    setManagerDetails(temp);
+    console.log(temp);
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -230,6 +261,8 @@ const CustomerOnboardingFormPage = () => {
         <ManagerSection
           managerDetails={managerDetails}
           setManagerDetails={setManagerDetails}
+          save={save}
+          remove={remove}
         />
       )}
       {mode === TRPT_SECTION && (

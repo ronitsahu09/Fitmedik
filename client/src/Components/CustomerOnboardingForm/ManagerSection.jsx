@@ -16,17 +16,9 @@ const ManagerSection = ({
     },
   ],
   setManagerDetails,
+  remove,
+  save,
 }) => {
-  const remove = (index) => {
-    const temp = [];
-    console.log(managerDetails);
-    managerDetails.forEach((val, idx) => {
-      if (idx !== index) temp.push(val);
-    });
-    setManagerDetails(temp);
-    console.log(temp);
-  };
-
   return (
     <div>
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
@@ -49,6 +41,7 @@ const ManagerSection = ({
           </Grid>
           {managerDetails.map((val, index) => {
             val.index = index;
+            console.log("here", val);
             return (
               <ManagerDetailCard
                 key={index}
@@ -57,6 +50,7 @@ const ManagerSection = ({
                 managerDetail={val}
                 index={index}
                 remove={() => remove(index)}
+                save={save}
               />
             );
           })}

@@ -3,11 +3,15 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { validateEmail } from "../../Utils/HelperFunctions";
 
+const isSame = (obj1, obj2) => {
+  return (
+    obj1.name === obj2.name &&
+    obj1.email === obj2.email &&
+    obj1.title === obj2.title
+  );
+};
+
 const ManagerDetailCard = ({
-  managerDetails = [
-    { name: "", title: "", email: "", index: 0, validated: false },
-  ],
-  setManagerDetails,
   managerDetail = {
     name: "",
     title: "",
@@ -17,7 +21,10 @@ const ManagerDetailCard = ({
   },
   index,
   remove,
+  save,
 }) => {
+  console.log("inside", managerDetail);
+
   const [name, setName] = React.useState(managerDetail.name);
   const [title, setTitle] = React.useState(managerDetail.title);
   const [email, setEmail] = React.useState(managerDetail.email);
@@ -25,6 +32,8 @@ const ManagerDetailCard = ({
   const [nameError, setNameError] = React.useState("");
   const [titleError, setTitleError] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
+
+  const lastSavedRef = React.useRef(null);
 
   const validate = () => {
     let isValid = true;
@@ -55,22 +64,6 @@ const ManagerDetailCard = ({
     return isValid;
   };
 
-  const save = () => {
-    const temp = [];
-    managerDetails.forEach((val) => {
-      if (val.index === managerDetail.index && validate())
-        temp.push({
-          name,
-          title,
-          email,
-          index: managerDetail.index,
-          validated: true,
-        });
-      else temp.push(val);
-    });
-    setManagerDetails(temp);
-  };
-
   return (
     <Grid
       container
@@ -84,7 +77,11 @@ const ManagerDetailCard = ({
         mb: 1,
         p: 4,
         pb: 6,
-        border: managerDetail.validated === false ? "1px solid red" : 0,
+        border:
+          !lastSavedRef.current ||
+          !isSame({ name, email, title }, lastSavedRef.current)
+            ? "1px solid red"
+            : 0,
       }}
       className="cof-hs-container"
     >
@@ -156,7 +153,9 @@ const ManagerDetailCard = ({
           variant="contained"
           color="success"
           endIcon={<Save />}
-          onClick={save}
+          onClick={() =>
+            save(lastSavedRef, name, email, title, index, validate())
+          }
           sx={{ ml: 1, borderRadius: 99 }}
         >
           Save

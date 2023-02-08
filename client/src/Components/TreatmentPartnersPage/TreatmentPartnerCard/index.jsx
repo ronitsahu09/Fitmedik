@@ -14,6 +14,7 @@ const TreatmentPartnerCard = ({
     onDashboard: false,
   },
 }) => {
+  console.log(data);
   return (
     <Stack sx={{ mt: 1, mb: 1, backgroundColor: "white" }} direction="row">
       <div style={{ height: "100%", width: 10, backgroundColor: "#ff6355" }} />
@@ -25,7 +26,7 @@ const TreatmentPartnerCard = ({
               Name of the Provider
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.provider}
+              {data.provider || "No data provided"}
             </Typography>
           </Grid>
 
@@ -34,7 +35,7 @@ const TreatmentPartnerCard = ({
               Value Added
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.value}
+              {data.value || "No data provided"}
             </Typography>
           </Grid>
 
@@ -43,7 +44,7 @@ const TreatmentPartnerCard = ({
               Thesis
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.thesis}
+              {data.thesis || "No data provided"}
             </Typography>
           </Grid>
 
@@ -52,16 +53,16 @@ const TreatmentPartnerCard = ({
               Expected Impact
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.expected_impact}
+              {data.expected_impact || "No data provided"}
             </Typography>
           </Grid>
 
-          <Grid container item xs={12} flexDirection="row">
+          <Grid item xs={12} flexDirection="row">
             <Typography variant="h6" fontWeight="800" sx={{ mr: 1 }}>
               Duration
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.provider}
+              {data.duration || "No data provided"}
             </Typography>
           </Grid>
 

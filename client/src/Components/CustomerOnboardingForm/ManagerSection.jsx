@@ -4,6 +4,7 @@ import ManagerDetailCard from "./ManagerDetailCard";
 import { Add } from "@mui/icons-material";
 import "./styles.css";
 import Header from "../Header";
+import AddManagerDialog from "./AddManagerDialog";
 
 const ManagerSection = ({
   managerDetails = [
@@ -11,14 +12,38 @@ const ManagerSection = ({
       name: "",
       title: "",
       email: "",
-      index: 0,
-      validated: false,
     },
   ],
   setManagerDetails,
-  remove,
-  save,
 }) => {
+  const [addOpen, setAddOpen] = React.useState(false);
+  const [editOpen, setEditOpen] = React.useState(false);
+
+  const selectedIndex = React.useRef(-1);
+
+  const onConfirm = (options = { isEdit: false, index: 0 }, data) => {
+    if (options.isEdit) {
+      const temp = managerDetails;
+      managerDetails[options.index] = data;
+      setManagerDetails(temp);
+      setEditOpen(false);
+    } else {
+      const temp = managerDetails;
+      temp.push(data);
+      setManagerDetails(temp);
+      setAddOpen(false);
+    }
+  };
+
+  const edit = (index) => {
+    selectedIndex.current = index;
+    setEditOpen(true);
+  };
+
+  const remove = (index) => {
+    setManagerDetails(managerDetails.filter((_, idx) => idx !== index));
+  };
+
   return (
     <div>
       <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
@@ -40,17 +65,13 @@ const ManagerSection = ({
             </Typography>
           </Grid>
           {managerDetails.map((val, index) => {
-            val.index = index;
-            console.log("here", val);
             return (
               <ManagerDetailCard
                 key={index}
-                setManagerDetails={setManagerDetails}
-                managerDetails={managerDetails}
+                isFirst={index === 0}
                 managerDetail={val}
-                index={index}
+                edit={() => edit(index)}
                 remove={() => remove(index)}
-                save={save}
               />
             );
           })}
@@ -64,18 +85,7 @@ const ManagerSection = ({
             <Button
               variant="text"
               startIcon={<Add />}
-              onClick={() =>
-                setManagerDetails([
-                  ...managerDetails,
-                  {
-                    name: "",
-                    email: "",
-                    title: "",
-                    index: managerDetails.length + 1,
-                    validated: false,
-                  },
-                ])
-              }
+              onClick={() => setAddOpen(true)}
             >
               Add manager
             </Button>
@@ -83,6 +93,28 @@ const ManagerSection = ({
         </Grid>
         <Grid item xs={1} />
       </Grid>
+
+      {addOpen && (
+        <AddManagerDialog
+          onCancel={() => setAddOpen(false)}
+          onConfirm={onConfirm}
+          index={selectedIndex.current}
+          isEdit={false}
+          addedData={{ name: "", email: "", title: "" }}
+          open={addOpen}
+        />
+      )}
+
+      {editOpen && (
+        <AddManagerDialog
+          onCancel={() => setEditOpen(false)}
+          onConfirm={onConfirm}
+          index={selectedIndex.current}
+          isEdit={true}
+          addedData={managerDetails[selectedIndex.current]}
+          open={editOpen}
+        />
+      )}
     </div>
   );
 };

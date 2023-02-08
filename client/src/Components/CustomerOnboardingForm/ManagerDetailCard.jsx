@@ -1,69 +1,17 @@
-import { Delete, Save } from "@mui/icons-material";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
+import { Grid, Typography, Button } from "@mui/material";
 import React from "react";
-import { validateEmail } from "../../Utils/HelperFunctions";
-
-const isSame = (obj1, obj2) => {
-  return (
-    obj1.name === obj2.name &&
-    obj1.email === obj2.email &&
-    obj1.title === obj2.title
-  );
-};
 
 const ManagerDetailCard = ({
   managerDetail = {
     name: "",
     title: "",
     email: "",
-    index: 0,
-    validated: false,
   },
-  index,
+  isFirst = false,
+  edit,
   remove,
-  save,
 }) => {
-  console.log("inside", managerDetail);
-
-  const [name, setName] = React.useState(managerDetail.name);
-  const [title, setTitle] = React.useState(managerDetail.title);
-  const [email, setEmail] = React.useState(managerDetail.email);
-
-  const [nameError, setNameError] = React.useState("");
-  const [titleError, setTitleError] = React.useState("");
-  const [emailError, setEmailError] = React.useState("");
-
-  const lastSavedRef = React.useRef(null);
-
-  const validate = () => {
-    let isValid = true;
-    if (name.length === 0) {
-      isValid = false;
-      setNameError("Name field is empty");
-    } else {
-      setNameError("");
-    }
-
-    if (title.length === 0) {
-      isValid = false;
-      setTitleError("Title field is empty");
-    } else {
-      setTitleError("");
-    }
-
-    if (email.length === 0) {
-      isValid = false;
-      setEmailError("E-mail field is empty");
-    } else if (!validateEmail(email)) {
-      isValid = false;
-      setEmailError("Invalid E-mail ID provided");
-    } else {
-      setEmailError("");
-    }
-
-    return isValid;
-  };
-
   return (
     <Grid
       container
@@ -77,66 +25,31 @@ const ManagerDetailCard = ({
         mb: 1,
         p: 4,
         pb: 6,
-        border:
-          !lastSavedRef.current ||
-          !isSame({ name, email, title }, lastSavedRef.current)
-            ? "1px solid red"
-            : 0,
       }}
       className="cof-hs-container"
     >
-      <Grid container item xs={12}>
-        <Typography mb={0.5} variant="h6">
-          Manager Name
-        </Typography>
+      <Grid item xs={12}>
+        <Typography variant="h6">Manager Name</Typography>
 
-        <TextField
-          required
-          fullWidth
-          value={name}
-          placeholder="Name"
-          type="text"
-          error={nameError.length !== 0}
-          helperText={nameError}
-          onChange={(e) => setName(e.target.value)}
-          variant="outlined"
-        />
+        <Typography variant="h6" fontWeight="200">
+          {managerDetail.name}
+        </Typography>
       </Grid>
 
-      <Grid container item xs={12}>
-        <Typography mb={0.5} variant="h6">
-          Manager Title
-        </Typography>
+      <Grid item xs={12}>
+        <Typography variant="h6">Manager Title</Typography>
 
-        <TextField
-          required
-          fullWidth
-          value={title}
-          placeholder="Title"
-          type="text"
-          error={titleError.length !== 0}
-          helperText={titleError}
-          onChange={(e) => setTitle(e.target.value)}
-          variant="outlined"
-        />
+        <Typography variant="h6" fontWeight="200">
+          {managerDetail.title}
+        </Typography>
       </Grid>
 
-      <Grid container item xs={12}>
-        <Typography mb={0.5} variant="h6">
-          Manager E-mail
-        </Typography>
+      <Grid item xs={12}>
+        <Typography variant="h6">Manager E-mail</Typography>
 
-        <TextField
-          required
-          fullWidth
-          value={email}
-          placeholder="E-mail ID (eg. 'youremail@domain.com')"
-          type="email"
-          error={emailError.length !== 0}
-          helperText={emailError}
-          onChange={(e) => setEmail(e.target.value)}
-          variant="outlined"
-        />
+        <Typography variant="h6" fontWeight="200">
+          {managerDetail.email}
+        </Typography>
       </Grid>
 
       <Grid item container xs={12} justifyContent="center" alignItems="center">
@@ -152,17 +65,15 @@ const ManagerDetailCard = ({
         <Button
           variant="contained"
           color="success"
-          endIcon={<Save />}
-          onClick={() =>
-            save(lastSavedRef, name, email, title, index, validate())
-          }
+          endIcon={<Edit />}
+          onClick={edit}
           sx={{ ml: 1, borderRadius: 99 }}
         >
-          Save
+          Edit
         </Button>
       </Grid>
 
-      {index === 0 && (
+      {isFirst && (
         <Grid
           item
           container

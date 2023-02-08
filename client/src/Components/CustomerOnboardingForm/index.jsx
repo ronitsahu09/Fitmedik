@@ -3,11 +3,7 @@ import { ArrowBack, ArrowForward, RestartAlt, Send } from "@mui/icons-material";
 import React from "react";
 import HospitalSection from "./HospitalSection";
 import "./styles.css";
-import {
-  validateHospSection,
-  validateManagerSection,
-  validateOpdtSection,
-} from "./validate";
+import { validateHospSection, validateOpdtSection } from "./validate";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
 import TreatmentPartnersAdd from "./TreatmentPartners";
@@ -80,15 +76,7 @@ const CustomerOnboardingFormPage = () => {
     location: "",
   });
 
-  const [managerDetails, setManagerDetails] = React.useState([
-    {
-      name: "",
-      title: "",
-      email: "",
-      index: 0,
-      validated: false,
-    },
-  ]);
+  const [managerDetails, setManagerDetails] = React.useState([]);
 
   const [opdtDetails, setOpdtDetails] = React.useState({
     annualSalNurse: "",
@@ -114,7 +102,7 @@ const CustomerOnboardingFormPage = () => {
   });
 
   const next = () => {
-    let isValid = false;
+    let isValid = true;
     if (mode === HOSP_SECTION) {
       isValid = validateHospSection(
         hospDetails,
@@ -122,14 +110,10 @@ const CustomerOnboardingFormPage = () => {
         setHospitalDetailsError
       );
     } else if (mode === MGER_SECTION) {
-      isValid = validateManagerSection(managerDetails);
       if (managerDetails.length === 0) {
         setErrorMsg("There must be atleast one manager");
         setOpen(true);
         isValid = false;
-      } else if (!isValid) {
-        setErrorMsg("Please save the highlighted fields");
-        setOpen(true);
       }
     } else if (mode === OPDT_SECTION) {
       isValid = validateOpdtSection(
@@ -179,15 +163,7 @@ const CustomerOnboardingFormPage = () => {
       location: "",
     });
 
-    setManagerDetails([
-      {
-        name: "",
-        title: "",
-        email: "",
-        index: 0,
-        validated: false,
-      },
-    ]);
+    setManagerDetails([]);
 
     setOpdtDetails({
       annualSalNurse: "",

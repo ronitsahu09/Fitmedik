@@ -159,24 +159,6 @@ export const validateHospSection = (
   return isValid;
 };
 
-export const validateManagerSection = (
-  managerDetails = [
-    {
-      name: "",
-      title: "",
-      email: "",
-      index: 0,
-      validated: false,
-    },
-  ]
-) => {
-  let isValid = true;
-  managerDetails.forEach((val) => {
-    isValid &&= val.validated;
-  });
-  return isValid;
-};
-
 export const validateOpdtSection = (
   opdtDetails = {
     annualSalNurse: "",

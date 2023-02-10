@@ -199,9 +199,7 @@ const ManageEmployees = ({ props }) => {
             <AddManagerDialog
               open={addOpen}
               onCancel={() => setAddOpen(false)}
-              onConfirm={(department, emails) =>
-                AddEmployee(department, emails)
-              }
+              onConfirm={(_, emails) => AddEmployee(emails)}
               addedData={{ emails, department }}
             />
           )}

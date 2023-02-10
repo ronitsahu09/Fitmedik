@@ -32,6 +32,7 @@ import AdminLogin from "./AdminLogin";
 import { GetUserToken } from "../Cookies/index";
 import { useNavigate } from "react-router-dom";
 import OrganizationDetailPage from "./OrganizationDetailPage";
+import { GetAdminToken } from "../Cookies/admin";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -40,7 +41,7 @@ function App() {
 
   const [userToken, setUserToken] = useState(GetUserToken());
 
-  const initialise = () => {
+  const initialiseUser = () => {
     if (!userToken) {
       if (
         !window.location.href.match("admin") &&
@@ -55,8 +56,19 @@ function App() {
     }
   };
 
+  const initialiseAdmin = () => {
+    if (window.location.href.match("/admin") && !GetAdminToken())
+      navigate("/admin/login");
+  };
+
   useEffect(() => {
-    initialise();
+    initialiseUser();
+    initialiseAdmin();
+
+    console.log("here", window.location.href);
+  }, [window.location.href]);
+
+  useEffect(() => {
     dispatch(getOrganization({ organizationId: "63c95da1317e07dbcc906fa8" }));
 
     const reportAppHeight = () => {

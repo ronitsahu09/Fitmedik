@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./HomePage/Home";
 import Analytics from "./Analytics/Analytics";
 import "react-circular-progressbar/dist/styles.css";
@@ -38,16 +38,17 @@ function App() {
   const [appHeight, setAppHeight] = useState("100%");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [userToken, setUserToken] = useState(GetUserToken());
 
   const initialiseUser = () => {
     if (!userToken) {
       if (
-        !window.location.href.match("admin") &&
-        !window.location.href.match("forgotpassword") &&
-        !window.location.href.match("setupPassword") &&
-        !window.location.href.match("login")
+        !location.pathname.startsWith("/admin") &&
+        !location.pathname.startsWith("/forgotpassword") &&
+        !location.pathname.startsWith("/setupPassword") &&
+        !location.pathname.startsWith("/login")
       ) {
         const cookieToken = GetUserToken();
         if (!cookieToken) navigate("/login");
@@ -57,16 +58,14 @@ function App() {
   };
 
   const initialiseAdmin = () => {
-    if (window.location.href.match("/admin") && !GetAdminToken())
+    if (location.pathname.startsWith("/admin") && !GetAdminToken())
       navigate("/admin/login");
   };
 
   useEffect(() => {
     initialiseUser();
     initialiseAdmin();
-
-    console.log("here", window.location.href);
-  }, [window.location.href]);
+  }, [location.pathname]);
 
   useEffect(() => {
     dispatch(getOrganization({ organizationId: "63c95da1317e07dbcc906fa8" }));

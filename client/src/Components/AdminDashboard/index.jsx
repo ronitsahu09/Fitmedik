@@ -1,8 +1,9 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Button } from "@mui/material";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
-import { GetAdminToken } from "../../Cookies/admin";
+import { GetAdminToken, LogoutAdmin } from "../../Cookies/admin";
+import { Logout } from "@mui/icons-material";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -83,6 +84,18 @@ const AdminDashboard = () => {
         </Grid>
         <Grid item xs={1} />
       </Grid>
+
+      <div style={{ position: "fixed", bottom: 50, right: 50 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={LogoutAdmin}
+          startIcon={<Logout />}
+          size="large"
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 };

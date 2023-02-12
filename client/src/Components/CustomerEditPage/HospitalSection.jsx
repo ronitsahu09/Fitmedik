@@ -7,6 +7,7 @@ import {
 import "./styles.css";
 import Header from "../Header";
 import { useNavigate } from "react-router-dom";
+import { GraphInfo } from "../Styles_&_Components/Components";
 
 const HospitalSection = ({
   hospDetails = {
@@ -18,6 +19,7 @@ const HospitalSection = ({
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   },
   hospDetailsError = {
     name: "",
@@ -28,6 +30,7 @@ const HospitalSection = ({
     link: "",
     subscriptionCount: "",
     location: "",
+    documents: "",
   },
   setHospDetails,
 }) => {
@@ -204,6 +207,37 @@ const HospitalSection = ({
                 setHospDetails({
                   ...hospDetails,
                   subscription_size: e.target.value,
+                })
+              }
+            />
+          </Grid>
+
+          {/* Documents link */}
+          <Grid container item xs={12}>
+            <Grid container item xs={12} alignItems="center">
+              <Typography mb={0.5} variant="h6">
+                Documents link
+              </Typography>
+              <GraphInfo
+                props={{
+                  title:
+                    "Upload all required documents to a drive folder and attach it's link here",
+                }}
+              />
+            </Grid>
+
+            <TextField
+              required
+              fullWidth
+              variant={"outlined"}
+              placeholder="Drive link"
+              error={hospDetailsError.documents.length !== 0}
+              helperText={hospDetailsError.documents}
+              value={hospDetails.documents}
+              onChange={(e) =>
+                setHospDetails({
+                  ...hospDetails,
+                  documents: e.target.value,
                 })
               }
             />

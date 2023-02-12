@@ -317,6 +317,21 @@ const AddTreatmentPartner = () => {
                 helperText={linkError}
               />
             </Grid>
+
+            {/* Documents link */}
+            <Grid item xs={12}>
+              <Typography mb={0.5} variant="h6">
+                Upload image
+              </Typography>
+
+              <input
+                type="file"
+                onChange={(e) => {
+                  console.log(e.target.files);
+                }}
+                accept="image/*"
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h5" fontWeight="800" color="red">

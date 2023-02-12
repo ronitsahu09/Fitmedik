@@ -34,6 +34,7 @@ import { useNavigate } from "react-router-dom";
 import OrganizationDetailPage from "./OrganizationDetailPage";
 import { GetAdminToken } from "../Cookies/admin";
 import TreatmentPartnerEventDetailPage from "./AdminEventDescription";
+import EventAnalyticsPage from "./EventAnalyticsPage";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -218,6 +219,11 @@ function App() {
         <Route
           path="/admin/eventDescription/:name"
           element={<TreatmentPartnerEventDetailPage props={{ appHeight }} />}
+        />
+
+        <Route
+          path="/event-analytics"
+          element={<EventAnalyticsPage props={{ appHeight }} />}
         />
       </Routes>
     </div>

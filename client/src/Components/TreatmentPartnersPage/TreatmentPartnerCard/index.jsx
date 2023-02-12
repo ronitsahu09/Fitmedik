@@ -15,7 +15,16 @@ const TreatmentPartnerCard = ({
   },
 }) => {
   return (
-    <Stack sx={{ mt: 1, mb: 1, backgroundColor: "white" }} direction="row">
+    <Stack
+      sx={{
+        mt: 1,
+        mb: 1,
+        backgroundColor: "white",
+        boxShadow: "0px 0px 5px 0.5px grey",
+        width: "100%",
+      }}
+      direction="row"
+    >
       <div style={{ height: "100%", width: 10, backgroundColor: "#ff6355" }} />
       <Grid container sx={{ pt: 4, pb: 4 }}>
         <Grid item xs={1} />

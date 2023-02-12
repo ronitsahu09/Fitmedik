@@ -8,6 +8,7 @@ import {
   LoginRounded,
   Monitor,
   Handshake,
+  BarChart,
 } from "@mui/icons-material";
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
@@ -138,6 +139,25 @@ export default function LeftSidebar() {
           >
             <IconButton sx={{ color: "inherit" }}>
               <Monitor fontSize="large" />
+            </IconButton>
+          </Box>
+        </Tooltip>
+
+        <Tooltip
+          title="Event Analytics"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/event-analytics"
+          >
+            <IconButton sx={{ color: "inherit" }}>
+              <BarChart fontSize="large" />
             </IconButton>
           </Box>
         </Tooltip>

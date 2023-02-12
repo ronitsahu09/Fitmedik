@@ -41,7 +41,7 @@ const TreatmentPartnersPage = ({ props }) => {
         <Stack sx={{ ...middle }}>
           <Stack sx={{ ...middleWindow }}>
             <Typography variant="h3" component="div" fontWeight="700">
-              Events from your Treatment Partners
+              Your Treatment Partners
             </Typography>
 
             <Stack sx={{ ...fixedWindow }}>

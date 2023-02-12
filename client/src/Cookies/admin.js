@@ -9,6 +9,7 @@ export const LoginAdmin = (token) => {
 
 export const LogoutAdmin = () => {
   Cookies.get(ADMIN_TOKEN) && Cookies.remove(ADMIN_TOKEN);
+  window.location.reload(false);
 };
 
 export const GetAdminToken = () => {

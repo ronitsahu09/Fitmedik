@@ -5,7 +5,7 @@ import HospitalSection from "./HospitalSection";
 import "./styles.css";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GetAdminToken } from "../../Cookies/admin";
 import TreatmentPartnersDetails from "./TreatmentPartners";
 import { GetCustomerByIdApi } from "../../Apis/Admin/Customers";
@@ -54,6 +54,7 @@ const CustomerDetailsPage = () => {
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   });
 
   const [managerDetails, setManagerDetails] = React.useState([

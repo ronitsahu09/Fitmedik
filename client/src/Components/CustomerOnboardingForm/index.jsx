@@ -64,6 +64,7 @@ const CustomerOnboardingFormPage = () => {
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   });
   const [hospDetailsError, setHospitalDetailsError] = React.useState({
     name: "",
@@ -74,6 +75,7 @@ const CustomerOnboardingFormPage = () => {
     link: "",
     subscriptionCount: "",
     location: "",
+    documents: "",
   });
 
   const [managerDetails, setManagerDetails] = React.useState([]);

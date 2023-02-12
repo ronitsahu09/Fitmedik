@@ -33,6 +33,7 @@ export const validateHospSection = (
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   },
   hospDetailsError = {
     name: "",
@@ -43,6 +44,7 @@ export const validateHospSection = (
     link: "",
     subscriptionCount: "",
     location: "",
+    documents: "",
   },
   setHospDetailsError
 ) => {
@@ -152,6 +154,22 @@ export const validateHospSection = (
       ...temp,
       location: "",
     };
+  }
+
+  if (hospDetails.documents === "") {
+    isValid = false;
+    temp = {
+      ...temp,
+      link: "Documents link field is empty",
+    };
+  } else if (!validateUrl(hospDetails.documents)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      link: "Invalid URL provided",
+    };
+  } else {
+    temp = { ...temp, link: "" };
   }
 
   setHospDetailsError(temp);

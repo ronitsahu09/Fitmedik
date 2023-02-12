@@ -13,6 +13,7 @@ const HospitalSection = ({
     country: "",
     website: "",
     subscription_size: 0,
+    documents: "",
   },
 }) => {
   const navigate = useNavigate();
@@ -110,6 +111,17 @@ const HospitalSection = ({
             <Typography variant="h6" fontWeight="200">
               {hospDetails.subscription_size}
             </Typography>
+          </Grid>
+
+          {/* Documents link */}
+          <Grid item xs={12}>
+            <Typography mb={0.5} variant="h6">
+              Documents
+            </Typography>
+
+            <Link variant="h6" fontWeight="200">
+              {hospDetails.documents}
+            </Link>
           </Grid>
         </Grid>
         <Grid item xs={1} />

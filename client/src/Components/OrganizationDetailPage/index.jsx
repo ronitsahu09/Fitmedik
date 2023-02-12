@@ -45,6 +45,7 @@ const OrganizationDetailPage = ({ props }) => {
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   });
 
   const [managerDetails, setManagerDetails] = React.useState([

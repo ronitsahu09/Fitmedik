@@ -14,7 +14,6 @@ const TreatmentPartnerCard = ({
     onDashboard: false,
   },
 }) => {
-  console.log(data);
   return (
     <Stack sx={{ mt: 1, mb: 1, backgroundColor: "white" }} direction="row">
       <div style={{ height: "100%", width: 10, backgroundColor: "#ff6355" }} />

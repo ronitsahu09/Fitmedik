@@ -13,19 +13,7 @@ import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 
 const TreatmentPartnersPage = ({ props }) => {
-  const [data, setData] = React.useState([
-    {
-      heading: "",
-      provider: "",
-      about: "",
-      value: "",
-      duration: "",
-      thesis: "",
-      expected_impact: "",
-      link: "",
-      onDashboard: false,
-    },
-  ]);
+  const [data, setData] = React.useState([]);
 
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);

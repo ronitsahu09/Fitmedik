@@ -30,10 +30,10 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <Grid container>
+      <Grid container sx={{ pt: 4, pb: 4 }}>
         <Grid item xs={1} />
         <Grid container item xs={10}>
-          <Grid item xs={12} sx={{ mt: 6, mb: 6 }}>
+          <Grid item xs={12} sx={{ mt: 2, mb: 6 }}>
             <Typography variant="h2" sx={{ fontWeight: "900" }}>
               Admin Dashboard
             </Typography>

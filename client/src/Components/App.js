@@ -33,6 +33,7 @@ import { GetUserToken } from "../Cookies/index";
 import { useNavigate } from "react-router-dom";
 import OrganizationDetailPage from "./OrganizationDetailPage";
 import { GetAdminToken } from "../Cookies/admin";
+import TreatmentPartnerEventDetailPage from "./AdminEventDescription";
 
 function App() {
   const [appHeight, setAppHeight] = useState("100%");
@@ -212,6 +213,11 @@ function App() {
         <Route
           path="/organization-details"
           element={<OrganizationDetailPage props={{ appHeight, userToken }} />}
+        />
+
+        <Route
+          path="/admin/eventDescription/:name"
+          element={<TreatmentPartnerEventDetailPage props={{ appHeight }} />}
         />
       </Routes>
     </div>

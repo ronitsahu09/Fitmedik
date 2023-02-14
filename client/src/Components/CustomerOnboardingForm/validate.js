@@ -160,17 +160,19 @@ export const validateHospSection = (
     isValid = false;
     temp = {
       ...temp,
-      link: "Documents link field is empty",
+      documents: "Documents link field is empty",
     };
   } else if (!validateUrl(hospDetails.documents)) {
     isValid = false;
     temp = {
       ...temp,
-      link: "Invalid URL provided",
+      documents: "Invalid URL provided",
     };
   } else {
     temp = { ...temp, link: "" };
   }
+
+  console.log(temp);
 
   setHospDetailsError(temp);
 

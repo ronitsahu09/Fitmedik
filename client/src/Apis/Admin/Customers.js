@@ -168,6 +168,11 @@ export const GetCustomerByIdApi = async (id, token, setters) => {
     setters.setOpdtDetails(response.organization.operational_details);
     setters.setManagerDetails &&
       setters.setManagerDetails(response.allmanagers);
+    setters.setPartners && setters.setPartners(response.organization.partners);
+    const temp = response.organization.partners.map((val) => val._id);
+    console.log(temp);
+    setters.setSelectedTreatmentPartners &&
+      setters.setSelectedTreatmentPartners(temp);
   } catch (e) {
     console.log(e);
     setters.setLoading(false);

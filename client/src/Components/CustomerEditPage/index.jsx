@@ -42,6 +42,7 @@ const CustomerEditPage = () => {
       setErrorText,
       setHospitalDetails,
       setOpdtDetails,
+      setSelectedTreatmentPartners,
     });
   };
 
@@ -55,7 +56,6 @@ const CustomerEditPage = () => {
     const data = {
       ...hospDetails,
       operational_details: opdtDetails,
-      documents: [],
       active_state: true,
       id,
       partners: selectedTreatmentPartners,
@@ -117,6 +117,7 @@ const CustomerEditPage = () => {
 
   const originalHospitalDetails = React.useRef(hospDetails);
   const originalOpdtDetails = React.useRef(opdtDetails);
+  const originalSelectedTP = React.useRef(selectedTreatmentPartners);
 
   const next = () => {
     let isValid = false;
@@ -160,6 +161,8 @@ const CustomerEditPage = () => {
       country: "",
       link: "",
       subscriptionCount: "",
+      location: "",
+      documents: "",
     });
 
     setOpdtDetails(originalOpdtDetails.current);
@@ -174,6 +177,8 @@ const CustomerEditPage = () => {
       avgOpd: "",
       avgIpd: "",
     });
+
+    setSelectedTreatmentPartners(originalSelectedTP.current);
   };
 
   return (

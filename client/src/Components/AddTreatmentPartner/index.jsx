@@ -14,6 +14,7 @@ import { Add, RestartAlt } from "@mui/icons-material";
 import { validateUrl } from "../../Utils/HelperFunctions";
 import { AddTreatmentPartnetApi } from "../../Apis/Admin/TreatmentPartners";
 import { GetAdminToken } from "../../Cookies/admin";
+import { useSnackbar } from "notistack";
 
 const AddTreatmentPartner = () => {
   const navigate = useNavigate();

@@ -36,6 +36,7 @@ const CustomerDetailsPage = () => {
       setHospitalDetails,
       setManagerDetails,
       setOpdtDetails,
+      setPartners,
     });
   };
 
@@ -77,6 +78,8 @@ const CustomerDetailsPage = () => {
     avgIpd: "",
   });
 
+  const [partners, setPartners] = React.useState([]);
+
   const next = () => {
     if (mode !== OPDT_SECTION) {
       setMode(mode + 1);
@@ -103,7 +106,9 @@ const CustomerDetailsPage = () => {
           {mode === MGER_SECTION && (
             <ManagerSection managerDetails={managerDetails} />
           )}
-          {mode === TRPT_SECTION && <TreatmentPartnersDetails />}
+          {mode === TRPT_SECTION && (
+            <TreatmentPartnersDetails partners={partners} />
+          )}
           {mode === OPDT_SECTION && (
             <OperationalSection opdtDetails={opdtDetails} />
           )}

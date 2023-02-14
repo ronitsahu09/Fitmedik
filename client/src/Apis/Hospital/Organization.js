@@ -20,9 +20,9 @@ export const GetOrganizationApi = async (token, setters) => {
     console.log(response);
     if (response.error) throw new Error(response.error);
     // setters.setData(response);
-    setters.setHospitalDetails(response);
-    setters.setManagerDetails(response.hospital_manager);
-    setters.setOpdtDetails(response.operational_details);
+    setters.setHospitalDetails(response.data);
+    setters.setManagerDetails(response.allmanagers);
+    setters.setOpdtDetails(response.data.operational_details);
   } catch (e) {
     console.log(e);
     setters.setLoading(false);

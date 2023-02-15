@@ -1,0 +1,11 @@
+.tp-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 99999px;
+}
+
+.center-fit {
+  max-width: 100%;
+  max-height: 100vh;
+}

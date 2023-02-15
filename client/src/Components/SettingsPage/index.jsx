@@ -1,11 +1,8 @@
 import React from "react";
-import { Button, Grid, Typography, Stack } from "@mui/material";
+import { Grid, Typography, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
-import Header from "../Header";
 import { colors } from "../../Utils/colors";
-import { LogoutUser } from "../../Cookies";
-import { Logout } from "@mui/icons-material";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import {
   AppWrapper,
@@ -131,18 +128,6 @@ const SettingsPage = () => {
           </Stack>
         </Stack>
       </Stack>
-
-      <div style={{ position: "fixed", bottom: 50, right: 50 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={LogoutUser}
-          startIcon={<Logout />}
-          size="large"
-        >
-          Logout
-        </Button>
-      </div>
     </div>
   );
 };

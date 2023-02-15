@@ -7,12 +7,15 @@ import {
   InputAdornment,
   Snackbar,
   Alert,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
-import { Email } from "@mui/icons-material";
+import { Email, KeyboardArrowLeft } from "@mui/icons-material";
 import "./styles.css";
 import { validateEmail } from "../../Utils/HelperFunctions";
 import LeftLogin from "./Left";
 import { ForgotPasswordApi } from "../../Apis/Hospital/Auth";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPasswordScreen = () => {
   const [email, setEmail] = React.useState("");
@@ -23,6 +26,8 @@ const ForgotPasswordScreen = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
+
+  const navigate = useNavigate();
 
   const emailValidate = () => {
     let isValid = true;
@@ -90,7 +95,15 @@ const ForgotPasswordScreen = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <Typography variant="h4" sx={{ fontWeight: "800" }}>
+                <Tooltip title={"Go back"}>
+                  <IconButton sx={{ mr: 1 }} onClick={() => navigate(-1)}>
+                    <KeyboardArrowLeft
+                      fontSize="large"
+                      sx={{ color: "black" }}
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Typography variant="h4" sx={{ fontWeight: "800", ml: 1 }}>
                   Forgot Password
                 </Typography>
               </Grid>

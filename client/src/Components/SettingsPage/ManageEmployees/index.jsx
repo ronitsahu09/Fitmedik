@@ -11,6 +11,7 @@ import {
   AddDepartmentUserApi,
   GetDepartmentUsersApi,
 } from "../../../Apis/Hospital/Departments";
+import ErrorPage from "../../ErrorPage";
 
 const ManageEmployees = ({ props }) => {
   const [employees, setEmployees] = React.useState([]);
@@ -70,6 +71,8 @@ const ManageEmployees = ({ props }) => {
     <div>
       {loading === true ? (
         <LoadingPage />
+      ) : error === true ? (
+        <ErrorPage errorText={errorText} onRetry={GetEmployees} />
       ) : (
         <div>
           <Grid container sx={{ pt: 4, pb: 4 }}>

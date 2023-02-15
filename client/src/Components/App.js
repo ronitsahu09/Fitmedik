@@ -34,177 +34,177 @@ import { useNavigate } from "react-router-dom";
 import OrganizationDetailPage from "./OrganizationDetailPage";
 
 function App() {
-  const [appHeight, setAppHeight] = useState("100%");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+	const [appHeight, setAppHeight] = useState("100%");
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
-  const [userToken, setUserToken] = useState(GetUserToken());
+	const [userToken, setUserToken] = useState(GetUserToken());
 
-  const initialise = () => {
-    if (!userToken) {
-      if (
-        !window.location.href.match("admin") &&
-        !window.location.href.match("forgotpassword") &&
-        !window.location.href.match("setupPassword") &&
-        !window.location.href.match("login")
-      ) {
-        const cookieToken = GetUserToken();
-        if (!cookieToken) navigate("/login");
-        else setUserToken(cookieToken);
-      }
-    }
-  };
+	const initialise = () => {
+		if (!userToken) {
+			if (
+				!window.location.href.match("admin") &&
+				!window.location.href.match("forgotpassword") &&
+				!window.location.href.match("setupPassword") &&
+				!window.location.href.match("login")
+			) {
+				const cookieToken = GetUserToken();
+				if (!cookieToken) navigate("/login");
+				else setUserToken(cookieToken);
+			}
+		}
+	};
 
-  useEffect(() => {
-    initialise();
-    dispatch(getOrganization({ organizationId: "63c95da1317e07dbcc906fa8" }));
+	useEffect(() => {
+		initialise();
+		dispatch(getOrganization(userToken));
 
-    const reportAppHeight = () => {
-      setAppHeight(`${window.innerHeight}px`);
-    };
+		const reportAppHeight = () => {
+			setAppHeight(`${window.innerHeight}px`);
+		};
 
-    reportAppHeight();
+		reportAppHeight();
 
-    window.addEventListener("resize", reportAppHeight);
-    window.addEventListener("orientationchange", reportAppHeight);
+		window.addEventListener("resize", reportAppHeight);
+		window.addEventListener("orientationchange", reportAppHeight);
 
-    return () => {
-      window.removeEventListener("resize", reportAppHeight, false);
-      window.removeEventListener("orientationchange", reportAppHeight);
-    };
-  }, [dispatch]);
+		return () => {
+			window.removeEventListener("resize", reportAppHeight, false);
+			window.removeEventListener("orientationchange", reportAppHeight);
+		};
+	}, [dispatch, userToken]);
 
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Home props={{ appHeight, userToken }} />} />
-        <Route
-          path="/analytics"
-          element={<Analytics props={{ appHeight, userToken }} />}
-        />
-        <Route
-          path="/analytics/:id"
-          element={<DepartmentAnalytics props={{ appHeight, userToken }} />}
-        />
-        <Route
-          path="notifications"
-          element={<Notifications props={{ appHeight, userToken }} />}
-        />
+	return (
+		<div className="App">
+			<Routes>
+				<Route path="/" element={<Home props={{ appHeight, userToken }} />} />
+				<Route
+					path="/analytics"
+					element={<Analytics props={{ appHeight, userToken }} />}
+				/>
+				<Route
+					path="/analytics/:id"
+					element={<DepartmentAnalytics props={{ appHeight, userToken }} />}
+				/>
+				<Route
+					path="notifications"
+					element={<Notifications props={{ appHeight, userToken }} />}
+				/>
 
-        <Route
-          path="costsavings"
-          element={<CostSavings props={{ appHeight, userToken }} />}
-        />
+				<Route
+					path="costsavings"
+					element={<CostSavings props={{ appHeight, userToken }} />}
+				/>
 
-        <Route
-          path="surveyresults"
-          element={<Survey props={{ appHeight, userToken }} />}
-        />
+				<Route
+					path="surveyresults"
+					element={<Survey props={{ appHeight, userToken }} />}
+				/>
 
-        <Route
-          path="monitoractions"
-          element={<MonitorActions props={{ appHeight, userToken }} />}
-        />
+				<Route
+					path="monitoractions"
+					element={<MonitorActions props={{ appHeight, userToken }} />}
+				/>
 
-        <Route
-          path="/login"
-          element={<LoginScreen props={{ appHeight, setUserToken }} />}
-        />
+				<Route
+					path="/login"
+					element={<LoginScreen props={{ appHeight, setUserToken }} />}
+				/>
 
-        <Route
-          path="/forgotpassword"
-          element={<ForgotPasswordScreen props={{ appHeight }} />}
-        />
+				<Route
+					path="/forgotpassword"
+					element={<ForgotPasswordScreen props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/setupPassword/:accessToken"
-          element={<SetupPasswordScreen props={{ appHeight }} />}
-        />
+				<Route
+					path="/setupPassword/:accessToken"
+					element={<SetupPasswordScreen props={{ appHeight }} />}
+				/>
 
-        <Route path="/admin/login" element={<AdminLogin />} />
+				<Route path="/admin/login" element={<AdminLogin />} />
 
-        <Route
-          path="/admin/onboard-customer"
-          element={<CustomerOnboardingFormPage props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/onboard-customer"
+					element={<CustomerOnboardingFormPage props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/dashboard"
-          element={<AdminDashboard props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/dashboard"
+					element={<AdminDashboard props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/all-customers"
-          element={<SeeAllCustomers props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/all-customers"
+					element={<SeeAllCustomers props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/customer/:id"
-          element={<CustomerDetailsPage props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/customer/:id"
+					element={<CustomerDetailsPage props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/edit-customer/:id"
-          element={<CustomerEditPage props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/edit-customer/:id"
+					element={<CustomerEditPage props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/customer-managers/:id"
-          element={<CustomerManagerEditPage props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/customer-managers/:id"
+					element={<CustomerManagerEditPage props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/add-treatment-partner"
-          element={<AddTreatmentPartner props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/add-treatment-partner"
+					element={<AddTreatmentPartner props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/all-treatment-partners"
-          element={<SeeAllTreatmentPartners props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/all-treatment-partners"
+					element={<SeeAllTreatmentPartners props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/edit-treatment-partner/:id"
-          element={<TreatmentPartnerEditPage props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/edit-treatment-partner/:id"
+					element={<TreatmentPartnerEditPage props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/treatment-partner-detail/:id"
-          element={<TreatmentPartnerDetailPage props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/treatment-partner-detail/:id"
+					element={<TreatmentPartnerDetailPage props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/admin/treatment-partner-events/:id"
-          element={<AdminTPEventPage props={{ appHeight }} />}
-        />
+				<Route
+					path="/admin/treatment-partner-events/:id"
+					element={<AdminTPEventPage props={{ appHeight }} />}
+				/>
 
-        <Route
-          path="/settings"
-          element={<SettingsPage props={{ appHeight, userToken }} />}
-        />
+				<Route
+					path="/settings"
+					element={<SettingsPage props={{ appHeight, userToken }} />}
+				/>
 
-        <Route
-          path="/employees/:departmentId"
-          element={<ManageEmployees props={{ appHeight, userToken }} />}
-        />
+				<Route
+					path="/employees/:departmentId"
+					element={<ManageEmployees props={{ appHeight, userToken }} />}
+				/>
 
-        <Route
-          path="/departments"
-          element={<DepartmentsPage props={{ appHeight, userToken }} />}
-        />
+				<Route
+					path="/departments"
+					element={<DepartmentsPage props={{ appHeight, userToken }} />}
+				/>
 
-        <Route
-          path="/treatment-partners"
-          element={<TreatmentPartnersPage props={{ appHeight, userToken }} />}
-        />
+				<Route
+					path="/treatment-partners"
+					element={<TreatmentPartnersPage props={{ appHeight, userToken }} />}
+				/>
 
-        <Route
-          path="/organization-details"
-          element={<OrganizationDetailPage props={{ appHeight, userToken }} />}
-        />
-      </Routes>
-    </div>
-  );
+				<Route
+					path="/organization-details"
+					element={<OrganizationDetailPage props={{ appHeight, userToken }} />}
+				/>
+			</Routes>
+		</div>
+	);
 }
 
 export default App;

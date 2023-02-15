@@ -59,7 +59,7 @@ const DepartmentsPage = ({ props }) => {
           <Grid container sx={{ pt: 4, pb: 4 }}>
             <Grid item xs={1} />
             <Grid container item xs={10} alignItems="center">
-              <Header navigate={navigate} title="Departments" />
+              <Header navigate={navigate} title="Users" />
 
               {departments.map((val, index) => (
                 <Grid
@@ -123,7 +123,7 @@ const DepartmentsPage = ({ props }) => {
               onClick={() => setAddOpen(true)}
               sx={{ borderRadius: 99 }}
             >
-              Add departments
+              Add users
             </Button>
           </div>
 

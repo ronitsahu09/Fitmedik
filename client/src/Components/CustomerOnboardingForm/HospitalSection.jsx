@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Typography, TextField, Autocomplete } from "@mui/material";
 import { employeeSizeOptions, hospitalTypeOptions } from "./data";
 import "./styles.css";
-
+import { GraphInfo } from "../Styles_&_Components/Components";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header";
 
@@ -16,6 +16,7 @@ const HospitalSection = ({
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   },
   hospDetailsError = {
     name: "",
@@ -26,14 +27,11 @@ const HospitalSection = ({
     link: "",
     subscriptionCount: "",
     location: "",
+    documents: "",
   },
   setHospDetails,
 }) => {
   const navigate = useNavigate();
-
-  const onFileChange = (event) => {
-    console.log(event.target.files);
-  };
 
   return (
     <div>
@@ -239,19 +237,34 @@ const HospitalSection = ({
             />
           </Grid>
 
-          {/* Upload documents */}
-          <Grid item xs={12}>
-            <Typography mb={0.5} variant="h6">
-              Upload documents here
-            </Typography>
+          {/* Documents link */}
+          <Grid container item xs={12}>
+            <Grid container item xs={12} alignItems="center">
+              <Typography mb={0.5} variant="h6">
+                Documents link
+              </Typography>
+              <GraphInfo
+                props={{
+                  title:
+                    "Upload all required documents to a drive folder and attach it's link here",
+                }}
+              />
+            </Grid>
 
-            <input
-              type="file"
-              onChange={(e) => {
-                console.log(e.target.files);
-              }}
-              multiple
-              accept="image/*"
+            <TextField
+              required
+              fullWidth
+              variant={"outlined"}
+              placeholder="Drive link"
+              error={hospDetailsError.documents.length !== 0}
+              helperText={hospDetailsError.documents}
+              value={hospDetails.documents}
+              onChange={(e) =>
+                setHospDetails({
+                  ...hospDetails,
+                  documents: e.target.value,
+                })
+              }
             />
           </Grid>
         </Grid>

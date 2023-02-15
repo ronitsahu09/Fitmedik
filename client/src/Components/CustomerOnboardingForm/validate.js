@@ -33,6 +33,7 @@ export const validateHospSection = (
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   },
   hospDetailsError = {
     name: "",
@@ -43,6 +44,7 @@ export const validateHospSection = (
     link: "",
     subscriptionCount: "",
     location: "",
+    documents: "",
   },
   setHospDetailsError
 ) => {
@@ -154,26 +156,26 @@ export const validateHospSection = (
     };
   }
 
+  if (hospDetails.documents === "") {
+    isValid = false;
+    temp = {
+      ...temp,
+      documents: "Documents link field is empty",
+    };
+  } else if (!validateUrl(hospDetails.documents)) {
+    isValid = false;
+    temp = {
+      ...temp,
+      documents: "Invalid URL provided",
+    };
+  } else {
+    temp = { ...temp, link: "" };
+  }
+
+  console.log(temp);
+
   setHospDetailsError(temp);
 
-  return isValid;
-};
-
-export const validateManagerSection = (
-  managerDetails = [
-    {
-      name: "",
-      title: "",
-      email: "",
-      index: 0,
-      validated: false,
-    },
-  ]
-) => {
-  let isValid = true;
-  managerDetails.forEach((val) => {
-    isValid &&= val.validated;
-  });
   return isValid;
 };
 

@@ -1,18 +1,19 @@
 import {
   AttachMoney,
   Home,
-  Notifications,
   SsidChart,
   Poll,
   Settings,
-  LoginRounded,
   Monitor,
   Handshake,
+  BarChart,
+  Logout,
 } from "@mui/icons-material";
 import { Box, IconButton, Stack, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
 
 import { Link, NavLink } from "react-router-dom";
+import { LogoutUser } from "../../Cookies";
 
 import { leftSidebar } from "./Styles";
 
@@ -143,6 +144,25 @@ export default function LeftSidebar() {
         </Tooltip>
 
         <Tooltip
+          title="Event Analytics"
+          placement="right-start"
+          TransitionComponent={Zoom}
+          arrow
+        >
+          <Box
+            component={NavLink}
+            style={({ isActive }) =>
+              isActive ? { color: "#f55f4b" } : { color: "grey" }
+            }
+            to="/event-analytics"
+          >
+            <IconButton sx={{ color: "inherit" }}>
+              <BarChart fontSize="large" />
+            </IconButton>
+          </Box>
+        </Tooltip>
+
+        <Tooltip
           title="Treatment Partners"
           placement="right-start"
           TransitionComponent={Zoom}
@@ -176,15 +196,15 @@ export default function LeftSidebar() {
           </Tooltip>
         </Box>
 
-        <Box component={Link} to="/login">
+        <Box component={Link} onClick={LogoutUser}>
           <Tooltip
-            title="Login"
+            title="Logout"
             placement="right-start"
             TransitionComponent={Zoom}
             arrow
           >
             <IconButton sx={{ color: "grey" }}>
-              <LoginRounded fontSize="large" />
+              <Logout fontSize="large" />
             </IconButton>
           </Tooltip>
         </Box>

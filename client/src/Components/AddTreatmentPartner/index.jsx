@@ -14,6 +14,7 @@ import { Add, RestartAlt } from "@mui/icons-material";
 import { validateUrl } from "../../Utils/HelperFunctions";
 import { AddTreatmentPartnetApi } from "../../Apis/Admin/TreatmentPartners";
 import { GetAdminToken } from "../../Cookies/admin";
+import { useSnackbar } from "notistack";
 
 const AddTreatmentPartner = () => {
   const navigate = useNavigate();
@@ -315,6 +316,21 @@ const AddTreatmentPartner = () => {
                 onChange={(e) => setData({ ...data, link: e.target.value })}
                 error={linkError.length !== 0}
                 helperText={linkError}
+              />
+            </Grid>
+
+            {/* Documents link */}
+            <Grid item xs={12}>
+              <Typography mb={0.5} variant="h6">
+                Upload image
+              </Typography>
+
+              <input
+                type="file"
+                onChange={(e) => {
+                  console.log(e.target.files);
+                }}
+                accept="image/*"
               />
             </Grid>
           </Grid>

@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./HomePage/Home";
 import Analytics from "./Analytics/Analytics";
 import "react-circular-progressbar/dist/styles.css";
@@ -32,32 +32,45 @@ import AdminLogin from "./AdminLogin";
 import { GetUserToken } from "../Cookies/index";
 import { useNavigate } from "react-router-dom";
 import OrganizationDetailPage from "./OrganizationDetailPage";
+import { GetAdminToken } from "../Cookies/admin";
+import TreatmentPartnerEventDetailPage from "./AdminEventDescription";
+import EventAnalyticsPage from "./EventAnalyticsPage";
 
 function App() {
-	const [appHeight, setAppHeight] = useState("100%");
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+  const [appHeight, setAppHeight] = useState("100%");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
 	const [userToken, setUserToken] = useState(GetUserToken());
 
-	const initialise = () => {
-		if (!userToken) {
-			if (
-				!window.location.href.match("admin") &&
-				!window.location.href.match("forgotpassword") &&
-				!window.location.href.match("setupPassword") &&
-				!window.location.href.match("login")
-			) {
-				const cookieToken = GetUserToken();
-				if (!cookieToken) navigate("/login");
-				else setUserToken(cookieToken);
-			}
-		}
-	};
+  const initialiseUser = () => {
+    if (!userToken) {
+      if (
+        !location.pathname.startsWith("/admin") &&
+        !location.pathname.startsWith("/forgotpassword") &&
+        !location.pathname.startsWith("/setupPassword") &&
+        !location.pathname.startsWith("/login")
+      ) {
+        const cookieToken = GetUserToken();
+        if (!cookieToken) navigate("/login");
+        else setUserToken(cookieToken);
+      }
+    }
+  };
 
-	useEffect(() => {
-		initialise();
-		dispatch(getOrganization(userToken));
+  const initialiseAdmin = () => {
+    if (location.pathname.startsWith("/admin") && !GetAdminToken())
+      navigate("/admin/login");
+  };
+
+  useEffect(() => {
+    initialiseUser();
+    initialiseAdmin();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    dispatch(getOrganization({ organizationId: "63c95da1317e07dbcc906fa8" }));
 
 		const reportAppHeight = () => {
 			setAppHeight(`${window.innerHeight}px`);
@@ -198,13 +211,23 @@ function App() {
 					element={<TreatmentPartnersPage props={{ appHeight, userToken }} />}
 				/>
 
-				<Route
-					path="/organization-details"
-					element={<OrganizationDetailPage props={{ appHeight, userToken }} />}
-				/>
-			</Routes>
-		</div>
-	);
+        <Route
+          path="/organization-details"
+          element={<OrganizationDetailPage props={{ appHeight, userToken }} />}
+        />
+
+        <Route
+          path="/admin/eventDescription/:name"
+          element={<TreatmentPartnerEventDetailPage props={{ appHeight }} />}
+        />
+
+        <Route
+          path="/event-analytics"
+          element={<EventAnalyticsPage props={{ appHeight }} />}
+        />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

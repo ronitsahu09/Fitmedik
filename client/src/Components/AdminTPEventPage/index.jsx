@@ -1,10 +1,9 @@
 import React from "react";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, IconButton, Typography } from "@mui/material";
 import "./styles.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { Add } from "@mui/icons-material";
+import { Add, Delete, Edit } from "@mui/icons-material";
 import Header from "../Header";
-import EventCard from "./EventCard";
 import ConfirmDialog from "../ConfirmDialog";
 import AddEventDialog from "./AddDialog";
 import { GetAdminToken } from "../../Cookies/admin";
@@ -103,15 +102,65 @@ const AdminTPEventPage = () => {
               <Header navigate={navigate} title={"Events"} />
 
               {events.map((val, index) => (
-                <EventCard
-                  event={val}
+                <Grid
+                  container
+                  item
+                  xs={12}
                   key={index}
-                  onDeleteClick={() => setConfirmOpen(true)}
-                  onEditClick={() => {
-                    setSelectedEvent(val);
-                    setEditOpen(true);
+                  sx={{
+                    p: 2,
                   }}
-                />
+                  className={
+                    index === events.length - 1
+                      ? "admin-tpe-button-item admin-tpe-button-item-bottom"
+                      : "admin-tpe-button-item"
+                  }
+                  onClick={() =>
+                    navigate(`/admin/eventDescription/${val.name}`, {
+                      state: { event: val },
+                    })
+                  }
+                >
+                  <Grid container item xs={8} alignItems="center">
+                    <Typography variant="h6" fontWeight="100">
+                      {val.name}
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={2}
+                    alignItems="center"
+                    justifyContent="flex-end"
+                  >
+                    <IconButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedEvent(val);
+                        setEditOpen(true);
+                      }}
+                    >
+                      <Edit />
+                    </IconButton>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={2}
+                    alignItems="center"
+                    justifyContent="flex-end"
+                  >
+                    <IconButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedEvent(val);
+                        setConfirmOpen(true);
+                      }}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </Grid>
+                </Grid>
               ))}
             </Grid>
             <Grid item xs={1} />

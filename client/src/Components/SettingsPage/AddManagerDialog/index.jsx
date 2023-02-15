@@ -96,7 +96,7 @@ const AddManagerDialog = ({ open, onCancel, onConfirm, addedData = null }) => {
       >
         <Grid item xs={12}>
           <Typography variant="h5" fontWeight="800">
-            Department details
+            Add users
           </Typography>
         </Grid>
 
@@ -187,7 +187,7 @@ const AddManagerDialog = ({ open, onCancel, onConfirm, addedData = null }) => {
               variant="contained"
               onClick={() => {
                 if (validate()) {
-                  onConfirm(emails);
+                  onConfirm(department, emails);
                 }
               }}
               color="success"

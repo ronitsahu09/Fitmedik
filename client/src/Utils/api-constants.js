@@ -1,1 +1,1 @@
-export const COOKIE_EXPIRY = 10; // in days
+export const COOKIE_EXPIRY = 1; // in days

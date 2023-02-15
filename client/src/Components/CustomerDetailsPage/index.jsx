@@ -5,7 +5,7 @@ import HospitalSection from "./HospitalSection";
 import "./styles.css";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GetAdminToken } from "../../Cookies/admin";
 import TreatmentPartnersDetails from "./TreatmentPartners";
 import { GetCustomerByIdApi } from "../../Apis/Admin/Customers";
@@ -36,6 +36,7 @@ const CustomerDetailsPage = () => {
       setHospitalDetails,
       setManagerDetails,
       setOpdtDetails,
+      setPartners,
     });
   };
 
@@ -54,6 +55,7 @@ const CustomerDetailsPage = () => {
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   });
 
   const [managerDetails, setManagerDetails] = React.useState([
@@ -75,6 +77,8 @@ const CustomerDetailsPage = () => {
     avgOpd: "",
     avgIpd: "",
   });
+
+  const [partners, setPartners] = React.useState([]);
 
   const next = () => {
     if (mode !== OPDT_SECTION) {
@@ -102,7 +106,9 @@ const CustomerDetailsPage = () => {
           {mode === MGER_SECTION && (
             <ManagerSection managerDetails={managerDetails} />
           )}
-          {mode === TRPT_SECTION && <TreatmentPartnersDetails />}
+          {mode === TRPT_SECTION && (
+            <TreatmentPartnersDetails partners={partners} />
+          )}
           {mode === OPDT_SECTION && (
             <OperationalSection opdtDetails={opdtDetails} />
           )}

@@ -13,19 +13,7 @@ import LoadingPage from "../LoadingPage";
 import ErrorPage from "../ErrorPage";
 
 const TreatmentPartnersPage = ({ props }) => {
-  const [data, setData] = React.useState([
-    {
-      heading: "",
-      provider: "",
-      about: "",
-      value: "",
-      duration: "",
-      thesis: "",
-      expected_impact: "",
-      link: "",
-      onDashboard: false,
-    },
-  ]);
+  const [data, setData] = React.useState([]);
 
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
@@ -53,15 +41,15 @@ const TreatmentPartnersPage = ({ props }) => {
         <Stack sx={{ ...middle }}>
           <Stack sx={{ ...middleWindow }}>
             <Typography variant="h3" component="div" fontWeight="700">
-              Treatment Partners
+              Your Treatment Partners
             </Typography>
 
             <Stack sx={{ ...fixedWindow }}>
               <Stack gap={3} mt={3}>
                 <Stack direction="column" alignItems="center" gap="0.5rem">
                   {data.map((val, index) => (
-                    <Grid container item xs={12}>
-                      <TreatmentPartnerCard data={val} key={index} />
+                    <Grid container item xs={12} key={index}>
+                      <TreatmentPartnerCard data={val} />
                     </Grid>
                   ))}
                 </Stack>

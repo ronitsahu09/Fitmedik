@@ -3,11 +3,7 @@ import { ArrowBack, ArrowForward, RestartAlt, Send } from "@mui/icons-material";
 import React from "react";
 import HospitalSection from "./HospitalSection";
 import "./styles.css";
-import {
-  validateHospSection,
-  validateManagerSection,
-  validateOpdtSection,
-} from "./validate";
+import { validateHospSection, validateOpdtSection } from "./validate";
 import ManagerSection from "./ManagerSection";
 import OperationalSection from "./OperationalSection";
 import TreatmentPartnersAdd from "./TreatmentPartners";
@@ -68,6 +64,7 @@ const CustomerOnboardingFormPage = () => {
     website: "",
     subscription_size: 0,
     location: "",
+    documents: "",
   });
   const [hospDetailsError, setHospitalDetailsError] = React.useState({
     name: "",
@@ -78,17 +75,10 @@ const CustomerOnboardingFormPage = () => {
     link: "",
     subscriptionCount: "",
     location: "",
+    documents: "",
   });
 
-  const [managerDetails, setManagerDetails] = React.useState([
-    {
-      name: "",
-      title: "",
-      email: "",
-      index: 0,
-      validated: false,
-    },
-  ]);
+  const [managerDetails, setManagerDetails] = React.useState([]);
 
   const [opdtDetails, setOpdtDetails] = React.useState({
     annualSalNurse: "",
@@ -114,7 +104,7 @@ const CustomerOnboardingFormPage = () => {
   });
 
   const next = () => {
-    let isValid = false;
+    let isValid = true;
     if (mode === HOSP_SECTION) {
       isValid = validateHospSection(
         hospDetails,
@@ -122,14 +112,10 @@ const CustomerOnboardingFormPage = () => {
         setHospitalDetailsError
       );
     } else if (mode === MGER_SECTION) {
-      isValid = validateManagerSection(managerDetails);
       if (managerDetails.length === 0) {
         setErrorMsg("There must be atleast one manager");
         setOpen(true);
         isValid = false;
-      } else if (!isValid) {
-        setErrorMsg("Please save the highlighted fields");
-        setOpen(true);
       }
     } else if (mode === OPDT_SECTION) {
       isValid = validateOpdtSection(
@@ -179,15 +165,7 @@ const CustomerOnboardingFormPage = () => {
       location: "",
     });
 
-    setManagerDetails([
-      {
-        name: "",
-        title: "",
-        email: "",
-        index: 0,
-        validated: false,
-      },
-    ]);
+    setManagerDetails([]);
 
     setOpdtDetails({
       annualSalNurse: "",
@@ -213,6 +191,37 @@ const CustomerOnboardingFormPage = () => {
     });
   };
 
+  const save = (lastSavedRef, name, email, title, index, validated) => {
+    const temp = [];
+    managerDetails.forEach((val) => {
+      if (val.index === index && validated) {
+        temp.push({
+          name,
+          title,
+          email,
+          index: index,
+          validated: true,
+        });
+        lastSavedRef.current = {
+          name,
+          title,
+          email,
+          index: index,
+          validated: true,
+        };
+      } else temp.push(val);
+    });
+    setManagerDetails(temp);
+  };
+
+  const remove = (index) => {
+    console.log(index);
+    console.log(managerDetails);
+    const temp = managerDetails.filter((_, idx) => idx !== index);
+    setManagerDetails(temp);
+    console.log(temp);
+  };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -230,6 +239,8 @@ const CustomerOnboardingFormPage = () => {
         <ManagerSection
           managerDetails={managerDetails}
           setManagerDetails={setManagerDetails}
+          save={save}
+          remove={remove}
         />
       )}
       {mode === TRPT_SECTION && (

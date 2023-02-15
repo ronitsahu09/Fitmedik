@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Grid, Link, Stack, Typography } from "@mui/material";
+import "./styles.css";
 
 const TreatmentPartnerCard = ({
   data = {
@@ -12,56 +13,66 @@ const TreatmentPartnerCard = ({
     expected_impact: "",
     link: "",
     onDashboard: false,
+    pic: "",
   },
 }) => {
   return (
-    <Stack sx={{ mt: 1, mb: 1, backgroundColor: "white" }} direction="row">
+    <Stack
+      sx={{
+        mt: 1,
+        mb: 1,
+        backgroundColor: "white",
+        boxShadow: "0px 0px 5px 0.5px grey",
+        width: "100%",
+      }}
+      direction="row"
+    >
       <div style={{ height: "100%", width: 10, backgroundColor: "#ff6355" }} />
       <Grid container sx={{ pt: 4, pb: 4 }}>
         <Grid item xs={1} />
-        <Grid container item xs={7.5} rowSpacing={3}>
+        <Grid container item xs={7.5} rowSpacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h6" fontWeight="800" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" fontWeight="800">
               Name of the Provider
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.provider}
+              {data.provider || "No data provided"}
             </Typography>
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h6" fontWeight="800" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" fontWeight="800">
               Value Added
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.value}
+              {data.value || "No data provided"}
             </Typography>
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h6" fontWeight="800" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" fontWeight="800">
               Thesis
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.thesis}
+              {data.thesis || "No data provided"}
             </Typography>
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h6" fontWeight="800" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" fontWeight="800">
               Expected Impact
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.expected_impact}
+              {data.expected_impact || "No data provided"}
             </Typography>
           </Grid>
 
-          <Grid container item xs={12} flexDirection="row">
-            <Typography variant="h6" fontWeight="800" sx={{ mr: 1 }}>
+          <Grid item xs={12} flexDirection="row">
+            <Typography variant="h6" fontWeight="800">
               Duration
             </Typography>
             <Typography variant="h6" fontWeight="200">
-              {data.provider}
+              {data.duration || "No data provided"}
             </Typography>
           </Grid>
 
@@ -71,7 +82,19 @@ const TreatmentPartnerCard = ({
             </Link>
           </Grid>
         </Grid>
-        <Grid item xs={3.5}>
+        <Grid
+          container
+          item
+          xs={3.5}
+          justifyContent="center"
+          alignItems="center"
+          padding={2}
+        >
+          <img
+            src={data.pic}
+            alt={"Treatment partner image"}
+            className="tp-image center-fit"
+          />
           <Button variant="contained">Reach out to Onboard</Button>
         </Grid>
       </Grid>

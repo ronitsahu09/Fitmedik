@@ -105,7 +105,7 @@ export const GetDepartmentUsersApi = async (token, departmentId, setters) => {
   };
 
   try {
-    const response = await api.get(headerInfo, `/allUsers`);
+    const response = await api.get(headerInfo, `/allUsers/${departmentId}`);
     setters.setLoading(false);
     setters.setError(false);
     setters.setAddOpen(false);

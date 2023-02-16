@@ -48,7 +48,13 @@ const TreatmentPartnersPage = ({ props }) => {
               <Stack gap={3} mt={3}>
                 <Stack direction="column" alignItems="center" gap="0.5rem">
                   {data.map((val, index) => (
-                    <Grid container item xs={12} key={index}>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      key={index}
+                      sx={{ borderRadius: "30px" }}
+                    >
                       <TreatmentPartnerCard data={val} />
                     </Grid>
                   ))}

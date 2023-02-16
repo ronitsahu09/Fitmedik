@@ -23,23 +23,35 @@ const AddManagerDialog = ({ open, onCancel, onConfirm, addedData = null }) => {
   const [emailError, setEmailError] = React.useState("");
   const [departmentError, setDepartmentError] = React.useState("");
 
-  const emailValidate = () => {
+  const emailValidate = (temp) => {
     let isValid = true;
+
+    let emVal = true;
+    temp.forEach((val) => {
+      emVal = emVal && validateEmail(val);
+    });
+
+    let dupVal = true;
+
+    temp.forEach((val) => {
+      if (addedData && addedData.emails)
+        dupVal = dupVal && ![...emails, ...addedData.emails].includes(val);
+      else dupVal = dupVal && !emails.includes(val);
+    });
+
     if (email.length === 0) {
       isValid = false;
       setEmailError("E-mail field is empty");
-    } else if (!validateEmail(email)) {
+    } else if (!emVal) {
       isValid = false;
-      setEmailError("Invalid E-mail");
-    } else if (
-      emails.includes(email) ||
-      (addedData && addedData.emails.includes(email))
-    ) {
+      setEmailError("Invalid E-mail entered");
+    } else if (!dupVal) {
       isValid = false;
-      setEmailError("E-mail has already been added");
+      setEmailError("Duplicate email entered");
     } else {
       setEmailError("");
     }
+
     return isValid;
   };
 
@@ -48,8 +60,10 @@ const AddManagerDialog = ({ open, onCancel, onConfirm, addedData = null }) => {
   };
 
   const addEmail = () => {
-    if (emailValidate()) {
-      setEmails([...emails, email]);
+    var temp = email.split(",");
+    temp = temp.map((val) => val.trim());
+    if (emailValidate(temp)) {
+      setEmails([...emails, ...temp]);
       setEmail("");
     }
   };

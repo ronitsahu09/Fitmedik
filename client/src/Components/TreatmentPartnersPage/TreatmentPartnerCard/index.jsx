@@ -21,7 +21,6 @@ const TreatmentPartnerCard = ({
       sx={{
         mt: 1,
         mb: 1,
-        backgroundColor: "white",
         boxShadow: "0px 0px 5px 0.5px grey",
         width: "100%",
         borderRadius: "30px",
@@ -31,13 +30,23 @@ const TreatmentPartnerCard = ({
       <div
         style={{
           height: "100%",
-          width: 10,
+          width: 20,
           backgroundColor: "#ff6355",
-          borderRadius: "30px",
+          borderTopLeftRadius: "30px",
+          borderBottomLeftRadius: "30px",
         }}
       />
-      <Grid container sx={{ pt: 4, pb: 4 }}>
-        <Grid item xs={1} />
+      <Grid
+        container
+        sx={{
+          pt: 4,
+          pb: 4,
+          backgroundColor: "white",
+          borderTopRightRadius: "30px",
+          borderBottomRightRadius: "30px",
+        }}
+      >
+        <Grid item xs={0.5} />
         <Grid container item xs={7.5} rowSpacing={2}>
           <Grid item xs={12}>
             <Typography variant="h6" fontWeight="800">
@@ -93,7 +102,7 @@ const TreatmentPartnerCard = ({
         <Grid
           container
           item
-          xs={3.5}
+          xs={4}
           justifyContent="center"
           alignItems="center"
           padding={2}

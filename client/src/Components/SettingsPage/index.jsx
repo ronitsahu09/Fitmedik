@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Typography, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
-import { colors } from "../../Utils/colors";
 import LeftSidebar from "../LeftSidebar/LeftSidebar";
 import {
   AppWrapper,
@@ -10,13 +9,14 @@ import {
   middle,
   middleWindow,
 } from "../Styles_&_Components/Styles";
+import SettingsButton from "./SettingsButton";
 
 const SettingsPage = () => {
   const navigate = useNavigate();
 
   const style = {
-    backgroundColor: colors.fitmedikOrange,
-    p: 4,
+    backgroundColor: "white",
+    p: 2,
     transition: "0.3s",
     mt: 1,
     mb: 1,
@@ -38,88 +38,26 @@ const SettingsPage = () => {
                 <Stack direction="column" alignItems="center" gap="0.5rem">
                   <Grid container>
                     <Grid container item xs={12} alignItems="center">
-                      <Grid
-                        item
-                        container
-                        xs={12}
-                        md={5.5}
+                      <SettingsButton
                         onClick={() => navigate("/organization-details")}
-                        className="settings-item"
-                        sx={style}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Typography
-                          variant="h5"
-                          fontWeight="400"
-                          color="white"
-                          sx={{ m: 4 }}
-                        >
-                          Organization Details
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={1} />
-                      <Grid
-                        item
-                        container
-                        xs={12}
-                        md={5.5}
+                        style={style}
+                        title={"Organization Details"}
+                      />
+                      <SettingsButton
                         onClick={() => navigate("/departments")}
-                        className="settings-item"
-                        sx={style}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Typography
-                          variant="h5"
-                          fontWeight="400"
-                          color="white"
-                          sx={{ m: 4 }}
-                        >
-                          Employees & Departments
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        item
-                        container
-                        xs={12}
-                        md={5.5}
+                        style={style}
+                        title={"Employees & Departments"}
+                      />
+                      <SettingsButton
                         onClick={() => navigate("/forgotpassword")}
-                        className="settings-item"
-                        sx={style}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Typography
-                          variant="h5"
-                          fontWeight="400"
-                          color="white"
-                          sx={{ m: 4 }}
-                        >
-                          Forgot Password
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={1} />
-                      <Grid
-                        item
-                        container
-                        xs={12}
-                        md={5.5}
+                        style={style}
+                        title={"Forgot Password"}
+                      />
+                      <SettingsButton
                         onClick={() => navigate("/settings")}
-                        className="settings-item"
-                        sx={style}
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Typography
-                          variant="h5"
-                          fontWeight="400"
-                          color="white"
-                          sx={{ m: 4 }}
-                        >
-                          Privacy Policy
-                        </Typography>
-                      </Grid>
+                        style={style}
+                        title={"Privacy Policy"}
+                      />
                     </Grid>
                   </Grid>
                 </Stack>

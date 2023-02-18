@@ -326,7 +326,9 @@ export function TemporaryLogo() {
 	);
 }
 
-export function HarveyBalls() {
+export function HarveyBalls(props) {
+	const percent = props.percent;
+
 	return (
 		<Box
 			sx={{
@@ -346,6 +348,15 @@ export function HarveyBalls() {
 					borderRadius: "50%",
 				}}
 			>
+				{/* 
+
+        user -> 10
+        okey -> 3
+        good -> 4
+        sux -> 3
+
+ */}
+
 				<circle r="10" cx="10" cy="10" fill="white" />
 				<circle
 					r="5"
@@ -354,7 +365,7 @@ export function HarveyBalls() {
 					fill="transparent"
 					stroke="#34495E"
 					strokeWidth="10"
-					strokeDasharray="calc(90 * 31.4 / 100) 31.4"
+					strokeDasharray={`${(percent * 31.4) / 100} 31.4`}
 					style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
 				/>
 			</svg>

@@ -384,43 +384,72 @@ export default function Survey({ props }) {
 									...graphCanvas,
 									display: "grid",
 									gridTemplateColumns: "minmax(200px, 100%) repeat(7, auto)",
+									gridTemplateRows: "0.7in",
 									alignItems: "center",
-									gap: 3,
+									columnGap: 3
+									,rowGap: 4
 								}}
 							>
-								<Typography variant="h4" component="div">
+								<Typography variant="h4" component="div" alignSelf="start">
 									Questions
 								</Typography>
 
-								<Typography variant="h6" component="div" textAlign="center">
+								<Typography
+									variant="h6"
+									component="div"
+									textAlign="center"
+									alignSelf="start"
+								>
 									0
 								</Typography>
-								<Typography variant="h6" component="div" textAlign="center">
+								<Typography
+									variant="h6"
+									component="div"
+									textAlign="center"
+									alignSelf="start"
+								>
 									1
 								</Typography>
-								<Typography variant="h6" component="div" textAlign="center">
+								<Typography
+									variant="h6"
+									component="div"
+									textAlign="center"
+									alignSelf="start"
+								>
 									2
 								</Typography>
-								<Typography variant="h6" component="div" textAlign="center">
+								<Typography
+									variant="h6"
+									component="div"
+									textAlign="center"
+									alignSelf="start"
+								>
 									3
 								</Typography>
-								<Typography variant="h6" component="div" textAlign="center">
+								<Typography
+									variant="h6"
+									component="div"
+									textAlign="center"
+									alignSelf="start"
+								>
 									4
 								</Typography>
-								<Typography variant="h6" component="div" textAlign="center">
+								<Typography
+									variant="h6"
+									component="div"
+									textAlign="center"
+									alignSelf="start"
+								>
 									5
 								</Typography>
-								<Typography variant="h6" component="div" textAlign="center">
+								<Typography
+									variant="h6"
+									component="div"
+									textAlign="center"
+									alignSelf="start"
+								>
 									6
 								</Typography>
-
-								<Divider
-									sx={{
-										gridColumn: "1/-1",
-										// bgcolor: "#e0e0e0",
-										borderBottomWidth: 1.5,
-									}}
-								/>
 
 								{questions.map((ques) => (
 									<>
@@ -431,18 +460,19 @@ export default function Survey({ props }) {
 										>
 											{ques}
 										</Typography>
-										<HarveyBalls />
-										<HarveyBalls />
-										<HarveyBalls />
-										<HarveyBalls />
-										<HarveyBalls />
-										<HarveyBalls />
-										<HarveyBalls />
+										<HarveyBalls percent={20} />
+										<HarveyBalls percent={50} />
+										<HarveyBalls percent={80} />
+										<HarveyBalls percent={40} />
+										<HarveyBalls percent={73} />
+										<HarveyBalls percent={29} />
+										<HarveyBalls percent={5} />
 										<Divider
 											sx={{
 												gridColumn: "1/-1",
 												bgcolor: "#e0e0e0",
 												borderBottomWidth: 1.5,
+												mt: -3
 											}}
 										/>
 									</>

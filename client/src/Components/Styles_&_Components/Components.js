@@ -328,27 +328,36 @@ export function TemporaryLogo() {
 
 export function HarveyBalls() {
 	return (
-		<svg
-			height="20"
-			width="20"
-			viewBox="0 0 20 20"
-			style={{
-				border: "0px solid #34495E",
+		<Box
+			sx={{
 				borderRadius: "50%",
-				transform: "scale(1.5)",
+				transform: "scale(1.2)",
+				display: "flex",
+				bgcolor: "#34495E",
+				p: 0.2,
 			}}
 		>
-			<circle r="10" cx="10" cy="10" fill="white" />
-			<circle
-				r="5"
-				cx="10"
-				cy="10"
-				fill="transparent"
-				stroke="#34495E"
-				strokeWidth="10"
-				strokeDasharray="calc(90 * 31.4 / 100) 31.4"
-				style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
-			/>
-		</svg>
+			<svg
+				height="20"
+				width="20"
+				viewBox="0 0 20 20"
+				style={{
+					border: "0px solid #34495E",
+					borderRadius: "50%",
+				}}
+			>
+				<circle r="10" cx="10" cy="10" fill="white" />
+				<circle
+					r="5"
+					cx="10"
+					cy="10"
+					fill="transparent"
+					stroke="#34495E"
+					strokeWidth="10"
+					strokeDasharray="calc(90 * 31.4 / 100) 31.4"
+					style={{ transform: "rotate(-90deg)", transformOrigin: "center" }}
+				/>
+			</svg>
+		</Box>
 	);
 }

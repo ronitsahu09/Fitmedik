@@ -42,7 +42,6 @@ const CustomerOnboardingFormPage = () => {
       ...hospDetails,
       hospital_manager: managerDetails,
       operational_details: opdtDetails,
-      documents: [],
       active_state: true,
       poc_manager: managerDetails[0],
       partners: selectedTreatmentPartners,

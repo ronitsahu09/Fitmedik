@@ -19,15 +19,12 @@ const HospitalSection = ({
   const navigate = useNavigate();
   return (
     <div>
-      <Grid container sx={{ width: "100vw", pt: 4, pb: 4 }}>
-        <Grid item xs={1} />
-        <Grid container item xs={10}>
+      <Grid container sx={{ pt: 4, pb: 4 }}>
+        <Grid container item xs={12}>
           <Header navigate={navigate} title="Hospital Details" />
         </Grid>
-        <Grid item xs={1} />
 
-        <Grid item xs={1} />
-        <Grid container item xs={10} rowSpacing={3}>
+        <Grid container item xs={12} rowSpacing={3}>
           {/* Hospital Name */}
           <Grid item xs={12}>
             <Typography mb={0.5} variant="h6">
@@ -114,7 +111,6 @@ const HospitalSection = ({
             </Link>
           </Grid>
         </Grid>
-        <Grid item xs={1} />
       </Grid>
     </div>
   );

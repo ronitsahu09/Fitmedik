@@ -37,7 +37,6 @@ const CustomerOnboardingFormPage = () => {
   }, []);
 
   const AddCustomerData = async () => {
-    console.log(managerDetails);
     const data = {
       ...hospDetails,
       hospital_manager: managerDetails,

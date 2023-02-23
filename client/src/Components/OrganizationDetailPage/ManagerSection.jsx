@@ -16,19 +16,16 @@ const ManagerSection = ({
 }) => {
   return (
     <div>
-      <Grid container sx={{ width: "100vw", pb: 4, pt: 4 }}>
-        <Grid item xs={1} />
-        <Grid container item xs={10}>
+      <Grid container sx={{ pb: 4, pt: 4 }}>
+        <Grid container item xs={12}>
           <Header
             navigate={null}
             title="Manager Details"
             showBackButton={false}
           />
         </Grid>
-        <Grid item xs={1} />
 
-        <Grid item xs={1} />
-        <Grid container item xs={10} rowSpacing={3}>
+        <Grid container item xs={12} rowSpacing={3}>
           {managerDetails.map((val, index) => {
             return (
               <ManagerDetailCard
@@ -39,7 +36,6 @@ const ManagerSection = ({
             );
           })}
         </Grid>
-        <Grid item xs={1} />
       </Grid>
     </div>
   );

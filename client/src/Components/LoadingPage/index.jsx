@@ -7,7 +7,7 @@ const LoadingPage = ({ loadingText }) => (
       display: "flex",
       flex: 1,
       height: "100vh",
-      width: "100vw",
+      width: "100%",
       justifyContent: "center",
       alignItems: "center",
     }}

@@ -15,7 +15,6 @@ const ManagerDetailCard = ({
       container
       rowSpacing={2}
       sx={{
-        width: "100vw",
         backgroundColor: "rgb(230, 230, 230)",
         borderTopRightRadius: 99,
         borderBottomLeftRadius: 99,

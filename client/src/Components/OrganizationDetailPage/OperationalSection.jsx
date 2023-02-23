@@ -18,19 +18,16 @@ const OperationalSection = ({
 }) => {
   return (
     <div>
-      <Grid container sx={{ width: "100vw", pb: 4, pt: 4 }}>
-        <Grid item xs={1} />
-        <Grid container item xs={10}>
+      <Grid container sx={{ pb: 4, pt: 4 }}>
+        <Grid container item xs={12}>
           <Header
             navigate={null}
             title="Operational Details"
             showBackButton={false}
           />
         </Grid>
-        <Grid item xs={1} />
 
-        <Grid item xs={1} />
-        <Grid container item xs={10} rowSpacing={3}>
+        <Grid container item xs={12} rowSpacing={3}>
           {/* Average  Salary of a Nurse */}
           <Grid item xs={12}>
             <Typography mb={0.5} variant="h6">
@@ -129,7 +126,6 @@ const OperationalSection = ({
             </Typography>
           </Grid>
         </Grid>
-        <Grid item xs={1} />
       </Grid>
     </div>
   );

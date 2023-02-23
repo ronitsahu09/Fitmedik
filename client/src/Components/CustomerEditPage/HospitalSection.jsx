@@ -18,7 +18,6 @@ const HospitalSection = ({
     country: "",
     website: "",
     subscription_size: 0,
-    location: "",
     documents: "",
   },
   hospDetailsError = {
@@ -29,7 +28,6 @@ const HospitalSection = ({
     country: "",
     link: "",
     subscriptionCount: "",
-    location: "",
     documents: "",
   },
   setHospDetails,
@@ -163,27 +161,6 @@ const HospitalSection = ({
               type="text"
               onChange={(e) =>
                 setHospDetails({ ...hospDetails, country: e.target.value })
-              }
-            />
-          </Grid>
-
-          {/* Location of Hospital */}
-          <Grid item xs={12}>
-            <Typography mb={0.5} variant="h6">
-              Location of Hospital
-            </Typography>
-
-            <TextField
-              required
-              fullWidth
-              variant={"outlined"}
-              placeholder="Location of Hospital ('latitute longitude')"
-              error={hospDetailsError.location.length !== 0}
-              helperText={hospDetailsError.location}
-              value={hospDetails.location}
-              type="text"
-              onChange={(e) =>
-                setHospDetails({ ...hospDetails, location: e.target.value })
               }
             />
           </Grid>

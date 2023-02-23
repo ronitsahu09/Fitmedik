@@ -54,7 +54,6 @@ const CustomerDetailsPage = () => {
     country: "",
     website: "",
     subscription_size: 0,
-    location: "",
     documents: "",
   });
 

@@ -81,16 +81,6 @@ const HospitalSection = ({
             </Typography>
           </Grid>
 
-          {/* Country of Hospital */}
-          <Grid item xs={12}>
-            <Typography mb={0.5} variant="h6">
-              Location of Hospital
-            </Typography>
-            <Typography variant="h6" fontWeight="200">
-              {hospDetails.location}
-            </Typography>
-          </Grid>
-
           {/* Website link of Hospital */}
           <Grid item xs={12}>
             <Typography mb={0.5} variant="h6">

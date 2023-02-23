@@ -44,7 +44,6 @@ const OrganizationDetailPage = ({ props }) => {
     country: "",
     website: "",
     subscription_size: 0,
-    location: "",
     documents: "",
   });
 

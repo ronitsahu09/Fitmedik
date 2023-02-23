@@ -77,7 +77,6 @@ const CustomerEditPage = () => {
     country: "",
     website: "",
     subscription_size: "",
-    location: "",
     documents: "",
   });
   const [hospDetailsError, setHospitalDetailsError] = React.useState({
@@ -88,7 +87,6 @@ const CustomerEditPage = () => {
     country: "",
     link: "",
     subscriptionCount: "",
-    location: "",
     documents: "",
   });
 
@@ -161,7 +159,6 @@ const CustomerEditPage = () => {
       country: "",
       link: "",
       subscriptionCount: "",
-      location: "",
       documents: "",
     });
 

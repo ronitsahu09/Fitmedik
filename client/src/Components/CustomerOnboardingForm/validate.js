@@ -11,18 +11,6 @@ import {
   noOfBedsOptions,
 } from "./data";
 
-const locCheck = (location = "") => {
-  const coords = location.split(" ");
-  const lat = Number(coords[0]);
-  const long = Number(coords[1]);
-  if (
-    (!validateDecimalNumber(lat) && !validateNumber(lat)) ||
-    (!validateDecimalNumber(long) && !validateNumber(long))
-  )
-    return false;
-  return true;
-};
-
 export const validateHospSection = (
   hospDetails = {
     name: "",
@@ -32,7 +20,6 @@ export const validateHospSection = (
     country: "",
     website: "",
     subscription_size: 0,
-    location: "",
     documents: "",
   },
   hospDetailsError = {
@@ -43,7 +30,6 @@ export const validateHospSection = (
     country: "",
     link: "",
     subscriptionCount: "",
-    location: "",
     documents: "",
   },
   setHospDetailsError
@@ -129,31 +115,6 @@ export const validateHospSection = (
     };
   } else {
     temp = { ...temp, subscriptionCount: "" };
-  }
-
-  if (hospDetails.location.length === 0) {
-    isValid = false;
-    temp = {
-      ...temp,
-      location: "Field is empty",
-    };
-  } else if (hospDetails.location.split(" ").length !== 2) {
-    isValid = false;
-    temp = {
-      ...temp,
-      location: "Invalid coordinates",
-    };
-  } else if (!locCheck(hospDetails.location)) {
-    isValid = false;
-    temp = {
-      ...temp,
-      location: "Invalid coordinates",
-    };
-  } else {
-    temp = {
-      ...temp,
-      location: "",
-    };
   }
 
   if (hospDetails.documents === "") {

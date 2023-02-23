@@ -45,6 +45,7 @@ const CustomerOnboardingFormPage = () => {
       active_state: true,
       poc_manager: managerDetails[0],
       partners: selectedTreatmentPartners,
+      location: "1 2",
     };
     const res = AddCustomerApi(GetAdminToken(), data, {
       setLoading,
@@ -62,7 +63,6 @@ const CustomerOnboardingFormPage = () => {
     country: "",
     website: "",
     subscription_size: 0,
-    location: "",
     documents: "",
   });
   const [hospDetailsError, setHospitalDetailsError] = React.useState({
@@ -73,7 +73,6 @@ const CustomerOnboardingFormPage = () => {
     country: "",
     link: "",
     subscriptionCount: "",
-    location: "",
     documents: "",
   });
 
@@ -151,7 +150,6 @@ const CustomerOnboardingFormPage = () => {
       country: "",
       website: "",
       subscription_size: 0,
-      location: "",
     });
     setHospitalDetailsError({
       name: "",
@@ -161,7 +159,6 @@ const CustomerOnboardingFormPage = () => {
       country: "",
       link: "",
       subscriptionCount: "",
-      location: "",
     });
 
     setManagerDetails([]);

@@ -17,15 +17,18 @@ const ManagerSection = ({
   return (
     <div>
       <Grid container sx={{ pb: 4, pt: 4 }}>
-        <Grid container item xs={12}>
-          <Header
-            navigate={null}
-            title="Manager Details"
-            showBackButton={false}
-          />
-        </Grid>
-
         <Grid container item xs={12} rowSpacing={3}>
+          <Grid
+            container
+            item
+            xs={12}
+            sx={{ mb: 2, ml: 4 }}
+            alignItems="center"
+          >
+            <Typography variant="h4" fontWeight="500">
+              Hospital Managers
+            </Typography>
+          </Grid>
           {managerDetails.map((val, index) => {
             return (
               <ManagerDetailCard

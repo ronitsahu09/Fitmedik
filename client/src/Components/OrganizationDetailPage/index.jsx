@@ -14,6 +14,8 @@ import {
   middleWindow,
   AppWrapper,
 } from "../Styles_&_Components/Styles";
+import { useNavigate } from "react-router-dom";
+import Header from "../Header";
 
 const OrganizationDetailPage = ({ props }) => {
   const { userToken } = props;
@@ -68,6 +70,8 @@ const OrganizationDetailPage = ({ props }) => {
     avgIpd: "",
   });
 
+  const navigate = useNavigate();
+
   return (
     <div>
       <Stack sx={{ ...AppWrapper, height: "100vh" }} direction="row">
@@ -87,6 +91,7 @@ const OrganizationDetailPage = ({ props }) => {
                       />
                     ) : (
                       <div>
+                        <Header navigate={navigate} title="Your Organization" />
                         <HospitalSection hospDetails={hospDetails} />
                         <ManagerSection managerDetails={managerDetails} />
                         <OperationalSection opdtDetails={opdtDetails} />

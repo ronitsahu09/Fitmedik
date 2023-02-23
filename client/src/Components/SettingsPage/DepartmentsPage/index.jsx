@@ -61,8 +61,6 @@ const DepartmentsPage = ({ props }) => {
         <LeftSidebar />
         <Stack sx={{ ...middle }}>
           <Stack sx={{ ...middleWindow }}>
-            <Header navigate={navigate} title="Users" />
-
             <Stack sx={{ ...fixedWindow }}>
               <Stack gap={3}>
                 <Stack direction="column" alignItems="center" gap="0.5rem">
@@ -75,8 +73,9 @@ const DepartmentsPage = ({ props }) => {
                         errorText={errorText}
                       />
                     ) : (
-                      <div style={{ width: "100%" }}>
+                      <div style={{ width: "100%", height: "100%" }}>
                         <Grid container sx={{ width: "100%" }}>
+                          <Header navigate={navigate} title="Users" />
                           <Grid container item xs={12} alignItems="center">
                             {departments.map((val, index) => (
                               <Grid

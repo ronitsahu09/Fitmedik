@@ -15,12 +15,9 @@ const SettingsPage = () => {
   const navigate = useNavigate();
 
   const style = {
-    backgroundColor: "white",
-    p: 2,
     transition: "0.3s",
     mt: 1,
     mb: 1,
-    borderRadius: 10,
   };
 
   return (

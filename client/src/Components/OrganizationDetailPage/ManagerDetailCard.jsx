@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Paper } from "@mui/material";
 import React from "react";
 
 const ManagerDetailCard = ({
@@ -6,55 +6,48 @@ const ManagerDetailCard = ({
     name: "",
     title: "",
     email: "",
-    index: 0,
-    validated: false,
   },
 }) => {
   return (
-    <Grid
-      container
-      rowSpacing={2}
+    <Paper
       sx={{
-        backgroundColor: "rgb(230, 230, 230)",
-        borderTopRightRadius: 99,
-        borderBottomLeftRadius: 99,
-        mt: 1,
-        mb: 1,
-        p: 4,
-        pb: 6,
+        width: "100%",
+        backgroundColor: "white",
+        borderRadius: "30px",
       }}
-      className="cof-hs-container"
     >
-      <Grid item xs={12}>
-        <Typography mb={0.5} variant="h6">
-          Manager Name
-        </Typography>
+      <Grid container rowSpacing={2} sx={{ p: 4 }} className="cof-hs-container">
+        <Grid item xs={12}>
+          <Typography mb={0.5} variant="h6">
+            Manager Name
+          </Typography>
 
-        <Typography variant="h6" fontWeight="200">
-          {managerDetail.name}
-        </Typography>
+          <Typography variant="h6" fontWeight="200">
+            {managerDetail.name}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography mb={0.5} variant="h6">
+            Manager Title
+          </Typography>
+
+          <Typography variant="h6" fontWeight="200">
+            {managerDetail.title}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography mb={0.5} variant="h6">
+            Manager E-mail
+          </Typography>
+
+          <Typography variant="h6" fontWeight="200">
+            {managerDetail.email}
+          </Typography>
+        </Grid>
       </Grid>
-
-      <Grid item xs={12}>
-        <Typography mb={0.5} variant="h6">
-          Manager Title
-        </Typography>
-
-        <Typography variant="h6" fontWeight="200">
-          {managerDetail.title}
-        </Typography>
-      </Grid>
-
-      <Grid item xs={12}>
-        <Typography mb={0.5} variant="h6">
-          Manager E-mail
-        </Typography>
-
-        <Typography variant="h6" fontWeight="200">
-          {managerDetail.email}
-        </Typography>
-      </Grid>
-    </Grid>
+    </Paper>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import "../styles.css";
 
 const SettingsButton = ({ style, title, onClick }) => {
@@ -10,22 +10,32 @@ const SettingsButton = ({ style, title, onClick }) => {
       container
       xs={12}
       onClick={onClick}
-      className="settings-item"
-      sx={{ ...style, boxShadow: "0px 0px 5px 0.5px grey" }}
+      sx={{ ...style }}
       justifyContent="center"
       alignItems="center"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
     >
-      <Typography
-        variant="h5"
-        fontWeight="400"
-        color={hover ? "white" : "black"}
-        sx={{ m: 4 }}
-        className="settings-text"
+      <Paper
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "30px",
+          width: "100%",
+          height: "100%",
+          transition: "0.3s",
+        }}
+        className="settings-item"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
       >
-        {title}
-      </Typography>
+        <Typography
+          variant="h5"
+          fontWeight="400"
+          color={hover ? "white" : "black"}
+          sx={{ m: 4 }}
+          className="settings-text"
+        >
+          {title}
+        </Typography>
+      </Paper>
     </Grid>
   );
 };

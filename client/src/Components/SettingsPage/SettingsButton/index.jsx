@@ -27,7 +27,7 @@ const SettingsButton = ({ style, title, onClick }) => {
         onMouseLeave={() => setHover(false)}
       >
         <Typography
-          variant="h5"
+          variant="h6"
           fontWeight="400"
           color={hover ? "white" : "black"}
           sx={{ m: 4 }}

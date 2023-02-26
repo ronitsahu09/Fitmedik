@@ -90,7 +90,7 @@ const ManageEmployees = ({ props }) => {
             <Stack sx={{ ...fixedWindow }}>
               <Stack gap={3} mt={3}>
                 <Stack direction="column" alignItems="center" gap="0.5rem">
-                  <div style={{ height: "100%" }}>
+                  <div style={{ height: "100%", width: "100%" }}>
                     {loading === true ? (
                       <LoadingPage />
                     ) : error === true ? (

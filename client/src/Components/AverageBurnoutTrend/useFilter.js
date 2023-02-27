@@ -39,7 +39,7 @@ export default function useFilter(users) {
 		let labels = [];
 
 		for (
-			let currDate = new Date(filter.startDate.toLocaleDateString());
+			let currDate = new Date(filter.startDate);
 			currDate.getTime() <= filter.endDate.getTime();
 
 		) {
@@ -78,6 +78,7 @@ export default function useFilter(users) {
 			case 0:
 				label = `${filter.startDate.toLocaleDateString()} to ${filter.endDate.toLocaleDateString()}`;
 				break;
+			default:
 		}
 
 		setConfig({ labels, data: data, title: label });

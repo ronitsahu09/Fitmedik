@@ -18,6 +18,8 @@ import {
 import {} from "./Styles";
 import { info, values } from "./Styles";
 import { useSelector } from "react-redux";
+import SelectMenu from "./SelectMenu";
+import { useState } from "react";
 
 const data1 = {
 	labels: ["Low", "Medium", "High"],
@@ -145,6 +147,31 @@ const options = {
 	},
 };
 
+const questions = [
+	"I feel emotionally exhausted because of my work",
+	"I feel worn out at the end of a working day",
+	"I feel tired as soon as I get up in the morning and see a new working day stretched out in front of me",
+	"I can easily understand the actions of my colleagues/supervisors",
+	"I get the feeling that I treat some clients/colleagues impersonally, as if they were objects",
+	"Working with people the whole day is stressful for me",
+	"I deal with other people’s problems successfully",
+	"I feel burned out because of my work",
+	"I feel that I influence other people positively through my work",
+	"I have become more callous to people since I have started doing this job",
+	"I’m afraid that my work makes me emotionally harder",
+	"I feel full of energy",
+	"I feel frustrated by my work",
+	"I get the feeling that I work too hard",
+	"I’m not really interested in what is going on with many of my colleagues",
+	"Being in direct contact with people at work is too stressful",
+	"I find it easy to build a relaxed atmosphere in my working environment",
+	"I feel stimulated when I been working closely with my colleagues",
+	"I have achieved many rewarding objectives in my work",
+	"I feel as if I’m at my wits‘ end",
+	"In my work I am very relaxed when dealing with emotional problems",
+	"I have the feeling that my colleagues blame me for some of their problems",
+];
+
 export default function Survey({ props }) {
 	const { appHeight } = props;
 
@@ -152,34 +179,8 @@ export default function Survey({ props }) {
 		(state) => state.organization.organizationInfo?.users
 	);
 
-	// users.map((user) => {
+	
 
-	// })
-
-	const questions = [
-		"I feel emotionally exhausted because of my work",
-		"I feel worn out at the end of a working day",
-		"I feel tired as soon as I get up in the morning and see a new working day stretched out in front of me",
-		"I can easily understand the actions of my colleagues/supervisors",
-		"I get the feeling that I treat some clients/colleagues impersonally, as if they were objects",
-		"Working with people the whole day is stressful for me",
-		"I deal with other people’s problems successfully",
-		"I feel burned out because of my work",
-		"I feel that I influence other people positively through my work",
-		"I have become more callous to people since I have started doing this job",
-		"I’m afraid that my work makes me emotionally harder",
-		"I feel full of energy",
-		"I feel frustrated by my work",
-		" get the feeling that I work too hard",
-		"I’m not really interested in what is going on with many of my colleagues",
-		"Being in direct contact with people at work is too stressful",
-		"I find it easy to build a relaxed atmosphere in my working environment",
-		"I feel stimulated when I been working closely with my colleagues",
-		"I have achieved many rewarding objectives in my work",
-		"I feel as if I’m at my wits‘ end",
-		"In my work I am very relaxed when dealing with emotional problems",
-		"I have the feeling that my colleagues blame me for some of their problems",
-	];
 
 	return (
 		<Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
@@ -365,7 +366,7 @@ export default function Survey({ props }) {
 							</Stack>
 
 							<Box m="auto">
-								<CustomTabs />
+								{/* <SelectMenu range={range} setRange={setRange}/> */}
 							</Box>
 
 							<Typography
@@ -384,10 +385,11 @@ export default function Survey({ props }) {
 									...graphCanvas,
 									display: "grid",
 									gridTemplateColumns: "minmax(200px, 100%) repeat(7, auto)",
-									gridTemplateRows: "0.7in",
+									gridTemplateRows: "0.55in",
 									alignItems: "center",
-									columnGap: 3
-									,rowGap: 4
+									columnGap: 3,
+									rowGap: 4,
+									p: 4,
 								}}
 							>
 								<Typography variant="h4" component="div" alignSelf="start">
@@ -465,14 +467,14 @@ export default function Survey({ props }) {
 										<HarveyBalls percent={80} />
 										<HarveyBalls percent={40} />
 										<HarveyBalls percent={73} />
-										<HarveyBalls percent={29} />
-										<HarveyBalls percent={5} />
+										<HarveyBalls percent={0} />
+										<HarveyBalls percent={90} />
 										<Divider
 											sx={{
 												gridColumn: "1/-1",
 												bgcolor: "#e0e0e0",
 												borderBottomWidth: 1.5,
-												mt: -3
+												mt: -3,
 											}}
 										/>
 									</>

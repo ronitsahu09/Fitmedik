@@ -61,7 +61,11 @@ const TreatmentPartnerCard = ({
             <Typography variant="h6" fontWeight="800">
               Value Added
             </Typography>
-            <Typography variant="h6" fontWeight="200">
+            <Typography
+              sx={{ textAlign: "justify" }}
+              variant="h6"
+              fontWeight="200"
+            >
               {data.value || "No data provided"}
             </Typography>
           </Grid>
@@ -70,7 +74,11 @@ const TreatmentPartnerCard = ({
             <Typography variant="h6" fontWeight="800">
               Thesis
             </Typography>
-            <Typography variant="h6" fontWeight="200">
+            <Typography
+              sx={{ textAlign: "justify" }}
+              variant="h6"
+              fontWeight="200"
+            >
               {data.thesis || "No data provided"}
             </Typography>
           </Grid>
@@ -79,7 +87,11 @@ const TreatmentPartnerCard = ({
             <Typography variant="h6" fontWeight="800">
               Expected Impact
             </Typography>
-            <Typography variant="h6" fontWeight="200">
+            <Typography
+              sx={{ textAlign: "justify" }}
+              variant="h6"
+              fontWeight="200"
+            >
               {data.expected_impact || "No data provided"}
             </Typography>
           </Grid>
@@ -107,11 +119,13 @@ const TreatmentPartnerCard = ({
           alignItems="center"
           padding={2}
         >
-          <img
-            src={data.pic}
-            alt={"Treatment partner image"}
-            className="tp-image center-fit"
-          />
+          <div style={{ padding: 32 }}>
+            <img
+              src={data.pic}
+              alt={"Treatment partner image"}
+              className="tp-image center-fit"
+            />
+          </div>
           <Button variant="contained">Reach out to Onboard</Button>
         </Grid>
       </Grid>

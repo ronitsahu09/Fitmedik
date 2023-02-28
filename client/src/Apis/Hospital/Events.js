@@ -5,6 +5,8 @@ export const GetTPEventsApi = async (token, setters) => {
   setters.setError(false);
   setters.setErrorText("");
 
+  console.log(token);
+
   const headerInfo = {
     headers: {
       "Content-Type": "application/json",

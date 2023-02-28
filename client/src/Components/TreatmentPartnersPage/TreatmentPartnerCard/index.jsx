@@ -2,6 +2,8 @@ import React from "react";
 import { Button, Grid, Link, Stack, Typography } from "@mui/material";
 import "./styles.css";
 
+const CONTENT_COLOR = "rgb(80,80,80)";
+
 const TreatmentPartnerCard = ({
   data = {
     heading: "",
@@ -52,7 +54,7 @@ const TreatmentPartnerCard = ({
             <Typography variant="h6" fontWeight="800">
               Name of the Provider
             </Typography>
-            <Typography variant="h6" fontWeight="200">
+            <Typography variant="h6" fontWeight="200" color={CONTENT_COLOR}>
               {data.provider || "No data provided"}
             </Typography>
           </Grid>
@@ -65,6 +67,7 @@ const TreatmentPartnerCard = ({
               sx={{ textAlign: "justify" }}
               variant="h6"
               fontWeight="200"
+              color={CONTENT_COLOR}
             >
               {data.value || "No data provided"}
             </Typography>
@@ -78,6 +81,7 @@ const TreatmentPartnerCard = ({
               sx={{ textAlign: "justify" }}
               variant="h6"
               fontWeight="200"
+              color={CONTENT_COLOR}
             >
               {data.thesis || "No data provided"}
             </Typography>
@@ -91,6 +95,7 @@ const TreatmentPartnerCard = ({
               sx={{ textAlign: "justify" }}
               variant="h6"
               fontWeight="200"
+              color={CONTENT_COLOR}
             >
               {data.expected_impact || "No data provided"}
             </Typography>
@@ -100,13 +105,19 @@ const TreatmentPartnerCard = ({
             <Typography variant="h6" fontWeight="800">
               Duration
             </Typography>
-            <Typography variant="h6" fontWeight="200">
+            <Typography variant="h6" fontWeight="200" color={CONTENT_COLOR}>
               {data.duration || "No data provided"}
             </Typography>
           </Grid>
 
           <Grid item xs={12}>
-            <Link href="/" underline="hover" variant="h6" fontWeight="900">
+            <Link
+              href={data.link}
+              underline="hover"
+              variant="h6"
+              fontWeight="900"
+              target="_blank"
+            >
               Learn More
             </Link>
           </Grid>

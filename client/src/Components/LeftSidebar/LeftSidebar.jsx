@@ -143,7 +143,7 @@ export default function LeftSidebar() {
           </Box>
         </Tooltip>
 
-        <Tooltip
+        {/* <Tooltip
           title="Event Analytics"
           placement="right-start"
           TransitionComponent={Zoom}
@@ -160,7 +160,7 @@ export default function LeftSidebar() {
               <BarChart fontSize="large" />
             </IconButton>
           </Box>
-        </Tooltip>
+        </Tooltip> */}
 
         <Tooltip
           title="Treatment Partners"

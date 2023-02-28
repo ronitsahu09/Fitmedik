@@ -38,8 +38,8 @@ function App() {
         !location.pathname.startsWith("/login")
       ) {
         const cookieToken = GetUserToken();
-        // if (!cookieToken) navigate("/login");
-        // else setUserToken(cookieToken);
+        if (!cookieToken) navigate("/login");
+        else setUserToken(cookieToken);
       }
     }
   };

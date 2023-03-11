@@ -317,7 +317,7 @@ export function TemporaryLogo() {
 		<Box
 			sx={{
 				position: "absolute",
-				right: "1rem",
+				right: "5.2rem",
 				top: "3rem",
 			}}
 		>

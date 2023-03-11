@@ -14,12 +14,12 @@ import useFilter from "./useFilter";
 import { addDays } from "date-fns";
 
 export function AverageBurnoutTrend(props) {
-	const users = props.users;
+	const users = props.users || [];
 
 	const { filter, modalOpen, setFilter, ChangeHandler, setModalOpen, config } =
 		useFilter(users || []);
 
-	return users ? (
+	return (
 		<Stack gap={2} flex={1}>
 			<Stack direction="row" justifyContent="space-between">
 				<Typography
@@ -49,7 +49,7 @@ export function AverageBurnoutTrend(props) {
 
 			<TrendGraph config={{ ...config }} />
 		</Stack>
-	) : null;
+	);
 }
 
 function SelectMenu({ props }) {

@@ -30,7 +30,7 @@ import { destroyAction } from "../../Redux/Organization";
 
 export default function MonitorActions({ props }) {
 	const organization = useSelector((state) => state.organization);
-	const actions = organization?.organizationInfo?.actions;
+	const actions = organization?.organizationInfo?.actions || [];
 
 	const initialOptions = {
 		title: "Create Action",

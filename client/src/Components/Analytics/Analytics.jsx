@@ -12,8 +12,9 @@ import {
 import { GraphInfo, Legend } from "../Styles_&_Components/Components";
 import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
-
 import { useSelector } from "react-redux";
+import AnalyticsScreen from "../../Assets/Images/analytics.png";
+import { Link } from "react-router-dom";
 
 export default function Analytics({ props }) {
 	const { appHeight } = props;
@@ -472,7 +473,7 @@ export default function Analytics({ props }) {
 		<Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
 			<LeftSidebar />
 
-			{departments ? (
+			{users?.length > 0 ? (
 				<>
 					<Stack sx={{ ...middle }}>
 						<Stack sx={{ ...middleWindow }}>
@@ -1117,11 +1118,54 @@ export default function Analytics({ props }) {
 							</Stack>
 						</Stack>
 					</Stack>
+
 					<RightSidebar />
 				</>
 			) : (
-				<h2>text...</h2>
+				<BlurScreen />
 			)}
 		</Stack>
+	);
+}
+
+function BlurScreen() {
+	return (
+		<Box sx={{ flex: 1, position: "relative" }}>
+			<Box
+				component="img"
+				src={AnalyticsScreen}
+				sx={{
+					maxWidth: "100%",
+					width: "100%",
+					maxHeight: "95%",
+					objectFit: "cover",
+				}}
+			/>
+
+			<Box
+				sx={{
+					position: "absolute",
+					top: 0,
+					left: 0,
+					bottom: 0,
+					right: 0,
+					bgcolor: "rgba(0, 0, 0, 0.5)",
+					color: "white",
+					backdropFilter: "blur(.8rem)",
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				<Typography
+					component={Link}
+					variant="h5"
+					sx={{ fontWeight: "500", color: "white" }}
+					to="/departments"
+				>
+					Add more users to view Analytics.
+				</Typography>
+			</Box>
+		</Box>
 	);
 }

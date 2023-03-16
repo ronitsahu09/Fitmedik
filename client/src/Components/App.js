@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+Bimport { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./HomePage/Home";
 import Analytics from "./Analytics/Analytics";
 import "react-circular-progressbar/dist/styles.css";
@@ -23,10 +23,10 @@ import OrganizationDetailPage from "./OrganizationDetailPage";
 import EventAnalyticsPage from "./EventAnalyticsPage";
 
 function App() {
-  const [appHeight, setAppHeight] = useState("100%");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
+	const [appHeight, setAppHeight] = useState("100%");
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const location = useLocation();
 
   const [userToken, setUserToken] = useState(GetUserToken());
 
@@ -43,13 +43,36 @@ function App() {
       }
     }
   };
+	const initialiseUser = () => {
+		if (!userToken) {
+			if (
+				!location.pathname.startsWith("/admin") &&
+				!location.pathname.startsWith("/forgotpassword") &&
+				!location.pathname.startsWith("/setupPassword") &&
+				!location.pathname.startsWith("/login")
+			) {
+				const cookieToken = GetUserToken();
+				if (!cookieToken) navigate("/login");
+				else setUserToken(cookieToken);
+			}
+		}
+	};
+
+	const initialiseAdmin = () => {
+		if (location.pathname.startsWith("/admin") && !GetAdminToken())
+			navigate("/admin/login");
+	};
 
   useEffect(() => {
     initialiseUser();
   }, [location.pathname]);
+	useEffect(() => {
+		initialiseUser();
+		initialiseAdmin();
+	}, [location.pathname]);
 
-  useEffect(() => {
-    dispatch(getOrganization({ organizationId: "63c95da1317e07dbcc906fa8" }));
+	useEffect(() => {
+		dispatch(getOrganization(userToken));
 
     const reportAppHeight = () => {
       setAppHeight(`${window.innerHeight}px`);
@@ -138,13 +161,13 @@ function App() {
           element={<OrganizationDetailPage props={{ appHeight, userToken }} />}
         />
 
-        <Route
-          path="/event-analytics"
-          element={<EventAnalyticsPage props={{ appHeight }} />}
-        />
-      </Routes>
-    </div>
-  );
+				<Route
+					path="/event-analytics"
+					element={<EventAnalyticsPage props={{ appHeight }} />}
+				/>
+			</Routes>
+		</div>
+	);
 }
 
 export default App;

@@ -39,7 +39,6 @@ export default function Home({ props }) {
                 sx={{
                   ...graphCanvas,
                   flex: 1,
-                  height: "25vh",
                 }}
               >
                 <NewActiveUsers />

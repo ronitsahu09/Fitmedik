@@ -26,7 +26,6 @@ export default function ActionForm({ props }) {
 	const departments = useSelector(
 		(state) => state.organization.organizationInfo?.departments
 	);
-	const _id = useSelector((state) => state.organization.organizationInfo?._id);
 
 	const dispatch = useDispatch();
 
@@ -35,34 +34,30 @@ export default function ActionForm({ props }) {
 
 		if (options.title === "Create Action")
 			dispatch(
-				createAction(
-					{
-						action: {
-							...options,
-							duration: {
-								startDate: options.duration[0].startDate.toDateString(),
-								endDate: options.duration[0].endDate.toDateString(),
-							},
+				createAction({
+					action: {
+						...options,
+						duration: {
+							startDate: options.duration[0].startDate.toDateString(),
+							endDate: options.duration[0].endDate.toDateString(),
 						},
 					},
-					userToken
-				)
+					token: userToken,
+				})
 			);
 
 		if (options.title === "Edit Action")
 			dispatch(
-				updateAction(
-					{
-						action: {
-							...options,
-							duration: {
-								startDate: options.duration[0].startDate.toDateString(),
-								endDate: options.duration[0].endDate.toDateString(),
-							},
+				updateAction({
+					action: {
+						...options,
+						duration: {
+							startDate: options.duration[0].startDate.toDateString(),
+							endDate: options.duration[0].endDate.toDateString(),
 						},
 					},
-					userToken
-				)
+					token: userToken,
+				})
 			);
 
 		setIsOpen(false);
@@ -131,7 +126,7 @@ export default function ActionForm({ props }) {
 								Department
 							</ListSubheader>
 
-							{departments.map((dept, indx) => (
+							{departments?.map((dept, indx) => (
 								<MenuItem
 									key={indx}
 									sx={{ textTransform: "capitalize" }}

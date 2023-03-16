@@ -1,6 +1,6 @@
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AverageBurnoutTrend } from "../AverageBurnoutTrend/AverageBurnoutTrend";
 import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
@@ -572,7 +572,7 @@ export default function DepartmentAnalytics({ props }) {
 	return (
 		<Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
 			<LeftSidebar />
-			{department ? (
+			{users?.length > 0 ? (
 				<>
 					<TemporaryLogo />
 
@@ -1222,7 +1222,12 @@ function BlurScreen() {
 					alignItems: "center",
 				}}
 			>
-				<Typography variant="h5" sx={{ fontWeight: "500" }}>
+				<Typography
+					component={Link}
+					variant="h5"
+					sx={{ fontWeight: "500", color: "white" }}
+					to="/departments"
+				>
 					Add more users to view Department Analytics.
 				</Typography>
 			</Box>

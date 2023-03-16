@@ -53,15 +53,15 @@ function App() {
 				!location.pathname.startsWith("/login")
 			) {
 				const cookieToken = GetUserToken();
-				// if (!cookieToken) navigate("/login");
-				// else setUserToken(cookieToken);
+				if (!cookieToken) navigate("/login");
+				else setUserToken(cookieToken);
 			}
 		}
 	};
 
 	const initialiseAdmin = () => {
-		// if (location.pathname.startsWith("/admin") && !GetAdminToken())
-		// 	navigate("/admin/login");
+		if (location.pathname.startsWith("/admin") && !GetAdminToken())
+			navigate("/admin/login");
 	};
 
 	useEffect(() => {

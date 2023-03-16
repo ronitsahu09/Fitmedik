@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { GetAdminToken } from "../Cookies/admin";
 
 const initialState = {
 	organizationInfo: null,
@@ -31,15 +30,15 @@ const getOrganization = createAsyncThunk(
 
 const createAction = createAsyncThunk(
 	"organization/createAction",
-	async (formData, token) => {
+	async (args) => {
 		try {
 			const { data } = await axios.post(
 				`${process.env.REACT_APP_API_URL}/organization/create_action`,
-				{ ...formData },
+				{ action: args.action },
 				{
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${args.token}`,
 					},
 				}
 			);
@@ -53,19 +52,18 @@ const createAction = createAsyncThunk(
 
 const updateAction = createAsyncThunk(
 	"organization/updateAction",
-	async (formData, token) => {
+	async (args) => {
 		try {
 			const response = await axios.post(
 				`${process.env.REACT_APP_API_URL}/organization/update_action`,
-				{ ...formData },
+				{ action: args.action },
 				{
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${args.token}`,
 					},
 				}
 			);
-			console.log(response);
 			return { data: response.data };
 		} catch (error) {
 			console.log(error.message);
@@ -76,15 +74,15 @@ const updateAction = createAsyncThunk(
 
 const destroyAction = createAsyncThunk(
 	"organization/DestroyAction",
-	async (formData, token) => {
+	async (args) => {
 		try {
 			const { data } = await axios.post(
 				`${process.env.REACT_APP_API_URL}/organization/destroy_action`,
-				{ ...formData },
+				{ actionId: args.actionId },
 				{
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
+						Authorization: `Bearer ${args.token}`,
 					},
 				}
 			);

@@ -261,12 +261,10 @@ export default function MonitorActions({ props }) {
 													<IconButton
 														onClick={() => {
 															dispatch(
-																destroyAction(
-																	{
-																		actionId: action._id,
-																	},
-																	userToken
-																)
+																destroyAction({
+																	actionId: action._id,
+																	token: userToken,
+																})
 															);
 														}}
 													>

@@ -14,6 +14,7 @@ import HealthTracker from "../Graphs/Health_Tracker/HealthTracker";
 import PieChart from "../Graphs/PieChart/PieChart";
 import { useSelector } from "react-redux";
 import AnalyticsScreen from "../../Assets/Images/analytics.png";
+import { Link } from "react-router-dom";
 
 export default function Analytics({ props }) {
 	const { appHeight } = props;
@@ -472,7 +473,7 @@ export default function Analytics({ props }) {
 		<Stack sx={{ ...AppWrapper, height: appHeight }} direction="row">
 			<LeftSidebar />
 
-			{departments ? (
+			{users?.length > 0 ? (
 				<>
 					<Stack sx={{ ...middle }}>
 						<Stack sx={{ ...middleWindow }}>
@@ -1156,7 +1157,12 @@ function BlurScreen() {
 					alignItems: "center",
 				}}
 			>
-				<Typography variant="h5" sx={{ fontWeight: "500" }}>
+				<Typography
+					component={Link}
+					variant="h5"
+					sx={{ fontWeight: "500", color: "white" }}
+					to="/departments"
+				>
 					Add more users to view Analytics.
 				</Typography>
 			</Box>
